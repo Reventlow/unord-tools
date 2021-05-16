@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-dark" href="{% url 'asset_app_locations_list' %}">
+    Liste af lokationer
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>Afdelings navn</td><td>{{ object.name }}</td></tr>
+    <tr><td>address</td><td>{{ object.address }}</td></tr>
+    <tr><td>Sidst opdateret</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>Afdeling skabt</td><td>{{ object.created }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
+
+{% endblock %}

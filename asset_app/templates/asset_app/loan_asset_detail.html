@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_loan_asset_list' %}">
+    loan_asset Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>loaner_address</td><td>{{ object.loaner_address }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>loaner_name</td><td>{{ object.loaner_name }}</td></tr>
+    <tr><td>loaner_quicklink</td><td>{{ object.loaner_quicklink }}</td></tr>
+    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>loaner_telephone_number</td><td>{{ object.loaner_telephone_number }}</td></tr>
+    <tr><td>loaner_email</td><td>{{ object.loaner_email }}</td></tr>
+    <tr><td>loan_date</td><td>{{ object.loan_date }}</td></tr>
+    <tr><td>return_date</td><td>{{ object.return_date }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

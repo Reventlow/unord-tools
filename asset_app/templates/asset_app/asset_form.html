@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_asset_list' %}">
+    asset Listing
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="name">name: </label>
+  <input class="form-control col-sm-10" id="name" type="text" name="name" value="{{ object.name }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="mac_address">mac_address: </label>
+  <input class="form-control col-sm-10" id="mac_address" type="text" name="mac_address" value="{{ object.mac_address }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="ip">ip: </label>
+  <input class="form-control col-sm-10" id="ip" type="text" name="ip" value="{{ object.ip }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="slug">slug: </label>
+  <input class="form-control col-sm-10" id="slug" type="text" name="slug" value="{{ object.slug }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="purchased_date">purchased_date: </label>
+  <input class="form-control col-sm-10" id="purchased_date" type="date" name="purchased_date" value="{{ object.purchased_date }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="serial">serial: </label>
+  <input class="form-control col-sm-10" id="serial" type="text" name="serial" value="{{ object.serial }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="created">created: </label>
+  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="may_be_loaned">may_be_loaned: </label>
+  <input class="form-control col-sm-10" id="may_be_loaned" type="text" name="may_be_loaned" value="{{ object.may_be_loaned }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
+  <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="notes">notes: </label>
+  <input class="form-control col-sm-10" id="notes" type="text" name="notes" value="{{ object.notes }}">
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

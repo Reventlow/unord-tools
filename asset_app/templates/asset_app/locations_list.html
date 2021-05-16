@@ -1,0 +1,9 @@
+
+{% extends 'base.html' %}
+{% block title %}U/Nord tools | Lokationer {% endblock %}
+{% block content %}
+{% for object in object_list %}
+  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
+{% endfor %}
+<div><a class="btn btn-primary" href="{% url 'asset_app_locations_create' %}">Create a new locations</a></div>
+{% endblock %}

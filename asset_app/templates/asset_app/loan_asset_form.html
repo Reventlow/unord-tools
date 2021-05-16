@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_loan_asset_list' %}">
+    loan_asset Listing
+    </a>
+</p>
+    
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loaner_address">loaner_address: </label>
+  <input class="form-control col-sm-10" id="loaner_address" type="text" name="loaner_address" value="{{ object.loaner_address }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
+  <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loaner_name">loaner_name: </label>
+  <input class="form-control col-sm-10" id="loaner_name" type="text" name="loaner_name" value="{{ object.loaner_name }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loaner_quicklink">loaner_quicklink: </label>
+  <input class="form-control col-sm-10" id="loaner_quicklink" type="text" name="loaner_quicklink" value="{{ object.loaner_quicklink }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="notes">notes: </label>
+  <input class="form-control col-sm-10" id="notes" type="text" name="notes" value="{{ object.notes }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="created">created: </label>
+  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loaner_telephone_number">loaner_telephone_number: </label>
+  <input class="form-control col-sm-10" id="loaner_telephone_number" type="text" name="loaner_telephone_number" value="{{ object.loaner_telephone_number }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loaner_email">loaner_email: </label>
+  <input class="form-control col-sm-10" id="loaner_email" type="text" name="loaner_email" value="{{ object.loaner_email }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="loan_date">loan_date: </label>
+  <input class="form-control col-sm-10" id="loan_date" type="date" name="loan_date" value="{{ object.loan_date }}">
+  </div>
+  <div class="form-group row">
+  <label class="col-sm-2 col-form-label" for="return_date">return_date: </label>
+  <input class="form-control col-sm-10" id="return_date" type="date" name="return_date" value="{{ object.return_date }}">
+  </div>
+  <input type="submit" value="Save" class="btn btn-primary">
+</form>
+
+{% endblock %}

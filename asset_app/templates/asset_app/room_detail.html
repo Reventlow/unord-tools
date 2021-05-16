@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_room_list' %}">
+    room Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>last_inspected</td><td>{{ object.last_inspected }}</td></tr>
+    <tr><td>name</td><td>{{ object.name }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>image_date</td><td>{{ object.image_date }}</td></tr>
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>image</td><td>{{ object.image }}</td></tr>
+    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+{% endblock %}

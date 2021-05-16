@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pages_app.apps.PagesConfig',
     'to_do_list_app',
     'authenticate_app',
+    'asset_app'
 ]
 
 MIDDLEWARE = [

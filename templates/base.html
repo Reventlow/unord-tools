@@ -12,7 +12,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-    <title>{% block title %}Thomas virtuel værktøjskasse{% endblock %}</title>
+    <title>{% block title %}U/Nord Tools{% endblock %}</title>
     <script>
 
         $(document).ready(function () {
@@ -48,22 +48,21 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                 <li class="nav-item"><a class="nav-link" href="{% url 'todo' %}">Huske liste</a>
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Udlejnings rum og kunde info  </a>
+                    Lokationer og rum </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'storageUnit_list' %}">Udlejningsrum liste</a></li>
-                        <li><a class="dropdown-item" href="{% url 'create_storageUnit' %}">Opret udlejningsrum</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_locations_list' %}">Lokation liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_locations_create' %}">Location opret</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'storageCenter_list' %}">Udlejningsrum lokationer</a></li>
-                        <li><a class="dropdown-item" href="{% url 'create_storageCenter' %}">Opret udlejningsrum 
-                            lokationer</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_room_list' %}">Rum liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_room_create' %}">Opret rum</a></li>
 
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'customer_list' %}">Kundeliste</a></li>
-                        <li><a class="dropdown-item" href="{% url 'create_customer' %}">Opret kunde</a></li>
+                        <li><a class="dropdown-item" href="#">Rum liste</a></li>
+                        <li><a class="dropdown-item" href="#">Opret rum</a></li>
 
                     </ul>
                 </li>
