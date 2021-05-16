@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Thomas virtuel værktøjskasse | Rediger Opgave{% endblock %}
+{% block content %}
+
+    {% if item %}
+        <form class="d-flex" method="post">
+          {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="{{  item.item  }}"
+                   value="{{  item.item  }}" aria-label="Search" name="item">
+            <input type="hidden" value="{{  item.completed  }}" name="completed">
+            <button class="btn btn-outline-secondary" type="submit">Rediger opgave</button>
+        </form>
+    {% endif %}
+
+{% endblock %}

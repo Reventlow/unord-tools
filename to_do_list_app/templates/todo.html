@@ -1,0 +1,48 @@
+{%  extends 'base.html' %}
+
+{% block title %}Thomas virtuel værktøjskasse | To-Do List{% endblock %}
+
+{%  block content %}
+
+<h1>Opgaver der skal løses</h1>
+          <form action="{% url 'todo' %}" class="d-flex my-2 my-lg-0" method="POST">
+          {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Tilføje opgave" aria-label="Search" name="item">
+        <button class="btn btn-outline-secondary" type="submit">Tilføj</button>
+      </form>
+<br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if all_items %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Opgaver</td>
+                <td><center>Løst / Ikke løst</center></td>
+                <td><center></center></td>
+            </tr>
+        {% for jobs in all_items %}
+            {% if jobs.completed %}
+                <tr class="table-secondary ">
+                    <td class="striker">{{ jobs.item }}</td>
+                    <td><center><a href="{% url 'uncross' jobs.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Afmarker løst</a></center></td>
+                    <td><center><a href="{% url 'delete' jobs.id %}" class="btn btn-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Slet</a></center></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{ jobs.item }}  <a href="{%  url 'edit' jobs.id %}" class="badge rounded-pill bg-dark">Rediger</a></td>
+                    <td><center><a href="{% url 'cross_off' jobs.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker løst</a></center></td>
+                    <td><center><a href="{% url 'delete' jobs.id %}" class="btn btn-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Slet</a></center></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

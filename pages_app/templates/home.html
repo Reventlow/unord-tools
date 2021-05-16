@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Thomas virtuel værktøjskasse{% endblock %}
+{% block content %}
+    <h1>Home</h1>
+    {% if user.is_authenticated %}
+        Navn: {{ user.first_name }} {{ user.last_name }} <br/>
+        Brugernavn: {{ user.username }}
+
+    {% else %}
+
+    {% endif %}
+{% endblock %}
