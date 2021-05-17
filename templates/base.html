@@ -16,25 +16,34 @@
     <script>
 
         $(document).ready(function () {
-        var date_input = $('input[name="date"]');}
+            var date_input = $('input[name="date"]');
+        }
     </script>
     <script>
-$(document).ready(function(){
- var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
+        $(document).ready(function () {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
 
-})
-});
+            })
+        });
 
     </script>
-<script>
+    <script>
 
- $(document).ready(function(){
-    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
-  trigger: 'focus'}});
+        $(document).ready(function () {
+            var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+                trigger: 'focus'
+            }
+        });
     </script>
-
+    <script>
+  $(function () {
+    $("#{{ widget.datetimepicker_id }}").datetimepicker({
+      format: 'DD/MM/YYYY HH:mm',
+    });
+  });
+</script>¬
 
 </head>
 <body>
@@ -51,7 +60,8 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                     Lokationer og rum </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'asset_app_locations_list' %}">Lokation liste</a></li>
-                        <li><a class="dropdown-item" href="{% url 'asset_app_locations_create' %}">Location opret</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_locations_create' %}">Location opret</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

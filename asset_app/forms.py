@@ -1,5 +1,7 @@
 from django import forms
 from . import models
+from .models import Locations
+from .widgets import BootstrapDateTimePickerInput
 
 
 class locationsForm(forms.ModelForm):
@@ -38,6 +40,13 @@ class loan_assetForm(forms.ModelForm):
 
 
 class roomForm(forms.ModelForm):
+    location = forms.ChoiceField(choices=Locations.objects.values_list('id', 'name'), label="Location",
+                                      widget=forms.Select(
+                                          attrs={'class': 'form-control'}))
+    created = forms.DateTimeInput, widgets = {
+    'request_date': DateTimeInput(attrs={'type': 'datetime-local'})
+}
+
     class Meta:
         model = models.Room
         fields = [

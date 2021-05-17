@@ -1,5 +1,7 @@
 from django.views import generic
 from django.shortcuts import render
+
+import asset_app.models
 from . import models
 from . import forms
 
@@ -78,6 +80,7 @@ class roomListView(generic.ListView):
 class roomCreateView(generic.CreateView):
     model = models.Room
     form_class = forms.roomForm
+
 
 
 class roomDetailView(generic.DetailView):

@@ -40,8 +40,9 @@
   <label class="col-sm-2 col-form-label" for="notes">notes: </label>
   <input class="form-control col-sm-10" id="notes" type="text" name="notes" value="{{ object.notes }}">
   </div>
+<label class="col-sm-2 col-form-label" for="location">location: </label>
     <select name="location" class="form-control">
-        {% for results in object.location %}
+        {% for results in object.location.rooms.all %}
         <option value="{{ object.location.id }}">{{ object.location.name }}</option>
         {% endfor %}
   <input type="submit" value="Save" class="btn btn-primary">

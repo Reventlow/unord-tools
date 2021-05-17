@@ -78,7 +78,7 @@ class Loan_asset(models.Model):
 class Room(models.Model):
 
     # Relationships
-    location = models.ForeignKey("asset_app.Locations", on_delete=models.CASCADE)
+    location = models.ForeignKey("asset_app.Locations", related_name='rooms', on_delete=models.CASCADE)
 
     # Fields
     last_inspected = models.DateField(null=True, blank=True)

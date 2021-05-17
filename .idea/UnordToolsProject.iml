@@ -16,7 +16,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/lib/python3.9/site-packages/django/contrib/staticfiles" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (djangoLagerBoks)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (UnordToolsProject)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
