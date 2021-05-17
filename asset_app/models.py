@@ -12,7 +12,7 @@ class Locations(models.Model):
     notes = models.TextField(max_length=448, null=True, blank=True)
 
     class Meta:
-        pass
+        ordering = ["name"]
 
     def __str__(self):
         return str(self.name)
@@ -78,7 +78,7 @@ class Loan_asset(models.Model):
 class Room(models.Model):
 
     # Relationships
-    location = models.ForeignKey("asset_app.Locations", related_name='rooms', on_delete=models.CASCADE)
+    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created", on_delete=models.CASCADE, default=1)
 
     # Fields
     last_inspected = models.DateField(null=True, blank=True)
@@ -90,10 +90,10 @@ class Room(models.Model):
     notes = models.TextField(max_length=448, null=True, blank=True)
 
     class Meta:
-        pass
+        ordering = ["name"]
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
     def get_absolute_url(self):
         return reverse("asset_app_room_detail", args=(self.pk,))

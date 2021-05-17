@@ -43,4 +43,5 @@ urlpatterns = (
     path("asset_app/model/create/", views.modelCreateView.as_view(), name="asset_app_model_create"),
     path("asset_app/model/detail/<int:pk>/", views.modelDetailView.as_view(), name="asset_app_model_detail"),
     path("asset_app/model/update/<int:pk>/", views.modelUpdateView.as_view(), name="asset_app_model_update"),
+
 )
