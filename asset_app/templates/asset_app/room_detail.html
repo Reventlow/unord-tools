@@ -13,7 +13,7 @@
     <tr><td>Rum Navn</td><td>{{ object.name }}</td></tr>
     <tr><td>Afdeling</td><td>{{ object.location }}</td></tr>
     <tr><td>Billede sidst opdateret</td><td>{{ object.image_date }}</td></tr>
-    <tr><td>Billede</td><td><img src="{% static object.image %}"> {{ object.image }}</td></tr>
+    <tr><td>Billede</td><td><img src="/{{  object.image }}" width="400"></td></tr>
     <tr><td>Sidst gennemgået</td><td>{{ object.last_inspected }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>

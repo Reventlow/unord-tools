@@ -70,6 +70,24 @@ class Brand(models.Model):
     def get_update_url(self):
         return reverse("asset_app_brand_update", args=(self.pk,))
 
+class Bundle_reservation(models.Model):
+    # Relationships
+    asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.CASCADE)
+    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created",
+                                 on_delete=models.CASCADE, default=1)
+
+    # Fields
+    loaner_name = models.CharField(max_length=60)
+    loaner_email = models.EmailField()
+    loaner_telephone_number = models.CharField(max_length=30)
+    loaner_quicklink = models.URLField(null=True, blank=True)
+    amount = models.IntegerField()
+    loaner_telephone_number = models.CharField(max_length=30, null=True, blank=True)
+    loan_date = models.DateField()
+    return_date = models.DateField()
+    notes = models.TextField(max_length=448, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
 
 class Loan_asset(models.Model):
 
@@ -157,7 +175,7 @@ class Model(models.Model):
         pass
 
     def __str__(self):
-        return str(self.brand.name) + " :: " + str(self.name) + " :: " + self.asset_type.name
+        return str(self.name) + " :: " + str(self.brand.name) + " :: " + self.asset_type.name
 
     def get_absolute_url(self):
         return reverse("asset_app_model_detail", args=(self.pk,))
@@ -169,6 +187,8 @@ class Room(models.Model):
 
     # Relationships
     location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created", on_delete=models.CASCADE, default=1)
+    room_type = models.ForeignKey("asset_app.Room_type", related_name="%(class)s_requests_created",
+                                 on_delete=models.CASCADE)
 
     # Fields
     last_inspected = models.DateField(null=True, blank=True)
@@ -176,14 +196,14 @@ class Room(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     image_date = models.DateField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    image = models.ImageField(upload_to='images', null=True, blank=True)
+    image = models.ImageField(upload_to='static/images', null=True, blank=True)
     notes = models.TextField(max_length=448, null=True, blank=True)
 
     class Meta:
         ordering = ["location","name"]
 
     def __str__(self):
-        return self.name + " :: " + self.location.name
+        return self.name + " :: " + self.room_type.name
 
     def get_absolute_url(self):
         return reverse("asset_app_room_detail", args=(self.pk,))
@@ -210,7 +230,7 @@ class Room_type(models.Model):
         return reverse("asset_app_room_type_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("asset_app_loaner_room_update", args=(self.pk,))
+        return reverse("asset_app_room_type_update", args=(self.pk,))
 
 
 

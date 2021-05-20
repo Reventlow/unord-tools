@@ -1,6 +1,6 @@
 from django import forms
 from . import models
-from .models import Locations, Asset_type, Room, Model, Asset, Brand
+from .models import Locations, Asset_type, Room, Model, Asset, Brand, Room_type
 
 
 class AssetForm(forms.ModelForm):
@@ -157,6 +157,8 @@ class RoomForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast rum navn'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
+    room_type = forms.ModelChoiceField(queryset=Room_type.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
     last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
         attrs={'class': 'form-control', "type": "date"}))
     image_date = forms.DateField(required=False,
@@ -170,6 +172,7 @@ class RoomForm(forms.ModelForm):
         fields = [
             "name",
             "location",
+            "room_type",
             "last_inspected",
             "image_date",
             "image",
