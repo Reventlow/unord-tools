@@ -1,20 +1,49 @@
 from django import forms
 from . import models
-from .models import Locations
-from .widgets import BootstrapDateTimePickerInput
+from .models import Locations, Asset_type, Room, Model, Asset, Brand
 
 
-class locationsForm(forms.ModelForm):
+class AssetForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udstyrsnavn navn'}))
+    serial = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast serie nummer'}))
+    model = forms.ModelChoiceField(queryset=Model.objects.all(),
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    room = forms.ModelChoiceField(queryset=Room.objects.all(),
+                                  widget=forms.Select(attrs={'class': 'form-control'}))
+    purchased_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+        attrs={'class': 'form-control', "type": "date"}))
+    mac_address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens mac adresse'}))
+    ip = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens ip adresse'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+    may_be_loaned = forms.BooleanField(label="Er rummet brugbar", initial=False, required=False)
+
     class Meta:
-        model = models.Locations
+        model = models.Asset
         fields = [
-            "address",
             "name",
+            "serial",
+            "model",
+            "room",
+            "purchased_date",
+            "mac_address",
+            "ip",
             "notes",
+            "may_be_loaned",
+
         ]
 
 
-class asset_typeForm(forms.ModelForm):
+class Asset_typeForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udstyrs type'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
     class Meta:
         model = models.Asset_type
         fields = [
@@ -23,32 +52,118 @@ class asset_typeForm(forms.ModelForm):
         ]
 
 
-class loan_assetForm(forms.ModelForm):
+class BrandForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast mærke navn'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
     class Meta:
-        model = models.Loan_asset
+        model = models.Brand
         fields = [
-            "loaner_address",
-            "loaner_name",
-            "loaner_quicklink",
+            "name",
             "notes",
-            "loaner_telephone_number",
-            "loaner_email",
-            "loan_date",
-            "return_date",
-            "asset",
         ]
 
 
-class roomForm(forms.ModelForm):
-    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast fornavn'}))
-    location = forms.ModelChoiceField(queryset=Locations.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
-    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(attrs={'class': 'form-control',"type": "date"}))
-    image_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(attrs={'class': 'form-control',"type": "date"}))
-    image = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100,  widget=forms.Textarea(
+class Loan_assetForm(forms.ModelForm):
+    loaner_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
+    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
+    loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
+    loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners email'}))
+    loaner_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
+    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr",
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
+        attrs={'class': 'form-control', "type": "date"}))
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
+        attrs={'class': 'form-control', "type": "date"}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
+    class Meta:
+        model = models.Loan_asset
+        fields = [
+            "loaner_name",
+            "loaner_address",
+            "loaner_quicklink",
+            "loaner_telephone_number",
+            "loaner_email",
+            "asset",
+            "loan_date",
+            "return_date",
+            "notes",
+        ]
+
+
+class Loaner_typeForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast bruger type'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.Loaner_type
+        fields = [
+            "name",
+            "notes",
+        ]
+
+
+class LocationsForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings navn, feks:(POA,MIL,CBV...)'}))
+    address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings adresse'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.Locations
+        fields = [
+            "name",
+            "address",
+            "notes",
+        ]
+
+
+class ModelForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast model'}))
+    brand = forms.ModelChoiceField(queryset=Brand.objects.all(),
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    asset_type = forms.ModelChoiceField(queryset=Asset_type.objects.all(),
+                                        widget=forms.Select(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.Model
+        fields = [
+            "name",
+            "brand",
+            "asset_type",
+            "notes",
+        ]
+
+
+class RoomForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast rum navn'}))
+    location = forms.ModelChoiceField(queryset=Locations.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
+    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+        attrs={'class': 'form-control', "type": "date"}))
+    image_date = forms.DateField(required=False,
+                                 widget=forms.widgets.DateTimeInput(attrs={'class': 'form-control', "type": "date"}))
+    image = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
 
     class Meta:
         model = models.Room
@@ -63,37 +178,15 @@ class roomForm(forms.ModelForm):
         ]
 
 
-class assetForm(forms.ModelForm):
-    class Meta:
-        model = models.Asset
-        fields = [
-            "name",
-            "mac_address",
-            "serial",
-            "purchased_date",
-            "may_be_loaned",
-            "notes",
-            "ip",
-            "room",
-            "asset_type",
-            "model",
-        ]
+class Room_typeForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast rum type'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
 
-
-class loaner_typeForm(forms.ModelForm):
     class Meta:
-        model = models.Loaner_type
+        model = models.Room_type
         fields = [
             "name",
             "notes",
-        ]
-
-
-class modelForm(forms.ModelForm):
-    class Meta:
-        model = models.Model
-        fields = [
-            "name",
-            "notes",
-            "asset_type",
         ]

@@ -10,16 +10,16 @@
 </p>
     
 <table class="table">
-    <tr><td>name</td><td>{{ object.name }}</td></tr>
-    <tr><td>mac_address</td><td>{{ object.mac_address }}</td></tr>
-    <tr><td>ip</td><td>{{ object.ip }}</td></tr>
-    <tr><td>slug</td><td>{{ object.slug }}</td></tr>
-    <tr><td>purchased_date</td><td>{{ object.purchased_date }}</td></tr>
-    <tr><td>serial</td><td>{{ object.serial }}</td></tr>
-    <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>may_be_loaned</td><td>{{ object.may_be_loaned }}</td></tr>
-    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Udstyr</td><td>{{ object.name }}</td></tr>
+    <tr><td>Model</td><td>{{ object.model }}</td></tr>
+    <tr><td>Serie nummer</td><td>{{ object.serial }}</td></tr>
+    <tr><td>Mac adresse</td><td>{{ object.mac_address }}</td></tr>
+    <tr><td>Sidst registreret ip</td><td>{{ object.ip }}</td></tr>
+    <tr><td>Indkøbs dato</td><td>{{ object.purchased_date }}</td></tr>
+    <tr><td>Først registret på denne side</td><td>{{ object.created }}</td></tr>
+    <tr><td>Sidst opdatteret på denne side</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Må udlånes</td><td>{{ object.may_be_loaned }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 

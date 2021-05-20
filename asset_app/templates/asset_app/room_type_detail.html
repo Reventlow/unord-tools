@@ -2,17 +2,17 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
+
 <p>
-    <a class="btn btn-light" href="{% url 'asset_app_loaner_type_list' %}">
-    loaner_type Listing
+    <a class="btn btn-light" href="{% url 'asset_app_asset_type_list' %}">
+    asset_type Listing
     </a>
 </p>
-    
+
 <table class="table">
-    <tr><td>Låner type</td><td>{{ object.name }}</td></tr>
+    <tr><td>Rum type</td><td>{{ object.name }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
-    <tr><td>Skabt på denne side</td><td>{{ object.created }}</td></tr>
+    <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>

@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div class="col-6 col-md-4 offset-md-3"><h1>Reg. udstyrs art</h1>
+    <div class="col-6 col-md-4 offset-md-3"><h1>Opret rum type</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
     {{form.as_p}}
@@ -10,5 +10,6 @@
             </form>
 
     </div>
+
 
 {% endblock %}

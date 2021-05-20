@@ -1,21 +1,24 @@
 from rest_framework import serializers
-
 from . import models
 
-
-class locationsSerializer(serializers.ModelSerializer):
+class AssetSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Locations
+        model = models.Asset
         fields = [
-            "last_updated",
-            "address",
-            "created",
             "name",
+            "mac_address",
+            "ip",
+            "purchased_date",
+            "serial",
+            "created",
+            "may_be_loaned",
+            "last_updated",
             "notes",
         ]
 
-class asset_typeSerializer(serializers.ModelSerializer):
+
+class Asset_typeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Asset_type
@@ -27,7 +30,19 @@ class asset_typeSerializer(serializers.ModelSerializer):
 
         ]
 
-class loan_assetSerializer(serializers.ModelSerializer):
+class BrandSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Brand
+        fields = [
+            "notes",
+            "name",
+            "created",
+            "last_updated",
+
+        ]
+
+class Loan_assetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Loan_asset
@@ -44,7 +59,41 @@ class loan_assetSerializer(serializers.ModelSerializer):
             "return_date",
         ]
 
-class roomSerializer(serializers.ModelSerializer):
+class Loaner_typeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Loaner_type
+        fields = [
+            "created",
+            "name",
+            "last_updated",
+            "notes",
+        ]
+
+class ModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Model
+        fields = [
+            "last_updated",
+            "notes",
+            "created",
+            "name",
+        ]
+
+class LocationsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Locations
+        fields = [
+            "last_updated",
+            "address",
+            "created",
+            "name",
+            "notes",
+        ]
+
+class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Room
@@ -58,40 +107,18 @@ class roomSerializer(serializers.ModelSerializer):
             "notes",
         ]
 
-class assetSerializer(serializers.ModelSerializer):
+class Room_typeSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Asset
+        model = models.Room_type
         fields = [
-            "name",
-            "mac_address",
-            "ip",
-            "purchased_date",
-            "serial",
-            "created",
-            "may_be_loaned",
-            "last_updated",
             "notes",
+            "name",
+            "created",
+            "last_updated",
+
         ]
 
-class loaner_typeSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = models.Loaner_type
-        fields = [
-            "created",
-            "name",
-            "last_updated",
-            "notes",
-        ]
 
-class modelSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = models.Model
-        fields = [
-            "last_updated",
-            "notes",
-            "created",
-            "name",
-        ]

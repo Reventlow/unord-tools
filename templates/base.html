@@ -43,7 +43,7 @@
       format: 'DD/MM/YYYY HH:mm',
     });
   });
-</script>¬
+</script>
 
 </head>
 <body>
@@ -71,9 +71,45 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Rum liste</a></li>
-                        <li><a class="dropdown-item" href="#">Opret rum</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_room_type_list' %}">Rum type liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_room_type_list' %}">Opret rum type</a></li>
 
+                    </ul>
+                </li>
+
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Udlaan System</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_list' %}">Udlåns status</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_create' %}">Reg. udlaan</a>
+                        </li>
+
+                    </ul>
+                </li>
+   <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    U/Nords Udstyr</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                        <li><a class="dropdown-item" href="{% url 'asset_app_asset_list' %}">Udstyrs liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_asset_create' %}">Reg udstyr</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_model_list' %}">Model liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_model_create' %}">Opret model</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_brand_list' %}">Mærke liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_brand_create' %}">Opret mærke</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_asset_type_list' %}">Udstyr art</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_asset_type_create' %}">Reg udstyr art</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
