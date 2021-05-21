@@ -13,7 +13,7 @@ router.register("loan_asset", api.Loan_assetViewSet)
 router.register("room", api.RoomViewSet)
 router.register("asset", api.AssetViewSet)
 router.register("loaner_type", api.Loaner_typeViewSet)
-router.register("model", api.ModelViewSet)
+router.register("model", api.Model_hardwareViewSet)
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
@@ -29,6 +29,10 @@ urlpatterns = [
     path("asset_app/brand/create/", views.BrandCreateView.as_view(), name="asset_app_brand_create"),
     path("asset_app/brand/detail/<int:pk>/", views.BrandDetailView.as_view(), name="asset_app_brand_detail"),
     path("asset_app/brand/update/<int:pk>/", views.BrandUpdateView.as_view(), name="asset_app_brand_update"),
+    path("asset_app/bundle_reservation/", views.Bundle_reservationListView.as_view(), name="asset_app_bundle_reservation_list"),
+    path("asset_app/bundle_reservation/create/", views.Bundle_reservationCreateView.as_view(), name="asset_app_bundle_reservation_create"),
+    path("asset_app/bundle_reservation/detail/<int:pk>/", views.Bundle_reservationDetailView.as_view(), name="asset_app_bundle_reservation_detail"),
+    path("asset_app/bundle_reservation/update/<int:pk>/", views.Bundle_reservationUpdateView.as_view(), name="asset_app_bundle_reservation_update"),
     path("asset_app/loan_asset/", views.Loan_assetListView.as_view(), name="asset_app_loan_asset_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),
@@ -41,10 +45,10 @@ urlpatterns = [
     path("asset_app/locations/create/", views.LocationsCreateView.as_view(), name="asset_app_locations_create"),
     path("asset_app/locations/detail/<int:pk>/", views.LocationsDetailView.as_view(), name="asset_app_locations_detail"),
     path("asset_app/locations/update/<int:pk>/", views.LocationsUpdateView.as_view(), name="asset_app_locations_update"),
-    path("asset_app/model/", views.ModelListView.as_view(), name="asset_app_model_list"),
-    path("asset_app/model/create/", views.ModelCreateView.as_view(), name="asset_app_model_create"),
-    path("asset_app/model/detail/<int:pk>/", views.ModelDetailView.as_view(), name="asset_app_model_detail"),
-    path("asset_app/model/update/<int:pk>/", views.ModelUpdateView.as_view(), name="asset_app_model_update"),
+    path("asset_app/model_hardware/", views.Model_hardwareListView.as_view(), name="asset_app_model_hardware_list"),
+    path("asset_app/model_hardware/create/", views.Model_hardwareCreateView.as_view(), name="asset_app_model_hardware_create"),
+    path("asset_app/model_hardware/detail/<int:pk>/", views.Model_hardwareDetailView.as_view(), name="asset_app_model_hardware_detail"),
+    path("asset_app/model_hardware/update/<int:pk>/", views.Model_hardwareUpdateView.as_view(), name="asset_app_model_hardware_update"),
     path("asset_app/room/", views.RoomListView.as_view(), name="asset_app_room_list"),
     path("asset_app/room/create/", views.RoomCreateView.as_view(), name="asset_app_room_create"),
     path("asset_app/room/detail/<int:pk>/", views.RoomDetailView.as_view(), name="asset_app_room_detail"),

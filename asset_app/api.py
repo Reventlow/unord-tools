@@ -5,7 +5,7 @@ from . import models
 
 
 class AssetViewSet(viewsets.ModelViewSet):
-    """ViewSet for the asset class"""
+    """ViewSet for the Asset class"""
 
     queryset = models.Asset.objects.all()
     serializer_class = serializers.AssetSerializer
@@ -13,7 +13,7 @@ class AssetViewSet(viewsets.ModelViewSet):
 
 
 class Asset_typeViewSet(viewsets.ModelViewSet):
-    """ViewSet for the asset_type class"""
+    """ViewSet for the Asset_type class"""
 
     queryset = models.Asset_type.objects.all()
     serializer_class = serializers.Asset_typeSerializer
@@ -21,15 +21,22 @@ class Asset_typeViewSet(viewsets.ModelViewSet):
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-    """ViewSet for the loan_asset class"""
+    """ViewSet for the Brand class"""
 
     queryset = models.Brand.objects.all()
     serializer_class = serializers.BrandSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class Bundle_reservationViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Bundle_reservation class"""
+
+    queryset = models.Brand.objects.all()
+    serializer_class = serializers.Bundle_reservationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class LocationsViewSet(viewsets.ModelViewSet):
-    """ViewSet for the locations class"""
+    """ViewSet for the Locations class"""
 
     queryset = models.Locations.objects.all()
     serializer_class = serializers.LocationsSerializer
@@ -37,7 +44,7 @@ class LocationsViewSet(viewsets.ModelViewSet):
 
 
 class Loan_assetViewSet(viewsets.ModelViewSet):
-    """ViewSet for the loan_asset class"""
+    """ViewSet for the Loan_asset class"""
 
     queryset = models.Loan_asset.objects.all()
     serializer_class = serializers.Loan_assetSerializer
@@ -45,33 +52,33 @@ class Loan_assetViewSet(viewsets.ModelViewSet):
 
 
 class Loaner_typeViewSet(viewsets.ModelViewSet):
-    """ViewSet for the loaner_type class"""
+    """ViewSet for the Loaner_type class"""
 
     queryset = models.Loaner_type.objects.all()
     serializer_class = serializers.Loaner_typeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ModelViewSet(viewsets.ModelViewSet):
-    """ViewSet for the model class"""
+class Model_hardwareViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Model class"""
 
-    queryset = models.Model.objects.all()
-    serializer_class = serializers.ModelSerializer
+    queryset = models.Model_hardware.objects.all()
+    serializer_class = serializers.Model_hardwareSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class RoomViewSet(viewsets.ModelViewSet):
-    """ViewSet for the room class"""
+    """ViewSet for the Room class"""
 
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class Room_typeViewSet(viewsets.ModelViewSet):
-    """ViewSet for the asset_type class"""
+    """ViewSet for the Room_type class"""
 
     queryset = models.Room_type.objects.all()
-    serializer_class = serializers.Asset_typeSerializer
+    serializer_class = serializers.Room_typeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

@@ -12,26 +12,30 @@ class AssetAdminForm(forms.ModelForm):
 class AssetAdmin(admin.ModelAdmin):
     form = AssetAdminForm
     list_display = [
+        "name",
+        "serial",
+        "model_hardware",
+        "room",
+        "purchased_date",
+        "mac_address",
+        "ip",
+        "notes",
+        "may_be_loaned",
         "created",
         "last_updated",
-        "name",
-        "mac_address",
-        "serial",
-        "purchased_date",
-        "may_be_loaned",
-        "notes",
-        "ip",
     ]
     readonly_fields = [
+        "name",
+        "serial",
+        "model_hardware",
+        "room",
+        "purchased_date",
+        "mac_address",
+        "ip",
+        "notes",
+        "may_be_loaned",
         "created",
         "last_updated",
-        "name",
-        "mac_address",
-        "serial",
-        "purchased_date",
-        "may_be_loaned",
-        "notes",
-        "ip",
     ]
 
 
@@ -78,6 +82,48 @@ class BrandAdmin(admin.ModelAdmin):
         "notes",
     ]
 
+class Bundle_reservationAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Loan_asset
+        fields = "__all__"
+
+
+class Bundle_reservationAdmin(admin.ModelAdmin):
+    form = Bundle_reservationAdminForm
+    list_display = [
+        "loaner_name",
+        "location",
+        "loaner_quicklink",
+        "loaner_telephone_number",
+        "loaner_email",
+        "asset_type",
+        "amount",
+        "series",
+        "course_name",
+        "loan_date",
+        "return_date",
+        "returned",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "loaner_name",
+        "location",
+        "loaner_quicklink",
+        "loaner_telephone_number",
+        "loaner_email",
+        "asset_type",
+        "amount",
+        "series",
+        "course_name",
+        "loan_date",
+        "return_date",
+        "returned",
+        "notes",
+        "created",
+        "last_updated",
+    ]
 
 class Loan_assetAdminForm(forms.ModelForm):
     class Meta:
@@ -98,6 +144,7 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "loaner_email",
         "loan_date",
         "return_date",
+        "returned",
     ]
     readonly_fields = [
         "loaner_address",
@@ -110,6 +157,7 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "loaner_email",
         "loan_date",
         "return_date",
+        "returned",
     ]
 
 
@@ -159,14 +207,14 @@ class Loaner_typeAdmin(admin.ModelAdmin):
     ]
 
 
-class ModelAdminForm(forms.ModelForm):
+class Model_hardwareAdminForm(forms.ModelForm):
     class Meta:
-        model = models.Model
+        model = models.Model_hardware
         fields = "__all__"
 
 
-class ModelAdmin(admin.ModelAdmin):
-    form = ModelAdminForm
+class Model_hadwareAdmin(admin.ModelAdmin):
+    form = Model_hardwareAdminForm
     list_display = [
         "name",
         "notes",
@@ -190,21 +238,45 @@ class RoomAdminForm(forms.ModelForm):
 class RoomAdmin(admin.ModelAdmin):
     form = RoomAdminForm
     list_display = [
+        "name",
+        "location",
+        "room_type",
         "last_inspected",
+        "image_date",
+        "image",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "name",
+        "location",
+        "room_type",
+        "last_inspected",
+        "image_date",
+        "image",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+
+class Room_typeAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Room_type
+        fields = "__all__"
+
+class Room_typeAdmin(admin.ModelAdmin):
+    form = Room_typeAdminForm
+    list_display = [
         "name",
         "last_updated",
-        "image_date",
         "created",
-        "image",
         "notes",
     ]
     readonly_fields = [
-        "last_inspected",
         "name",
         "last_updated",
-        "image_date",
         "created",
-        "image",
         "notes",
     ]
 
@@ -215,5 +287,6 @@ admin.site.register(models.Brand, BrandAdmin)
 admin.site.register(models.Loan_asset, Loan_assetAdmin)
 admin.site.register(models.Loaner_type, Loaner_typeAdmin)
 admin.site.register(models.Locations, LocationsAdmin)
-admin.site.register(models.Model, ModelAdmin)
+admin.site.register(models.Model_hardware, Model_hadwareAdmin)
 admin.site.register(models.Room, RoomAdmin)
+admin.site.register(models.Room_type, Room_typeAdmin)

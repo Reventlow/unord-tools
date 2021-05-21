@@ -1,4 +1,5 @@
 from django.views import generic
+from django.db.models import Count
 from . import models
 from . import forms
 
@@ -48,6 +49,10 @@ class BrandListView(generic.ListView):
     model = models.Brand
     form_class = forms.BrandForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.annotate(asset_count=Count('model_hardware__asset'))
+
 
 class BrandCreateView(generic.CreateView):
     model = models.Brand
@@ -62,6 +67,26 @@ class BrandDetailView(generic.DetailView):
 class BrandUpdateView(generic.UpdateView):
     model = models.Brand
     form_class = forms.BrandForm
+    pk_url_kwarg = "pk"
+
+class Bundle_reservationListView(generic.ListView):
+    model = models.Bundle_reservation
+    form_class = forms.Bundle_reservationForm
+
+
+class Bundle_reservationCreateView(generic.CreateView):
+    model = models.Bundle_reservation
+    form_class = forms.Bundle_reservationForm
+
+
+class Bundle_reservationDetailView(generic.DetailView):
+    model = models.Bundle_reservation
+    form_class = forms.Bundle_reservationForm
+
+
+class Bundle_reservationUpdateView(generic.UpdateView):
+    model = models.Bundle_reservation
+    form_class = forms.Bundle_reservationForm
     pk_url_kwarg = "pk"
 
 class Loan_assetListView(generic.ListView):
@@ -128,23 +153,23 @@ class Loaner_typeUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
-class ModelListView(generic.ListView):
-    model = models.Model
+class Model_hardwareListView(generic.ListView):
+    model = models.Model_hardware
     form_class = forms.ModelForm
 
 
-class ModelCreateView(generic.CreateView):
-    model = models.Model
+class Model_hardwareCreateView(generic.CreateView):
+    model = models.Model_hardware
     form_class = forms.ModelForm
 
 
-class ModelDetailView(generic.DetailView):
-    model = models.Model
+class Model_hardwareDetailView(generic.DetailView):
+    model = models.Model_hardware
     form_class = forms.ModelForm
 
 
-class ModelUpdateView(generic.UpdateView):
-    model = models.Model
+class Model_hardwareUpdateView(generic.UpdateView):
+    model = models.Model_hardware
     form_class = forms.ModelForm
     pk_url_kwarg = "pk"
 

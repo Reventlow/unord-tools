@@ -1,8 +1,60 @@
 
 {% extends "base.html" %}
 {% block content %}
-{% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
-{% endfor %}
-<div><a class="btn btn-primary" href="{% url 'asset_app_brand_create' %}">Create a new asset_type</a></div>
+
+
+     <h1>Mærke oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Mærke</td>
+                <td>
+                    <center>Antal enheder</center>
+                </td>
+                <td>
+                    <center>Slet</center>
+                </td>
+            </tr>
+            {% for brand in object_list %}
+                <tr>
+                    <td>{{ brand.name }} <a href="{{ brand.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Rediger</a>
+                        {% if not brand.notes == None or brand.notes == "" %}
+                            <a href="#"
+                               data-bs-toggle="popover"
+                               data-html="true"
+                               class="badge rounded-pill bg-success"
+                               data-bs-trigger="focus"
+                               title="Noter på {{ brand.name }}"
+                               data-bs-content="{{ brand.notes }}">Noter</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <center>{{ brand.asset_count }}</center>
+                    </td>
+
+
+
+                    <td>
+                        <center><a href="#" class="btn btn-danger btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
 {% endblock %}

@@ -7,14 +7,16 @@ class AssetSerializer(serializers.ModelSerializer):
         model = models.Asset
         fields = [
             "name",
+            "serial",
+            "model_hardware",
+            "room",
+            "purchased_date",
             "mac_address",
             "ip",
-            "purchased_date",
-            "serial",
-            "created",
-            "may_be_loaned",
-            "last_updated",
             "notes",
+            "may_be_loaned",
+            "created",
+            "last_updated",
         ]
 
 
@@ -25,6 +27,29 @@ class Asset_typeSerializer(serializers.ModelSerializer):
         fields = [
             "notes",
             "name",
+            "created",
+            "last_updated",
+
+        ]
+
+class Bundle_reservationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Asset_type
+        fields = [
+            "loaner_name",
+            "location",
+            "loaner_quicklink",
+            "loaner_telephone_number",
+            "loaner_email",
+            "asset_type",
+            "amount",
+            "series",
+            "course_name",
+            "loan_date",
+            "return_date",
+            "returned",
+            "notes",
             "created",
             "last_updated",
 
@@ -70,16 +95,6 @@ class Loaner_typeSerializer(serializers.ModelSerializer):
             "notes",
         ]
 
-class ModelSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Model
-        fields = [
-            "last_updated",
-            "notes",
-            "created",
-            "name",
-        ]
 
 class LocationsSerializer(serializers.ModelSerializer):
 
@@ -93,18 +108,31 @@ class LocationsSerializer(serializers.ModelSerializer):
             "notes",
         ]
 
+class Model_hardwareSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Model_hardware
+        fields = [
+            "last_updated",
+            "notes",
+            "created",
+            "name",
+        ]
+
 class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Room
         fields = [
-            "image",
-            "created",
-            "image_date",
-            "last_updated",
             "name",
+            "location",
+            "room_type",
             "last_inspected",
+            "image_date",
+            "image",
             "notes",
+            "created",
+            "last_updated",
         ]
 
 class Room_typeSerializer(serializers.ModelSerializer):

@@ -5,8 +5,8 @@ from django.urls import reverse
 class Asset(models.Model):
 
     # Relationships
-    room = models.ForeignKey("asset_app.Room", on_delete=models.CASCADE)
-    model = models.ForeignKey("asset_app.Model", on_delete=models.CASCADE)
+    room = models.ForeignKey("asset_app.Room", on_delete=models.SET_NULL, blank=True, null=True)
+    model_hardware = models.ForeignKey("asset_app.Model_hardware", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -72,9 +72,9 @@ class Brand(models.Model):
 
 class Bundle_reservation(models.Model):
     # Relationships
-    asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.CASCADE)
+    asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.SET_NULL, blank=True, null=True)
     location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created",
-                                 on_delete=models.CASCADE, default=1)
+                                 on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     loaner_name = models.CharField(max_length=60)
@@ -82,17 +82,33 @@ class Bundle_reservation(models.Model):
     loaner_telephone_number = models.CharField(max_length=30)
     loaner_quicklink = models.URLField(null=True, blank=True)
     amount = models.IntegerField()
-    loaner_telephone_number = models.CharField(max_length=30, null=True, blank=True)
+    series = models.CharField(max_length=60, null=True, blank=True)
+    course_name = models.CharField(max_length=30, null=True, blank=True)
     loan_date = models.DateField()
     return_date = models.DateField()
+    returned = models.BooleanField(default=False, blank=True, null=True)
     notes = models.TextField(max_length=448, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
+    class Meta:
+        ordering = ["-return_date"]
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_loan_asset_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_loan_asset_update", args=(self.pk,))
+
+
+
 class Loan_asset(models.Model):
 
     # Relationships
-    asset = models.ForeignKey("asset_app.Asset", on_delete=models.CASCADE)
+    asset = models.ForeignKey("asset_app.Asset", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     loaner_address = models.TextField(max_length=100, null=True, blank=True)
@@ -105,6 +121,7 @@ class Loan_asset(models.Model):
     loaner_email = models.EmailField()
     loan_date = models.DateField()
     return_date = models.DateField()
+    returned = models.BooleanField(default=False, blank=True, null=True)
 
     class Meta:
         pass
@@ -159,11 +176,11 @@ class Locations(models.Model):
     def get_update_url(self):
         return reverse("asset_app_locations_update", args=(self.pk,))
 
-class Model(models.Model):
+class Model_hardware(models.Model):
 
     # Relationships
-    asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.CASCADE)
-    brand = models.ForeignKey("asset_app.Brand", on_delete=models.CASCADE)
+    asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.SET_NULL, blank=True, null=True)
+    brand = models.ForeignKey("asset_app.Brand", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     name = models.CharField(max_length=30)
@@ -178,17 +195,17 @@ class Model(models.Model):
         return str(self.name) + " :: " + str(self.brand.name) + " :: " + self.asset_type.name
 
     def get_absolute_url(self):
-        return reverse("asset_app_model_detail", args=(self.pk,))
+        return reverse("asset_app_model_hardware_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("asset_app_model_update", args=(self.pk,))
+        return reverse("asset_app_model_hardware_update", args=(self.pk,))
 
 class Room(models.Model):
 
     # Relationships
-    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created", on_delete=models.CASCADE, default=1)
+    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created", on_delete=models.SET_NULL, blank=True, null=True)
     room_type = models.ForeignKey("asset_app.Room_type", related_name="%(class)s_requests_created",
-                                 on_delete=models.CASCADE)
+                                 on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     last_inspected = models.DateField(null=True, blank=True)
