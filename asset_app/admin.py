@@ -82,6 +82,7 @@ class BrandAdmin(admin.ModelAdmin):
         "notes",
     ]
 
+
 class Bundle_reservationAdminForm(forms.ModelForm):
     class Meta:
         model = models.Loan_asset
@@ -125,6 +126,7 @@ class Bundle_reservationAdmin(admin.ModelAdmin):
         "last_updated",
     ]
 
+
 class Loan_assetAdminForm(forms.ModelForm):
     class Meta:
         model = models.Loan_asset
@@ -134,54 +136,36 @@ class Loan_assetAdminForm(forms.ModelForm):
 class Loan_assetAdmin(admin.ModelAdmin):
     form = Loan_assetAdminForm
     list_display = [
-        "loaner_address",
-        "last_updated",
         "loaner_name",
+        "location",
+        "loaner_address",
         "loaner_quicklink",
-        "notes",
-        "created",
         "loaner_telephone_number",
         "loaner_email",
+        "loaner_type",
+        "asset",
         "loan_date",
         "return_date",
         "returned",
-    ]
-    readonly_fields = [
-        "loaner_address",
-        "last_updated",
-        "loaner_name",
-        "loaner_quicklink",
         "notes",
         "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "loaner_name",
+        "location",
+        "loaner_address",
+        "loaner_quicklink",
         "loaner_telephone_number",
         "loaner_email",
+        "loaner_type",
+        "asset",
         "loan_date",
         "return_date",
         "returned",
-    ]
-
-
-class LocationsAdminForm(forms.ModelForm):
-    class Meta:
-        model = models.Locations
-        fields = "__all__"
-
-
-class LocationsAdmin(admin.ModelAdmin):
-    form = LocationsAdminForm
-    list_display = [
-        "address",
-        "name",
-        "last_updated",
-        "created",
         "notes",
-    ]
-    readonly_fields = [
-        "address",
-        "name",
-        "last_updated",
         "created",
-        "notes",
+        "last_updated",
     ]
 
 
@@ -194,16 +178,41 @@ class Loaner_typeAdminForm(forms.ModelForm):
 class Loaner_typeAdmin(admin.ModelAdmin):
     form = Loaner_typeAdminForm
     list_display = [
-        "created",
         "name",
-        "last_updated",
         "notes",
+        "created",
+        "last_updated",
     ]
     readonly_fields = [
-        "created",
         "name",
-        "last_updated",
         "notes",
+        "created",
+        "last_updated",
+    ]
+
+
+class LocationsAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Locations
+        fields = "__all__"
+
+
+class LocationsAdmin(admin.ModelAdmin):
+    form = LocationsAdminForm
+    list_display = [
+        "name",
+        "address",
+        "notes",
+        "created",
+        "last_updated",
+
+    ]
+    readonly_fields = [
+        "name",
+        "address",
+        "notes",
+        "created",
+        "last_updated",
     ]
 
 
@@ -260,30 +269,34 @@ class RoomAdmin(admin.ModelAdmin):
         "last_updated",
     ]
 
+
 class Room_typeAdminForm(forms.ModelForm):
     class Meta:
         model = models.Room_type
         fields = "__all__"
 
+
 class Room_typeAdmin(admin.ModelAdmin):
     form = Room_typeAdminForm
     list_display = [
         "name",
-        "last_updated",
-        "created",
         "notes",
+        "created",
+        "last_updated"
     ]
     readonly_fields = [
         "name",
-        "last_updated",
-        "created",
         "notes",
+        "created",
+        "last_updated",
+
     ]
 
 
 admin.site.register(models.Asset, AssetAdmin)
 admin.site.register(models.Asset_type, Asset_typeAdmin)
 admin.site.register(models.Brand, BrandAdmin)
+admin.site.register(models.Bundle_reservation, Bundle_reservationAdmin)
 admin.site.register(models.Loan_asset, Loan_assetAdmin)
 admin.site.register(models.Loaner_type, Loaner_typeAdmin)
 admin.site.register(models.Locations, LocationsAdmin)

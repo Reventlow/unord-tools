@@ -7,13 +7,17 @@ from . import views
 
 
 router = routers.DefaultRouter()
-router.register("locations", api.LocationsViewSet)
-router.register("asset_type", api.Asset_typeViewSet)
-router.register("loan_asset", api.Loan_assetViewSet)
-router.register("room", api.RoomViewSet)
 router.register("asset", api.AssetViewSet)
+router.register("asset_type", api.Asset_typeViewSet)
+router.register("brand", api.BrandViewSet)
+router.register("bundle_reservation", api.Bundle_reservationViewSet)
+router.register("loan_asset", api.Loan_assetViewSet)
 router.register("loaner_type", api.Loaner_typeViewSet)
-router.register("model", api.Model_hardwareViewSet)
+router.register("locations", api.LocationsViewSet)
+router.register("loaner_type", api.Loaner_typeViewSet)
+router.register("model_hardware", api.Model_hardwareViewSet)
+router.register("room", api.RoomViewSet)
+router.register("room_type", api.Room_typeViewSet)
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
@@ -33,6 +37,8 @@ urlpatterns = [
     path("asset_app/bundle_reservation/create/", views.Bundle_reservationCreateView.as_view(), name="asset_app_bundle_reservation_create"),
     path("asset_app/bundle_reservation/detail/<int:pk>/", views.Bundle_reservationDetailView.as_view(), name="asset_app_bundle_reservation_detail"),
     path("asset_app/bundle_reservation/update/<int:pk>/", views.Bundle_reservationUpdateView.as_view(), name="asset_app_bundle_reservation_update"),
+    path('asset_app/bundle_reservation/returned_true/<res_id>', views.Bundle_reservationListView.returned_true, name='asset_app_bundle_reservation_returned_true'),
+    path('asset_app/bundle_reservation/returned_false/<res_id>', views.Bundle_reservationListView.returned_false, name='asset_app_bundle_reservation_returned_false'),
     path("asset_app/loan_asset/", views.Loan_assetListView.as_view(), name="asset_app_loan_asset_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),

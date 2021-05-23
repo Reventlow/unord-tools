@@ -4,8 +4,13 @@
 {% block content %}
     
 <p>
-    <a class="btn btn-light" href="{% url 'asset_app_room_list' %}">
-    room Listing
+
+<p>
+    <a class="btn btn-primary" href="{% url 'asset_app_room_list' %}">
+    Rum oversigt
+    </a>
+<a class="btn btn-primary" href="{% url 'asset_app_room_create' %}">
+    Opret nyt rum
     </a>
 </p>
     
@@ -20,4 +25,90 @@
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+    <br/><br/><br/>
+<h1>{{ object.name }}</h1>
+                <table class="table">
+            <tr class="table-dark">
+
+                  <td>
+                    {{ object.name }}
+                </td>
+                <td>Placering</td>
+<td>
+                    <center>Model</center>
+                </td>
+                     <td>
+                    <center>Mærke</center>
+                </td>
+                <td>
+                    <center>Udstyrs type</center>
+                </td>
+                <td>
+                    <center>Slet</center>
+                </td>
+            </tr>
+{% for object in room.asset_set.all %}
+
+
+                <tr>
+                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                             class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Note: {{ object.notes }}
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                        {% endif %}
+
+
+                    </td>
+                <td>
+                        {{ object.room }} :: {{ object.room.location }} :: {{ object.room.room_type }}
+                    </td>
+                     <td>
+                    <center>{{ object.model_hardware}}</center>
+                </td>
+                 <td>
+                    <center>{{ object.model_hardware.brand }}</center>
+                </td>
+                               <td>
+                        <center>{{ object.model_hardware.asset_type }}</center>
+                    </td>
+
+
+                    <td>
+                        <center><a href="#" class="btn btn-danger btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                    </td>
+                </tr>
+
+         {% endfor %}
+
+               </table>
 {% endblock %}

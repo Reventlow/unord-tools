@@ -1,6 +1,6 @@
 from django import forms
 from . import models
-from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Bundle_reservation
+from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Bundle_reservation, Loaner_type
 
 
 class AssetForm(forms.ModelForm):
@@ -68,15 +68,15 @@ class BrandForm(forms.ModelForm):
 class Bundle_reservationForm(forms.ModelForm):
     loaner_name = forms.CharField(label="", max_length=60, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
-    location = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr lånt fra afdeling",
+    location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
                                         widget=forms.Select(attrs={'class': 'form-control'}))
-    loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+    loaner_telephone_number = forms.CharField(label="",required=False, max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
     loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners email'}))
     loaner_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
-    asset_type = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr art",
+    asset_type = forms.ModelChoiceField(queryset=Asset_type.objects.all(), label="Udstyr art",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     amount = forms.CharField(label="", max_length=20, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast antal'}))
@@ -114,6 +114,8 @@ class Bundle_reservationForm(forms.ModelForm):
 class Loan_assetForm(forms.ModelForm):
     loaner_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
+    location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
     loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
     loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
@@ -122,13 +124,15 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners email'}))
     loaner_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
-    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr",
+    loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    asset = forms.ModelChoiceField(queryset=Asset.objects.filter(may_be_loaned=True), label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
         attrs={'class': 'form-control', "type": "date"}))
-    returned = forms.BooleanField(label="Er rummet brugbar", initial=False, required=False)
+    returned = forms.BooleanField(label="Er udstyret retuneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
@@ -136,10 +140,12 @@ class Loan_assetForm(forms.ModelForm):
         model = models.Loan_asset
         fields = [
             "loaner_name",
+            "location",
             "loaner_address",
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
+            "loaner_type",
             "asset",
             "loan_date",
             "return_date",

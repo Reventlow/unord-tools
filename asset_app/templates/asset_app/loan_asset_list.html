@@ -1,8 +1,128 @@
 
 {% extends "base.html" %}
 {% block content %}
-{% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
-{% endfor %}
-<div><a class="btn btn-primary" href="{% url 'asset_app_loan_asset_create' %}">Create a new loan_asset</a></div>
+
+
+     <h1>Reservations oversigt </h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Udlåner</td>
+                <td>
+                    <center>Udlånt fra</center>
+                </td>
+                <td>
+                    <center>Udlåner</center>
+                </td>
+                <td>
+                    <center>Kontakt</center>
+                </td>
+                <td>
+                    <center>Udstyr navn</center>
+                </td>
+                            <td>
+                    <center>Udstyrs type</center>
+                </td>
+                <td>
+                    <center>Reseveret fra</center>
+                </td>
+                <td>
+                    <center>Retuneres</center>
+                </td>
+                  <td>
+                    <center>Skift retunerins status</center>
+                </td>
+
+            </tr>
+            {% for object in object_list %}
+
+
+                {% if object.return_date > today and  object.returned == False %}
+                <tr>
+                {% elif object.return_date < today and object.returned == False %}
+                <tr class="table-danger">
+                {% elif object.returned == True %}
+                <tr class="table-success">
+                {% else %}
+                <tr class="table-warning">
+                {% endif %}
+
+                    <td>{{ object.loaner_name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Rediger</a>
+
+
+{% if  object.notes  %}
+<!-- Button trigger modal -->
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Note: {{ object.notes }}
+      </div>
+
+  </div>
+</div>
+
+
+
+
+{% endif %}
+                    </td>
+                    <td>
+                    <center>{{ object.location }}</center>
+                </td>
+                <td>
+                    <center>{{ object.loaner_type }}</center>
+                </td>
+                <td>
+                    <center>{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</center>
+                </td>
+                <td>
+                    <center>{{ object.asset }}</center>
+                </td>
+                            <td>
+                    <center>{{ object.asset.model_hardware.asset_type }}</center>
+                </td>
+                <td>
+                    <center>{{ object.loan_date }}</center>
+                </td>
+                <td>
+                    <center>{{ object.return_date }}</center>
+                </td>
+
+                <td><center>
+                {% if object.returned %}
+                    <a href="{% url 'asset_app_bundle_reservation_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
+                {% else %}
+                    <a href="{% url 'asset_app_bundle_reservation_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                {% endif %}
+               </center></td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
 {% endblock %}

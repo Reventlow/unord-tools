@@ -9,18 +9,18 @@ class Asset(models.Model):
     model_hardware = models.ForeignKey("asset_app.Model_hardware", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
     name = models.CharField(max_length=30)
-    mac_address = models.CharField(max_length=30, null=True, blank=True)
     serial = models.CharField(max_length=30, unique=True, blank=True, null=True, default=None)
+    mac_address = models.CharField(max_length=30, null=True, blank=True)
     purchased_date = models.DateField(null=True, blank=True)
     may_be_loaned = models.BooleanField(default=False, blank=True, null=True)
     notes = models.TextField(max_length=448, null=True, blank=True)
     ip = models.CharField(max_length=90, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        pass
+        ordering = ["name"]
 
     def __str__(self):
         return str(self.name)
@@ -53,6 +53,8 @@ class Asset_type(models.Model):
         return reverse("asset_app_asset_type_update", args=(self.pk,))
 
 class Brand(models.Model):
+
+    # Fields
     name = models.CharField(max_length=30)
     notes = models.TextField(max_length=448, null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -73,8 +75,7 @@ class Brand(models.Model):
 class Bundle_reservation(models.Model):
     # Relationships
     asset_type = models.ForeignKey("asset_app.Asset_type", on_delete=models.SET_NULL, blank=True, null=True)
-    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created",
-                                 on_delete=models.SET_NULL, blank=True, null=True)
+    location = models.ForeignKey("asset_app.Locations", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     loaner_name = models.CharField(max_length=60)
@@ -98,10 +99,10 @@ class Bundle_reservation(models.Model):
         return str(self.pk)
 
     def get_absolute_url(self):
-        return reverse("asset_app_loan_asset_detail", args=(self.pk,))
+        return reverse("asset_app_bundle_reservation_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("asset_app_loan_asset_update", args=(self.pk,))
+        return reverse("asset_app_bundle_reservation_update", args=(self.pk,))
 
 
 
@@ -109,20 +110,21 @@ class Loan_asset(models.Model):
 
     # Relationships
     asset = models.ForeignKey("asset_app.Asset", on_delete=models.SET_NULL, blank=True, null=True)
+    loaner_type = models.ForeignKey("asset_app.Loaner_type", on_delete=models.SET_NULL, blank=True, null=True)
+    location = models.ForeignKey("asset_app.Locations", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
-    loaner_address = models.TextField(max_length=100, null=True, blank=True)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
     loaner_name = models.CharField(max_length=60)
-    loaner_quicklink = models.URLField(null=True, blank=True)
-    notes = models.TextField(max_length=448, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
+    loaner_address = models.TextField(max_length=100, null=True, blank=True)
     loaner_telephone_number = models.CharField(max_length=30)
     loaner_email = models.EmailField()
+    loaner_quicklink = models.URLField(null=True, blank=True)
     loan_date = models.DateField()
     return_date = models.DateField()
+    notes = models.TextField(max_length=448, null=True, blank=True)
     returned = models.BooleanField(default=False, blank=True, null=True)
-
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
     class Meta:
         pass
 
@@ -189,10 +191,10 @@ class Model_hardware(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        pass
+        ordering = ["name"]
 
     def __str__(self):
-        return str(self.name) + " :: " + str(self.brand.name) + " :: " + self.asset_type.name
+        return str(self.name)
 
     def get_absolute_url(self):
         return reverse("asset_app_model_hardware_detail", args=(self.pk,))
@@ -203,24 +205,25 @@ class Model_hardware(models.Model):
 class Room(models.Model):
 
     # Relationships
-    location = models.ForeignKey("asset_app.Locations", related_name="%(class)s_requests_created", on_delete=models.SET_NULL, blank=True, null=True)
-    room_type = models.ForeignKey("asset_app.Room_type", related_name="%(class)s_requests_created",
-                                 on_delete=models.SET_NULL, blank=True, null=True)
+    location = models.ForeignKey("asset_app.Locations",  on_delete=models.SET_NULL, blank=True, null=True)
+    room_type = models.ForeignKey("asset_app.Room_type", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
-    last_inspected = models.DateField(null=True, blank=True)
+
     name = models.CharField(max_length=30)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
     image_date = models.DateField(null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
     image = models.ImageField(upload_to='static/images', null=True, blank=True)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    last_inspected = models.DateField(null=True, blank=True)
+    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
 
     class Meta:
         ordering = ["location","name"]
 
     def __str__(self):
-        return self.name + " :: " + self.room_type.name
+        return self.name
 
     def get_absolute_url(self):
         return reverse("asset_app_room_detail", args=(self.pk,))
@@ -230,15 +233,14 @@ class Room(models.Model):
 
 class Room_type(models.Model):
 
-
     # Fields
-    created = models.DateTimeField(auto_now_add=True, editable=False)
     name = models.CharField(max_length=30)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
     notes = models.TextField(max_length=448, null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        pass
+        ordering = ["name"]
 
     def __str__(self):
         return str(self.name)

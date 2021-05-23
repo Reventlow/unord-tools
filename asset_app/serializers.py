@@ -72,16 +72,20 @@ class Loan_assetSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Loan_asset
         fields = [
-            "loaner_address",
-            "last_updated",
             "loaner_name",
+            "location",
+            "loaner_address",
             "loaner_quicklink",
-            "notes",
-            "created",
             "loaner_telephone_number",
             "loaner_email",
+            "loaner_type",
+            "asset",
             "loan_date",
             "return_date",
+            "returned",
+            "notes",
+            "created",
+            "last_updated",
         ]
 
 class Loaner_typeSerializer(serializers.ModelSerializer):

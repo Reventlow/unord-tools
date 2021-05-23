@@ -1,11 +1,25 @@
+from django.shortcuts import redirect
 from django.views import generic
-from django.db.models import Count
+from django.db.models import Count, prefetch_related_objects
+from django.contrib import messages
+import datetime
 from . import models
 from . import forms
 
 class AssetListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        return queryset
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'model_hardware__asset')
+        return obj
+
+
 
 
 class AssetCreateView(generic.CreateView):
@@ -29,6 +43,16 @@ class Asset_typeListView(generic.ListView):
     model = models.Asset_type
     form_class = forms.Asset_typeForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('model_hardware__asset'))
+        return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'model_hardware__asset')
+        return obj
+
 
 class Asset_typeCreateView(generic.CreateView):
     model = models.Asset_type
@@ -38,6 +62,7 @@ class Asset_typeCreateView(generic.CreateView):
 class Asset_typeDetailView(generic.DetailView):
     model = models.Asset_type
     form_class = forms.Asset_typeForm
+
 
 
 class Asset_typeUpdateView(generic.UpdateView):
@@ -50,8 +75,8 @@ class BrandListView(generic.ListView):
     form_class = forms.BrandForm
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.annotate(asset_count=Count('model_hardware__asset'))
+        queryset = super().get_queryset().order_by('name')
+        return queryset.annotate(object_count=Count('model_hardware__asset'))
 
 
 class BrandCreateView(generic.CreateView):
@@ -73,6 +98,32 @@ class Bundle_reservationListView(generic.ListView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('returned','return_date')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
+
+
+    def returned_true(request, res_id):
+        item = models.Bundle_reservation.objects.get(pk=res_id)
+        item.returned = False
+        messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+        return redirect('asset_app_bundle_reservation_list')
+
+
+    def returned_false(request, res_id):
+        item = models.Bundle_reservation.objects.get(pk=res_id)
+        item.returned = True
+        messages.success(request,'Noteret udstyret som ikke afleveret')
+        item.save()
+        return redirect('asset_app_bundle_reservation_list')
+
 
 class Bundle_reservationCreateView(generic.CreateView):
     model = models.Bundle_reservation
@@ -83,15 +134,28 @@ class Bundle_reservationDetailView(generic.DetailView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
+
 
 class Bundle_reservationUpdateView(generic.UpdateView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
     pk_url_kwarg = "pk"
 
+
 class Loan_assetListView(generic.ListView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
 
 
 class Loan_assetCreateView(generic.CreateView):
@@ -112,8 +176,18 @@ class Loan_assetUpdateView(generic.UpdateView):
 
 class LocationsListView(generic.ListView):
     model = models.Locations
-    ordering = ['name']
     form_class = forms.LocationsForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('room__asset'))
+        return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset.order_by('name'))
+        prefetch_related_objects([obj], 'room__asset')
+        return obj
+
 
 
 class LocationsCreateView(generic.CreateView):
@@ -124,7 +198,6 @@ class LocationsCreateView(generic.CreateView):
 class LocationsDetailView(generic.DetailView):
     model = models.Locations
     form_class = forms.LocationsForm
-
 
 class LocationsUpdateView(generic.UpdateView):
     model = models.Locations
@@ -157,6 +230,17 @@ class Model_hardwareListView(generic.ListView):
     model = models.Model_hardware
     form_class = forms.ModelForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('asset'))
+        return qs
+
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'model_hardware__asset')
+        return obj
+
 
 class Model_hardwareCreateView(generic.CreateView):
     model = models.Model_hardware
@@ -178,6 +262,17 @@ class RoomListView(generic.ListView):
     model = models.Room
     form_class = forms.RoomForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('asset'))
+        return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'model_hardware__asset')
+        return obj
+
+
 
 class RoomCreateView(generic.CreateView):
     model = models.Room
@@ -197,6 +292,17 @@ class RoomUpdateView(generic.UpdateView):
 class Room_typeListView(generic.ListView):
     model = models.Room_type
     form_class = forms.Room_typeForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('room'))
+        return qs
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'room__asset')
+        return obj
+
 
 
 class Room_typeCreateView(generic.CreateView):

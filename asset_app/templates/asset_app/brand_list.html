@@ -27,29 +27,51 @@
                     <center>Slet</center>
                 </td>
             </tr>
-            {% for brand in object_list %}
+            {% for object in object_list %}
                 <tr>
-                    <td>{{ brand.name }} <a href="{{ brand.get_update_url }}"
+                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
-                        {% if not brand.notes == None or brand.notes == "" %}
-                            <a href="#"
-                               data-bs-toggle="popover"
-                               data-html="true"
-                               class="badge rounded-pill bg-success"
-                               data-bs-trigger="focus"
-                               title="Noter på {{ brand.name }}"
-                               data-bs-content="{{ brand.notes }}">Noter</a>
-                        {% endif %}
+
+
+{% if  object.notes  %}
+<!-- Button trigger modal -->
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Note: {{ object.notes }}
+      </div>
+
+  </div>
+</div>
+
+
+
+
+{% endif %}
+
+
+
                     </td>
                     <td>
-                        <center>{{ brand.asset_count }}</center>
+                        <center>{{ object.object_count }}</center>
                     </td>
 
 
 
                     <td>
-                        <center><a href="#" class="btn btn-danger btn-sm "
-                                   tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                        <center>{% if  object.object_count  < 1  %}<a href="#" class="btn btn-danger btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
                     </td>
                 </tr>
 
