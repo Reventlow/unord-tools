@@ -84,6 +84,7 @@
 
   </div>
 </div>
+    </div>
 
 
 
@@ -114,9 +115,9 @@
 
                 <td><center>
                 {% if object.returned %}
-                    <a href="{% url 'asset_app_bundle_reservation_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
+                    <a href="{% url 'asset_app_loan_asset_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
                 {% else %}
-                    <a href="{% url 'asset_app_bundle_reservation_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                    <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
                 {% endif %}
                </center></td>
                 </tr>

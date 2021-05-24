@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div><a class="btn btn-primary" href="{% url 'asset_app_room_type_create' %}">Opret rum type</a></div>
-      <h1>Rum type oversigt</h1>
+    <div><a class="btn btn-primary" href="{% url 'asset_app_room_type_create' %}">Opret rum type</a></div>
+    <h1>Rum type oversigt</h1>
 
     <br/>
     {% if messages %}
@@ -29,36 +29,41 @@
             {% for object in object_list %}
                 <tr>
                     <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
-                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
-                                               class="badge rounded-pill bg-dark">Rediger</a>
+                                             class="badge rounded-pill bg-dark">Detaljer</a> <a
+                            href="{{ object.get_update_url }}"
+                            class="badge rounded-pill bg-dark">Rediger</a>
 
 
-{% if  object.notes  %}
-<!-- Button trigger modal -->
-<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
   Note
 </span>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       Note: {{ object.notes }}
-      </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Noter
+                                                på {{ object.name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Note: {{ object.notes }}
+                                        </div>
 
-  </div>
-</div>
+                                    </div>
+                                </div>
+                            </div>
 
 
 
 
-{% endif %}
-
+                        {% endif %}
 
 
                     </td>
@@ -67,10 +72,10 @@
                     </td>
 
 
-
                     <td>
-                        <center>{% if  object.object_count  < 1  %}<a href="#" class="btn btn-danger btn-sm "
-                                   tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
+                        <center>{% if  object.object_count  < 1 %}
+                            <a href="#{% url 'asset_app_room_type_delete' object.id %}" class="btn btn-danger btn-sm "
+                               tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
                     </td>
                 </tr>
 

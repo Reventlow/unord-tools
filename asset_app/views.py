@@ -19,6 +19,13 @@ class AssetListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
+    def delete(request, del_id):
+        item = models.Asset.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Udstyr er nu blevet slettet')
+        return redirect('asset_app_asset_list')
+
+
 
 
 
@@ -53,6 +60,13 @@ class Asset_typeListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
+    def delete(request, del_id):
+        item = models.Asset_type.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Udtyrs type er nu blevet slettet')
+        return redirect('asset_app_asset_type_list')
+
+
 
 class Asset_typeCreateView(generic.CreateView):
     model = models.Asset_type
@@ -77,6 +91,12 @@ class BrandListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         return queryset.annotate(object_count=Count('model_hardware__asset'))
+
+    def delete(request, del_id):
+        item = models.Brand.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Mærke er nu blevet slettet')
+        return redirect('asset_app_brand_list')
 
 
 class BrandCreateView(generic.CreateView):
@@ -107,6 +127,8 @@ class Bundle_reservationListView(generic.ListView):
         new_context_entry = datetime.date.today()
         context["today"] = new_context_entry
         return context
+
+
 
 
     def returned_true(request, res_id):
@@ -157,6 +179,20 @@ class Loan_assetListView(generic.ListView):
         context["today"] = new_context_entry
         return context
 
+    def returned_true(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = False
+        messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+        return redirect('asset_app_loan_asset_list')
+
+
+    def returned_false(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = True
+        messages.success(request,'Noteret udstyret som ikke afleveret')
+        item.save()
+        return redirect('asset_app_loan_asset_list')
 
 class Loan_assetCreateView(generic.CreateView):
     model = models.Loan_asset
@@ -188,6 +224,12 @@ class LocationsListView(generic.ListView):
         prefetch_related_objects([obj], 'room__asset')
         return obj
 
+    def delete(request, del_id):
+        item = models.Locations.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Afdeling er nu blevet slettet')
+        return redirect('asset_app_locations_list')
+
 
 
 class LocationsCreateView(generic.CreateView):
@@ -208,6 +250,12 @@ class LocationsUpdateView(generic.UpdateView):
 class Loaner_typeListView(generic.ListView):
     model = models.Loaner_type
     form_class = forms.Loaner_typeForm
+
+    def delete(request, del_id):
+        item = models.Loaner_type.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Låner type er nu blevet slettet')
+        return redirect('asset_app_loaner_type_list')
 
 
 class Loaner_typeCreateView(generic.CreateView):
@@ -241,6 +289,12 @@ class Model_hardwareListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
+    def delete(request, del_id):
+        item = models.Model_hardware.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Model er nu blevet slettet')
+        return redirect('asset_app_model_hardware_list')
+
 
 class Model_hardwareCreateView(generic.CreateView):
     model = models.Model_hardware
@@ -272,6 +326,12 @@ class RoomListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
+    def delete(request, del_id):
+        item = models.Room.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Rum er nu blevet slettet')
+        return redirect('asset_app_room_list')
+
 
 
 class RoomCreateView(generic.CreateView):
@@ -302,6 +362,12 @@ class Room_typeListView(generic.ListView):
         obj = super().get_object(queryset=queryset)
         prefetch_related_objects([obj], 'room__asset')
         return obj
+
+    def delete(request, del_id):
+        item = models.Room_type.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Rum Type er nu blevet slettet')
+        return redirect('asset_app_room_type_list')
 
 
 

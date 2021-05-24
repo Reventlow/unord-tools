@@ -54,6 +54,7 @@
 
   </div>
 </div>
+    </div>
 
 
 
@@ -70,7 +71,7 @@
 
 
                     <td>
-                        <center>{% if  object.object_count  < 1  %}<a href="#" class="btn btn-danger btn-sm "
+                        <center>{% if  object.object_count  < 1  %}<a href="{% url 'asset_app_asset_type_delete' object.id %}" class="btn btn-danger btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
                     </td>
                 </tr>

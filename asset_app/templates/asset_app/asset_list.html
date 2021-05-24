@@ -35,6 +35,7 @@
                     <td>
                     <center>Må udlånes</center>
                 </td>
+
                 <td>
                     <center>Slet</center>
                 </td>
@@ -70,6 +71,7 @@
 
                                 </div>
                             </div>
+                            </div>
 
 
 
@@ -90,6 +92,7 @@
                                <td>
                         <center>{{ object.model_hardware.asset_type }}</center>
                     </td>
+
        <td>
                     <center>
                         {% if object.may_be_loaned %}
@@ -101,7 +104,7 @@
                 </td>
 
                     <td>
-                        <center><a href="#" class="btn btn-danger btn-sm "
+                        <center><a href="{% url 'asset_app_asset_delete' object.id %}" class="btn btn-danger btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
                     </td>
                 </tr>
