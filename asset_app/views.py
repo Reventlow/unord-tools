@@ -1,12 +1,7 @@
 from django.shortcuts import redirect
 from django.views import generic
-from django.http import HttpResponse
-# from django.utils
-from django.db.models import Count, prefetch_related_objects, Sum
+from django.db.models import Count, prefetch_related_objects
 from django.contrib import messages
-from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin, TemplateResponseMixin
-from django.template.loader import render_to_string
-import tempfile
 import datetime
 from . import models
 from . import forms
@@ -354,11 +349,8 @@ class RoomDetailView(generic.DetailView):
     def export_pdf_view(request):
         pass
 
-class RoomPDFDetailView(PDFTemplateResponseMixin, generic.DetailView):
-    model = models.Room
-    form_class = forms.RoomForm
-    template_name = 'asset_app/room_detail_to-pdf.html'
-
+class RoomPDFDetailView():
+    pass
 
 class RoomUpdateView(generic.UpdateView):
     model = models.Room

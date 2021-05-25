@@ -22,7 +22,7 @@
     <tr><td>Afdeling</td><td>{{ object.location }}</td></tr>
     {% if object.image %}
     <tr><td>Billede sidst opdateret</td><td>{{ object.image_date }}</td></tr>
-    <tr><td>Billede</td><td><img src="/{{  object.image }}" width="400"></td></tr>
+    <tr><td>Billede</td><td><img src="{{  object.image }}" width="400"></td></tr>
     {% endif %}
     <tr><td>Sidst gennemgået</td><td>{{ object.last_inspected }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes }}</td></tr>

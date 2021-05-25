@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
+
+from UnordToolsProject.storage_backends import PublicMediaStorage, PrivateMediaStorage
 
 
 class Asset(models.Model):
@@ -212,7 +215,7 @@ class Room(models.Model):
 
     name = models.CharField(max_length=30)
     image_date = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='static/images', null=True, blank=True)
+    image = models.ImageField(storage=PublicMediaStorage(), null=True, blank=True)
     last_inspected = models.DateField(null=True, blank=True)
     notes = models.TextField(max_length=448, null=True, blank=True, default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
