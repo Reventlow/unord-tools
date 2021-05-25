@@ -17,15 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/python3.9/site-packages/django/contrib/staticfiles" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (UNORDToolsProject)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-  <component name="TemplatesService">
-    <option name="TEMPLATE_CONFIGURATION" value="Django" />
-    <option name="TEMPLATE_FOLDERS">
-      <list>
-        <option value="$MODULE_DIR$/templates" />
-      </list>
-    </option>
   </component>
 </module>

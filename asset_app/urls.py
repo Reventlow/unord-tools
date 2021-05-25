@@ -1,7 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls.static import settings, static
 from . import api
 from . import views
 
@@ -70,12 +69,14 @@ urlpatterns = [
     path("asset_app/room/detail_pdf/<int:pk>/", views.RoomPDFDetailView, name="asset_app_room_detail_to_pdf_view"),
     path("asset_app/room/update/<int:pk>/", views.RoomUpdateView.as_view(), name="asset_app_room_update"),
     path("asset_app/room/delete/<int:pk>/", views.RoomListView.delete, name="asset_app_room_delete"),
-    path("asset_app/room_type/", views.Room_typeListView, name="asset_app_room_type_list"),
+    path("asset_app/room_type/", views.Room_typeListView.as_view(), name="asset_app_room_type_list"),
     path("asset_app/room_type/create/", views.Room_typeCreateView.as_view(), name="asset_app_room_type_create"),
     path("asset_app/room_type/detail/<int:pk>/", views.Room_typeDetailView.as_view(), name="asset_app_room_type_detail"),
     path("asset_app/room_type/update/<int:pk>/", views.Room_typeUpdateView.as_view(), name="asset_app_room_type_update"),
-    path("asset_app/room_type/delete/<int:pk>/", views.Room_typeListView.delete, name="asset_app_room_type_delete"),
+    #path("asset_app/room_type/delete/<int:pk>/", views.Room_typeListView.delete, name="asset_app_room_type_delete"),
 
 
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

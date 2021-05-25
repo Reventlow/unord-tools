@@ -6,6 +6,7 @@ import datetime
 from . import models
 from . import forms
 
+
 class AssetListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
@@ -322,7 +323,7 @@ class RoomListView(generic.ListView):
         return qs
 
     def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
+        obj = super().object_list(queryset=queryset)
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
@@ -367,7 +368,7 @@ class Room_typeListView(generic.ListView):
         return qs
 
     def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
+        obj = super().object_list(queryset=queryset)
         prefetch_related_objects([obj], 'room__asset')
         return obj
 
