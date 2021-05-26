@@ -66,6 +66,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'UnordToolsProject.urls'
+SECURE_SSL_REDIRECT = True
 
 TEMPLATES = [
     {
