@@ -20,7 +20,7 @@ class AssetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens ip adresse'}))
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
-    may_be_loaned = forms.BooleanField(label="Er rummet brugbar", initial=False, required=False)
+    may_be_loaned = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
 
     class Meta:
         model = models.Asset
