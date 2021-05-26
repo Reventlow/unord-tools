@@ -188,7 +188,7 @@ class Model_hardware(models.Model):
     brand = models.ForeignKey("asset_app.Brand", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=60)
     notes = models.TextField(max_length=448, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
