@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     #third-party-apps
     'rest_framework',
     'storages',
+    'wkhtmltopdf',
     #my-apps
     'pages_app.apps.PagesConfig',
     'to_do_list_app',
