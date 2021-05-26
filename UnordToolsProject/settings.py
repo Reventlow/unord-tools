@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -162,6 +162,7 @@ AWS_STATIC_LOCATION = 'static'
 STATICFILES_STORAGE = 'UnordToolsProject.storage_backends.StaticStorage'
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
 
+
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 DEFAULT_FILE_STORAGE = 'UnordToolsProject.storage_backends.PublicMediaStorage'
 
@@ -172,6 +173,8 @@ STATICFILES_DIRS = (
     (os.path.join(BASE_DIR, 'static'),)
     #(os.path.join(BASE_DIR, 'media'),)
 )
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
+MEDIA_ROOT = (os.path.join(BASE_DIR, 'media'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
