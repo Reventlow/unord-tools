@@ -18,7 +18,19 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (UNORDToolsProject)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (unord-tools)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Django" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/asset_app/templates" />
+        <option value="$MODULE_DIR$/pages_app/templates" />
+        <option value="$MODULE_DIR$/to_do_list_app/templates" />
+        <option value="$MODULE_DIR$/authenticate_app/templates" />
+      </list>
+    </option>
   </component>
 </module>

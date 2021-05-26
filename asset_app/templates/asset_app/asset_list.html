@@ -24,10 +24,10 @@
                 </td>
                 <td>Placering</td>
 <td>
-                    <center>Model</center>
+                    <center>Mærke og Model</center>
                 </td>
                      <td>
-                    <center>Mærke</center>
+                    <center>Serie nummer</center>
                 </td>
                 <td>
                     <center>Udstyrs type</center>
@@ -84,10 +84,10 @@
                         {{ object.room }} :: {{ object.room.location }} :: {{ object.room.room_type }}
                     </td>
                      <td>
-                    <center>{{ object.model_hardware}}</center>
+                    <center>{{ object.model_hardware.brand }} - {{ object.model_hardware}}</center>
                 </td>
                  <td>
-                    <center>{{ object.model_hardware.brand }}</center>
+                    <center>{{ object.serial }}</center>
                 </td>
                                <td>
                         <center>{{ object.model_hardware.asset_type }}</center>
