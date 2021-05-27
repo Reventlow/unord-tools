@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include('pages_app.urls')),
     path('admin/', admin.site.urls),
     path('authenticate/', include('authenticate_app.urls')),
+
     path('todo/', include('to_do_list_app.urls')),
     path('asset/', include('asset_app.urls')),
 
