@@ -349,13 +349,14 @@ class RoomDetailView(generic.DetailView):
 
 
 
-class RoomPDFDetailView():
-
+class RoomPDFDetailView(generic.DetailView):
+    model = models.Room
+    form_class = forms.RoomForm
 
     def export_pdf_save(request):
 
-        request = Request('https://webtopdf.expeditedaddons.com/?api_key=' +
-            'W54PKXL6A9I2TJ1NM0B9UD18HOV3058C4ES2QG67Y37FZR' + '&content=127.0.0.1:8000/asset/asset_app/room/detail_pdf/1/&html_width=1024&margin=10&title=My+PDF+Title')
+        request = Request('https://webtopdf.expeditedaddons.com/?api_key=' + os.environ[
+            'WEBTOPDF_API_KEY'] + '&content=127.0.0.1:8000/asset/asset_app/room/detail_pdf/1/&html_width=1024&margin=10&title=My+PDF+Title')
 
         response_body = urlopen(request).read()
         print(response_body)
