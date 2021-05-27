@@ -3,6 +3,9 @@ from django.views import generic
 from django.db.models import Count, prefetch_related_objects
 from django.contrib import messages
 import datetime
+import os
+import urllib.request as Request
+from urllib.request import urlopen
 from . import models
 from . import forms
 
@@ -344,14 +347,21 @@ class RoomDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-    def export_pdf_save(request, filename):
-        pass
+
+
+class RoomPDFDetailView():
+
+
+    def export_pdf_save(request):
+
+        request = Request('https://webtopdf.expeditedaddons.com/?api_key=' +
+            'W54PKXL6A9I2TJ1NM0B9UD18HOV3058C4ES2QG67Y37FZR' + '&content=127.0.0.1:8000/asset/asset_app/room/detail_pdf/1/&html_width=1024&margin=10&title=My+PDF+Title')
+
+        response_body = urlopen(request).read()
+        print(response_body)
 
     def export_pdf_view(request):
         pass
-
-class RoomPDFDetailView():
-    pass
 
 class RoomUpdateView(generic.UpdateView):
     model = models.Room
