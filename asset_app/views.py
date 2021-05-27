@@ -15,18 +15,18 @@ class AssetListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         return queryset
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Asset.objects.get(pk=del_id)
         item.delete()
@@ -58,19 +58,19 @@ class Asset_typeListView(generic.ListView):
     model = models.Asset_type
     form_class = forms.Asset_typeForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('model_hardware__asset'))
         return qs
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Asset_type.objects.get(pk=del_id)
         item.delete()
@@ -100,12 +100,12 @@ class BrandListView(generic.ListView):
     model = models.Brand
     form_class = forms.BrandForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         return queryset.annotate(object_count=Count('model_hardware__asset'))
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Brand.objects.get(pk=del_id)
         item.delete()
@@ -133,19 +133,19 @@ class Bundle_reservationListView(generic.ListView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('returned','return_date')
         return queryset
 
-    @login_required(login_url='login')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
         context["today"] = new_context_entry
         return context
 
-    @login_required(login_url='login')
+    
     def returned_true(request, res_id):
         item = models.Bundle_reservation.objects.get(pk=res_id)
         item.returned = False
@@ -153,7 +153,7 @@ class Bundle_reservationListView(generic.ListView):
         item.save()
         return redirect('asset_app_bundle_reservation_list')
 
-    @login_required(login_url='login')
+    
     def returned_false(request, res_id):
         item = models.Bundle_reservation.objects.get(pk=res_id)
         item.returned = True
@@ -171,7 +171,7 @@ class Bundle_reservationDetailView(generic.DetailView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
 
-    @login_required(login_url='login')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
@@ -189,14 +189,14 @@ class Loan_assetListView(generic.ListView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
 
-    @login_required(login_url='login')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
         context["today"] = new_context_entry
         return context
 
-    @login_required(login_url='login')
+    
     def returned_true(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
         item.returned = False
@@ -204,7 +204,7 @@ class Loan_assetListView(generic.ListView):
         item.save()
         return redirect('asset_app_loan_asset_list')
 
-    @login_required(login_url='login')
+    
     def returned_false(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
         item.returned = True
@@ -233,19 +233,19 @@ class LocationsListView(generic.ListView):
     model = models.Locations
     form_class = forms.LocationsForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('room__asset'))
         return qs
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset.order_by('name'))
         prefetch_related_objects([obj], 'room__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Locations.objects.get(pk=del_id)
         item.delete()
@@ -274,7 +274,7 @@ class Loaner_typeListView(generic.ListView):
     model = models.Loaner_type
     form_class = forms.Loaner_typeForm
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Loaner_type.objects.get(pk=del_id)
         item.delete()
@@ -302,19 +302,19 @@ class Model_hardwareListView(generic.ListView):
     model = models.Model_hardware
     form_class = forms.ModelForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('asset'))
         return qs
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Model_hardware.objects.get(pk=del_id)
         item.delete()
@@ -342,19 +342,19 @@ class RoomListView(generic.ListView):
     model = models.Room
     form_class = forms.RoomForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('asset'))
         return qs
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().object_list(queryset=queryset)
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Room.objects.get(pk=del_id)
         item.delete()
@@ -378,7 +378,7 @@ class RoomPDFDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-    @login_required(login_url='login')
+    
     def export_pdf_save(request):
 
         request = Request('https://webtopdf.expeditedaddons.com/?api_key=' + os.environ['WEBTOPDF_API_KEY'] + '&content=127.0.0.1:8000/asset/asset_app/room/detail_pdf/1/&html_width=1024&margin=10&title=My+PDF+Title')
@@ -386,7 +386,7 @@ class RoomPDFDetailView(generic.DetailView):
         response_body = urlopen(request).read()
         print(response_body)
 
-    @login_required(login_url='login')
+    
     def export_pdf_view(request):
         pass
 
@@ -402,19 +402,19 @@ class Room_typeListView(generic.ListView):
     model = models.Room_type
     form_class = forms.Room_typeForm
 
-    @login_required(login_url='login')
+    
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('room'))
         return qs
 
-    @login_required(login_url='login')
+    
     def get_object(self, queryset=None):
         obj = super().object_list(queryset=queryset)
         prefetch_related_objects([obj], 'room__asset')
         return obj
 
-    @login_required(login_url='login')
+    
     def delete(request, del_id):
         item = models.Room_type.objects.get(pk=del_id)
         item.delete()
