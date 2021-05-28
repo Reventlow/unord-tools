@@ -41,13 +41,14 @@
                     {{ object.name }}
                 </td>
                 <td>Serie nummer</td>
+                         <td>
+                    <center>Udstyrs type</center>
+                </td>
 <td>
                     <center>Model</center>
                 </td>
 
-                <td>
-                    <center>Udstyrs type</center>
-                </td>
+
                 <td>
                     <center>Slet</center>
                 </td>
@@ -96,13 +97,14 @@
                 <td>
                         {{ object.serial }}
                     </td>
+                               <td>
+                        <center>{{ object.model_hardware.asset_type }}</center>
+                    </td>
+
                      <td>
                     <center>{{ object.model_hardware.brand }} - {{ object.model_hardware}}</center>
                 </td>
 
-                               <td>
-                        <center>{{ object.model_hardware.asset_type }}</center>
-                    </td>
 
 
                     <td>
