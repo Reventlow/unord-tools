@@ -21,7 +21,9 @@
     <td>{{ object.location }}</td>
     <td>{{ object.room_type }}</td>
     {% if object.last_updated == None %}
-    <td class="btn-danger">{{ object.last_updated }}</td>
+            <td class="btn-danger">{{ object.last_updated }}</td>
+    {% else %}
+            <td>{{ object.last_updated }}</td>
     {% endif %}
 </tr>
 {% endfor %}
