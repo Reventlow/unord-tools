@@ -372,8 +372,8 @@ class RoomDashboard(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context_entry_today = datetime.date.today()
-        context_entry_overdue = datetime.date.today() + DT.timedelta(days=90)
-        context_entry_inspection_time = datetime.date.today() + DT.timedelta(days=76)
+        context_entry_overdue = datetime.date.today() + datetime.timedelta(days=90)
+        context_entry_inspection_time = datetime.date.today() + datetime.timedelta(days=76)
         context["today"] = context_entry_today
         context["overdue"] = context_entry_overdue
         context["inspection_time"] = context_entry_inspection_time
