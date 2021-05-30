@@ -365,8 +365,9 @@ class RoomDashboard(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-    queryset = super().get_queryset().order_by('name')
-    return queryset
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('last_inspected')
+        return queryset
 
 class RoomCreateView(generic.CreateView):
     model = models.Room
