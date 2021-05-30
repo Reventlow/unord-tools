@@ -361,7 +361,12 @@ class RoomListView(generic.ListView):
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
 
+class RoomDashboard(generic.DetailView):
+    model = models.Room
+    form_class = forms.RoomForm
 
+    queryset = super().get_queryset().order_by('name')
+    return queryset
 
 class RoomCreateView(generic.CreateView):
     model = models.Room
@@ -371,7 +376,6 @@ class RoomCreateView(generic.CreateView):
 class RoomDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
-
 
 
 class RoomPDFDetailView(generic.DetailView):
