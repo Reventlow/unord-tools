@@ -361,12 +361,13 @@ class RoomListView(generic.ListView):
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
 
-class RoomDashboard(generic.ListView):
+class RoomDashboard(generic.TemplateView):
+    template_name = "asset_app/room_dashboard.html"
     model = models.Room
     form_class = forms.RoomForm
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-last_inspected')
+        queryset = super().get_queryset().order_by('last_inspected')
         return queryset
 
     def get_context_data(self, **kwargs):
