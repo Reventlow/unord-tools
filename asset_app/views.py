@@ -71,7 +71,7 @@ class Asset_typeListView(generic.ListView):
         return obj
 
     
-    def delete(request, del_id):
+    def delete(self, request, del_id):
         item = models.Asset_type.objects.get(pk=del_id)
         item.delete()
         messages.success(request, 'Udtyrs type er nu blevet slettet')
