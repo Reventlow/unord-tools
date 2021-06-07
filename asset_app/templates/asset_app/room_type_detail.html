@@ -14,7 +14,7 @@
 
 <table class="table">
     <tr><td>Rum type</td><td>{{ object.name }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
