@@ -212,10 +212,10 @@ class RoomForm(forms.ModelForm):
                                       widget=forms.Select(attrs={'class': 'form-control'}))
     room_type = forms.ModelChoiceField(queryset=Room_type.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    image_date = forms.DateField(required=False,
-                                 widget=forms.widgets.DateTimeInput(attrs={'class': 'form-control', "type": "date"}))
+    image_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+        attrs={'class': 'form-control', "type": "date"}))
     image = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'class': 'form-control'}))
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
