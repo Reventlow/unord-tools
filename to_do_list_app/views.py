@@ -21,7 +21,7 @@ def todo(request):
             context = {'all_items': all_items}
             return render(request, 'todo.html', context)
     else:
-        all_items =Jobs.objects.order_by('-completed')
+        all_items =Jobs.objects.order_by('completed')
         context = {'all_items': all_items}
         return render(request, 'todo.html', context)
 
