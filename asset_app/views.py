@@ -149,7 +149,7 @@ class Bundle_reservationListView(generic.ListView):
     def returned_true(request, res_id):
         item = models.Bundle_reservation.objects.get(pk=res_id)
         item.returned = False
-        messages.success(request, 'Noteret udstyret som afleveret')
+        messages.success(request, 'Noteret udstyret som ikke afleveret')
         item.save()
         return redirect('asset_app_bundle_reservation_list')
 
@@ -157,7 +157,7 @@ class Bundle_reservationListView(generic.ListView):
     def returned_false(request, res_id):
         item = models.Bundle_reservation.objects.get(pk=res_id)
         item.returned = True
-        messages.success(request,'Noteret udstyret som ikke afleveret')
+        messages.success(request,'Noteret udstyret som afleveret')
         item.save()
         return redirect('asset_app_bundle_reservation_list')
 
