@@ -12,7 +12,7 @@ class AssetForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     room = forms.ModelChoiceField(queryset=Room.objects.all(),
                                   widget=forms.Select(attrs={'class': 'form-control'}))
-    purchased_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+    purchased_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     mac_address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens mac adresse'}))
