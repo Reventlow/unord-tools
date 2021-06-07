@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #test
-@method_decorator(login_required, name='login')
+@method_decorator(login_required, login_url='login')
 class AssetListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
