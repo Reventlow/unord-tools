@@ -84,9 +84,9 @@ class Bundle_reservationForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast serie på udstyr'}))
     course_name = forms.CharField(label="", max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast kursus/eller brugs beskrivelse'}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret afleveret tilbage", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
@@ -128,9 +128,9 @@ class Loan_assetForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset = forms.ModelChoiceField(queryset=Asset.objects.filter(may_be_loaned=True), label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret retuneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
