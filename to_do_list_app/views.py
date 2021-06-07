@@ -4,6 +4,7 @@ from .forms import ListForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 

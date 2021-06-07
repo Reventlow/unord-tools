@@ -9,8 +9,9 @@ from urllib.request import urlopen
 from . import models
 from . import forms
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(login_required, name='login')
 class AssetListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
