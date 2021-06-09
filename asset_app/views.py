@@ -2,14 +2,16 @@ from django.shortcuts import redirect
 from django.views import generic
 from django.db.models import Count, prefetch_related_objects
 from django.contrib import messages
-import datetime
-import os
-import urllib.request as Request
-from urllib.request import urlopen
-from . import models
-from . import forms
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import urllib.request as Request
+from urllib.request import urlopen
+import datetime
+import os
+import to_do_list_app.models
+from . import models
+from . import forms
+
 
 @method_decorator(login_required, name='dispatch')
 class AssetListView(generic.ListView):
@@ -184,6 +186,27 @@ class Bundle_reservationUpdateView(generic.UpdateView):
     model = models.Bundle_reservation
     form_class = forms.Bundle_reservationForm
     pk_url_kwarg = "pk"
+
+class Dashboard(generic.TemplateView):
+    template_name = "asset_app/dashboard.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('last_inspected')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_entry_today = datetime.date.today()
+        context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
+        context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
+        context['rooms'] = models.Room.objects.order_by('last_inspected')
+        context['bundelReservations'] = models.Bundle_reservation.objects.order_by('return_date')
+        context['loan_assets'] = models.Loan_asset.objects.order_by('return_date')
+        context['to_dos'] = to_do_list_app.models.Jobs.objects.all()
+        context["today"] = context_entry_today
+        context["overdue"] = context_entry_overdue
+        context["inspection_time"] = context_entry_inspection_time
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class Loan_assetListView(generic.ListView):
@@ -362,25 +385,6 @@ class RoomListView(generic.ListView):
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
 
-@method_decorator(login_required, name='dispatch')
-class RoomDashboard(generic.TemplateView):
-    template_name = "asset_app/room_dashboard.html"
-    model = models.Room
-    form_class = forms.RoomForm
-
-    def get_queryset(self):
-        queryset = super().get_queryset().order_by('last_inspected')
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context_entry_today = datetime.date.today()
-        context_entry_overdue = datetime.date.today() + datetime.timedelta(days=90)
-        context_entry_inspection_time = datetime.date.today() + datetime.timedelta(days=76)
-        context["today"] = context_entry_today
-        context["overdue"] = context_entry_overdue
-        context["inspection_time"] = context_entry_inspection_time
-        return context
 
 @method_decorator(login_required, name='dispatch')
 class RoomCreateView(generic.CreateView):

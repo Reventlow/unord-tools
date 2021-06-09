@@ -116,16 +116,8 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                         <li><a class="dropdown-item" href="{% url 'asset_app_loaner_type_create' %}">Reg. Udlåner type</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboards</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'asset_app_room_dashboard' %}">Rum</a></li>
-                        <li><a class="dropdown-item" href="{% url 'change_password' %}">Skift din adgangskode</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'register_user' %}">Registrer ny bruger</a></li>
-                    </ul>
+                <li class="nav-item"><a class="nav-link" href="{% url 'asset_app_dashboard' %}">Dashboard</a></li>
+
                 </li></li>
                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profil
