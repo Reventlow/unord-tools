@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div><a class="btn btn-primary" href="{% url 'asset_app_locations_create' %}">Reg ny enhed</a></div>
+    <div><a class="btn btn-primary" href="{% url 'asset_app_asset_create' %}">Reg ny enhed</a></div>
     <h1>Enheds oversigt</h1>
 
     <br/>
@@ -63,7 +63,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Note: {{ object.notes }}
+                                        {{ object.notes|linebreaks  }}
                                     </div>
 
                                 </div>

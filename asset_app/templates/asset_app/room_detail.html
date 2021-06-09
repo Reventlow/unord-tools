@@ -8,10 +8,11 @@
 <a class="btn btn-primary" href="{% url 'asset_app_room_create' %}">
     Opret nyt rum
     </a>
-<a class="btn btn-info" href="{% url 'asset_app_room_detail_to_pdf_save'  object.id %}">
+    <a class="btn btn-primary" href="{% url 'asset_app_asset_create' %}">Reg ny enhed</a>
+<a class="btn btn-info" href="{% url 'asset_app_room_detail_to_pdf_save'   %}">
     Download pdf
     </a>
-<a class="btn btn-info" href="{% url 'asset_app_room_detail_to_pdf_save'  object.id %}">
+<a class="btn btn-info" href="{% url 'asset_app_room_detail_to_pdf_save' %}">
     Se pdf
     </a>
 </p>
@@ -26,7 +27,7 @@
     <tr><td>Billede</td><td><img src="{{ object.image.url }} " width="400"></td></tr>
     {% endif %}
     <tr><td>Sidst gennemgået</td><td>{{ object.last_inspected }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
@@ -41,13 +42,14 @@
                     {{ object.name }}
                 </td>
                 <td>Serie nummer</td>
+                         <td>
+                    <center>Udstyrs type</center>
+                </td>
 <td>
                     <center>Model</center>
                 </td>
 
-                <td>
-                    <center>Udstyrs type</center>
-                </td>
+
                 <td>
                     <center>Slet</center>
                 </td>
@@ -79,7 +81,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Note: {{ object.notes }}
+                                        {{ object.notes|linebreaks }}
                                     </div>
 
                                 </div>
@@ -96,13 +98,14 @@
                 <td>
                         {{ object.serial }}
                     </td>
+                               <td>
+                        <center>{{ object.model_hardware.asset_type }}</center>
+                    </td>
+
                      <td>
                     <center>{{ object.model_hardware.brand }} - {{ object.model_hardware}}</center>
                 </td>
 
-                               <td>
-                        <center>{{ object.model_hardware.asset_type }}</center>
-                    </td>
 
 
                     <td>

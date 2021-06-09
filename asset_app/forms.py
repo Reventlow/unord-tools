@@ -12,7 +12,7 @@ class AssetForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     room = forms.ModelChoiceField(queryset=Room.objects.all(),
                                   widget=forms.Select(attrs={'class': 'form-control'}))
-    purchased_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+    purchased_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     mac_address = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens mac adresse'}))
@@ -84,9 +84,9 @@ class Bundle_reservationForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast serie på udstyr'}))
     course_name = forms.CharField(label="", max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast kursus/eller brugs beskrivelse'}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret afleveret tilbage", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
@@ -128,12 +128,12 @@ class Loan_assetForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset = forms.ModelChoiceField(queryset=Asset.objects.filter(may_be_loaned=True), label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret retuneret", initial=False, required=False)
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -157,7 +157,7 @@ class Loan_assetForm(forms.ModelForm):
 class Loaner_typeForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast bruger type'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -173,7 +173,7 @@ class LocationsForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings navn, feks:(POA,MIL,CBV...)'}))
     address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings adresse'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -192,7 +192,7 @@ class ModelForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset_type = forms.ModelChoiceField(queryset=Asset_type.objects.all(),
                                         widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -212,12 +212,12 @@ class RoomForm(forms.ModelForm):
                                       widget=forms.Select(attrs={'class': 'form-control'}))
     room_type = forms.ModelChoiceField(queryset=Room_type.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(
+    last_inspected = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    image_date = forms.DateField(required=False,
-                                 widget=forms.widgets.DateTimeInput(attrs={'class': 'form-control', "type": "date"}))
+    image_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+        attrs={'class': 'form-control', "type": "date"}))
     image = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -237,7 +237,7 @@ class RoomForm(forms.ModelForm):
 class Room_typeForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast rum type'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:

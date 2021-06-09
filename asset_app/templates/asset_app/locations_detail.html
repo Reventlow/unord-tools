@@ -7,6 +7,10 @@
     <a class="btn btn-primary" href="{% url 'asset_app_locations_list' %}">
     Liste af afdelinger
     </a>
+
+<a class="btn btn-primary" href="{% url 'asset_app_locations_create' %}">
+    Opret ny afdeling
+    </a>
 </p>
     
 <table class="table">
@@ -14,7 +18,7 @@
     <tr><td>address</td><td>{{ object.address }}</td></tr>
     <tr><td>Sidst opdateret</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>Afdeling skabt</td><td>{{ object.created }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
     <br/><br/><br/>
@@ -68,7 +72,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Note: {{ object.notes }}
+                                        {{ object.notes|linebreaks }}
                                     </div>
 
                                 </div>
