@@ -199,7 +199,7 @@ class Dashboard(generic.TemplateView):
         context_entry_today = datetime.date.today()
         context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
         context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
-        context['rooms'] = models.Room.objects.order_by('last_inspected')
+        context['rooms'] = models.Room.objects.order_by('last_inspected','location')
         context['bundelReservations'] = models.Bundle_reservation.objects.order_by('return_date')
         context['loan_assets'] = models.Loan_asset.objects.order_by('return_date')
         context['to_dos'] = to_do_list_app.models.Jobs.objects.all()
