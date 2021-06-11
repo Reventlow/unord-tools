@@ -460,3 +460,29 @@ class Room_typeUpdateView(generic.UpdateView):
     model = models.Room_type
     form_class = forms.Room_typeForm
     pk_url_kwarg = "pk"
+
+
+@method_decorator(login_required, name='dispatch')
+class SearchView(generic.TemplateView):
+    template_name = "asset_app/search.html"
+
+    def post(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        searched = self.request.POST.get('searched')
+        context['searched'] = searched
+        context_entry_today = datetime.date.today()
+        context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
+        context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
+        context['assets'] = models.Asset.objects.filter(Q(name__contains=searched))filter(serial__contains=searched).filter(model_hardware__contains=searched).filter(location__contains=searched).filter(brand__contains=searched).order_by('name')
+        #context['assets'] = models.Asset.objects.filter(name__contains=searched).filter(serial__contains=searched).filter(model_hardware__contains=searched).filter(location__contains=searched).filter(brand__contains=searched).order_by('name')
+        context['rooms'] = models.Room.objects.filter(name__contains=searched).order_by('last_inspected', 'location', 'name')
+        context['bundelReservations'] = models.Bundle_reservation.objects.filter(loaner_name__contains=searched).order_by('return_date')
+        context['loan_assets'] = models.Loan_asset.objects.filter(loaner_name__contains=searched).order_by('return_date')
+        context['to_dos'] = to_do_list_app.models.Jobs.objects.filter(item__contains=searched)
+        context['today'] = context_entry_today
+        context['overdue'] = context_entry_overdue
+        context['inspection_time'] = context_entry_inspection_time
+        return self.render_to_response(context)
+
+
+

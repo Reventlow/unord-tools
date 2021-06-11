@@ -75,6 +75,7 @@ urlpatterns = [
     path("asset_app/room_type/detail/<int:pk>/", views.Room_typeDetailView.as_view(), name="asset_app_room_type_detail"),
     path("asset_app/room_type/update/<int:pk>/", views.Room_typeUpdateView.as_view(), name="asset_app_room_type_update"),
     path("asset_app/room_type/delete/<int:pk>/", views.Room_typeListView.delete, name="asset_app_room_type_delete"),
+    path("search/", views.SearchView.as_view(), name="asset_app_search"),
 
 
 

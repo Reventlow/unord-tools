@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script type="text/javascript">
+        setTimeout(function(){
+            location.reload();
+        },600000);
+    </script>
+
+<center><h1>Du har søgt efter {{ searched }}</h1></center>
+
+    <!-- Assets -->
+      {% if assets %}
+       <table class="table">
+            <tr class="table-dark">
+
+                  <td>
+                    Enhed
+                </td>
+                <td>Placering</td>
+<td>
+                    <center>Mærke og Model</center>
+                </td>
+                     <td>
+                    <center>Serie nummer</center>
+                </td>
+                    <td>
+                    <center>Må udlånes</center>
+                </td>
+
+                <td>
+                    <center>Slet</center>
+                </td>
+            </tr>
+             {% for object in assets %}
+
+                <tr>
+                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                             class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ object.notes|linebreaks  }}
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+
+
+
+                        {% endif %}
+
+
+                    </td>
+                <td>
+                        {{ object.room }} <br/> {{ object.room.location }} <br/>  {{ object.room.room_type }}
+                    </td>
+                     <td>
+                    <center>{{ object.model_hardware.brand }} - {{ object.model_hardware}}<br/><br/>{{ object.model_hardware.asset_type }}</center>
+                </td>
+                 <td>
+                    <center>{{ object.serial }}</center>
+                </td>
+
+       <td>
+                    <center>
+                        {% if object.may_be_loaned %}
+                            ja
+                        {% else %}
+                            nej
+                        {% endif %}
+                    </center>
+                </td>
+
+                    <td>
+                        <center><a href="{% url 'asset_app_asset_delete' object.id %}" class="btn btn-danger btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+    <!-- Rooms -->
+      {% if rooms %}
+<center><h2>Rum der skal gennemgås</h2></center>
+
+<table class="table">
+    <tr class="table-dark">
+    <td>Rum Navn</td>
+    <td>Afdeling</td>
+    <td>Rum type</td>
+    <td>Sidst gennemgået</td>
+    </tr>
+
+{% for object in rooms %}
+
+<tr>
+    <td>{{ object.name }}</td>
+    <td>{{ object.location }}</td>
+    <td>{{ object.room_type }}</td>
+    {% if object.last_inspected == None or object.last_inspected < overdue %}
+            <td class="table-danger">{{ object.last_inspected }}</td>
+    {% else %}
+            <td class="table-warning">{{ object.last_inspected }}</td>
+    {% endif %}
+</tr>
+
+{% endfor %}
+</table>
+
+
+{% endif %}
+    <!-- loan_assetsa -->
+      {% if loan_assets %}
+    <br/>
+
+    <center><h2>Personlig udlåning der mangler at blive retuneret</h2></center>
+
+<table class="table">
+    <tr class="table-dark">
+    <td>Udlåner</td>
+    <td>Person type</td>
+    <td>Fra afdeling</td>
+    <td>Udstyr</td>
+    <td>Skulle afleveres</td>
+    </tr>
+
+{% for object in loan_assets %}
+<tr>
+    <td>{{ object.loaner_name }}</td>
+    <td>{{ object.loaner_type }}</td>
+    <td>{{ object.location }}</td>
+    <td>{{ object.asset }}</td>
+    {% if object.return_date == None or object.return_date < today %}
+            <td class="table-danger">{{ object.return_date }}</td>
+    {% endif %}
+</tr>
+
+{% endfor %}
+</table>
+{% endif %}
+    <!-- bundelReservations -->
+      {% if bundelReservations %}
+        <br/>
+
+    <center><h2>Sæt udlåning der mangler at blive retuneret</h2></center>
+
+<table class="table">
+    <tr class="table-dark">
+        <td>Udlåner</td>
+        <td>Fra afdeling</td>
+        <td>Formål</td>
+        <td>Udstyr type</td>
+        <td>Antal</td>
+        <td>Skulle afleveres</td>
+    </tr>
+
+{% for object in bundelReservations %}
+
+<tr>
+    <td>{{ object.loaner_name }}</td>
+    <td>{{ object.location }}</td>
+    <td>{{ object.course_name }}</td>
+    <td>{{ object.asset_type }}</td>
+    <td>{{ object.amount }}</td>
+    {% if object.return_date == None or object.return_date < today %}
+            <td class="table-danger">{{ object.return_date }}</td>
+    {% endif %}
+</tr>
+
+{% endfor %}
+</table>
+{% endif %}
+    <!-- todo -->
+      {% if to_dos %}
+    <br/>
+        <center><h2>To do listen</h2></center>
+
+<table class="table">
+    <tr class="table-dark">
+        <td>Opgave</td>
+    </tr>
+
+{% for object in to_dos %}
+{% if object.completed == False %}
+<tr>
+    <td>{{ object.item}}</td>
+</tr>
+        {% endif %}
+{% endfor %}
+</table>
+    {% endif %}
+{% endblock %}

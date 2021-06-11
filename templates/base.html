@@ -132,7 +132,12 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                     </ul>
                 </li></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Om denne webside</a>
-                </li>                 {% endif %}             </ul>             {% if user.is_authenticated %}
+                </li>
+
+                     </ul>            <form method="post" class="d-flex" action="{% url 'asset_app_search' %}">{% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Søg" aria-label="Search" name="searched">
+        <button class="btn btn-outline-secondary" type="submit">Søg</button> -
+      </form> {% else %}   </ul>     {% endif %}         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class="btn btn-primary  btn-lg " tabindex="-1" role="button"
                aria-disabled="true">Logud</a>             {% else %}
             <a href="{% url 'login' %}" class="btn btn-primary  btn-lg " tabindex="-1" role="button"
