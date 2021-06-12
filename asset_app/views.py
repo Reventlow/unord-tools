@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.views import generic
-from django.db.models import Count, prefetch_related_objects
+from django.db.models import Count, prefetch_related_objects, Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -473,7 +473,7 @@ class SearchView(generic.TemplateView):
         context_entry_today = datetime.date.today()
         context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
         context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
-        context['assets'] = models.Asset.objects.filter(Q(name__contains=searched))filter(serial__contains=searched).filter(model_hardware__contains=searched).filter(location__contains=searched).filter(brand__contains=searched).order_by('name')
+        context['assets'] = models.Asset.objects.filter(Q(name__icontains=searched) | Q(serial__icontains=searched) | Q(model_hardware__name__icontains=searched) | Q(room__name__icontains=searched)).order_by('name')
         #context['assets'] = models.Asset.objects.filter(name__contains=searched).filter(serial__contains=searched).filter(model_hardware__contains=searched).filter(location__contains=searched).filter(brand__contains=searched).order_by('name')
         context['rooms'] = models.Room.objects.filter(name__contains=searched).order_by('last_inspected', 'location', 'name')
         context['bundelReservations'] = models.Bundle_reservation.objects.filter(loaner_name__contains=searched).order_by('return_date')
