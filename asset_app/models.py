@@ -278,15 +278,15 @@ class Routines(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("Asset_app_Routines_detail", args=(self.pk,))
+        return reverse("asset_app_routines_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("Asset_app_Routines_update", args=(self.pk,))
+        return reverse("asset_app_routines_update", args=(self.pk,))
 
 class RoutineLog(models.Model):
 
     # Relationships
-    routine = models.ForeignKey("asset_app.Routines", on_delete=models.SET_NULL, blank=True, null=True)
+    routine = models.ForeignKey("asset_app.routines", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     date = models.DateField()
@@ -303,10 +303,10 @@ class RoutineLog(models.Model):
         return str(self.pk)
 
     def get_absolute_url(self):
-        return reverse("Asset_app_RoutineLog_detail", args=(self.pk,))
+        return reverse("asset_app_routineLog_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("Asset_app_RoutineLog_update", args=(self.pk,))
+        return reverse("asset_app_routineLog_update", args=(self.pk,))
 
 
 
