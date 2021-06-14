@@ -96,8 +96,9 @@
         {% endif %}
 {% endfor %}
 </table>
-
-     {% if routinelogs %}
+<br/>
+    <h2>Routiner</h2>
+     {% if routines %}
         <table class="table">
             <tr class="table-dark">
                 <td>Beskrivelse</td>
@@ -111,7 +112,7 @@
                     <center>Lokation</center>
                 </td>
             </tr>
-            {% for object in routinelogs %}
+            {% for object in routines %}
                 <tr>
                     <td>{{ object.name }}
 
