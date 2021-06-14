@@ -113,7 +113,9 @@
                 </td>
             </tr>
             {% for object in routines %}
-
+{% for routinelog in routinelogs %}
+         {% if routinelog.date < object.reoccurrence|minusDays  %}
+                                        {% if routinelog.routine.name == object.name %}
 
                 <tr>
                     <td>{{ object.name }}
@@ -123,23 +125,22 @@
 
                         <center>{{ object.reoccurrence }}</center>
                     </td>
-{% for routinelog in routinelogs %}
-         {% if routinelog.date < object.reoccurrence|minusDays  %}
-                                        {% if routinelog.routine.name == object.name %}
+
 
                        <td class="table-danger"> <center>{{ routinelog.date }}</center> </td>
 
 
-                                                {% endif  %}
-   {% endfor %}
+
+
 
 <td>
                         <center>{{ object.room }} - {{ object.room.location }}</center>
                     </td>
 
                 </tr>
+             {% endif  %}
  {% endif  %}
-
+{% endfor %}
             {% endfor %}
         </table>
     {% endif %}
