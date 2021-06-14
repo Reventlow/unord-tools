@@ -96,6 +96,54 @@
 {% endfor %}
 </table>
 
+     {% if routinelogs %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Beskrivelse</td>
+                   <td>
+                    <center>Udføres efter antale dage</center>
+                </td>
+                <td>
+                    <center>Sidst gennemført</center>
+                </td>
+                <td>
+                    <center>Lokation</center>
+                </td>
+            </tr>
+            {% for object in routinelogs %}
+                <tr>
+                    <td>{{ object.name }}
+
+</td>
+
+
+                        <center>{{ object.reoccurrence }}</center>
+                    </td>
+                                    {% for routinelog in routinelogs %}
+                                        {% if routinelog.routine.name == object.name %}
+{% if routinelog.date < object.reoccurrence|minusDays  %}
+
+                       <td class="table-danger"> <center>{{ routinelog.date }}</center> </td>
+    {% else %}
+    <td> <center>{{ routinelog.date }}</center> </td>
+    {% endif  %}
+                                                {% endif  %}
+                                        {% endfor %}
+
+<td>
+                        <center>{{ object.room }} - {{ object.room.location }}</center>
+                    </td>
+                    <td>
+                        <center>
+                            <a href="#{% url 'asset_app_room_type_delete' object.id %}" class="btn btn-danger btn-sm "
+                               tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
     <br/>
         <center><h2>To do listen</h2></center>
 

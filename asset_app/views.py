@@ -202,6 +202,7 @@ class Dashboard(generic.TemplateView):
         context['rooms'] = models.Room.objects.exclude(room_type__name='Skole').exclude(room_type__name='Afdeling').order_by('last_inspected', 'location', 'name')
         context['bundelReservations'] = models.Bundle_reservation.objects.order_by('return_date')
         context['loan_assets'] = models.Loan_asset.objects.order_by('return_date')
+        context['routinelogs'] = models.RoutineLog.objects.all().order_by('routine__name','-date').distinct('routine__name')
         context['to_dos'] = to_do_list_app.models.Jobs.objects.all()
         context["today"] = context_entry_today
         context["overdue"] = context_entry_overdue
