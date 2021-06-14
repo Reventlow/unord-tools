@@ -27,9 +27,6 @@
                 <td>
                     <center>Sidst gennemført</center>
                 </td>
-                   <td>
-                    <center>Skal gøres igen inde</center>
-                </td>
                 <td>
                     <center>Lokation</center>
                 </td>
@@ -90,9 +87,7 @@
     {% endif  %}
                                                 {% endif  %}
                                         {% endfor %}
-<td>
-                        <center>{{ object.reoccurrence|addDays }}</center>
-                    </td>
+
 <td>
                         <center>{{ object.room }} - {{ object.room.location }}</center>
                     </td>
