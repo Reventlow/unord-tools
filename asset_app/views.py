@@ -204,7 +204,7 @@ class Dashboard(generic.TemplateView):
         context['loan_assets'] = models.Loan_asset.objects.order_by('return_date')
         context['routinelogs'] = models.RoutineLog.objects.all().order_by('routine__name','-date').distinct('routine__name')
         context['to_dos'] = to_do_list_app.models.Jobs.objects.all()
-        context['routines'] = models.Routines.objects.all().order_by('routine__name','-date')
+        context['routines'] = models.Routines.objects.all().order_by('name','-date')
         context["today"] = context_entry_today
         context["overdue"] = context_entry_overdue
         context["inspection_time"] = context_entry_inspection_time
