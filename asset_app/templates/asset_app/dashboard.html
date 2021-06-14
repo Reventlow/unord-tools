@@ -19,7 +19,7 @@
     </tr>
 
 {% for object in rooms %}
-    {% if object.room_type.name != "Skole" or object.room_type.name != "Afdeling"  %}
+    {% if object.room_type "Skole" or object.room_type.name "Afdeling"  %}
 {% if object.last_inspected == None or object.last_inspected < inspection_time %}
 <tr>
     <td>{{ object.name }}</td>
