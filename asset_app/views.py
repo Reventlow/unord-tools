@@ -474,7 +474,7 @@ class RoutinesListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context_entry_today = datetime.date.today()
         context_entry_overdue = datetime.date.today() - datetime.timedelta(days=2)
-        context['routinelogs'] = models.RoutineLog.objects.all().distinct('routine').order_by('-date')
+        context['routinelogs'] = models.RoutineLog.objects.all().order_by('routine__name','-date').distinct('routine__name')
         context["today"] = context_entry_today
         context["overdue"] = context_entry_overdue
         return context
