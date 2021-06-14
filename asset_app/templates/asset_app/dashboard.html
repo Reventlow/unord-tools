@@ -19,6 +19,7 @@
     </tr>
 
 {% for object in rooms %}
+    {% if object.room_type != "Skole" or object.room_type != "Afdeling"  %}
 {% if object.last_inspected == None or object.last_inspected < inspection_time %}
 <tr>
     <td>{{ object.name }}</td>
@@ -28,6 +29,7 @@
             <td class="table-danger">{{ object.last_inspected }}</td>
     {% else %}
             <td class="table-warning">{{ object.last_inspected }}</td>
+        {% endif %}
     {% endif %}
 </tr>
         {% endif %}
