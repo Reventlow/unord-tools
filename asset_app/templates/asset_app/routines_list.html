@@ -71,17 +71,19 @@
 
                         {% endif %}
 
+</td>
 
-                    </td>
-                    <td>
+
                         <center>{{ object.reoccurrence }}</center>
                     </td>
-                                    <td>{% for routinelog in routinelogs %}
+                                    {% for routinelog in routinelogs %}
                                         {% if routinelog.routine.name == object.name %}
-                        <center>{{ routinelog.date }}</center>
-                                        {% endif %}
+
+
+                       <td class="table-warning"> <center>{{ routinelog.date }}</center> </td>
+                                                {% endif  %}
                                         {% endfor %}
-                    </td>
+
 <td>
                         <center>{{ object.room }} - {{ object.room.location }}</center>
                     </td>
