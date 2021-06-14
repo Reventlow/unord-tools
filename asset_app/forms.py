@@ -250,7 +250,7 @@ class Room_typeForm(forms.ModelForm):
 
 class RoutinesForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast rum navn'}))
+        attrs={'class': 'form-control', 'placeholder': 'Indtast routine beskrivelse'}))
     reoccurrence = forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Gentages efter antale dage'}))
     room = forms.ModelChoiceField(queryset=Room.objects.all(),
                                        widget=forms.Select(attrs={'class': 'form-control'}))

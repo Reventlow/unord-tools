@@ -286,7 +286,7 @@ class Routines(models.Model):
 class RoutineLog(models.Model):
 
     # Relationships
-    routine = models.ForeignKey("asset_app.routines", on_delete=models.SET_NULL, blank=True, null=True)
+    routine = models.ForeignKey("asset_app.Routines", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     date = models.DateField()

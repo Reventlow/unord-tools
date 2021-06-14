@@ -466,6 +466,19 @@ class RoutinesListView(generic.ListView):
     model = models.Routines
     form_class = forms.RoutinesForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_entry_today = datetime.date.today()
+        context_entry_overdue = datetime.date.today() - datetime.timedelta(days=2)
+        context['routinelogs'] = models.RoutineLog.objects.all().distinct('routine__name').order_by('-date')
+        context["today"] = context_entry_today
+        context["overdue"] = context_entry_overdue
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class RoutinesCreateView(generic.CreateView):
     model = models.Routines
@@ -486,6 +499,10 @@ class RoutinesUpdateView(generic.UpdateView):
 class RoutineLogListView(generic.ListView):
     model = models.RoutineLog
     form_class = forms.RoutineLogForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('date')
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class RoutineLogCreateView(generic.CreateView):
