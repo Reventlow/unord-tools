@@ -82,7 +82,7 @@
                     </td>
                                     {% for routinelog in routinelogs %}
                                         {% if routinelog.routine.name == object.name %}
-{% if routinelog.date < -object.reoccurrence|addDays  %}
+{% if routinelog.date < object.reoccurrence|minusDays  %}
 
                        <td class="table-danger"> <center>{{ routinelog.date }}</center> </td>
     {% else %}
