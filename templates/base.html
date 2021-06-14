@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -15,23 +16,26 @@
     <script>
 
         $(document).ready(function () {
-        var date_input = $('input[name="date"]');}
+            var date_input = $('input[name="date"]');
+        }
     </script>
     <script>
-$(document).ready(function(){
- var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
+        $(document).ready(function () {
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
 
-})
-});
+            })
+        });
 
     </script>
-<script>
+    <script>
 
- $(document).ready(function(){
-    var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
-  trigger: 'focus'}});
+        $(document).ready(function () {
+            var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+                trigger: 'focus'
+            }
+        });
     </script>
 </head>
 <body>
@@ -43,6 +47,21 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'todo' %}">Huske liste</a>
+
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"> Routiner</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routines_list' %}">Routine liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routines_create' %}">Opret routine</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routineLog_list' %}">Routine-log liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routineLog_create' %}">Opret routine-log</a></li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Lokationer og rum </a>
@@ -58,10 +77,10 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                         <li><a class="dropdown-item" href="{% url 'asset_app_room_type_list' %}">Rum type liste</a></li>
                         <li><a class="dropdown-item" href="{% url 'asset_app_room_type_create' %}">Opret rum type</a>
                         </li>
-                         <li>
+                        <li>
                             <hr class="dropdown-divider">
                         </li>
-<li><a class="dropdown-item" href="{% url 'asset_app_locations_list' %}">Afdeling liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_locations_list' %}">Afdeling liste</a></li>
                         <li><a class="dropdown-item" href="{% url 'asset_app_locations_create' %}">Opret afdeling</a>
                         </li>
                     </ul>
@@ -97,7 +116,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                     </ul>
                 </li>
 
-                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Udlån System</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,16 +129,18 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                             reservation liste</a></li>
                         <li><a class="dropdown-item" href="{% url 'asset_app_bundle_reservation_create' %}">Reg. udstyr
                             reservations</a></li>
-                <hr class="dropdown-divider">
+                        <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'asset_app_loaner_type_list' %}">Udlåner type oversigt</a></li>
-                        <li><a class="dropdown-item" href="{% url 'asset_app_loaner_type_create' %}">Reg. Udlåner type</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_loaner_type_list' %}">Udlåner type
+                            oversigt</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_loaner_type_create' %}">Reg. Udlåner
+                            type</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'asset_app_dashboard' %}">Dashboard</a></li>
 
-                </li></li>
-                   <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                </li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profil
                     og opret bruger  </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -130,14 +151,17 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
                         </li>
                         <li><a class="dropdown-item" href="{% url 'register_user' %}">Registrer ny bruger</a></li>
                     </ul>
-                </li></li>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Om denne webside</a>
                 </li>
 
-                     </ul>            <form method="post" class="d-flex" action="{% url 'asset_app_search' %}">{% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Søg" aria-label="Search" name="searched">
-        <button class="btn btn-outline-secondary" type="submit">Søg</button> -
-      </form> {% else %}   </ul>     {% endif %}         {% if user.is_authenticated %}
+                </ul>
+                <form method="post" class="d-flex" action="{% url 'asset_app_search' %}">{% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="Søg" aria-label="Search"
+                           name="searched">
+                    <button class="btn btn-outline-secondary" type="submit">Søg</button>
+                    -
+                </form> {% else %}   </ul>     {% endif %}         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class="btn btn-primary  btn-lg " tabindex="-1" role="button"
                aria-disabled="true">Logud</a>             {% else %}
             <a href="{% url 'login' %}" class="btn btn-primary  btn-lg " tabindex="-1" role="button"
@@ -148,8 +172,10 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
     {% block content %}     {% endblock %} </div>
 <!-- Optional JavaScript; choose one of the two! -->  <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+<!-- Option 2: Separate Popper and Bootstrap JS -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> -->
 </body>
 </html>

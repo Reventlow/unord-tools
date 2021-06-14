@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.auth.models import User
 from . import models
-from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Bundle_reservation, Loaner_type
+from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Bundle_reservation, Loaner_type, Routines
 
 
 class AssetForm(forms.ModelForm):
@@ -244,5 +245,42 @@ class Room_typeForm(forms.ModelForm):
         model = models.Room_type
         fields = [
             "name",
+            "notes",
+        ]
+
+class RoutinesForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast rum navn'}))
+    reoccurrence = forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Gentages efter antale dage'}))
+    room = forms.ModelChoiceField(queryset=Room.objects.all(),
+                                       widget=forms.Select(attrs={'class': 'form-control'}))
+    routine_owner = forms.ModelChoiceField(queryset=User.objects.all(),
+                                       widget=forms.Select(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.Routines
+        fields = [
+            "name",
+            "reoccurrence",
+            "room",
+            "routine_owner",
+            "notes",
+        ]
+
+class RoutineLogForm(forms.ModelForm):
+    date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+                                                                                        attrs={'class': 'form-control',
+                                                                                               "type": "date"}))
+    routine = forms.ModelChoiceField(queryset=Routines.objects.all(),
+                                  widget=forms.Select(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+    class Meta:
+        model = models.RoutineLog
+        fields = [
+            "date",
+            "routine",
             "notes",
         ]

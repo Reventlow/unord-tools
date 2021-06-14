@@ -461,6 +461,47 @@ class Room_typeUpdateView(generic.UpdateView):
     form_class = forms.Room_typeForm
     pk_url_kwarg = "pk"
 
+@method_decorator(login_required, name='dispatch')
+class RoutinesListView(generic.ListView):
+    model = models.Routines
+    form_class = forms.RoutinesForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutinesCreateView(generic.CreateView):
+    model = models.Routines
+    form_class = forms.RoutinesForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutinesDetailView(generic.DetailView):
+    model = models.Routines
+    form_class = forms.RoutinesForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutinesUpdateView(generic.UpdateView):
+    model = models.Routines
+    form_class = forms.RoutinesForm
+    pk_url_kwarg = "pk"
+
+@method_decorator(login_required, name='dispatch')
+class RoutineLogListView(generic.ListView):
+    model = models.RoutineLog
+    form_class = forms.RoutineLogForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutineLogCreateView(generic.CreateView):
+    model = models.RoutineLog
+    form_class = forms.RoutineLogForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutineLogDetailView(generic.DetailView):
+    model = models.RoutineLog
+    form_class = forms.RoutineLogForm
+
+@method_decorator(login_required, name='dispatch')
+class RoutineLogUpdateView(generic.UpdateView):
+    model = models.RoutineLog
+    form_class = forms.RoutineLogForm
+    pk_url_kwarg = "pk"
 
 @method_decorator(login_required, name='dispatch')
 class SearchView(generic.TemplateView):
@@ -474,7 +515,6 @@ class SearchView(generic.TemplateView):
         context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
         context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
         context['assets'] = models.Asset.objects.filter(Q(name__icontains=searched) | Q(serial__icontains=searched) | Q(mac_address__icontains=searched) | Q(ip__icontains=searched) | Q(model_hardware__name__icontains=searched) | Q(room__name__icontains=searched)).order_by('name')
-        #context['assets'] = models.Asset.objects.filter(name__contains=searched).filter(serial__contains=searched).filter(model_hardware__contains=searched).filter(location__contains=searched).filter(brand__contains=searched).order_by('name')
         context['rooms'] = models.Room.objects.filter(name__contains=searched).order_by('last_inspected', 'location', 'name')
         context['bundelReservations'] = models.Bundle_reservation.objects.filter(loaner_name__contains=searched).order_by('return_date')
         context['loan_assets'] = models.Loan_asset.objects.filter(loaner_name__contains=searched).order_by('return_date')

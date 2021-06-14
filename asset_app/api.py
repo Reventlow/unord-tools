@@ -81,4 +81,19 @@ class Room_typeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.Room_typeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class RoutinesViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Routines class"""
+
+    queryset = models.Routines.objects.all()
+    serializer_class = serializers.RoutinesSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class RoutineLogViewSet(viewsets.ModelViewSet):
+    """ViewSet for the RoutineLog class"""
+
+    queryset = models.RoutineLog.objects.all()
+    serializer_class = serializers.RoutineLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 

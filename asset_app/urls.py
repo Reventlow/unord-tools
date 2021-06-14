@@ -17,6 +17,8 @@ router.register("loaner_type", api.Loaner_typeViewSet)
 router.register("model_hardware", api.Model_hardwareViewSet)
 router.register("room", api.RoomViewSet)
 router.register("room_type", api.Room_typeViewSet)
+router.register("Routines", api.RoutinesViewSet)
+router.register("RoutineLog", api.RoutineLogViewSet)
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
@@ -75,6 +77,14 @@ urlpatterns = [
     path("asset_app/room_type/detail/<int:pk>/", views.Room_typeDetailView.as_view(), name="asset_app_room_type_detail"),
     path("asset_app/room_type/update/<int:pk>/", views.Room_typeUpdateView.as_view(), name="asset_app_room_type_update"),
     path("asset_app/room_type/delete/<int:pk>/", views.Room_typeListView.delete, name="asset_app_room_type_delete"),
+    path("asset_app/Routines/", views.RoutinesListView.as_view(), name="asset_app_routines_list"),
+    path("asset_app/Routines/create/", views.RoutinesCreateView.as_view(), name="asset_app_routines_create"),
+    path("asset_app/Routines/detail/<int:pk>/", views.RoutinesDetailView.as_view(), name="asset_app_routines_detail"),
+    path("asset_app/Routines/update/<int:pk>/", views.RoutinesUpdateView.as_view(), name="asset_app_routines_update"),
+    path("asset_app/RoutineLog/", views.RoutineLogListView.as_view(), name="asset_app_routineLog_list"),
+    path("asset_app/RoutineLog/create/", views.RoutineLogCreateView.as_view(), name="asset_app_routineLog_create"),
+    path("asset_app/RoutineLog/detail/<int:pk>/", views.RoutineLogDetailView.as_view(), name="asset_app_routineLog_detail"),
+    path("asset_app/RoutineLog/update/<int:pk>/", views.RoutineLogUpdateView.as_view(), name="asset_app_routineLog_update"),
     path("search/", views.SearchView.as_view(), name="asset_app_search"),
 
 

@@ -151,6 +151,29 @@ class Room_typeSerializer(serializers.ModelSerializer):
 
         ]
 
+class RoutinesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Routines
+        fields = [
+            "Reoccurrence",
+            "name",
+            "notes",
+            "created",
+            "last_updated",
+        ]
+
+class RoutineLogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.RoutineLog
+        fields = [
+            "last_updated",
+            "created",
+            "notes",
+            "date",
+        ]
+
 
 
 

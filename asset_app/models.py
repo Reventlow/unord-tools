@@ -254,6 +254,60 @@ class Room_type(models.Model):
     def get_update_url(self):
         return reverse("asset_app_room_type_update", args=(self.pk,))
 
+from django.db import models
+from django.urls import reverse
+
+
+class Routines(models.Model):
+
+    # Relationships
+    room = models.ForeignKey("asset_app.Room", on_delete=models.SET_NULL, blank=True, null=True)
+    routine_owner = models.ForeignKey("auth.User", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Fields
+    name = models.CharField(max_length=100)
+    reoccurrence = models.IntegerField()
+    notes = models.TextField(max_length=448)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("Asset_app_Routines_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("Asset_app_Routines_update", args=(self.pk,))
+
+class RoutineLog(models.Model):
+
+    # Relationships
+    routine = models.ForeignKey("asset_app.Routines", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Fields
+    date = models.DateField()
+    notes = models.TextField(max_length=448)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("Asset_app_RoutineLog_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("Asset_app_RoutineLog_update", args=(self.pk,))
+
 
 
 

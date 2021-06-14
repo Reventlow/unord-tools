@@ -292,6 +292,54 @@ class Room_typeAdmin(admin.ModelAdmin):
 
     ]
 
+class RoutinesAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Routines
+        fields = "__all__"
+
+
+class RoutinesAdmin(admin.ModelAdmin):
+    form = RoutinesAdminForm
+    list_display = [
+        "name",
+        "reoccurrence",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "name",
+        "reoccurrence",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+
+
+class RoutineLogAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.RoutineLog
+        fields = "__all__"
+
+
+class RoutineLogAdmin(admin.ModelAdmin):
+    form = RoutineLogAdminForm
+    list_display = [
+        "date",
+        "notes",
+        "last_updated",
+        "created",
+    ]
+    readonly_fields = [
+        "date",
+        "notes",
+        "last_updated",
+        "created",
+    ]
+
+
 
 admin.site.register(models.Asset, AssetAdmin)
 admin.site.register(models.Asset_type, Asset_typeAdmin)
@@ -303,3 +351,5 @@ admin.site.register(models.Locations, LocationsAdmin)
 admin.site.register(models.Model_hardware, Model_hadwareAdmin)
 admin.site.register(models.Room, RoomAdmin)
 admin.site.register(models.Room_type, Room_typeAdmin)
+admin.site.register(models.Routines, RoutinesAdmin)
+admin.site.register(models.RoutineLog, RoutineLogAdmin)
