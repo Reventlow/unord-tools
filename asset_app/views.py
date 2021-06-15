@@ -370,7 +370,7 @@ class Model_hardwareUpdateView(generic.UpdateView):
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoListView(generic.ListView):
     model = models.One2OneInfo
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoForm
 
     def delete(request, del_id):
         item = models.One2OneInfo.objects.get(pk=del_id)
@@ -381,23 +381,23 @@ class One2OneInfoListView(generic.ListView):
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoCreateView(generic.CreateView):
     model = models.One2OneInfo
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoForm
 
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoDetailView(generic.DetailView):
     model = models.One2OneInfo
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoForm
 
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoUpdateView(generic.UpdateView):
     model = models.One2OneInfo
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoForm
     pk_url_kwarg = "pk"
 
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoLogListView(generic.ListView):
     model = models.One2OneInfoLog
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoLogForm
 
     def delete(request, del_id):
         item = models.One2OneInfoLog.objects.get(pk=del_id)
@@ -408,17 +408,17 @@ class One2OneInfoLogListView(generic.ListView):
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoLogCreateView(generic.CreateView):
     model = models.One2OneInfoLog
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoLogForm
 
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoLogDetailView(generic.DetailView):
     model = models.One2OneInfoLog
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoLogForm
 
 @method_decorator(login_required, name='dispatch')
 class One2OneInfoLogUpdateView(generic.UpdateView):
     model = models.One2OneInfoLog
-    form_class = forms.ModelForm
+    form_class = forms.One2OneInfoLogForm
     pk_url_kwarg = "pk"
 
 @method_decorator(login_required, name='dispatch')
