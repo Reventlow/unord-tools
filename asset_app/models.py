@@ -210,7 +210,7 @@ class One2OneInfo(models.Model):
 
 
     # Fields
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
     notes = models.TextField(max_length=448, null=True, blank=True, default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
