@@ -225,7 +225,7 @@ class One2OneInfoForm(forms.ModelForm):
 class One2OneInfoLogForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Brugernavn'}))
-    one_2_one_info = forms.ModelChoiceField(queryset=One2OneInfo.objects.all(),
+    one_2_one_info = forms.ModelChoiceField(queryset=One2OneInfo.objects.filter(completed=false),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
