@@ -225,6 +225,9 @@ class One2OneInfo(models.Model):
     def get_absolute_url(self):
         return reverse("asset_app_one2one_detail", args=(self.pk,))
 
+    def get_update_url(self):
+        return reverse("asset_app_one2one_update", args=(self.pk,))
+
 class One2OneInfoLog(models.Model):
     # Relationships
     location = models.ForeignKey("asset_app.Locations", on_delete=models.SET_NULL, blank=True, null=True)
@@ -244,6 +247,9 @@ class One2OneInfoLog(models.Model):
 
     def get_absolute_url(self):
         return reverse("asset_app_one2one_log_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_one2one_log_update", args=(self.pk,))
 
 class Room(models.Model):
 
