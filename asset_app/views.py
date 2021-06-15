@@ -372,6 +372,20 @@ class One2OneInfoListView(generic.ListView):
     model = models.One2OneInfo
     form_class = forms.One2OneInfoForm
 
+    def completed_false(request, res_id):
+        item = models.Bundle_reservation.objects.get(pk=one_two_one_id)
+        item.returned = False
+        messages.success(request, 'Opgaven er ikke noteret som løst')
+        item.save()
+        return redirect('asset_app_one2one_list')
+
+    def completed_true(request, res_id):
+        item = models.Bundle_reservation.objects.get(pk=one_two_one_id)
+        item.returned = True
+        messages.success(request, 'Opgaven er noteret som løst')
+        item.save()
+        return redirect('asset_app_one2one_list')
+
     def delete(request, del_id):
         item = models.One2OneInfo.objects.get(pk=del_id)
         item.delete()

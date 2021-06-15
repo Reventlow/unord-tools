@@ -208,7 +208,7 @@ class ModelForm(forms.ModelForm):
 class One2OneInfoForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast opgave beskrivelse'}))
-    completed = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
+    completed = forms.BooleanField(label="Er opgaven udført", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
