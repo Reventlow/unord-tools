@@ -237,6 +237,54 @@ class Model_hadwareAdmin(admin.ModelAdmin):
         "last_updated",
     ]
 
+class One2OneInfoAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.One2OneInfo
+        fields = "__all__"
+
+
+class One2OneInfoAdmin(admin.ModelAdmin):
+    form = One2OneInfoAdminForm
+    list_display = [
+        "name",
+        "completed",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "name",
+        "completed",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+
+
+class One2OneInfoLogAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.One2OneInfoLog
+        fields = "__all__"
+
+
+class One2OneInfoLogAdmin(admin.ModelAdmin):
+    form = One2OneInfoLogAdminForm
+    list_display = [
+        "name",
+        "one_2_one_info",
+        "location",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "name",
+        "one_2_one_info",
+        "location",
+        "notes",
+        "created",
+        "last_updated",
+    ]
 
 class RoomAdminForm(forms.ModelForm):
     class Meta:
@@ -349,6 +397,8 @@ admin.site.register(models.Loan_asset, Loan_assetAdmin)
 admin.site.register(models.Loaner_type, Loaner_typeAdmin)
 admin.site.register(models.Locations, LocationsAdmin)
 admin.site.register(models.Model_hardware, Model_hadwareAdmin)
+admin.site.register(models.One2OneInfo, One2OneInfoAdmin)
+admin.site.register(models.One2OneInfoLog, One2OneInfoLogAdmin)
 admin.site.register(models.Room, RoomAdmin)
 admin.site.register(models.Room_type, Room_typeAdmin)
 admin.site.register(models.Routines, RoutinesAdmin)

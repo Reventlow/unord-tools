@@ -123,6 +123,32 @@ class Model_hardwareSerializer(serializers.ModelSerializer):
             "name",
         ]
 
+class One2OneInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.One2OneInfo
+        fields = [
+        "name",
+        "completed",
+        "notes",
+        "created",
+        "last_updated",
+        ]
+
+class One2OneInfoLogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.One2OneInfoLog
+        fields = [
+        "name",
+        "one_2_one_info",
+        "locations",
+        "notes",
+        "created",
+        "last_updated",
+        ]
+
+
 class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:

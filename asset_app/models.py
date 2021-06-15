@@ -205,6 +205,46 @@ class Model_hardware(models.Model):
     def get_update_url(self):
         return reverse("asset_app_model_hardware_update", args=(self.pk,))
 
+class One2OneInfo(models.Model):
+    # Relationships
+
+
+    # Fields
+    name = models.CharField(max_length=30)
+    completed = models.BooleanField(default=False)
+    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        ordering = ["completed","name"]
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("asset_app_one2one_detail", args=(self.pk,))
+
+class One2OneInfoLog(models.Model):
+    # Relationships
+    location = models.ForeignKey("asset_app.Locations", on_delete=models.SET_NULL, blank=True, null=True)
+    one_2_one_info = models.ForeignKey("asset_app.One2OneInfo", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Fields
+    name = models.CharField(max_length=30)
+    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        ordering = ["location","name"]
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("asset_app_one2one_log_detail", args=(self.pk,))
+
 class Room(models.Model):
 
     # Relationships

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from . import models
-from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Bundle_reservation, Loaner_type, Routines
+from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo
 
 
 class AssetForm(forms.ModelForm):
@@ -202,6 +202,42 @@ class ModelForm(forms.ModelForm):
             "name",
             "brand",
             "asset_type",
+            "notes",
+        ]
+
+class One2OneInfoForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast opgave beskrivelse'}))
+    completed = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.One2OneInfo
+        fields = [
+            "name",
+            "completed",
+            "notes",
+
+        ]
+
+
+class One2OneInfoLogForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Brugernavn'}))
+    one_2_one_info = forms.ModelChoiceField(queryset=One2OneInfo.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
+    location = forms.ModelChoiceField(queryset=Locations.objects.all(),
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+    class Meta:
+        model = models.One2OneInfoLog
+        fields = [
+            "name",
+            "one_2_one_info",
+            "location",
             "notes",
         ]
 

@@ -15,6 +15,8 @@ router.register("loaner_type", api.Loaner_typeViewSet)
 router.register("locations", api.LocationsViewSet)
 router.register("loaner_type", api.Loaner_typeViewSet)
 router.register("model_hardware", api.Model_hardwareViewSet)
+router.register("one_2_one_info", api.One2OneInfoViewSet)
+router.register("one_2_one_info_log", api.One2OneInfoLogViewSet)
 router.register("room", api.RoomViewSet)
 router.register("room_type", api.Room_typeViewSet)
 router.register("Routines", api.RoutinesViewSet)
@@ -43,6 +45,7 @@ urlpatterns = [
     path("asset_app/bundle_reservation/update/<int:pk>/", views.Bundle_reservationUpdateView.as_view(), name="asset_app_bundle_reservation_update"),
     path('asset_app/bundle_reservation/returned_true/<res_id>', views.Bundle_reservationListView.returned_true, name='asset_app_bundle_reservation_returned_true'),
     path('asset_app/bundle_reservation/returned_false/<res_id>', views.Bundle_reservationListView.returned_false, name='asset_app_bundle_reservation_returned_false'),
+    path("asset_app/dashboard/", views.Dashboard.as_view(), name="asset_app_dashboard"),
     path("asset_app/loan_asset/", views.Loan_assetListView.as_view(), name="asset_app_loan_asset_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),
@@ -64,8 +67,17 @@ urlpatterns = [
     path("asset_app/model_hardware/detail/<int:pk>/", views.Model_hardwareDetailView.as_view(), name="asset_app_model_hardware_detail"),
     path("asset_app/model_hardware/update/<int:pk>/", views.Model_hardwareUpdateView.as_view(), name="asset_app_model_hardware_update"),
     path("asset_app/model_hardware/delete/<int:pk>/", views.Model_hardwareListView.delete, name="asset_app_model_hardware_delete"),
+    path("asset_app/one2one/", views.One2OneInfoListView.as_view(), name="asset_app_one2one_list"),
+    path("asset_app/one2one/create/", views.One2OneInfoCreateView.as_view(), name="asset_app_one2one_create"),
+    path("asset_app/one2one/detail/<int:pk>/", views.One2OneInfoDetailView.as_view(), name="asset_app_one2one_detail"),
+    path("asset_app/one2one/update/<int:pk>/", views.One2OneInfoUpdateView.as_view(), name="asset_app_one2one_update"),
+    path("asset_app/one2one/delete/<int:pk>/", views.One2OneInfoListView.delete, name="asset_app_one2one_delete"),
+    path("asset_app/one2one_log/", views.One2OneInfoLogListView.as_view(), name="asset_app_one2one_log_list"),
+    path("asset_app/one2one_log/create/", views.One2OneInfoLogCreateView.as_view(), name="asset_app_one2one_log_create"),
+    path("asset_app/one2one_log/detail/<int:pk>/", views.One2OneInfoLogDetailView.as_view(), name="asset_app_one2one_log_detail"),
+    path("asset_app/one2one_log/update/<int:pk>/", views.One2OneInfoLogUpdateView.as_view(), name="asset_app_one2one_log_update"),
+    path("asset_app/one2one_log/delete/<int:pk>/", views.One2OneInfoLogListView.delete, name="asset_app_one2one_log_delete"),
     path("asset_app/room/", views.RoomListView.as_view(), name="asset_app_room_list"),
-    path("asset_app/dashboard/", views.Dashboard.as_view(), name="asset_app_dashboard"),
     path("asset_app/room/create/", views.RoomCreateView.as_view(), name="asset_app_room_create"),
     path("asset_app/room/detail/<int:pk>/", views.RoomDetailView.as_view(), name="asset_app_room_detail"),
     path("asset_app/room/detail_pdf/", views.RoomPDFDetailView.export_pdf_save, name="asset_app_room_detail_to_pdf_save"),

@@ -61,6 +61,20 @@
                     </ul>
                 </li>
 
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">1-til-1 opgaver</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'asset_app_one2one_list' %}">1-til-1 opgave liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_one2one_create' %}">Opret 1-til-1 opgvae</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routineLog_list' %}">Routine-log liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_routineLog_create' %}">Opret routine-log</a></li>
+                    </ul>
+                </li>
+
+
 
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">

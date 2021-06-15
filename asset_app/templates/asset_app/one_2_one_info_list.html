@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div><a class="btn btn-primary" href="{% url 'asset_app_one2one_create' %}">Reg 1-til-1 opgave</a></div>
+    <h1>1-til-1 opgave oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Navn</td>
+                <td>
+                    <center>Antal personer informeret</center>
+                </td>
+                <td>
+                    <center>Sidste gang en person er blevet informeret</center>
+                </td>
+                <td>
+                    <center>Opgave løst</center>
+                </td>
+                <td>
+                    <center>Slet</center>
+                </td>
+            </tr>
+             {% for object in object_list %}
+
+                <tr>
+                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a>  <a href="{{ object.get_update_url }}"
+                                             class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ object.notes|linebreaks }}
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+
+
+
+                        {% endif %}
+
+
+                    </td>
+                 <td>
+                    <center>{{ object.object_count }}##</center>
+                </td>
+                <td>
+                    <center>##</center>
+                </td>
+                     <td>
+                    <center>{{ object.completed }}</center>
+                </td>
+                    <td>
+                        <center>{% if  object.object_count  < 1  %}<a href="{% url 'asset_app_model_hardware_delete' object.id %}" class="btn btn-danger btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

@@ -67,6 +67,22 @@ class Model_hardwareViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class One2OneInfoViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Model class"""
+
+    queryset = models.One2OneInfo.objects.all()
+    serializer_class = serializers.One2OneInfoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class One2OneInfoLogViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Model class"""
+
+    queryset = models.One2OneInfoLog.objects.all()
+    serializer_class = serializers.One2OneInfoLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class RoomViewSet(viewsets.ModelViewSet):
     """ViewSet for the Room class"""
 

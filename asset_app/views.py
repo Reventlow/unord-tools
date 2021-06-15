@@ -368,6 +368,60 @@ class Model_hardwareUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 @method_decorator(login_required, name='dispatch')
+class One2OneInfoListView(generic.ListView):
+    model = models.One2OneInfo
+    form_class = forms.ModelForm
+
+    def delete(request, del_id):
+        item = models.One2OneInfo.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, '1-til-1 opgave er nu blevet slettet')
+        return redirect('asset_app_one2one_list')
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoCreateView(generic.CreateView):
+    model = models.One2OneInfo
+    form_class = forms.ModelForm
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoDetailView(generic.DetailView):
+    model = models.One2OneInfo
+    form_class = forms.ModelForm
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoUpdateView(generic.UpdateView):
+    model = models.One2OneInfo
+    form_class = forms.ModelForm
+    pk_url_kwarg = "pk"
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoLogListView(generic.ListView):
+    model = models.One2OneInfoLog
+    form_class = forms.ModelForm
+
+    def delete(request, del_id):
+        item = models.One2OneInfoLog.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, '1-til-1 opgave er nu blevet slettet')
+        return redirect('asset_app_one2one_log_list')
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoLogCreateView(generic.CreateView):
+    model = models.One2OneInfoLog
+    form_class = forms.ModelForm
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoLogDetailView(generic.DetailView):
+    model = models.One2OneInfoLog
+    form_class = forms.ModelForm
+
+@method_decorator(login_required, name='dispatch')
+class One2OneInfoLogUpdateView(generic.UpdateView):
+    model = models.One2OneInfoLog
+    form_class = forms.ModelForm
+    pk_url_kwarg = "pk"
+
+@method_decorator(login_required, name='dispatch')
 class RoomListView(generic.ListView):
     model = models.Room
     form_class = forms.RoomForm
