@@ -4,20 +4,20 @@
 {% block content %}
 
 <p>
-    <a class="btn btn-primary" href="{% url 'asset_app_one2one_list' %}">
-    Model oversigt
+    <a class="btn btn-primary" href="{% url 'asset_app_one2one_log_list' %}">
+    1-til-1 log oversigt
     </a>
-<a class="btn btn-primary" href="{% url 'asset_app_one2one_create' %}">
-    Opret 1-ti-1 opgave
+<a class="btn btn-primary" href="{% url 'asset_app_one2one_log_create' %}">
+    Opret 1-til-1 log
     </a>
 </p>
 
 
 <table class="table">
-    <tr><td>1-til-1 opgave</td><td>{{ object.name }}</td></tr>
-    <tr><td>Opgave gennemført</td><td>{{ object.completed }}</td></tr>
+    <tr><td>Bruger</td><td>{{ object.name }}</td></tr>
+    <tr><td>Opgave</td><td>{{ object.one_2_one_info }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
-    <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
+    <tr><td>Gennemført 1-til-1 gennemgang</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret</td><td>{{ object.last_updated }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
