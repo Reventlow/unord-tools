@@ -503,7 +503,7 @@ class RoutineLogListView(generic.ListView):
     form_class = forms.RoutineLogForm
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('date')
+        queryset = super().get_queryset().order_by('-date')
         return queryset
 
 @method_decorator(login_required, name='dispatch')
