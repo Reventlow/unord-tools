@@ -19,7 +19,7 @@
     <tr><td>Udlåners email</td><td>{{ object.loaner_email }}</td></tr>
     <tr><td>Udlåns dato</td><td>{{ object.loan_date }}</td></tr>
     <tr><td>Afleverings dato</td><td>{{ object.return_date }}</td></tr>
-    <tr><td>Udlåns quicklink</td><td>{{ object.loaner_quicklink }}</td></tr>
+    <tr><td>Udlåns quicklink</td><td><a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a></td></tr>
     <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>

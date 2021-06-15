@@ -238,6 +238,10 @@ class Loan_assetListView(generic.ListView):
         item.save()
         return redirect('asset_app_loan_asset_list')
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name','asset__name')
+        return queryset
+
 @method_decorator(login_required, name='dispatch')
 class Loan_assetCreateView(generic.CreateView):
     model = models.Loan_asset
