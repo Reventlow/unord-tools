@@ -74,6 +74,7 @@ urlpatterns = [
     path("asset_app/one2one/detail/<int:pk>/", views.One2OneInfoDetailView.as_view(), name="asset_app_one2one_detail"),
     path("asset_app/one2one/update/<int:pk>/", views.One2OneInfoUpdateView.as_view(), name="asset_app_one2one_update"),
     path("asset_app/one2one/delete/<int:pk>/", views.One2OneInfoListView.delete, name="asset_app_one2one_delete"),
+    path("asset_app/one2one/csv/<int:pk>/", views.One2OneInfoDetailView.export_csv, name="asset_app_one2one_export_csv"),
     path("asset_app/one2one_log/", views.One2OneInfoLogListView.as_view(), name="asset_app_one2one_log_list"),
     path("asset_app/one2one_log/create/", views.One2OneInfoLogCreateView.as_view(), name="asset_app_one2one_log_create"),
     path("asset_app/one2one_log/detail/<int:pk>/", views.One2OneInfoLogDetailView.as_view(), name="asset_app_one2one_log_detail"),
