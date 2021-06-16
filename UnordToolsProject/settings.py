@@ -29,6 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 LOGIN_URL = "login"
 SECURE_SSL_REDIRECT = True
+USE_TZ = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
