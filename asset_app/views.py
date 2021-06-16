@@ -415,7 +415,7 @@ class One2OneInfoDetailView(generic.DetailView):
         response = HttpResponse(content_type='text/csv')
 
         writer = csv.writer(response)
-        writer.writerow(['Brugernavn', 'Afdeling', 'tidspunkt for gennemgang'])
+        writer.writerow(['Brugernavn', 'Afdeling', 'Tidspunkt for gennemgang UTC'])
 
         for user in models.One2OneInfoLog.objects.filter(one_2_one_info=pk).values_list(Lower('name'), 'location', 'created').order_by('-created'):
             writer.writerow(user)
