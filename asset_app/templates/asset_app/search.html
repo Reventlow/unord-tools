@@ -103,6 +103,7 @@
     {% endif %}
     <!-- Rooms -->
       {% if rooms %}
+          <br/>
 <center><h2>Rum der skal gennemgås</h2></center>
 
 <table class="table">
@@ -116,7 +117,40 @@
 {% for object in rooms %}
 
 <tr>
-    <td>{{ object.name }}</td>
+    <td>{{ object.name }}<a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                             class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ object.notes|linebreaks  }}
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+
+
+
+                        {% endif %}</td>
     <td>{{ object.location }}</td>
     <td>{{ object.room_type }}</td>
     {% if object.last_inspected == None or object.last_inspected < overdue %}
