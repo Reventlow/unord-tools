@@ -375,16 +375,17 @@ class One2OneInfoListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('one2oneinfolog'))
+        qs = queryset.annotate(object_last_completed=models.One2OneInfoLog.objects.latest('completed'))
         return qs
 
-    def completed_false(request, res_id):
+    def completed_false(request, one_two_one_id):
         item = models.Bundle_reservation.objects.get(pk=one_two_one_id)
         item.returned = False
         messages.success(request, 'Opgaven er ikke noteret som løst')
         item.save()
         return redirect('asset_app_one2one_list')
 
-    def completed_true(request, res_id):
+    def completed_true(request, one_two_one_id):
         item = models.Bundle_reservation.objects.get(pk=one_two_one_id)
         item.returned = True
         messages.success(request, 'Opgaven er noteret som løst')
