@@ -42,7 +42,7 @@
 
 
                 <tr>
-                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                    <td>{{ object.name|lower }} <a href="{{ object.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                              class="badge rounded-pill bg-dark">Rediger</a>
 
