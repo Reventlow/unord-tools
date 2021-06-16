@@ -375,7 +375,7 @@ class One2OneInfoListView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('one2oneinfolog'))
-        qs = qs.annotate(object_last_completed=models.One2OneInfoLog.objects.latest('completed'))
+        qs = qs.annotate(object_last_completed=models.One2OneInfoLog.objects.latest('created'))
         return qs
 
     def completed_false(request, one_two_one_id):
