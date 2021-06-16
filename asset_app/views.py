@@ -612,10 +612,10 @@ class SearchView(generic.TemplateView):
         context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
         context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
         context['assets'] = models.Asset.objects.filter(Q(name__icontains=searched) | Q(serial__icontains=searched) | Q(mac_address__icontains=searched) | Q(ip__icontains=searched) | Q(model_hardware__name__icontains=searched) | Q(room__name__icontains=searched)).order_by('name')
-        context['rooms'] = models.Room.objects.filter(name__contains=searched).order_by('last_inspected', 'location', 'name')
-        context['bundelReservations'] = models.Bundle_reservation.objects.filter(loaner_name__contains=searched).order_by('return_date')
-        context['loan_assets'] = models.Loan_asset.objects.filter(loaner_name__contains=searched).order_by('return_date')
-        context['to_dos'] = to_do_list_app.models.Jobs.objects.filter(item__contains=searched)
+        context['rooms'] = models.Room.objects.filter(name__icontains=searched).order_by('last_inspected', 'location', 'name')
+        context['bundelReservations'] = models.Bundle_reservation.objects.filter(loaner_name__icontains=searched).order_by('return_date')
+        context['loan_assets'] = models.Loan_asset.objects.filter(loaner_name__icontains=searched).order_by('return_date')
+        context['to_dos'] = to_do_list_app.models.Jobs.objects.filter(item__icontains=searched)
         context['today'] = context_entry_today
         context['overdue'] = context_entry_overdue
         context['inspection_time'] = context_entry_inspection_time
