@@ -410,13 +410,13 @@ class One2OneInfoDetailView(generic.DetailView):
     model = models.One2OneInfo
     form_class = forms.One2OneInfoForm
 
-    def export_csv(request, one_two_one_id):
+    def export_csv(self, request, pk):
         response = HttpResponse(content_type='text/csv')
 
         writer = csv.writer(response)
         writer.writerow(['Brugernavn', 'Afdeling', 'tidspunkt for gennemgang'])
 
-        for user in models.One2OneInfoLog.objects.filter(one_2_one_info=one_two_one_id).values_list('name', 'location', 'created').order_by('created'):
+        for user in models.One2OneInfoLog.objects.filter(one_2_one_info=pk).values_list('name', 'location', 'created').order_by('created'):
             writer.writerow(user)
 
         response['Content-Disposition'] = 'attachment'; filename='1-til-1-opgave.csv'
