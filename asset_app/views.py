@@ -420,7 +420,7 @@ class One2OneInfoLogListView(generic.ListView):
     form_class = forms.One2OneInfoLogForm
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('name')
+        queryset = super().get_queryset().order_by('-created')
         return queryset
 
     def delete(request, del_id):
