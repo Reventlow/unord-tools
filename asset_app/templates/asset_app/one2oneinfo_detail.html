@@ -27,24 +27,18 @@
             <tr class="table-dark">
 
                   <td>
-                    {{ object.name }}
+                    Bruger
                 </td>
-                <td>Placering</td>
+                <td>Afdeling</td>
 <td>
-                    <center>Model</center>
-                </td>
-                     <td>
-                    <center>Mærke</center>
-                </td>
-                <td>
-                    <center>Udstyrs type</center>
+                    <center>Registreret</center>
                 </td>
                 <td>
                     <center>Slet</center>
                 </td>
             </tr>
 
-    {% for object in model_hardware.asset_set.all %}
+    {% for object in one2oneinfo.asset_set.all %}
 
                 <tr>
                     <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
@@ -84,17 +78,12 @@
 
                     </td>
                 <td>
-                        {{ object.room }} :: {{ object.room.location }} :: {{ object.room.room_type }}
+                        {{ object.room.location }}
                     </td>
                      <td>
-                    <center>{{ object.model_hardware}}</center>
+                    <center>{{ object.created}}</center>
                 </td>
-                 <td>
-                    <center>{{ object.model_hardware.brand }}</center>
-                </td>
-                               <td>
-                        <center>{{ object.model_hardware.asset_type }}</center>
-                    </td>
+
 
 
                     <td>
