@@ -10,7 +10,7 @@
 <a class="btn btn-primary" href="{% url 'asset_app_one2one_create' %}">
     Opret 1-ti-1 opgave
     </a>
-<a class="btn btn-success" href="{% url 'asset_app_one2one_export_csv' %}">
+<a class="btn btn-success" href="{% url 'asset_app_one2one_export_csv' object.id %}">
     Eksporter 1-ti-1 opgave til CSV
     </a>
 </p>
