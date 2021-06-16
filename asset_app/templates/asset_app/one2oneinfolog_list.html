@@ -79,7 +79,7 @@
                     <center>{{ object.one_2_one_info}}</center>
                 </td>
                      <td>
-                    <center>{{ object.created }}</center>
+                    <center>{{ object.created|date:'d-m-Y H:i' }}</center>
                 </td>
                     <td>
                         <center><a href="{% url 'asset_app_one2one_log_delete' object.id %}" class="btn btn-danger btn-sm "
