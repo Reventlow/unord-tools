@@ -448,7 +448,7 @@ class RoomListView(generic.ListView):
 
     
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('name')
+        queryset = super().get_queryset().order_by('location','name')
         qs = queryset.annotate(object_count=Count('asset'))
         return qs
 
