@@ -372,6 +372,11 @@ class One2OneInfoListView(generic.ListView):
     model = models.One2OneInfo
     form_class = forms.One2OneInfoForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        qs = queryset.annotate(object_count=Count('one2OneInfoLog'))
+        return qs
+
     def completed_false(request, res_id):
         item = models.Bundle_reservation.objects.get(pk=one_two_one_id)
         item.returned = False
