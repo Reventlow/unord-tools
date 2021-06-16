@@ -410,7 +410,7 @@ class One2OneInfoDetailView(generic.DetailView):
     model = models.One2OneInfo
     form_class = forms.One2OneInfoForm
 
-    def export_csv(self, request, one_two_one_id):
+    def export_csv(request, one_two_one_id):
         response = HttpResponse(content_type='text/csv')
 
         writer = csv.writer(response)
