@@ -18,7 +18,7 @@
     <tr><td>Udlåners telefon nummer</td><td>{{ object.loaner_telephone_number }}</td></tr>
     <tr><td>Udlåners email</td><td>{{ object.loaner_email }}</td></tr>
     <tr><td>Udstyr</td><td>{{ object.asset }}</td></tr>
-    <tr><td>Udstyr model</td><td>{{ object.asset.model_hardware.name }}</td></tr>
+    <tr><td>Udstyr model</td><td>{{ object.asset.model_hardware.name }} {{ object.asset.model_hardware.brand.name}}</td></tr>
     <tr><td>Udstyr type</td><td>{{ object.asset.model_hardware.asset_type }}</td></tr>
     <tr><td>Udlåns dato</td><td>{{ object.loan_date }}</td></tr>
     <tr><td>Afleverings dato</td><td>{{ object.return_date }}</td></tr>
