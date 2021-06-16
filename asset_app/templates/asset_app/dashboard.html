@@ -145,6 +145,37 @@
         </table>
     {% endif %}
 
+
+
+{% if one2ones %}
+    <hr2><center>1-til-1 info opgaver</center></hr2>
+        <table class="table">
+            <tr class="table-dark">
+                <td>1-til-1 Opgave</td>
+                <td>
+                    <center>Antal personer informeret</center>
+                </td>
+
+            </tr>
+             {% for object in one2ones %}
+
+                <tr>
+                    <td>{{ object.name }} </td>
+                 <td>
+                    <center>{{ object.object_count }}</center>
+                </td>
+
+
+
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
+
+
+
     <br/>
         <center><h2>To do listen</h2></center>
 

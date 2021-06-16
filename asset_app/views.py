@@ -203,6 +203,7 @@ class Dashboard(generic.TemplateView):
         context['bundelReservations'] = models.Bundle_reservation.objects.order_by('return_date')
         context['loan_assets'] = models.Loan_asset.objects.order_by('return_date')
         context['routinelogs'] = models.RoutineLog.objects.all().order_by('routine__name','-date').distinct('routine__name')
+        context['one2ones'] = models.One2OneInfo.objects.filter(completed=False).annotate(object_count=Count('one2oneinfolog')).order_by('name')
         context['to_dos'] = to_do_list_app.models.Jobs.objects.all()
         context['routines'] = models.Routines.objects.all().order_by('name')
         context["today"] = context_entry_today
