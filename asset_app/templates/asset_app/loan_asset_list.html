@@ -30,10 +30,7 @@
                     <center>Kontakt</center>
                 </td>
                 <td>
-                    <center>Udstyr navn</center>
-                </td>
-                            <td>
-                    <center>Udstyrs type</center>
+                    <center>Udstyr</center>
                 </td>
                 <td>
                     <center>Udlånt fra</center>
@@ -101,11 +98,9 @@
                     <center>{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</center>
                 </td>
                 <td>
-                    <center>{{ object.asset }}</center>
+                    <center>{{ object.asset }}<br/>{{ object.asset.model_hardware.asset_type }}</center>
                 </td>
-                            <td>
-                    <center>{{ object.asset.model_hardware.asset_type }}</center>
-                </td>
+
                 <td>
                     <center>{{ object.loan_date }}</center>
                 </td>
