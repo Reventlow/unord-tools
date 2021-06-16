@@ -419,6 +419,10 @@ class One2OneInfoLogListView(generic.ListView):
     model = models.One2OneInfoLog
     form_class = forms.One2OneInfoLogForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        return queryset
+
     def delete(request, del_id):
         item = models.One2OneInfoLog.objects.get(pk=del_id)
         item.delete()
