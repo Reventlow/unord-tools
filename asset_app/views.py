@@ -4,6 +4,7 @@ from django.db.models import Count, prefetch_related_objects, Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models.functions import Lower
 import csv
 from django.http import HttpResponse
 import urllib.request as Request
@@ -416,7 +417,7 @@ class One2OneInfoDetailView(generic.DetailView):
         writer = csv.writer(response)
         writer.writerow(['Brugernavn', 'Afdeling', 'tidspunkt for gennemgang'])
 
-        for user in models.One2OneInfoLog.objects.filter(one_2_one_info=pk).values_list('name', 'location', 'created').order_by('created'):
+        for user in models.One2OneInfoLog.objects.filter(one_2_one_info=pk).values_list(Lower('name'), 'location', 'created').order_by('created'):
             writer.writerow(user)
 
         response['Content-Disposition'] = 'attachment'; filename='1-til-1-opgave.csv'
