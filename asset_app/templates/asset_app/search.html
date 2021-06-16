@@ -7,10 +7,12 @@
         },600000);
     </script>
 
-<center><h1>Du har søgt efter {{ searched }}</h1></center>
+<center><h1>Du har søgt efter: "{{ searched }}"</h1></center>
 
     <!-- Assets -->
       {% if assets %}
+          <br/>
+          <center><h2>Udstyr der indholder: "{{ searched }}"</h2></center>
        <table class="table">
             <tr class="table-dark">
 
@@ -104,7 +106,7 @@
     <!-- Rooms -->
       {% if rooms %}
           <br/>
-<center><h2>Rum der skal gennemgås</h2></center>
+<center><h2>Rum der indholder: "{{ searched }}"</h2></center>
 
 <table class="table">
     <tr class="table-dark">
