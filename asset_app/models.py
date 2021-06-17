@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
-from django.conf import settings
 
-from UnordToolsProject.storage_backends import PublicMediaStorage, PrivateMediaStorage
+from UnordToolsProject.storage_backends import PublicMediaStorage
 
 
 class Asset(models.Model):
@@ -55,6 +54,61 @@ class Asset_type(models.Model):
     def get_update_url(self):
         return reverse("asset_app_asset_type_update", args=(self.pk,))
 
+class AssetCase(models.Model):
+
+    # Relationships
+    case_owner = models.ForeignKey("auth.User", on_delete=models.SET_NULL, null=True)
+    external_service = models.ForeignKey("asset_app.ExternalService", on_delete=models.SET_NULL, blank=True, null=True)
+    asset = models.ForeignKey("asset_app.Asset", on_delete=models.SET_NULL, blank=True, null=True)
+    severity_level = models.ForeignKey("asset_app.SeverityLevel", on_delete=models.SET_NULL, null=True)
+
+    # Fields
+    description = models.CharField(max_length=60)
+    user_report_it = models.CharField(max_length=30)
+    user_quicklink = models.URLField()
+    zendesk_link = models.URLField()
+    solved = models.BooleanField()
+    notes = models.TextField(max_length=448)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_AssetCase_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_AssetCase_update", args=(self.pk,))
+
+class AssetLog(models.Model):
+
+    # Relationships
+    log_written_by = models.ForeignKey("auth.User", on_delete=models.SET_NULL, blank=True, null=True)
+    asset_case = models.ForeignKey("asset_app.AssetCase", on_delete=models.CASCADE)
+
+    # Fields
+    date_time_log = models.DateTimeField()
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    notes = models.TextField(max_length=1024)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_AssetLog_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_AssetLog_update", args=(self.pk,))
+
 class Brand(models.Model):
 
     # Fields
@@ -106,6 +160,86 @@ class Bundle_reservation(models.Model):
 
     def get_update_url(self):
         return reverse("asset_app_bundle_reservation_update", args=(self.pk,))
+
+
+class ExternalService(models.Model):
+
+    # Fields
+    company_name = models.CharField(max_length=60)
+    address_street = models.CharField(max_length=60)
+    address_postcode = models.CharField(max_length=30)
+    address_city = models.CharField(max_length=30)
+    company_telefon = models.CharField(max_length=30)
+    company_email = models.CharField(max_length=60)
+    company_support_telefon = models.CharField(max_length=30)
+    company_support_email = models.CharField(max_length=30)
+    notes = models.TextField(max_length=448)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+
+    company_website = models.URLField()
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_ExternalService_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_ExternalService_update", args=(self.pk,))
+
+class ExternalServiceContact(models.Model):
+
+    # Relationships
+    company = models.ForeignKey("asset_app.ExternalService", on_delete=models.SET_NULL, blank=True, null=True)
+    position = models.ForeignKey("asset_app.ExternalServicePosition", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Fields
+    name = models.CharField(max_length=60)
+    email = models.CharField(max_length=30)
+    cellphone = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_ExternalServiceContact_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_ExternalServiceContact_update", args=(self.pk,))
+
+
+class ExternalServicePosition(models.Model):
+
+    # Fields
+    description = models.CharField(max_length=60)
+    notes = models.TextField(max_length=448)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_ExternalServicePosition_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_ExternalServicePosition_update", args=(self.pk,))
+
 
 
 
@@ -300,8 +434,7 @@ class Room_type(models.Model):
     def get_update_url(self):
         return reverse("asset_app_room_type_update", args=(self.pk,))
 
-from django.db import models
-from django.urls import reverse
+
 
 
 class Routines(models.Model):
@@ -355,6 +488,27 @@ class RoutineLog(models.Model):
         return reverse("asset_app_routineLog_update", args=(self.pk,))
 
 
+
+class SeverityLevel(models.Model):
+
+    # Fields
+    description = models.CharField(max_length=60)
+    bootstrap_color = models.CharField(max_length=30)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_SeverityLevel_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_SeverityLevel_update", args=(self.pk,))
 
 
 

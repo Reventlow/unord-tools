@@ -52,6 +52,31 @@ class Asset_typeForm(forms.ModelForm):
             "notes",
         ]
 
+class AssetCaseForm(forms.ModelForm):
+    class Meta:
+        model = models.AssetCase
+        fields = [
+            "description",
+            "case_owner",
+            "asset",
+            "severity_level",
+            "user_report_it",
+            "user_quicklink",
+            "zendesk_link",
+            "external_service",
+            "notes",
+            "solved",
+        ]
+
+class AssetLogForm(forms.ModelForm):
+    class Meta:
+        model = models.AssetLog
+        fields = [
+            "asset_case",
+            "date_time_log",
+            "log_written_by",
+            "notes",
+        ]
 
 class BrandForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
@@ -111,6 +136,42 @@ class Bundle_reservationForm(forms.ModelForm):
             "notes",
         ]
 
+class ExternalServiceForm(forms.ModelForm):
+    class Meta:
+        model = models.ExternalService
+        fields = [
+            "company_name",
+            "address_street",
+            "address_postcode",
+            "address_city",
+            "company_telefon",
+            "company_email",
+            "company_website",
+            "company_support_telefon",
+            "company_support_email",
+            "notes",
+        ]
+
+class ExternalServiceContactForm(forms.ModelForm):
+    class Meta:
+        model = models.ExternalServiceContact
+        fields = [
+            "name",
+            "position",
+            "company",
+            "cellphone",
+            "email",
+        ]
+
+
+class ExternalServicePositionForm(forms.ModelForm):
+    class Meta:
+        model = models.ExternalServicePosition
+        fields = [
+            "description",
+            "notes",
+        ]
+
 
 class Loan_assetForm(forms.ModelForm):
     loaner_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
@@ -133,7 +194,7 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    returned = forms.BooleanField(label="Er udstyret retuneret", initial=False, required=False)
+    returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
@@ -171,7 +232,7 @@ class Loaner_typeForm(forms.ModelForm):
 
 class LocationsForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings navn, feks:(POA,MIL,CBV...)'}))
+        attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings navn, f.eks.:(POA,MIL,CBV...)'}))
     address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings adresse'}))
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
@@ -287,7 +348,7 @@ class Room_typeForm(forms.ModelForm):
 class RoutinesForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast routine beskrivelse'}))
-    reoccurrence = forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Gentages efter antale dage'}))
+    reoccurrence = forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Gentages efter antal dage'}))
     room = forms.ModelChoiceField(queryset=Room.objects.all(),
                                        widget=forms.Select(attrs={'class': 'form-control'}))
     routine_owner = forms.ModelChoiceField(queryset=User.objects.all(),
@@ -319,4 +380,12 @@ class RoutineLogForm(forms.ModelForm):
             "date",
             "routine",
             "notes",
+        ]
+
+class SeverityLevelForm(forms.ModelForm):
+    class Meta:
+        model = models.SeverityLevel
+        fields = [
+            "description",
+            "bootstrap_color",
         ]

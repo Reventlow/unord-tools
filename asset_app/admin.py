@@ -60,6 +60,57 @@ class Asset_typeAdmin(admin.ModelAdmin):
         "notes",
     ]
 
+class AssetCaseAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.AssetCase
+        fields = "__all__"
+
+
+class AssetCaseAdmin(admin.ModelAdmin):
+    form = AssetCaseAdminForm
+    list_display = [
+        "description",
+        "user_report_it",
+        "user_quicklink",
+        "zendesk_link",
+        "notes",
+        "solved",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "description",
+        "user_report_it",
+        "user_quicklink",
+        "zendesk_link",
+        "notes",
+        "solved",
+        "created",
+        "last_updated",
+    ]
+
+class AssetLogAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.AssetLog
+        fields = "__all__"
+
+class AssetLogAdmin(admin.ModelAdmin):
+    form = AssetLogAdminForm
+    list_display = [
+        "date_time_log",
+        "notes",
+        "last_updated",
+        "created",
+    ]
+    readonly_fields = [
+        "date_time_log",
+        "notes",
+        "last_updated",
+        "created",
+    ]
+
 
 class BrandAdminForm(forms.ModelForm):
     class Meta:
@@ -121,6 +172,91 @@ class Bundle_reservationAdmin(admin.ModelAdmin):
         "loan_date",
         "return_date",
         "returned",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+
+
+class ExternalServiceAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.ExternalService
+        fields = "__all__"
+
+
+class ExternalServiceAdmin(admin.ModelAdmin):
+    form = ExternalServiceAdminForm
+    list_display = [
+        "company_name",
+        "address_street",
+        "address_postcode",
+        "address_city",
+        "company_telefon",
+        "company_email",
+        "company_website",
+        "company_support_telefon",
+        "company_support_email",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "company_name",
+        "address_street",
+        "address_postcode",
+        "address_city",
+        "company_telefon",
+        "company_email",
+        "company_website",
+        "company_support_telefon",
+        "company_support_email",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+
+class ExternalServiceContactAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.ExternalServiceContact
+        fields = "__all__"
+
+
+class ExternalServiceContactAdmin(admin.ModelAdmin):
+    form = ExternalServiceContactAdminForm
+    list_display = [
+        "name",
+        "cellphone",
+        "email",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "name",
+        "cellphone",
+        "email",
+        "created",
+        "last_updated",
+    ]
+
+class ExternalServicePositionAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.ExternalServicePosition
+        fields = "__all__"
+
+
+class ExternalServicePositionAdmin(admin.ModelAdmin):
+    form = ExternalServicePositionAdminForm
+    list_display = [
+        "description",
+        "notes",
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "description",
         "notes",
         "created",
         "last_updated",
@@ -388,11 +524,39 @@ class RoutineLogAdmin(admin.ModelAdmin):
     ]
 
 
+class SeverityLevelAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.SeverityLevel
+        fields = "__all__"
+
+
+class SeverityLevelAdmin(admin.ModelAdmin):
+    form = SeverityLevelAdminForm
+    list_display = [
+        "description",
+        "bootstrap_color",
+        "last_updated",
+        "created",
+    ]
+    readonly_fields = [
+        "description",
+        "bootstrap_color",
+        "last_updated",
+        "created",
+    ]
+
+
 
 admin.site.register(models.Asset, AssetAdmin)
 admin.site.register(models.Asset_type, Asset_typeAdmin)
+admin.site.register(models.AssetCase, AssetCaseAdmin)
+admin.site.register(models.AssetLog, AssetLogAdmin)
 admin.site.register(models.Brand, BrandAdmin)
 admin.site.register(models.Bundle_reservation, Bundle_reservationAdmin)
+admin.site.register(models.ExternalService, ExternalServiceAdmin)
+admin.site.register(models.ExternalServiceContact, ExternalServiceContactAdmin)
+admin.site.register(models.ExternalServicePosition, ExternalServicePositionAdmin)
 admin.site.register(models.Loan_asset, Loan_assetAdmin)
 admin.site.register(models.Loaner_type, Loaner_typeAdmin)
 admin.site.register(models.Locations, LocationsAdmin)
@@ -403,3 +567,4 @@ admin.site.register(models.Room, RoomAdmin)
 admin.site.register(models.Room_type, Room_typeAdmin)
 admin.site.register(models.Routines, RoutinesAdmin)
 admin.site.register(models.RoutineLog, RoutineLogAdmin)
+admin.site.register(models.SeverityLevel, SeverityLevelAdmin)

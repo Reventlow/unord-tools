@@ -19,6 +19,20 @@ class Asset_typeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.Asset_typeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class AssetCaseViewSet(viewsets.ModelViewSet):
+    """ViewSet for the AssetCase class"""
+
+    queryset = models.AssetCase.objects.all()
+    serializer_class = serializers.AssetCaseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class AssetLogViewSet(viewsets.ModelViewSet):
+    """ViewSet for the AssetLog class"""
+
+    queryset = models.AssetLog.objects.all()
+    serializer_class = serializers.AssetLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class BrandViewSet(viewsets.ModelViewSet):
     """ViewSet for the Brand class"""
@@ -32,6 +46,27 @@ class Bundle_reservationViewSet(viewsets.ModelViewSet):
 
     queryset = models.Brand.objects.all()
     serializer_class = serializers.Bundle_reservationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ExternalServiceViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ExternalService class"""
+
+    queryset = models.ExternalService.objects.all()
+    serializer_class = serializers.ExternalServiceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ExternalServiceContactViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ExternalServiceContact class"""
+
+    queryset = models.ExternalServiceContact.objects.all()
+    serializer_class = serializers.ExternalServiceContactSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ExternalServicePositionViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ExternalServicePosition class"""
+
+    queryset = models.ExternalServicePosition.objects.all()
+    serializer_class = serializers.ExternalServicePositionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
@@ -110,6 +145,14 @@ class RoutineLogViewSet(viewsets.ModelViewSet):
 
     queryset = models.RoutineLog.objects.all()
     serializer_class = serializers.RoutineLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class SeverityLevelViewSet(viewsets.ModelViewSet):
+    """ViewSet for the SeverityLevel class"""
+
+    queryset = models.SeverityLevel.objects.all()
+    serializer_class = serializers.SeverityLevelSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

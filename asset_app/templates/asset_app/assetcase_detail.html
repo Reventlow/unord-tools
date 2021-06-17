@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_AssetCase_list' %}">
+    AssetCase Listing
+    </a>
+</p>
+    
+<table class="table">
+    <tr><td>created</td><td>{{ object.created }}</td></tr>
+    <tr><td>zendesk_link</td><td>{{ object.zendesk_link }}</td></tr>
+    <tr><td>solved</td><td>{{ object.solved }}</td></tr>
+    <tr><td>user_report_it</td><td>{{ object.user_report_it }}</td></tr>
+    <tr><td>user_quicklink</td><td>{{ object.user_quicklink }}</td></tr>
+    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
+    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+    <tr><td>description</td><td>{{ object.description }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+
+{% endblock %}

@@ -8,8 +8,13 @@ from . import views
 router = routers.DefaultRouter()
 router.register("asset", api.AssetViewSet)
 router.register("asset_type", api.Asset_typeViewSet)
+router.register("AssetCase", api.AssetCaseViewSet)
+router.register("AssetLog", api.AssetLogViewSet)
 router.register("brand", api.BrandViewSet)
 router.register("bundle_reservation", api.Bundle_reservationViewSet)
+router.register("ExternalService", api.ExternalServiceViewSet)
+router.register("ExternalServiceContact", api.ExternalServiceContactViewSet)
+router.register("ExternalServicePosition", api.ExternalServicePositionViewSet)
 router.register("loan_asset", api.Loan_assetViewSet)
 router.register("loaner_type", api.Loaner_typeViewSet)
 router.register("locations", api.LocationsViewSet)
@@ -21,6 +26,7 @@ router.register("room", api.RoomViewSet)
 router.register("room_type", api.Room_typeViewSet)
 router.register("Routines", api.RoutinesViewSet)
 router.register("RoutineLog", api.RoutineLogViewSet)
+router.register("SeverityLevel", api.SeverityLevelViewSet)
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
@@ -34,6 +40,14 @@ urlpatterns = [
     path("asset_app/asset_type/detail/<int:pk>/", views.Asset_typeDetailView.as_view(), name="asset_app_asset_type_detail"),
     path("asset_app/asset_type/update/<int:pk>/", views.Asset_typeUpdateView.as_view(), name="asset_app_asset_type_update"),
     path("asset_app/asset_type/delete/<int:pk>/", views.Asset_typeListView.delete, name="asset_app_asset_type_delete"),
+    path("asset_app/AssetCase/", views.AssetCaseListView.as_view(), name="asset_app_AssetCase_list"),
+    path("asset_app/AssetCase/create/", views.AssetCaseCreateView.as_view(), name="asset_app_AssetCase_create"),
+    path("asset_app/AssetCase/detail/<int:pk>/", views.AssetCaseDetailView.as_view(), name="asset_app_AssetCase_detail"),
+    path("asset_app/AssetCase/update/<int:pk>/", views.AssetCaseUpdateView.as_view(), name="asset_app_AssetCase_update"),
+    path("asset_app/AssetLog/", views.AssetLogListView.as_view(), name="asset_app_AssetLog_list"),
+    path("asset_app/AssetLog/create/", views.AssetLogCreateView.as_view(), name="asset_app_AssetLog_create"),
+    path("asset_app/AssetLog/detail/<int:pk>/", views.AssetLogDetailView.as_view(), name="asset_app_AssetLog_detail"),
+    path("asset_app/AssetLog/update/<int:pk>/", views.AssetLogUpdateView.as_view(), name="asset_app_AssetLog_update"),
     path("asset_app/brand/", views.BrandListView.as_view(), name="asset_app_brand_list"),
     path("asset_app/brand/create/", views.BrandCreateView.as_view(), name="asset_app_brand_create"),
     path("asset_app/brand/detail/<int:pk>/", views.BrandDetailView.as_view(), name="asset_app_brand_detail"),
@@ -46,6 +60,18 @@ urlpatterns = [
     path('asset_app/bundle_reservation/returned_true/<res_id>', views.Bundle_reservationListView.returned_true, name='asset_app_bundle_reservation_returned_true'),
     path('asset_app/bundle_reservation/returned_false/<res_id>', views.Bundle_reservationListView.returned_false, name='asset_app_bundle_reservation_returned_false'),
     path("asset_app/dashboard/", views.Dashboard.as_view(), name="asset_app_dashboard"),
+    path("asset_app/ExternalService/", views.ExternalServiceListView.as_view(), name="asset_app_ExternalService_list"),
+    path("asset_app/ExternalService/create/", views.ExternalServiceCreateView.as_view(), name="asset_app_ExternalService_create"),
+    path("asset_app/ExternalService/detail/<int:pk>/", views.ExternalServiceDetailView.as_view(), name="asset_app_ExternalService_detail"),
+    path("asset_app/ExternalService/update/<int:pk>/", views.ExternalServiceUpdateView.as_view(), name="asset_app_ExternalService_update"),
+    path("asset_app/ExternalServiceContact/", views.ExternalServiceContactListView.as_view(), name="asset_app_ExternalServiceContact_list"),
+    path("asset_app/ExternalServiceContact/create/", views.ExternalServiceContactCreateView.as_view(), name="asset_app_ExternalServiceContact_create"),
+    path("asset_app/ExternalServiceContact/detail/<int:pk>/", views.ExternalServiceContactDetailView.as_view(), name="asset_app_ExternalServiceContact_detail"),
+    path("asset_app/ExternalServiceContact/update/<int:pk>/", views.ExternalServiceContactUpdateView.as_view(), name="asset_app_ExternalServiceContact_update"),
+    path("asset_app/ExternalServicePosition/", views.ExternalServicePositionListView.as_view(), name="asset_app_ExternalServicePosition_list"),
+    path("asset_app/ExternalServicePosition/create/", views.ExternalServicePositionCreateView.as_view(), name="asset_app_ExternalServicePosition_create"),
+    path("asset_app/ExternalServicePosition/detail/<int:pk>/", views.ExternalServicePositionDetailView.as_view(), name="asset_app_ExternalServicePosition_detail"),
+    path("asset_app/ExternalServicePosition/update/<int:pk>/", views.ExternalServicePositionUpdateView.as_view(), name="asset_app_ExternalServicePosition_update"),
     path("asset_app/loan_asset/", views.Loan_assetListView.as_view(), name="asset_app_loan_asset_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),
@@ -101,6 +127,10 @@ urlpatterns = [
     path("asset_app/RoutineLog/detail/<int:pk>/", views.RoutineLogDetailView.as_view(), name="asset_app_routineLog_detail"),
     path("asset_app/RoutineLog/update/<int:pk>/", views.RoutineLogUpdateView.as_view(), name="asset_app_routineLog_update"),
     path("search/", views.SearchView.as_view(), name="asset_app_search"),
+    path("asset_app/SeverityLevel/", views.SeverityLevelListView.as_view(), name="asset_app_SeverityLevel_list"),
+    path("asset_app/SeverityLevel/create/", views.SeverityLevelCreateView.as_view(),name="asset_app_SeverityLevel_create"),
+    path("asset_app/SeverityLevel/detail/<int:pk>/", views.SeverityLevelDetailView.as_view(),name="asset_app_SeverityLevel_detail"),
+    path("asset_app/SeverityLevel/update/<int:pk>/", views.SeverityLevelUpdateView.as_view(),name="asset_app_SeverityLevel_update"),
 
 
 

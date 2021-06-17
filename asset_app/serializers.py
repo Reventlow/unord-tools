@@ -32,6 +32,33 @@ class Asset_typeSerializer(serializers.ModelSerializer):
 
         ]
 
+class AssetCaseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.AssetCase
+        fields = [
+            "description",
+            "user_report_it",
+            "user_quicklink",
+            "zendesk_link",
+            "notes",
+            "solved",
+            "created",
+            "last_updated",
+        ]
+
+class AssetLogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.AssetLog
+        fields = [
+            "date_time_log",
+            "notes",
+            "last_updated",
+            "created",
+
+        ]
+
 class Bundle_reservationSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -65,6 +92,48 @@ class BrandSerializer(serializers.ModelSerializer):
             "created",
             "last_updated",
 
+        ]
+
+
+class ExternalServiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ExternalService
+        fields = [
+            "company_name",
+            "address_street",
+            "address_postcode",
+            "address_city",
+            "company_telefon",
+            "company_email",
+            "company_website",
+            "company_support_telefon",
+            "company_support_email",
+            "notes",
+            "created",
+            "last_updated",
+        ]
+
+class ExternalServiceContactSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ExternalServiceContact
+        fields = [
+            "name",
+            "cellphone",
+            "email",
+            "created",
+            "last_updated",
+        ]
+
+class ExternalServicePositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ExternalServicePosition
+        fields = [
+            "description",
+            "notes",
+            "created",
+            "last_updated",
         ]
 
 class Loan_assetSerializer(serializers.ModelSerializer):
@@ -200,6 +269,18 @@ class RoutineLogSerializer(serializers.ModelSerializer):
             "date",
         ]
 
+
+class SeverityLevelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SeverityLevel
+        fields = [
+            "description",
+            "bootstrap_color",
+            "last_updated",
+            "created",
+
+        ]
 
 
 
