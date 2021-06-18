@@ -25,7 +25,8 @@ class Asset(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return str(self.name+" | "+self.model_hardware.asset_type)
+        return str(self.name), str(self.model_hardware.asset_type.name)
+
 
     def get_absolute_url(self):
         return reverse("asset_app_asset_detail", args=(self.pk,))
