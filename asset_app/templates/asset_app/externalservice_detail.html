@@ -28,9 +28,13 @@
 
     <br/>
         {% if employees %}
-        <table class="table">
+       <table class="table">
             <tr class="table-dark">
+                <td>Kontakt person</td>
+                <td>Firma</td>
                 <td>Stilling</td>
+                <td>Telefon</td>
+                <td>Email</td>
                 <td>
                     <div style="text-align: center;">Slet</div>
                 </td>
@@ -72,14 +76,26 @@
 
 
                     </td>
+                <td>
+                        <div style="text-align: center;">{{ object.company }}</div>
+                    </td>
+                <td>
+                        <div style="text-align: center;">{{ object.position }}</div>
+                    </td>
+                <td>
+                        <div style="text-align: center;">{{ object.email }}</div>
+                    </td>
                     <td>
-                        <div style="text-align: center;">{{ object.object_count }}</div>
+                        <div style="text-align: center;">{{ object.cellphone }}</div>
+                    </td>
+                                    <td>
+                        <div style="text-align: center;">{{ object.email }}</div>
                     </td>
 
 
 
                     <td>
-                        <div style="text-align: center;"><a href="{% url 'asset_app_ExternalServicePosition_delete' object.id %}" class="btn btn-danger btn-sm "
+                        <div style="text-align: center;"><a href="{% url 'asset_app_ExternalServiceContact_delete' object.id %}" class="btn btn-danger btn-sm "
                                                                                                tabindex="-1" role="button" aria-disabled="true">Slet</a></div>
                     </td>
                 </tr>
