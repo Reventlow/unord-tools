@@ -10,19 +10,20 @@
 </p>
     
 <table class="table">
-    <tr><td>company_email</td><td>{{ object.company_email }}</td></tr>
-    <tr><td>company_name</td><td>{{ object.company_name }}</td></tr>
-    <tr><td>address_postcode</td><td>{{ object.address_postcode }}</td></tr>
-    <tr><td>company_support_telefon</td><td>{{ object.company_support_telefon }}</td></tr>
-    <tr><td>company_telefon</td><td>{{ object.company_telefon }}</td></tr>
-    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
+    <tr><td>Firma navn</td><td>{{ object.company_name }}</td></tr>
+    <tr><td>Adresse</td><td>{{ object.address_street }}</td></tr>
+    <tr><td>Postnummer</td><td>{{ object.address_postcode }}</td></tr>
+    <tr><td>By</td><td>{{ object.address_city }}</td></tr>
+    <tr><td>Firma nummer</td><td>{{ object.company_telefon }}</td></tr>
+    <tr><td>Firma email</td><td>{{ object.company_email }}</td></tr>
+    <tr><td>Support nummer</td><td>{{ object.company_support_telephone }}</td></tr>
+    <tr><td>Support email</td><td>{{ object.company_support_email }}</td></tr>
+    <tr><td>Webside</td><td><a href="{{ object.company_website }}}" class="btn btn-success btn-sm" target="_blank">Link til {{ object.company_website }}</a></td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>address_street</td><td>{{ object.address_street }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>company_support_email</td><td>{{ object.company_support_email }}</td></tr>
-    <tr><td>address_city</td><td>{{ object.address_city }}</td></tr>
-    <tr><td>company_website</td><td>{{ object.company_website }}</td></tr>
+
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
 
 {% endblock %}
