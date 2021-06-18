@@ -24,6 +24,7 @@
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 
 </table>
+    <br/>
 <a class="btn btn-primary" href="{{ object.get_update_url }}">Rediger</a> <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_create' %}">Opret medarbejder</a>
 
     <br/>
@@ -31,10 +32,10 @@
        <table class="table">
             <tr class="table-dark">
                 <td>Kontakt person</td>
-                <td>Firma</td>
-                <td>Stilling</td>
-                <td>Telefon</td>
-                <td>Email</td>
+                <td><div style="text-align: center;">Firma</div></td>
+                <td><div style="text-align: center;">Stilling</div></td>
+                <td><div style="text-align: center;">Telefon</div></td>
+                <td><div style="text-align: center;">Email</div></td>
                 <td>
                     <div style="text-align: center;">Slet</div>
                 </td>
@@ -87,14 +88,7 @@
                     </td>
                     <td>
                         <div style="text-align: center;">{{ object.cellphone }}</div>
-                    </td>
                                     <td>
-                        <div style="text-align: center;">{{ object.email }}</div>
-                    </td>
-
-
-
-                    <td>
                         <div style="text-align: center;"><a href="{% url 'asset_app_ExternalServiceContact_delete' object.id %}" class="btn btn-danger btn-sm "
                                                                                                tabindex="-1" role="button" aria-disabled="true">Slet</a></div>
                     </td>
