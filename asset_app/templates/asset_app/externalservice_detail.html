@@ -24,7 +24,7 @@
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 
 </table>
-<a class="btn btn-primary" href="{{ object.get_update_url }}">Rediger</a> <a class="btn btn-primary" href="{{ object.get_update_url }}">Opret medarbejder</a>
+<a class="btn btn-primary" href="{{ object.get_update_url }}">Rediger</a> <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_create' %}">Opret medarbejder</a>
 
 
         {% if employees %}
