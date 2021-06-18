@@ -86,13 +86,13 @@
                 <td>
                         <div class="table-{{ object.severity_level.bootstrap_color }}" style="text-align: center;">{{ object.severity_level }}</div>
                     </td>
-                    <td><center>
+                    <td><div style="text-align: center;">
                 {% if object.solved %}
                     <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
                 {% else %}
                     <a href="{% url 'asset_app_asset_case_solved_false' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som ikke løst</a>
                 {% endif %}
-               </center>                                                                       tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</div>
+               </div>
                     </td>
                 </tr>
 
