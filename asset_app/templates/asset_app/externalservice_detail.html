@@ -10,7 +10,7 @@
 </p>
     
 <table class="table">
-    <tr><td>Firma navn</td><td>{{ object.company_name }}</td></tr>
+    <tr><td><h4>Firma navn</h4></td><td><h4>{{ object.company_name }}</h4></td></tr>
     <tr><td>Adresse</td><td>{{ object.address_street }}</td></tr>
     <tr><td>Postnummer</td><td>{{ object.address_postcode }}</td></tr>
     <tr><td>By</td><td>{{ object.address_city }}</td></tr>
@@ -18,12 +18,74 @@
     <tr><td>Firma email</td><td>{{ object.company_email }}</td></tr>
     <tr><td>Support nummer</td><td>{{ object.company_support_telephone }}</td></tr>
     <tr><td>Support email</td><td>{{ object.company_support_email }}</td></tr>
-    <tr><td>Webside</td><td><a href="{{ object.company_website }}}" class="btn btn-success btn-sm" target="_blank">Link til {{ object.company_website }}</a></td></tr>
+    <tr><td>Webside</td><td><a href="{{ object.company_website }}" class="btn btn-success btn-sm" target="_blank">Link til {{ object.company_website }}</a></td></tr>
     <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
+<a class="btn btn-primary" href="{{ object.get_update_url }}">Rediger</a> <a class="btn btn-primary" href="{{ object.get_update_url }}">Opret medarbejder</a>
+
+
+        {% if employees %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Stilling</td>
+                <td>
+                    <div style="text-align: center;">Slet</div>
+                </td>
+            </tr>
+            {% for object in employees %}
+                <tr>
+                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Rediger</a>
+
+
+{% if  object.notes  %}
+<!-- Button trigger modal -->
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       {{ object.notes|linebreaks  }}
+      </div>
+
+  </div>
+</div>
+    </div>
+
+
+
+
+{% endif %}
+
+
+
+                    </td>
+                    <td>
+                        <div style="text-align: center;">{{ object.object_count }}</div>
+                    </td>
+
+
+
+                    <td>
+                        <div style="text-align: center;"><a href="{% url 'asset_app_ExternalServicePosition_delete' object.id %}" class="btn btn-danger btn-sm "
+                                                                                               tabindex="-1" role="button" aria-disabled="true">Slet</a></div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
 
 {% endblock %}

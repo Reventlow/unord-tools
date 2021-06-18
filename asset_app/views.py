@@ -314,6 +314,11 @@ class ExternalServiceDetailView(generic.DetailView):
     model = models.ExternalService
     form_class = forms.ExternalServiceForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['employees'] = models.ExternalServiceContact.objects.order_by('name')
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class ExternalServiceUpdateView(generic.UpdateView):
