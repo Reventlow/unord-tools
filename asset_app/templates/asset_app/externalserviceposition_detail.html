@@ -10,13 +10,19 @@
     <a class="btn btn-primary" href="{% url 'asset_app_ExternalServicePosition_create' %}">
     Opret stillingsbetegnelse
     </a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_list' %}">
+    Kontakt liste
+    </a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_create' %}">
+    Opret kontakt
+    </a>
 </p>
     
 <table class="table">
-    <tr><td>discription</td><td>{{ object.discription }}</td></tr>
+    <tr><td>Stilling</td><td>{{ object.discription }}</td></tr>
+    <tr><td>noter</td><td>{{ object.notes }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 

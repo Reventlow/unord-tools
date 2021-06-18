@@ -4,20 +4,20 @@
 {% block content %}
     
 <p>
-    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_list' %}">
-    Kontakt person liste
-    </a>
-   <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_create' %}">
-    Opret kontakt person
-    </a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_list' %}">Kontakt person liste </a>
+   <a class="btn btn-primary" href="{% url 'asset_app_ExternalServiceContact_create' %}">Opret kontakt person</a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServicePosition_create' %}">Opret stilling</a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalServicePosition_list' %}">Stilling liste</a>
 </p>
     
 <table class="table">
+    <tr><td>Navn</td><td>{{ object.name }}</td></tr>
+    <tr><td>Firma</td><td>{{ object.company }}</td></tr>
+    <tr><td>Stilling</td><td>{{ object.position }}</td></tr>
+    <tr><td>Kontakt nummer</td><td>{{ object.cellphone }}</td></tr>
+    <tr><td>Email</td><td>{{ object.email }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>email</td><td>{{ object.email }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>name</td><td>{{ object.name }}</td></tr>
-    <tr><td>cellphone</td><td>{{ object.cellphone }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
