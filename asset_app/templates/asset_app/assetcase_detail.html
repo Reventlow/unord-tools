@@ -4,20 +4,26 @@
 {% block content %}
     
 <p>
-    <a class="btn btn-light" href="{% url 'asset_app_AssetCase_list' %}">
-    Fejlmeldt sags liste
+    <a class="btn btn-primary" href="{% url 'asset_app_AssetCase_list' %}">
+    Fejlmeldt sagsliste
     </a>
 </p>
     
 <table class="table">
-    <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>zendesk_link</td><td>{{ object.zendesk_link }}</td></tr>
-    <tr><td>solved</td><td>{{ object.solved }}</td></tr>
-    <tr><td>user_report_it</td><td>{{ object.user_report_it }}</td></tr>
-    <tr><td>user_quicklink</td><td>{{ object.user_quicklink }}</td></tr>
-    <tr><td>notes</td><td>{{ object.notes }}</td></tr>
-    <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>description</td><td>{{ object.description }}</td></tr>
+    <tr><td>Beskrivelse</td><td>{{ object.description }}</td></tr>
+    <tr><td>Sag oprettede</td><td>{{ object.created }}</td></tr>
+    <tr><td>Løst</td><td>{{ object.solved }}</td></tr>
+    <tr><td>Sags ansvarlig</td><td>{{ object.case_owner }}</td></tr>
+    <tr><td>Udstyr</td><td>{{ object.asset }}</td></tr>
+    <tr class="table-{{ object.severity_level.bootstrap_color }}"><td>Påvirkningsgrad</td><td>{{ object.severity_level }}</td></tr>
+    <tr><td>Bruger der meldte fejlen</td><td>{{ object.user_report_it }}</td></tr>
+    <tr><td>Bruger_quicklink</td><td>{{ object.user_quicklink }}</td></tr>
+    <tr><td>Zendesk quicklinl</td><td>{{ object.zendesk_link }}</td></tr>
+    <tr><td>Ekstern service på</td><td>{{ object.external_service }}</td></tr>
+    <tr><td>Notes</td><td>{{ object.notes|linebreaks }}</td></tr>
+
+
+
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
