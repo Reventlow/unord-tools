@@ -95,7 +95,7 @@
             </td>
             <td>
                 <div style="text-align: center;">
-                    {% if object.solved %}
+                    {% if object.solved == False %}
                         <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm "
                            tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
                     {% else %}
