@@ -96,6 +96,85 @@
         {% endif %}
 {% endfor %}
 </table>
+    <br/>
+    {% if assetCases %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Sag</td>
+                <td>
+                    <div style="text-align: center;">Sag oprettede</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Udstyr</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Påvirkningsgrad</div>
+                </td>
+            </tr>
+            {% for object in assetCases %}
+
+                {% if object.solved %}
+                    <tr class="table-secondary">
+                        {% else %}
+                    <tr class="table-{{ object.severity_level.bootstrap_color }}">
+                {% endif %}
+            <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
+                                            class="badge rounded-pill bg-dark">Detaljer</a> <a
+                    href="{{ object.get_update_url }}"
+                    class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                {% if  object.notes %}
+                    <!-- Button trigger modal -->
+                    <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ object.notes|linebreaks }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                {% endif %}<br/>
+                <small class="text-muted"><em>Sags ansvarlig: {{ object.case_owner }}</em></small>
+
+
+            </td>
+            <td>
+                <div style="text-align: center;">{{ object.created|date:'d-m-Y, H:i' }}</div>
+            </td>
+
+            <td>
+                <div style="text-align: center;">{{ object.asset }}
+                    <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
+            </td>
+            <td>
+                <div style="text-align: center;">{{ object.severity_level }}</div>
+            </td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
+
 <br/>
     <center><h2>Routiner</h2></center>
      {% if routines %}
