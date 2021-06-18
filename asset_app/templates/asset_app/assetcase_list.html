@@ -69,13 +69,14 @@
 
 
 
-{% endif %}
+{% endif %}<br/>
+                        <small class="text-muted"><em>Sags ansvarlig: {{ object.case_owner }}</em></small>
 
 
 
                     </td>
                     <td>
-                        <div style="text-align: center;">{{ object.created }}</div>
+                        <div style="text-align: center;">{{ object.created|date:'d-m-Y, H:i' }}</div>
                     </td>
                 <td>
                         <div style="text-align: center;">{{ object.case_owner }}</div>
