@@ -66,7 +66,7 @@ class AssetCaseForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til brugeren'}))
     zendesk_link = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til zendesk sag'}))
-    external_service = forms.ModelChoiceField(queryset=ExternalService.objects.all(),
+    external_service = forms.ModelChoiceField(queryset=ExternalService.objects.all(), required=False,
                                             widget=forms.Select(attrs={'class': 'form-control'}))
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
