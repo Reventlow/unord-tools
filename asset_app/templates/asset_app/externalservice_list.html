@@ -32,7 +32,7 @@
             </tr>
             {% for object in object_list %}
                 <tr>
-                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                    <td>{{ object.company_name }} <a href="{{ object.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
 
@@ -67,9 +67,7 @@
 
 
                     </td>
-                    <td>
-                        <div style="text-align: center;">{{ object.company_name }}</div>
-                    </td>
+
                 <td>
                         <div style="text-align: center;">{{ object.company_support_telephone}}</div>
                     </td>
