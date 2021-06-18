@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from . import models
-from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo
-
+from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition
 
 class AssetForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
@@ -53,6 +52,27 @@ class Asset_typeForm(forms.ModelForm):
         ]
 
 class AssetCaseForm(forms.ModelForm):
+    description = forms.CharField(label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast emne til fejlmelding'}))
+    case_owner = forms.ModelChoiceField(queryset=User.objects.all(), label="Ansvarlig for sagen",
+                                            widget=forms.Select(attrs={'class': 'form-control'}))
+    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr påvirket af fejl",
+                                        widget=forms.Select(attrs={'class': 'form-control'}))
+    severity_level = forms.ModelChoiceField(queryset=SeverityLevel.objects.all().order_by('-sl_level'), label="Påvirket af fejl",
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    user_report_it = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Bruger der har anmeldt fejlen'}))
+    user_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til brugeren'}))
+    zendesk_link = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til zendesk sag'}))
+    external_service = forms.ModelChoiceField(queryset=ExternalService.objects.all(),
+                                            widget=forms.Select(attrs={'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+    solved = forms.BooleanField(label="Er sagen løst", initial=False, required=False)
+
+
     class Meta:
         model = models.AssetCase
         fields = [
@@ -69,11 +89,17 @@ class AssetCaseForm(forms.ModelForm):
         ]
 
 class AssetLogForm(forms.ModelForm):
+    asset_case = forms.ModelChoiceField(queryset=AssetCase.objects.all(), label="Sagen den omhandler",
+                                            widget=forms.Select(attrs={'class': 'form-control'}))
+    log_written_by = forms.CharField(widget=forms.HiddenInput())
+    notes = forms.CharField(required=False, label="Noter", max_length=1024, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
+
     class Meta:
         model = models.AssetLog
         fields = [
             "asset_case",
-            "date_time_log",
             "log_written_by",
             "notes",
         ]
@@ -81,7 +107,7 @@ class AssetLogForm(forms.ModelForm):
 class BrandForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast mærke navn'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -115,7 +141,7 @@ class Bundle_reservationForm(forms.ModelForm):
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret afleveret tilbage", initial=False, required=False)
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
 
     class Meta:
@@ -137,6 +163,27 @@ class Bundle_reservationForm(forms.ModelForm):
         ]
 
 class ExternalServiceForm(forms.ModelForm):
+    company_name = forms.CharField(label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma navn'}))
+    address_street = forms.CharField(label="", required=False, max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma adresse'}))
+    address_postcode = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma post nummer'}))
+    address_city = forms.CharField(label="", required=False,  max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma by'}))
+    company_telefon = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma telefon nummer'}))
+    company_email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma email'}))
+    company_support_telefon = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma support nummer'}))
+    company_support_email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma support email'}))
+    company_website = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast firma webside'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
     class Meta:
         model = models.ExternalService
         fields = [
@@ -153,6 +200,19 @@ class ExternalServiceForm(forms.ModelForm):
         ]
 
 class ExternalServiceContactForm(forms.ModelForm):
+    name = forms.CharField(label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast kontaktpersons navn'}))
+    company = forms.ModelChoiceField(queryset=ExternalService.objects.all(), label="Firma",
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
+    position = forms.ModelChoiceField(queryset=ExternalServicePosition.objects.all(), label="Stilling",
+                                     widget=forms.Select(attrs={'class': 'form-control'}))
+    cellphone = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast kontakt nummer'}))
+    email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast email'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
+
     class Meta:
         model = models.ExternalServiceContact
         fields = [
@@ -165,6 +225,10 @@ class ExternalServiceContactForm(forms.ModelForm):
 
 
 class ExternalServicePositionForm(forms.ModelForm):
+    description = forms.CharField(label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast stillings betegnelse'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+        attrs={'class': 'form-control', }))
     class Meta:
         model = models.ExternalServicePosition
         fields = [
@@ -383,9 +447,16 @@ class RoutineLogForm(forms.ModelForm):
         ]
 
 class SeverityLevelForm(forms.ModelForm):
+    description = forms.CharField(label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast påvirkning'}))
+    bootstrap_color = forms.CharField(label="", max_length=30, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast bootstrap farve'}))
+    sl_level= forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'placeholder': 'Påvirknings grad 1 er max'}))
     class Meta:
         model = models.SeverityLevel
         fields = [
             "description",
             "bootstrap_color",
+            "sl_level",
         ]

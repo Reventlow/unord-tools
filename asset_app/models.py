@@ -65,10 +65,10 @@ class AssetCase(models.Model):
     # Fields
     description = models.CharField(max_length=60)
     user_report_it = models.CharField(max_length=30)
-    user_quicklink = models.URLField()
-    zendesk_link = models.URLField()
-    solved = models.BooleanField()
-    notes = models.TextField(max_length=448)
+    user_quicklink = models.URLField(null=True, blank=True)
+    zendesk_link = models.URLField(null=True, blank=True)
+    solved = models.BooleanField(null=True, blank=True)
+    notes = models.TextField(max_length=448, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -92,10 +92,9 @@ class AssetLog(models.Model):
     asset_case = models.ForeignKey("asset_app.AssetCase", on_delete=models.CASCADE)
 
     # Fields
-    date_time_log = models.DateTimeField()
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
-    notes = models.TextField(max_length=1024)
+    notes = models.TextField(max_length=1024, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
         pass
@@ -171,14 +170,15 @@ class ExternalService(models.Model):
     address_city = models.CharField(max_length=30)
     company_telefon = models.CharField(max_length=30)
     company_email = models.CharField(max_length=60)
-    company_support_telefon = models.CharField(max_length=30)
+    company_name = models.CharField(max_length=30)
     company_support_email = models.CharField(max_length=30)
+    company_website = models.URLField(null=True, blank=True)
     notes = models.TextField(max_length=448)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
 
-    company_website = models.URLField()
+
 
     class Meta:
         pass
@@ -494,6 +494,7 @@ class SeverityLevel(models.Model):
     # Fields
     description = models.CharField(max_length=60)
     bootstrap_color = models.CharField(max_length=30)
+    sl_level = models.IntegerField()
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

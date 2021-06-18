@@ -4,63 +4,19 @@
 {% block content %}
     
 <p>
-    <a class="btn btn-light" href="{% url 'asset_app_ExternalService_list' %}">
-    ExternalService Listing
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalService_list' %}">
+    Service firma liste
+    </a>
+    <a class="btn btn-primary" href="{% url 'asset_app_ExternalService_create' %}">
+    Opret service firma
     </a>
 </p>
     
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
+     {% csrf_token %}
   {{form.errors}}
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_email">company_email: </label>
-  <input class="form-control col-sm-10" id="company_email" type="text" name="company_email" value="{{ object.company_email }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_name">company_name: </label>
-  <input class="form-control col-sm-10" id="company_name" type="text" name="company_name" value="{{ object.company_name }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="address_postcode">address_postcode: </label>
-  <input class="form-control col-sm-10" id="address_postcode" type="text" name="address_postcode" value="{{ object.address_postcode }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_support_telefon">company_support_telefon: </label>
-  <input class="form-control col-sm-10" id="company_support_telefon" type="text" name="company_support_telefon" value="{{ object.company_support_telefon }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_telefon">company_telefon: </label>
-  <input class="form-control col-sm-10" id="company_telefon" type="text" name="company_telefon" value="{{ object.company_telefon }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="notes">notes: </label>
-  <input class="form-control col-sm-10" id="notes" type="text" name="notes" value="{{ object.notes }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="created">created: </label>
-  <input class="form-control col-sm-10" id="created" type="datetime-local" name="created" value="{{ object.created }}" disabled>
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="address_street">address_street: </label>
-  <input class="form-control col-sm-10" id="address_street" type="text" name="address_street" value="{{ object.address_street }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="last_updated">last_updated: </label>
-  <input class="form-control col-sm-10" id="last_updated" type="datetime-local" name="last_updated" value="{{ object.last_updated }}" disabled>
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_support_email">company_support_email: </label>
-  <input class="form-control col-sm-10" id="company_support_email" type="text" name="company_support_email" value="{{ object.company_support_email }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="address_city">address_city: </label>
-  <input class="form-control col-sm-10" id="address_city" type="text" name="address_city" value="{{ object.address_city }}">
-  </div>
-  <div class="form-group row">
-  <label class="col-sm-2 col-form-label" for="company_website">company_website: </label>
-  <input class="form-control col-sm-10" id="company_website" type="text" name="company_website" value="{{ object.company_website }}">
-  </div>
-  <input type="submit" value="Save" class="btn btn-primary">
+    {{form.as_p}}
+  <input type="submit" value="Gem" class="btn btn-primary">
 </form>
 
 {% endblock %}

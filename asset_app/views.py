@@ -102,6 +102,20 @@ class AssetCaseListView(generic.ListView):
     model = models.AssetCase
     form_class = forms.AssetCaseForm
 
+    def set_solved_true(request, asset_case_id):
+        item = models.AssetCase.objects.get(pk=asset_case_id)
+        item.solved = True
+        messages.success(request, 'Sagen er noteret som afsluttede')
+        item.save()
+        return redirect('asset_app_AssetCase_list')
+
+    def set_solved_false(request, asset_case_id):
+        item = models.Bundle_reservation.objects.get(pk=asset_case_id)
+        item.solved = False
+        messages.success(request, 'Sag er noteret som ikke løst')
+        item.save()
+        return redirect('asset_app_AssetCase_list')
+
 
 @method_decorator(login_required, name='dispatch')
 class AssetCaseCreateView(generic.CreateView):
@@ -126,6 +140,13 @@ class AssetCaseUpdateView(generic.UpdateView):
 class AssetLogListView(generic.ListView):
     model = models.AssetLog
     form_class = forms.AssetLogForm
+
+    def delete(request, del_id):
+        item = models.AssetLog.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Sags notat er slettet')
+        return redirect('asset_app_AssetLog_list')
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -270,6 +291,17 @@ class ExternalServiceListView(generic.ListView):
     model = models.ExternalService
     form_class = forms.ExternalServiceForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('company_name')
+        qs = queryset.annotate(object_count=Count('externalservicecontact'))
+        return qs
+
+    def delete(request, del_id):
+        item = models.ExternalService.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Firmaet er nu blevet slettet')
+        return redirect('asset_app_ExternalService_list')
+
 
 @method_decorator(login_required, name='dispatch')
 class ExternalServiceCreateView(generic.CreateView):
@@ -295,6 +327,12 @@ class ExternalServiceContactListView(generic.ListView):
     model = models.ExternalServiceContact
     form_class = forms.ExternalServiceContactForm
 
+    def delete(request, del_id):
+        item = models.ExternalServiceContact.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Kontakt er nu blevet slettet')
+        return redirect('asset_app_ExternalService_list')
+
 
 @method_decorator(login_required, name='dispatch')
 class ExternalServiceContactCreateView(generic.CreateView):
@@ -319,6 +357,12 @@ class ExternalServiceContactUpdateView(generic.UpdateView):
 class ExternalServicePositionListView(generic.ListView):
     model = models.ExternalServicePosition
     form_class = forms.ExternalServicePositionForm
+
+    def delete(request, del_id):
+        item = models.ExternalServicePosition.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Stilling er nu blevet slettet')
+        return redirect('asset_app_ExternalServicePosition_list')
 
 
 @method_decorator(login_required, name='dispatch')
@@ -817,3 +861,9 @@ class SeverityLevelUpdateView(generic.UpdateView):
     model = models.SeverityLevel
     form_class = forms.SeverityLevelForm
     pk_url_kwarg = "pk"
+
+    def delete(request, del_id):
+        item = models.SeverityLevel.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Påvirknings grad er nu blevet slettet')
+        return redirect('asset_app_SeverityLevel_list')

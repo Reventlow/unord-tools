@@ -52,7 +52,6 @@ class AssetLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AssetLog
         fields = [
-            "date_time_log",
             "notes",
             "last_updated",
             "created",
@@ -277,6 +276,7 @@ class SeverityLevelSerializer(serializers.ModelSerializer):
         fields = [
             "description",
             "bootstrap_color",
+            "sl_level",
             "last_updated",
             "created",
 

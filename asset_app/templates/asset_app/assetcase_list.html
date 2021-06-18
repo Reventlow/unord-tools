@@ -1,8 +1,103 @@
 
 {% extends "base.html" %}
 {% block content %}
-{% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
-{% endfor %}
-<div><a class="btn btn-primary" href="{% url 'asset_app_AssetCase_create' %}">Create a new AssetCase</a></div>
+
+<p>
+    <a class="btn btn-light" href="{% url 'asset_app_AssetCase_create' %}">
+    Opret fejlmelding
+    </a>
+</p>
+     <h1>Sag oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Sag</td>
+                <td>Sag oprettede</td>
+                <td>Ansvarlig</td>
+                <td>Udstyr</td>
+                <td>Påvirkningsgrad</td>
+                <td>
+                    <div style="text-align: center;">Skift status</div>
+                </td>
+            </tr>
+            {% for object in object_list %}
+
+            {% if object.solved %}
+                <tr class="table-secondary">
+            {% else %}
+                <tr>
+            {% endif %}
+                    <td>{{ object.asset_case }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Rediger</a>
+
+
+{% if  object.notes  %}
+<!-- Button trigger modal -->
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       {{ object.notes|linebreaks  }}
+      </div>
+
+  </div>
+</div>
+    </div>
+
+
+
+
+{% endif %}
+
+
+
+                    </td>
+                    <td>
+                        <div style="text-align: center;">{{ object.created }}</div>
+                    </td>
+                <td>
+                        <div style="text-align: center;">{{ object.case_owner }}</div>
+                    </td>
+                <td>
+                        <div style="text-align: center;">{{ object.asset }} <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
+                    </td>
+                <td>
+                        <div class="table-{{ object.severity_level.bootstrap_color }}" style="text-align: center;">{{ object.severity_level }}</div>
+                    </td>
+                    <td><center>
+                {% if object.solved %}
+                    <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
+                {% else %}
+                    <a href="{% url 'asset_app_asset_case_solved_false' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som ikke løst</a>
+                {% endif %}
+               </center>                                                                       tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
 {% endblock %}

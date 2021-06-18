@@ -99,13 +99,11 @@ class AssetLogAdminForm(forms.ModelForm):
 class AssetLogAdmin(admin.ModelAdmin):
     form = AssetLogAdminForm
     list_display = [
-        "date_time_log",
         "notes",
         "last_updated",
         "created",
     ]
     readonly_fields = [
-        "date_time_log",
         "notes",
         "last_updated",
         "created",
@@ -536,12 +534,14 @@ class SeverityLevelAdmin(admin.ModelAdmin):
     list_display = [
         "description",
         "bootstrap_color",
+        "sl_level",
         "last_updated",
         "created",
     ]
     readonly_fields = [
         "description",
         "bootstrap_color",
+        "sl_level",
         "last_updated",
         "created",
     ]
