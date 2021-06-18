@@ -3,7 +3,7 @@
 {% block content %}
 
 <p>
-    <a class="btn btn-light" href="{% url 'asset_app_AssetCase_create' %}">
+    <a class="btn btn-primary" href="{% url 'asset_app_AssetCase_create' %}">
     Opret fejlmelding
     </a>
 </p>
@@ -24,10 +24,10 @@
         <table class="table">
             <tr class="table-dark">
                 <td>Sag</td>
-                <td>Sag oprettede</td>
-                <td>Ansvarlig</td>
-                <td>Udstyr</td>
-                <td>Påvirkningsgrad</td>
+                <td><div style="text-align: center;">Sag oprettede</div></td>
+                <td><div style="text-align: center;">Ansvarlig</div></td>
+                <td><div style="text-align: center;">Udstyr</div></td>
+                <td><div style="text-align: center;">Påvirkningsgrad</div></td>
                 <td>
                     <div style="text-align: center;">Skift status</div>
                 </td>
@@ -39,7 +39,7 @@
             {% else %}
                 <tr>
             {% endif %}
-                    <td>{{ object.asset_case }} <a href="{{ object.get_absolute_url }}"
+                    <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
 
@@ -83,8 +83,8 @@
                 <td>
                         <div style="text-align: center;">{{ object.asset }} <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
                     </td>
-                <td>
-                        <div class="table-{{ object.severity_level.bootstrap_color }}" style="text-align: center;">{{ object.severity_level }}</div>
+                <td  class="table-{{ object.severity_level.bootstrap_color }}">
+                        <div style="text-align: center;">{{ object.severity_level }}</div>
                     </td>
                     <td><div style="text-align: center;">
                 {% if object.solved %}
