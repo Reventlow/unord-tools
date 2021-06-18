@@ -184,7 +184,7 @@ class ExternalService(models.Model):
         pass
 
     def __str__(self):
-        return str(self.company_name, self.pk)
+        return str(self.company_name)
 
     def get_absolute_url(self):
         return reverse("asset_app_ExternalService_detail", args=(self.pk,))
