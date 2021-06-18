@@ -13,10 +13,12 @@
 </p>
     
 <table class="table">
+    <tr><td>Påvirknings grad</td><td>{{ object.description }}</td></tr>
+    <tr><td>Bootstrap color</td><td>{{ object.bootstrap_color }}</td></tr>
+    <tr><td>SL niveau 1 er max</td><td>{{ object.sl_level }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>bootstrap_color</td><td>{{ object.bootstrap_color }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
-    <tr><td>description</td><td>{{ object.description }}</td></tr>
+
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 

@@ -22,7 +22,7 @@
             <tr class="table-dark">
                 <td>Beskrivelse</td>
                    <td>
-                    <center>Udføres efter antale dage</center>
+                    <center>SL niveau, 1 er max</center>
                 </td>
                 <td>
                     <center>Bootstrap farve</center>
@@ -69,9 +69,12 @@
 
                         {% endif %}
 
-</td><td>
+</td>
 
-
+                    <td>
+                        <center>{{ object.sl_level }}</center>
+                    </td>
+                    <td class="table-{{ object.bootstrap_color }}">
                         <center>{{ object.bootstrap_color }}</center>
                     </td>
                     <td>

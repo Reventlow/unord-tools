@@ -451,7 +451,7 @@ class SeverityLevelForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast påvirkning'}))
     bootstrap_color = forms.CharField(label="", max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast bootstrap farve'}))
-    sl_level= forms.IntegerField(required=True, min_value=1, widget=forms.NumberInput(
+    sl_level= forms.IntegerField(required=True, label="", min_value=1, widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': 'Påvirknings grad 1 er max'}))
     class Meta:
         model = models.SeverityLevel
