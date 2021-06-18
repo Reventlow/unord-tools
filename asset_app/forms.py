@@ -171,11 +171,11 @@ class ExternalServiceForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma post nummer'}))
     address_city = forms.CharField(label="", required=False,  max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma by'}))
-    company_telefon = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+    company_telephone = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma telefon nummer'}))
     company_email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma email'}))
-    company_support_telefon = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
+    company_support_telephone = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma support nummer'}))
     company_support_email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma support email'}))
@@ -191,10 +191,10 @@ class ExternalServiceForm(forms.ModelForm):
             "address_street",
             "address_postcode",
             "address_city",
-            "company_telefon",
+            "company_telephone",
             "company_email",
             "company_website",
-            "company_support_telefon",
+            "company_support_telephone",
             "company_support_email",
             "notes",
         ]

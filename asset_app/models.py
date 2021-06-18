@@ -168,9 +168,9 @@ class ExternalService(models.Model):
     address_street = models.CharField(max_length=60)
     address_postcode = models.CharField(max_length=30)
     address_city = models.CharField(max_length=30)
-    company_telefon = models.CharField(max_length=30)
+    company_telephone = models.CharField(max_length=30)
     company_email = models.CharField(max_length=60)
-    company_name = models.CharField(max_length=30)
+    company_support_telephone = models.CharField(max_length=30)
     company_support_email = models.CharField(max_length=30)
     company_website = models.URLField(null=True, blank=True)
     notes = models.TextField(max_length=448)
@@ -494,7 +494,7 @@ class SeverityLevel(models.Model):
     # Fields
     description = models.CharField(max_length=60)
     bootstrap_color = models.CharField(max_length=30)
-    sl_level = models.IntegerField()
+    sl_level = models.IntegerField(blank=True, null=True)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
