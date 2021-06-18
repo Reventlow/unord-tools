@@ -843,6 +843,12 @@ class SeverityLevelListView(generic.ListView):
     model = models.SeverityLevel
     form_class = forms.SeverityLevelForm
 
+    def delete(request, del_id):
+        item = models.SeverityLevel.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Påvirknings grad er nu blevet slettet')
+        return redirect('asset_app_SeverityLevel_list')
+
 
 @method_decorator(login_required, name='dispatch')
 class SeverityLevelCreateView(generic.CreateView):
@@ -862,8 +868,4 @@ class SeverityLevelUpdateView(generic.UpdateView):
     form_class = forms.SeverityLevelForm
     pk_url_kwarg = "pk"
 
-    def delete(request, del_id):
-        item = models.SeverityLevel.objects.get(pk=del_id)
-        item.delete()
-        messages.success(request, 'Påvirknings grad er nu blevet slettet')
-        return redirect('asset_app_SeverityLevel_list')
+
