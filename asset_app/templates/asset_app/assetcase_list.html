@@ -1,13 +1,12 @@
-
 {% extends "base.html" %}
 {% block content %}
 
-<p>
-    <a class="btn btn-primary" href="{% url 'asset_app_AssetCase_create' %}">
-    Opret fejlmelding
-    </a>
-</p>
-     <h1>Sag oversigt</h1>
+    <p>
+        <a class="btn btn-primary" href="{% url 'asset_app_AssetCase_create' %}">
+            Opret fejlmelding
+        </a>
+    </p>
+    <h1>Sag oversigt</h1>
 
     <br/>
     {% if messages %}
@@ -24,78 +23,89 @@
         <table class="table">
             <tr class="table-dark">
                 <td>Sag</td>
-                <td><div style="text-align: center;">Sag oprettede</div></td>
-                <td><div style="text-align: center;">Ansvarlig</div></td>
-                <td><div style="text-align: center;">Udstyr</div></td>
-                <td><div style="text-align: center;">Påvirkningsgrad</div></td>
+                <td>
+                    <div style="text-align: center;">Sag oprettede</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Udstyr</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Påvirkningsgrad</div>
+                </td>
                 <td>
                     <div style="text-align: center;">Skift status</div>
                 </td>
             </tr>
             {% for object in object_list %}
 
-            {% if object.solved %}
-                <tr class="table-secondary">
-            {% else %}
-                <tr>
-            {% endif %}
-                    <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
-                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
-                                               class="badge rounded-pill bg-dark">Rediger</a>
+                {% if object.solved %}
+                    <tr class="table-secondary">
+                        {% else %}
+                    <tr>
+                {% endif %}
+            <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
+                                            class="badge rounded-pill bg-dark">Detaljer</a> <a
+                    href="{{ object.get_update_url }}"
+                    class="badge rounded-pill bg-dark">Rediger</a>
 
 
-{% if  object.notes  %}
-<!-- Button trigger modal -->
-<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+                {% if  object.notes %}
+                    <!-- Button trigger modal -->
+                    <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal{{ object.id }}">
   Note
 </span>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       {{ object.notes|linebreaks  }}
-      </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ object.notes|linebreaks }}
+                                </div>
 
-  </div>
-</div>
-    </div>
-
-
-
-
-{% endif %}<br/>
-                        <small class="text-muted"><em>Sags ansvarlig: {{ object.case_owner }}</em></small>
+                            </div>
+                        </div>
+                    </div>
 
 
 
-                    </td>
-                    <td>
-                        <div style="text-align: center;">{{ object.created|date:'d-m-Y, H:i' }}</div>
-                    </td>
-                <td>
-                        <div style="text-align: center;">{{ object.case_owner }}</div>
-                    </td>
-                <td>
-                        <div style="text-align: center;">{{ object.asset }} <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
-                    </td>
-                <td  class="table-{{ object.severity_level.bootstrap_color }}">
-                        <div style="text-align: center;">{{ object.severity_level }}</div>
-                    </td>
-                    <td><div style="text-align: center;">
-                {% if object.solved %}
-                    <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
-                {% else %}
-                    <a href="{% url 'asset_app_asset_case_solved_false' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som ikke løst</a>
-                {% endif %}
-               </div>
-                    </td>
-                </tr>
+
+                {% endif %}<br/>
+                <small class="text-muted"><em>Sags ansvarlig: {{ object.case_owner }}</em></small>
+
+
+            </td>
+            <td>
+                <div style="text-align: center;">{{ object.created|date:'d-m-Y, H:i' }}</div>
+            </td>
+
+            <td>
+                <div style="text-align: center;">{{ object.asset }}
+                    <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
+            </td>
+            <td class="table-{{ object.severity_level.bootstrap_color }}">
+                <div style="text-align: center;">{{ object.severity_level }}</div>
+            </td>
+            <td>
+                <div style="text-align: center;">
+                    {% if object.solved %}
+                        <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm "
+                           tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
+                    {% else %}
+                        <a href="{% url 'asset_app_asset_case_solved_false' object.id %}"
+                           class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som
+                            ikke løst</a>
+                    {% endif %}
+                </div>
+            </td>
+            </tr>
 
             {% endfor %}
         </table>
