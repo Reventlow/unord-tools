@@ -316,7 +316,7 @@ class ExternalServiceDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['employees'] = self.objects.externalservicecontact_set.order_by('name')
+        context['employees'] = self.object.externalservicecontact_set.order_by('name')
         return context
 
 
