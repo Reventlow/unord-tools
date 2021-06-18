@@ -77,7 +77,7 @@ class AssetCase(models.Model):
         pass
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.description)
 
     def get_absolute_url(self):
         return reverse("asset_app_AssetCase_detail", args=(self.pk,))
@@ -184,7 +184,7 @@ class ExternalService(models.Model):
         pass
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.company_name)
 
     def get_absolute_url(self):
         return reverse("asset_app_ExternalService_detail", args=(self.pk,))
@@ -232,7 +232,7 @@ class ExternalServicePosition(models.Model):
         pass
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.description)
 
     def get_absolute_url(self):
         return reverse("asset_app_ExternalServicePosition_detail", args=(self.pk,))
@@ -266,7 +266,7 @@ class Loan_asset(models.Model):
         pass
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.loaner_name)
 
     def get_absolute_url(self):
         return reverse("asset_app_loan_asset_detail", args=(self.pk,))
@@ -503,7 +503,7 @@ class SeverityLevel(models.Model):
         pass
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.description)
 
     def get_absolute_url(self):
         return reverse("asset_app_SeverityLevel_detail", args=(self.pk,))
