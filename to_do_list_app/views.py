@@ -50,7 +50,7 @@ def uncross(request, job_id):
 
 @login_required(login_url='login')
 def edit(request, job_id):
-    if request.method ==  'POST':
+    if request.method == 'POST':
         item = Jobs.objects.get(pk=job_id)
         form = ListForm(request.POST or None, instance=item)
         if form.is_valid() and request.POST['item'] != '':
