@@ -32,7 +32,7 @@
         {% for jobs in all_items %}
             {% if jobs.completed %}
                 <tr class="table-secondary ">
-                    <td class="striker">{{ jobs.item }}<br/><small class="text-muted"><em>Opgave ansvarlig: {{ item.to_do_owner}}</em></small></td>
+                    <td class="striker">{{ jobs.item }}</td>
                     <td style="text-align: center;"><a href="{% url 'uncross' jobs.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Afmarker løst</a>
                     </td>
                     <td style="text-align: center;"><a href="{% url 'delete' jobs.id %}" class="btn btn-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Slet</a>
@@ -40,7 +40,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td>{{ jobs.item }}  <a href="{%  url 'edit' jobs.id %}" class="badge rounded-pill bg-dark">Rediger</a></td>
+                    <td>{{ jobs.item }}  <a href="{%  url 'edit' jobs.id %}" class="badge rounded-pill bg-dark">Rediger</a><br/><small class="text-muted"><em>Opgave ansvarlig: {{ item.to_do_owner}}</em></small></td>
                     <td style="text-align: center;"><a href="{% url 'cross_off' jobs.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker løst</a>
                     </td>
                     <td style="text-align: center;"><a href="{% url 'delete' jobs.id %}" class="btn btn-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Slet</a>
