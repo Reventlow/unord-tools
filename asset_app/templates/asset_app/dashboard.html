@@ -242,7 +242,7 @@
 {% for object in to_dos %}
 {% if object.completed == False %}
 <tr>
-    <td>{{ object.item}}<small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td>
+    <td>{{ object.item}}<br/><small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td>
 </tr>
         {% endif %}
 {% endfor %}
