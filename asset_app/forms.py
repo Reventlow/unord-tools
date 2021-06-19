@@ -333,6 +333,8 @@ class ModelForm(forms.ModelForm):
 class One2OneInfoForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast opgave beskrivelse'}))
+    job_owner = forms.ModelChoiceField(queryset=User.objects.all(),
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
     completed = forms.BooleanField(label="Er opgaven udført", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
@@ -341,6 +343,7 @@ class One2OneInfoForm(forms.ModelForm):
         model = models.One2OneInfo
         fields = [
             "name",
+            "job_owner",
             "completed",
             "notes",
 

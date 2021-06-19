@@ -197,6 +197,7 @@ class One2OneInfoSerializer(serializers.ModelSerializer):
         model = models.One2OneInfo
         fields = [
         "name",
+        "job_owner",
         "completed",
         "notes",
         "created",
@@ -209,6 +210,7 @@ class One2OneInfoLogSerializer(serializers.ModelSerializer):
         model = models.One2OneInfoLog
         fields = [
         "name",
+        "job_owner",
         "one_2_one_info",
         "locations",
         "notes",

@@ -381,6 +381,7 @@ class One2OneInfoAdmin(admin.ModelAdmin):
     form = One2OneInfoAdminForm
     list_display = [
         "name",
+        "job_owner",
         "completed",
         "notes",
         "created",
@@ -388,6 +389,7 @@ class One2OneInfoAdmin(admin.ModelAdmin):
     ]
     readonly_fields = [
         "name",
+        "job_owner",
         "completed",
         "notes",
         "created",

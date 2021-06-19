@@ -342,7 +342,7 @@ class Model_hardware(models.Model):
 
 class One2OneInfo(models.Model):
     # Relationships
-
+    job_owner = models.ForeignKey("auth.User", on_delete=models.SET_NULL, blank=True, null=True)
 
     # Fields
     name = models.CharField(max_length=100)
