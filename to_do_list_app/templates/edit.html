@@ -7,7 +7,7 @@
           {% csrf_token %}
             <input class="form-control me-2" type="search" placeholder="{{  item.item  }}"
                    value="{{  item.item  }}" aria-label="Search" name="item">
-            <input type="hidden" value="{{  user.username  }}" name="job_owner">
+            <input type="hidden" value="{{  user.username  }}" name="to_do_owner">
             <input type="hidden" value="{{  item.completed  }}" name="completed">
             <button class="btn btn-outline-secondary" type="submit">Rediger opgave</button>
         </form>
