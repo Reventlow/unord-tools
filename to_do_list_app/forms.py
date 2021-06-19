@@ -1,6 +1,6 @@
 from django import forms
 from .models import Jobs
-from django.contrib.auth.models import User
+
 
 class JobsForm(forms.ModelForm):
 
