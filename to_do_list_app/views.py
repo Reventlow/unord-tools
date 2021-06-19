@@ -57,7 +57,7 @@ def edit(request, job_id):
             form.save()
             all_items = Jobs.objects.all
             messages.success(request, request.POST['item']+ ' er blevet redigeret i din opgave list')
-            return redirect('todo')
+            return HttpResponseRedirect('todo')
     else:
         item =Jobs.objects.get(pk=job_id)
         context = {'item': item}
