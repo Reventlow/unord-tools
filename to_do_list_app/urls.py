@@ -34,5 +34,5 @@ urlpatterns = [
     path("todo_list_app/todo_list/create/", views.JobsCreateView.as_view(), name="to_do_app_to_do_create"),
     path("todo_list_app/todo_list/detail/<int:pk>/", views.JobsDetailView.as_view(), name="to_do_app_to_do_detail"),
     path("todo_list_app/todo_list/update/<int:pk>/", views.JobsUpdateView.as_view(), name="to_do_app_to_do_update"),
-    path("todo_list_app/todo_list/delete/<int:pk>/", views.JobsListView.delete, name="to_do_app_to_do_delete"),
+    path("todo_list_app/todo_list/delete/<int:pk>/", views.JobsCreateView.delete, name="to_do_app_to_do_delete"),
 ]
