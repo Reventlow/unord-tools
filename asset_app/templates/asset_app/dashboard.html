@@ -170,7 +170,8 @@
                                         {% if routinelog.routine.name == object.name %}
 
                 <tr>
-                    <td>{{ object.name }}
+                    <td>{{ object.name }}<br/>
+                <small class="text-muted"><em>Opgave ansvarlig: {{ object.routine_owner}}</em></small> </td>
 
 </td>
 <td class="table-danger">
@@ -214,7 +215,7 @@
 
                 <tr>
                     <td>{{ object.name }}<br/>
-                <small class="text-muted"><em>Opgave ansvarlig: {{ object.routine.job_owner}}</em></small> </td>
+                <small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td>
                  <td>
                     <center>{{ object.object_count }}</center>
                 </td>
@@ -235,7 +236,8 @@
 
 <table class="table">
     <tr class="table-dark">
-        <td>Opgave</td>
+        <td>Opgave<br/>
+                <small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td></td>
     </tr>
 
 {% for object in to_dos %}
