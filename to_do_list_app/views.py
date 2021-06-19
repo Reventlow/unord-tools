@@ -60,7 +60,7 @@ def edit(request, job_id):
             return redirect('todo')
 
     else:
-        item = List.objects.get(pk=job_id)
+        item = Jobs.objects.get(pk=job_id)
         context = {'item': item}
         return render(request, 'edit', context)
 
