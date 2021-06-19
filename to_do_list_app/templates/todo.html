@@ -6,10 +6,11 @@
 
 <h1>Opgaver der skal løses</h1>
           <form action="{% url 'todo' %}" class="d-flex my-2 my-lg-0" method="POST">
-          {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Tilføje opgave" aria-label="Search" name="item">
-        <button class="btn btn-outline-secondary" type="submit">Tilføj</button>
-      </form>
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Tilføje opgave" aria-label="Search" name="item">
+            <input type="hidden" value="{{  user.username }}" name="to_do_owner">
+            <button class="btn btn-outline-secondary" type="submit">Tilføj</button>
+          </form>
 <br/>
     {% if messages %}
 
