@@ -59,8 +59,9 @@ def edit(request, job_id):
             return HttpResponseRedirect('todo')
     else:
         item =Jobs.objects.get(pk=job_id)
-        context = {'item': item}
-        return render(request, 'edit.html', context)
+
+    context = {'item': item}
+    return render(request, 'edit.html', context)
 
 
 
