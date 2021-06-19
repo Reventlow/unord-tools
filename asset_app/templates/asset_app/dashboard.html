@@ -38,7 +38,7 @@
 </table>
 
 
-
+{% if loan_assets %}
     <br/>
 
     <center><h2>Personlig udlåning der mangler at blive retuneret</h2></center>
@@ -66,7 +66,10 @@
         {% endif %}
 {% endfor %}
 </table>
+    {% endif %}
 
+
+    {% if bundelReservations %}
         <br/>
 
     <center><h2>Sæt udlåning der mangler at blive retuneret</h2></center>
@@ -96,8 +99,12 @@
         {% endif %}
 {% endfor %}
 </table>
+
+    {% endif %}
+
+     {% if assetCases %}
     <br/>
-    {% if assetCases %}
+
         <table class="table">
             <tr class="table-dark">
                 <td>Sag</td>
