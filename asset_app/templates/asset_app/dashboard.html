@@ -125,41 +125,7 @@
                         {% else %}
                     <tr class="table-{{ object.severity_level.bootstrap_color }}">
                 {% endif %}
-            <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
-                                            class="badge rounded-pill bg-dark">Detaljer</a> <a
-                    href="{{ object.get_update_url }}"
-                    class="badge rounded-pill bg-dark">Rediger</a>
-
-
-                {% if  object.notes %}
-                    <!-- Button trigger modal -->
-                    <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal{{ object.id }}">
-  Note
-</span>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    {{ object.notes|linebreaks }}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                {% endif %}<br/>
+            <td>{{ object.description }} <br/>
                 <small class="text-muted"><em>Sags ansvarlig: {{ object.case_owner }}</em></small>
 
 
@@ -247,7 +213,8 @@
              {% for object in one2ones %}
 
                 <tr>
-                    <td>{{ object.name }} </td>
+                    <td>{{ object.name }}<br/>
+                <small class="text-muted"><em>Opgave ansvarlig: {{ object.routine_owner }}</em></small> </td>
                  <td>
                     <center>{{ object.object_count }}</center>
                 </td>
@@ -261,7 +228,7 @@
     {% endif %}
 
 
-
+{% if to_dos %}
 
     <br/>
         <center><h2>To do listen</h2></center>
@@ -279,4 +246,5 @@
         {% endif %}
 {% endfor %}
 </table>
+        {% endif %}
 {% endblock %}
