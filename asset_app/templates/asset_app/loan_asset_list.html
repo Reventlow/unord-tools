@@ -21,25 +21,25 @@
             <tr class="table-dark">
                 <td>Udlåner</td>
                 <td>
-                    <center>Udlånt fra</center>
+                    <div style="text-align: center;">Udlånt fra</div>
                 </td>
                 <td>
-                    <center>Udlåner</center>
+                    <div style="text-align: center;">Udlåner</div>
                 </td>
                 <td>
-                    <center>Kontakt</center>
+                    <div style="text-align: center;">Kontakt</div>
                 </td>
                 <td>
-                    <center>Udstyr</center>
+                    <div style="text-align: center;">Udstyr</div>
                 </td>
                 <td>
-                    <center>Udlånt fra</center>
+                    <div style="text-align: center;">Udlånt fra</div>
                 </td>
                 <td>
-                    <center>Retuneres</center>
+                    <div style="text-align: center;">Retuneres</div>
                 </td>
                   <td>
-                    <center>Skift retunerins status</center>
+                    <div style="text-align: center;">Skift retunerins status</div>
                 </td>
 
             </tr>
@@ -89,32 +89,32 @@
 {% endif %}
                     </td>
                     <td>
-                    <center>{{ object.location }}</center>
+                    <div style="text-align: center;">{{ object.location }}</div>
                 </td>
                 <td>
-                    <center>{{ object.loaner_type }}</center>
+                    <div style="text-align: center;">{{ object.loaner_type }}</div>
                 </td>
                 <td>
-                    <center>{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</center>
+                    <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
                 </td>
                 <td>
-                    <center>{{ object.asset }}<br/>{{ object.asset.model_hardware.asset_type }}</center>
+                    <div style="text-align: center;">{{ object.asset }}<br/>{{ object.asset.model_hardware.asset_type }}</div>
                 </td>
 
                 <td>
-                    <center>{{ object.loan_date }}</center>
+                    <div style="text-align: center;">{{ object.loan_date }}</div>
                 </td>
                 <td>
-                    <center>{{ object.return_date }}</center>
+                    <div style="text-align: center;">{{ object.return_date }}</div>
                 </td>
 
-                <td><center>
-                {% if object.returned %}
-                    <a href="{% url 'asset_app_loan_asset_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
-                {% else %}
-                    <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
-                {% endif %}
-               </center></td>
+                <td style="text-align: center;">
+                    {% if object.returned %}
+                        <a href="{% url 'asset_app_loan_asset_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
+                    {% else %}
+                        <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                    {% endif %}
+                </td>
                 </tr>
 
             {% endfor %}
