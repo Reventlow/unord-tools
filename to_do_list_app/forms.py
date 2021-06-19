@@ -7,10 +7,7 @@ from .models import Jobs
 class JobsForm(forms.ModelForm):
     item = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Opgave beskrivelse'}))
-    to_do_owner = forms.ModelChoiceField(queryset=User.objects.all().order_by('username'),
-                                            initial={"option": User.id},
-                                            label="Hvem er ansvarlige for opgaven",
-                                            widget=forms.Select(attrs={'class': 'form-control'}))
+    to_do_owner = forms.CharField(widget=forms.HiddenInput(), initial={"option": User.id})
     completed = forms.BooleanField(label="Er opgaven løst", initial=False, required=False)
 
     class Meta:
