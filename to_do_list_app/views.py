@@ -19,10 +19,11 @@ def todo(request):
     if request.method == 'POST':
         form = JobsForm(request.POST or None)
         if form.is_valid() and request.POST['item'] != '':
-            form.cleaned_data['to_do_owner']
+            thisJob = form.save(commit=false)
+            thisJob.to_do_owner = request.user
             form.save()
             all_items = Jobs.objects.order_by('completed')
-            messages.success(request, request.POST['item']+ ' er blevet tilføjet til din opgave list')
+            messages.success(request, '"' + request.POST['item']+ '" er blevet tilføjet til din opgave list')
             context = {'all_items': all_items}
             return render(request, 'todo.html', context)
     else:
