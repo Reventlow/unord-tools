@@ -76,8 +76,8 @@
         <td>Udlåner</td>
         <td>Fra afdeling</td>
         <td>Formål</td>
-        <td>Udstyr type</td>
-        <td>Antal</td>
+        <td><center>Udstyr type</center></td>
+        <td><center>Antal</center></td>
         <td>Skulle afleveres</td>
     </tr>
 
@@ -87,8 +87,8 @@
     <td>{{ object.loaner_name }}</td>
     <td>{{ object.location }}</td>
     <td>{{ object.course_name }}</td>
-    <td>{{ object.asset_type }}</td>
-    <td>{{ object.amount }}</td>
+    <td><center>{{ object.asset_type }}</center></td>
+    <td><center>{{ object.amount }}</center></td>
     {% if object.return_date == None or object.return_date < today %}
             <td class="table-danger">{{ object.return_date }}</td>
     {% endif %}
@@ -165,7 +165,7 @@
                 <div style="text-align: center;">{{ object.asset }}
                     <br/> {{ object.asset.model_hardware.brand }} {{ object.asset.model_hardware.name }}</div>
             </td>
-            <td>
+            <td>23
                 <div style="text-align: center;">{{ object.severity_level }}</div>
             </td>
             </tr>
