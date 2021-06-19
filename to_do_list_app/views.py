@@ -59,9 +59,8 @@ def edit(request, job_id):
         form = JobsForm(request.POST or None, instance=item)
         if form.is_valid() and request.POST['item'] != '':
             form.save()
-            all_items = Jobs.objects.all
             messages.success(request, request.POST['item'] + ' er blevet redigeret i din opgave list')
-            return redirect('todo.html')
+            return redirect('todo')
 
     else:
         item = Jobs.objects.get(pk=job_id)
