@@ -51,17 +51,18 @@ def uncross(request, job_id):
 @login_required(login_url='login')
 def edit(request, job_id):
     if request.method == 'POST':
-        item = Jobs.objects.get(pk=job_id)
+        item = List.objects.get(pk=job_id)
         form = ListForm(request.POST or None, instance=item)
         if form.is_valid() and request.POST['item'] != '':
             form.save()
-            messages.success(request, request.POST['item']+ ' er blevet redigeret i din opgave list')
-            return HttpResponseRedirect('todo')
-    else:
-        item =Jobs.objects.get(pk=job_id)
+            all_items = List.objects.all
+            messages.success(request, request.POST['item'] + ' er blevet redigeret i din opgave list')
+            return redirect('todo')
 
-    context = {'item': item}
-    return render(request, 'edit.html', context)
+    else:
+        item = List.objects.get(pk=job_id)
+        context = {'item': item}
+        return render(request, 'edit', context)
 
 
 
