@@ -173,7 +173,7 @@
                     <td>{{ object.name }}<br/>
                 <small class="text-muted"><em>Opgave ansvarlig: {{ object.routine_owner}}</em></small> </td>
 
-</td>
+
 <td class="table-danger">
 
                         <center>{{ object.reoccurrence }}</center>
@@ -236,14 +236,13 @@
 
 <table class="table">
     <tr class="table-dark">
-        <td>Opgave<br/>
-                <small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td></td>
+        <td>Opgave<br/></td>
     </tr>
 
 {% for object in to_dos %}
 {% if object.completed == False %}
 <tr>
-    <td>{{ object.item}}</td>
+    <td>{{ object.item}}<small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td>
 </tr>
         {% endif %}
 {% endfor %}
