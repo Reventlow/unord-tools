@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login')
 def todo(request):
     if request.method == 'POST':
-        form = ListForm(request.POST or None)
+        form = JobsForm(request.POST or None)
         if form.is_valid() and request.POST['item'] != '':
             form.save()
             all_items = Jobs.objects.order_by('completed')
@@ -57,7 +57,7 @@ def edit(request, job_id):
             form.save()
             all_items = Jobs.objects.all
             messages.success(request, request.POST['item'] + ' er blevet redigeret i din opgave list')
-            return redirect('todo')
+            return redirect('todo.html')
 
     else:
         item = Jobs.objects.get(pk=job_id)
