@@ -79,25 +79,25 @@ class JobsListView(generic.ListView):
     form_class = forms.JobsForm
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('name')
+        queryset = super().get_queryset().order_by('created')
         return queryset
 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        prefetch_related_objects([obj], 'model_hardware__asset')
-        return obj
-
-    def delete(request, del_id):
-        item = models.Asset.objects.get(pk=del_id)
-        item.delete()
-        messages.success(request, 'Udstyr er nu blevet slettet')
-        return redirect('asset_app_asset_list')
 
 
 @method_decorator(login_required, name='dispatch')
 class JobsCreateView(generic.CreateView):
     model = models.Jobs
     form_class = forms.JobsForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('created')
+        return queryset
+
+    def delete(request, del_id):
+        item = models.Jobs.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Opgave er nu blevet slettet')
+        return redirect('to_do_app_to_do_list')
 
 
 @method_decorator(login_required, name='dispatch')
