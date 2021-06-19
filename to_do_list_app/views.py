@@ -4,6 +4,8 @@ from .forms import JobsForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views import generic
 
 
 
@@ -64,6 +66,49 @@ def edit(request, job_id):
         context = {'item': item}
         return render(request, 'edit.html', context)
 
+
+
+
+###########################################################
+
+@method_decorator(login_required, name='dispatch')
+class JobsView(generic.ListView):
+    model = models.Jobs
+    form_class = forms.JobsForm
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('name')
+        return queryset
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        prefetch_related_objects([obj], 'model_hardware__asset')
+        return obj
+
+    def delete(request, del_id):
+        item = models.Asset.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Udstyr er nu blevet slettet')
+        return redirect('asset_app_asset_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class AssetCreateView(generic.CreateView):
+    model = models.Jobs
+    form_class = forms.JobsForm
+
+
+@method_decorator(login_required, name='dispatch')
+class AssetDetailView(generic.DetailView):
+    model = models.Jobs
+    form_class = forms.JobsForm
+
+
+@method_decorator(login_required, name='dispatch')
+class AssetUpdateView(generic.UpdateView):
+    model = models.Jobs
+    form_class = forms.JobsForm
+    pk_url_kwarg = "pk"
 
 
 

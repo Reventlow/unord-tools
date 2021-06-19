@@ -12,7 +12,19 @@ class JobsAdminForm(forms.ModelForm):
 
 class JobsAdmin(admin.ModelAdmin):
     form = JobsAdminForm
-    list_display = ["item", "to_do_owner", "completed"]
-    readonly_fields = ["item", "to_do_owner", "completed"]
+    list_display = [
+        "item",
+        "to_do_owner",
+        "completed",
+        "last_updated",
+        "created",
+    ]
+    readonly_fields = [
+        "item",
+        "to_do_owner",
+        "completed",
+        "last_updated",
+        "created",
+    ]
 
 admin.site.register(models.Jobs, JobsAdmin)

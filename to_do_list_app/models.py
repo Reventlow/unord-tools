@@ -8,6 +8,8 @@ class Jobs(models.Model):
     # Fields
     item = models.CharField(max_length=200)
     completed = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
         return self.item +' | ' +  str(self.completed)

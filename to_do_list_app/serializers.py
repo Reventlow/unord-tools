@@ -5,4 +5,10 @@ class JobsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Jobs
-        fields = ["item", "to_do_owner", "completed"]
+        fields = [
+        "item",
+        "to_do_owner",
+        "completed",
+        "last_updated",
+        "created",
+        ]
