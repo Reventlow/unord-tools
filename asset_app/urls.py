@@ -47,8 +47,8 @@ urlpatterns = [
     path("asset_app/AssetCase/create/", views.AssetCaseCreateView.as_view(), name="asset_app_AssetCase_create"),
     path("asset_app/AssetCase/detail/<int:pk>/", views.AssetCaseDetailView.as_view(), name="asset_app_AssetCase_detail"),
     path("asset_app/AssetCase/update/<int:pk>/", views.AssetCaseUpdateView.as_view(), name="asset_app_AssetCase_update"),
-    path('asset_app/asset_case/solved_true/<int:pk>', views.AssetCaseListView.set_solved_true, name='asset_app_asset_case_solved_true'),
-    path('asset_app/asset_case/solved__false/<int:pk>', views.AssetCaseListView.set_solved_false, name='asset_app_asset_case_solved_false'),
+    path('asset_app/asset_case/solved_true/<asset_case_id>', views.AssetCaseListView.set_solved_true, name='asset_app_asset_case_solved_true'),
+    path('asset_app/asset_case/solved__false/<asset_case_id>', views.AssetCaseListView.set_solved_false, name='asset_app_asset_case_solved_false'),
 #AssetLog
     path("asset_app/asset_log/", views.AssetLogListView.as_view(), name="asset_app_AssetLog_list"),
     path("asset_app/asset_log/create/", views.AssetLogCreateView.as_view(), name="asset_app_AssetLog_create"),

@@ -110,7 +110,7 @@ class AssetCaseListView(generic.ListView):
         return redirect('asset_app_AssetCase_list')
 
     def set_solved_false(request, asset_case_id):
-        item = models.Bundle_reservation.objects.get(pk=asset_case_id)
+        item = models.Assetcase.objects.get(pk=asset_case_id)
         item.solved = False
         messages.success(request, 'Sag er noteret som ikke løst')
         item.save()
