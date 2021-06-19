@@ -62,7 +62,7 @@ def edit(request, job_id):
     else:
         item = Jobs.objects.get(pk=job_id)
         context = {'item': item}
-        return render(request, 'edit', context)
+        return render(request, 'edit.html', context)
 
 
 
