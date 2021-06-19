@@ -273,7 +273,7 @@ class Dashboard(generic.TemplateView):
         context['rooms'] = models.Room.objects.exclude(room_type__name='Skole').exclude(
             room_type__name='Afdeling').order_by('last_inspected', 'location', 'name')
         context['assetCases'] = models.AssetCase.objects.exclude(solved='True').order_by('created')
-        context['bundelReservations'] = models.Bundle_reservation.objects.filter(returned=False).order_by('return_date')
+        context['bundelReservations'] = models.Bundle_reservation.objects.filter(returned=False, return_date > context_entry_inspection_time).order_by('return_date')
         context['loan_assets'] = models.Loan_asset.objects.filter(returned=False).order_by('return_date')
         context['routinelogs'] = models.RoutineLog.objects.all().order_by('routine__name', '-date').distinct(
             'routine__name')
