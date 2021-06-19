@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import generic
+from . import models
+from . import forms
 
 
 
@@ -72,7 +74,7 @@ def edit(request, job_id):
 ###########################################################
 
 @method_decorator(login_required, name='dispatch')
-class JobsView(generic.ListView):
+class JobsListView(generic.ListView):
     model = models.Jobs
     form_class = forms.JobsForm
 
@@ -93,19 +95,19 @@ class JobsView(generic.ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class AssetCreateView(generic.CreateView):
+class JobsCreateView(generic.CreateView):
     model = models.Jobs
     form_class = forms.JobsForm
 
 
 @method_decorator(login_required, name='dispatch')
-class AssetDetailView(generic.DetailView):
+class JobsDetailView(generic.DetailView):
     model = models.Jobs
     form_class = forms.JobsForm
 
 
 @method_decorator(login_required, name='dispatch')
-class AssetUpdateView(generic.UpdateView):
+class JobsUpdateView(generic.UpdateView):
     model = models.Jobs
     form_class = forms.JobsForm
     pk_url_kwarg = "pk"
