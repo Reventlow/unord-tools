@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Jobs
-from .forms import ListForm
+from .forms import JobsForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -51,11 +51,11 @@ def uncross(request, job_id):
 @login_required(login_url='login')
 def edit(request, job_id):
     if request.method == 'POST':
-        item = List.objects.get(pk=job_id)
-        form = ListForm(request.POST or None, instance=item)
+        item = Jobs.objects.get(pk=job_id)
+        form = JobsForm(request.POST or None, instance=item)
         if form.is_valid() and request.POST['item'] != '':
             form.save()
-            all_items = List.objects.all
+            all_items = Jobs.objects.all
             messages.success(request, request.POST['item'] + ' er blevet redigeret i din opgave list')
             return redirect('todo')
 
