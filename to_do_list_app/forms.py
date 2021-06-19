@@ -6,4 +6,4 @@ class ListForm(forms.ModelForm):
 
     class Meta:
         model = Jobs
-        fields=["item", "job_owner", "completed"]
+        fields=["item", "to_do_owner", "completed"]
