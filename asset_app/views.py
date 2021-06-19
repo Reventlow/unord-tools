@@ -102,14 +102,14 @@ class AssetCaseListView(generic.ListView):
     model = models.AssetCase
     form_class = forms.AssetCaseForm
 
-    def set_solved_true(request, asset_case_id, **kwargs):
+    def set_solved_true(self, request, asset_case_id, **kwargs):
         item = models.AssetCase.objects.get(pk=asset_case_id)
         item.solved = True
         messages.success(request, 'Sagen er noteret som afsluttede')
         item.save()
         return redirect('asset_app_AssetCase_list')
 
-    def set_solved_false(request, asset_case_id, **kwargs):
+    def set_solved_false(self, request, asset_case_id, **kwargs):
         item = models.Assetcase.objects.get(pk=asset_case_id)
         item.solved = False
         messages.success(request, 'Sag er noteret som ikke løst')
