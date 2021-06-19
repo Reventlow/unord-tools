@@ -8,7 +8,7 @@
         },600000);
     </script>
 
-
+{% if rooms %}
 <center><h2>Rum der skal gennemgås</h2></center>
 
 <table class="table">
@@ -36,7 +36,7 @@
         {% endif %}
 {% endfor %}
 </table>
-
+  {% endif %}
 
 {% if loan_assets %}
     <br/>
@@ -104,7 +104,7 @@
 
      {% if assetCases %}
     <br/>
-
+<center><h2>Sager der er på udstyr eller systemer</h2></center>
         <table class="table">
             <tr class="table-dark">
                 <td>Sag</td>
