@@ -102,6 +102,12 @@ class AssetCaseListView(generic.ListView):
     model = models.AssetCase
     form_class = forms.AssetCaseForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
+
     def set_solved_true(request, asset_case_id):
         item = models.AssetCase.objects.get(pk=asset_case_id)
         item.solved = True
