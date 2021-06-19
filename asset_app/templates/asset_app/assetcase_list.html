@@ -96,9 +96,9 @@
             <td>
                 <div style="text-align: center;">
                     {% if object.solved == False %}
-                       true object.id = {{ object.id }} <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
+                       <a href="{% url 'asset_app_asset_case_solved_true' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som løst</a>
                     {% else %}
-                       false object.id = {{ object.id }} <a href="{% url 'asset_app_asset_case_solved_false' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som ikke løst</a>
+                       <a href="{% url 'asset_app_asset_case_solved_false' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker som ikke løst</a>
                     {% endif %}
                 </div>
             </td>
