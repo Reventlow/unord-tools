@@ -56,7 +56,7 @@ class AssetCaseForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast emne til fejlmelding'}))
     case_owner = forms.ModelChoiceField(queryset=User.objects.all(), label="Ansvarlig for sagen",
                                             widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr påvirket af fejl",
+    asset = forms.ModelChoiceField(queryset=Asset.objects.all().order_by('model_hardware__asset_type__name','name'), label="Udstyr påvirket af fejl",
                                         widget=forms.Select(attrs={'class': 'form-control'}))
     severity_level = forms.ModelChoiceField(queryset=SeverityLevel.objects.all().order_by('-sl_level'), label="Påvirket af fejl",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
