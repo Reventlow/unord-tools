@@ -122,6 +122,9 @@ class AssetCaseCreateView(generic.CreateView):
     model = models.AssetCase
     form_class = forms.AssetCaseForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class AssetCaseDetailView(generic.DetailView):
