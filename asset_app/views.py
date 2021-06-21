@@ -425,6 +425,10 @@ class Loan_assetCreateView(generic.CreateView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
+        return queryset
+
 
 @method_decorator(login_required, name='dispatch')
 class Loan_assetDetailView(generic.DetailView):
