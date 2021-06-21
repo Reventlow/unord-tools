@@ -25,7 +25,7 @@ class Asset(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return str(self.name)
+        return str(self.name) + ' | ' + str(self.model_hardware.brand) + ' | ' + str(self.model_hardware.name) + ' | ' + str(self.model_hardware.asset_type)
 
 
     def get_absolute_url(self):
