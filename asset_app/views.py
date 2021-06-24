@@ -117,7 +117,7 @@ class AssetCaseListView(generic.ListView):
         return redirect('asset_app_AssetCase_list')
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('solved')
+        queryset = super().get_queryset().order_by('solved', 'created')
         return queryset
 
 
