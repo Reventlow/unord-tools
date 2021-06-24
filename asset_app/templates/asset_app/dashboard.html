@@ -59,7 +59,7 @@
     <td>{{ object.loaner_type }}</td>
     <td>{{ object.location }}</td>
     <td>{{ object.asset }}</td>
-    {% if object.return_date == None or object.return_date < today %}
+    {% if object.return_date == None or object.return_date > today %}
             <td class="table-danger">{{ object.return_date }}</td>
     {% endif %}
 </tr>
