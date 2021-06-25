@@ -116,6 +116,10 @@ class AssetCaseListView(generic.ListView):
         item.save()
         return redirect('asset_app_AssetCase_list')
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('solved', 'created')
+        return queryset
+
 
 @method_decorator(login_required, name='dispatch')
 class AssetCaseCreateView(generic.CreateView):

@@ -407,7 +407,7 @@ class Room(models.Model):
         ordering = ["location","name"]
 
     def __str__(self):
-        return self.name
+        return str(self.name) + '-' + str(self.location.name)
 
     def get_absolute_url(self):
         return reverse("asset_app_room_detail", args=(self.pk,))
