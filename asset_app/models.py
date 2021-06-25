@@ -470,7 +470,7 @@ class RoutineLog(models.Model):
 
     # Fields
     date = models.DateField()
-    notes = models.TextField(max_length=448)
+    notes = models.TextField(max_length=2096)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

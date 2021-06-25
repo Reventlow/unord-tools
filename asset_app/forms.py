@@ -439,7 +439,7 @@ class RoutineLogForm(forms.ModelForm):
                                                                                                "type": "date"}))
     routine = forms.ModelChoiceField(queryset=Routines.objects.all(),
                                   widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
+    notes = forms.CharField(required=False, label="Noter", max_length=2096, widget=forms.Textarea(
         attrs={'class': 'form-control', }))
     class Meta:
         model = models.RoutineLog
