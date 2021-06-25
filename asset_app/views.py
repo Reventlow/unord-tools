@@ -748,6 +748,10 @@ class Room_typeDetailView(generic.DetailView):
     model = models.Room_type
     form_class = forms.Room_typeForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('asset_type.name', 'name')
+        return queryset
+
 
 @method_decorator(login_required, name='dispatch')
 class Room_typeUpdateView(generic.UpdateView):
