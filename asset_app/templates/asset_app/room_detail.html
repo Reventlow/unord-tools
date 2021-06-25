@@ -54,7 +54,7 @@
                     <center>Slet</center>
                 </td>
             </tr>
-{% for object in room.asset_set.all.order_by('room.asset.model_hardware.asset_type.name', 'room.asset.name') %}
+{% for object in room.asset_set.all %}
 
 
                 <tr>
