@@ -283,7 +283,7 @@ class Dashboard(generic.TemplateView):
             'routine__name')
         context['one2ones'] = models.One2OneInfo.objects.filter(completed=False).annotate(
             object_count=Count('one2oneinfolog')).order_by('name')
-        context['to_dos'] = to_do_list_app.models.Jobs.objects.filter(completed=False)
+        context['to_dos'] = to_do_list_app.models.Jobs.objects.filter(completed=False).order_by('created')
         context['routines'] = models.Routines.objects.all().order_by('name')
         context["today"] = context_entry_today
         context["overdue"] = context_entry_overdue
