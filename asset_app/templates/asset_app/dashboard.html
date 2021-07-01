@@ -53,7 +53,7 @@
     </tr>
 
 {% for object in loan_assets %}
-{% if object.returned == False and object.return_date >= today %}
+{% if object.returned == False and object.return_date <= today %}
 <tr>
     <td>{{ object.loaner_name }}</td>
     <td>{{ object.loaner_type }}</td>
