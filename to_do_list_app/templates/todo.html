@@ -33,7 +33,7 @@
             {% if jobs.completed %}
                 <tr class="table-secondary ">
                     <td class="striker">{{ jobs.item }}</td>
-                    <td style="text-align: center;"><a href="{% url 'uncross' jobs.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Afmarker løst</a><br/>Løst: {{ jobs.last_updated }}
+                    <td style="text-align: center;"><a href="{% url 'uncross' jobs.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Afmarker løst</a><br/>Løst: {{ jobs.last_updated|date:'d-m-Y, H:i' }}
                     </td>
                     <td style="text-align: center;"><a href="{% url 'delete' jobs.id %}" class="btn btn-danger btn-sm " tabindex="-1" role="button" aria-disabled="true">Slet</a>
                     </td>
