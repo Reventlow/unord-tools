@@ -21,12 +21,12 @@
 
 {% for object in rooms %}
 
-{% if object.last_inspected == None or object.last_inspected > inspection_time %}
+{% if object.last_inspected == None or object.last_inspected < inspection_time %}
 <tr>
     <td>{{ object.name }}</td>
     <td>{{ object.location }}</td>
     <td>{{ object.room_type }}</td>
-    {% if object.last_inspected == None or object.last_inspected > overdue %}
+    {% if object.last_inspected == None or object.last_inspected < overdue %}
             <td class="table-danger">{{ object.last_inspected }}</td>
     {% else %}
             <td class="table-warning">{{ object.last_inspected }}</td>
