@@ -70,12 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-TINYMCE_DEFAULT_CONFIG = {
-    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",# plugins,
-    "toolbar": "undo redo | formatselect | image |",  # toolbar
-    "height": 500,  # texteditor height
 
-}
 
 ROOT_URLCONF = 'UnordToolsProject.urls'
 
