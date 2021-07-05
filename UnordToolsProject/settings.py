@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     #third-party-apps
     'rest_framework',
     'storages',
+    'tinymce',
     #my-apps
     'pages_app.apps.PagesConfig',
     'to_do_list_app',
@@ -67,6 +68,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+TINYMCE_DEFAULT_CONFIG = {
+    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",# plugins,
+    "toolbar": "undo redo | formatselect | image |",  # toolbar
+    "height": 500,  # texteditor height
+
+}
 
 ROOT_URLCONF = 'UnordToolsProject.urls'
 

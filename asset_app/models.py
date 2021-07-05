@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from tinymce.models import HTMLField
 
 from UnordToolsProject.storage_backends import PublicMediaStorage
 
@@ -16,7 +17,7 @@ class Asset(models.Model):
     mac_address = models.CharField(max_length=30, null=True, blank=True)
     purchased_date = models.DateField(null=True, blank=True)
     may_be_loaned = models.BooleanField(default=False, blank=True, null=True)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     ip = models.CharField(max_length=90, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -41,7 +42,7 @@ class Asset_type(models.Model):
     name = models.CharField(max_length=30)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
 
     class Meta:
         ordering = ["name"]
@@ -65,11 +66,11 @@ class AssetCase(models.Model):
 
     # Fields
     description = models.CharField(max_length=60)
-    user_report_it = models.CharField(max_length=30)
+    user_report_it = models.CharField(max_length=30, null=True, blank=True)
     user_quicklink = models.URLField(null=True, blank=True)
     zendesk_link = models.URLField(null=True, blank=True)
     solved = models.BooleanField(null=True, blank=True)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -93,7 +94,7 @@ class AssetLog(models.Model):
     asset_case = models.ForeignKey("asset_app.AssetCase", on_delete=models.CASCADE)
 
     # Fields
-    notes = models.TextField(max_length=1024, null=True, blank=True)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -113,7 +114,7 @@ class Brand(models.Model):
 
     # Fields
     name = models.CharField(max_length=30)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -145,7 +146,7 @@ class Bundle_reservation(models.Model):
     loan_date = models.DateField()
     return_date = models.DateField()
     returned = models.BooleanField(default=False, blank=True, null=True)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -174,7 +175,7 @@ class ExternalService(models.Model):
     company_support_telephone = models.CharField(max_length=30)
     company_support_email = models.CharField(max_length=30)
     company_website = models.URLField(null=True, blank=True)
-    notes = models.TextField(max_length=448)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -203,6 +204,7 @@ class ExternalServiceContact(models.Model):
     name = models.CharField(max_length=60)
     email = models.CharField(max_length=30)
     cellphone = models.CharField(max_length=30)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -225,7 +227,7 @@ class ExternalServicePosition(models.Model):
 
     # Fields
     description = models.CharField(max_length=60)
-    notes = models.TextField(max_length=448)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -259,7 +261,7 @@ class Loan_asset(models.Model):
     loaner_quicklink = models.URLField(null=True, blank=True)
     loan_date = models.DateField()
     return_date = models.DateField()
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     returned = models.BooleanField(default=False, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -302,7 +304,7 @@ class Locations(models.Model):
     name = models.CharField(max_length=30)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
 
     class Meta:
         ordering = ["name"]
@@ -324,7 +326,7 @@ class Model_hardware(models.Model):
 
     # Fields
     name = models.CharField(max_length=60)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -347,7 +349,7 @@ class One2OneInfo(models.Model):
     # Fields
     name = models.CharField(max_length=100)
     completed = models.BooleanField(default=False)
-    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -370,7 +372,7 @@ class One2OneInfoLog(models.Model):
 
     # Fields
     name = models.CharField(max_length=30)
-    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -398,7 +400,7 @@ class Room(models.Model):
     image_date = models.DateField(null=True, blank=True)
     image = models.ImageField(storage=PublicMediaStorage(), null=True, blank=True)
     last_inspected = models.DateField(null=True, blank=True)
-    notes = models.TextField(max_length=448, null=True, blank=True, default="")
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -419,7 +421,7 @@ class Room_type(models.Model):
 
     # Fields
     name = models.CharField(max_length=30)
-    notes = models.TextField(max_length=448, null=True, blank=True)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -447,7 +449,7 @@ class Routines(models.Model):
     # Fields
     name = models.CharField(max_length=100)
     reoccurrence = models.IntegerField()
-    notes = models.TextField(max_length=448)
+    notes = HTMLField(default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
@@ -470,7 +472,7 @@ class RoutineLog(models.Model):
 
     # Fields
     date = models.DateField()
-    notes = models.TextField(max_length=2096)
+    notes = HTMLField(default="")
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

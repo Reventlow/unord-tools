@@ -2,6 +2,16 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition
+from tinymce.widgets import TinyMCE
+
+
+class TinyMCEWidget(TinyMCE):
+    def use_required_attribute(self, *args):
+        return False
+
+
+
+
 
 class AssetForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
@@ -18,8 +28,7 @@ class AssetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens mac adresse'}))
     ip = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens ip adresse'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     may_be_loaned = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
 
     class Meta:
@@ -41,8 +50,7 @@ class AssetForm(forms.ModelForm):
 class Asset_typeForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udstyrs type'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=100, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Asset_type
@@ -60,7 +68,7 @@ class AssetCaseForm(forms.ModelForm):
                                         widget=forms.Select(attrs={'class': 'form-control'}))
     severity_level = forms.ModelChoiceField(queryset=SeverityLevel.objects.all().order_by('-sl_level'), label="Påvirket af fejl",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    user_report_it = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+    user_report_it = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Bruger der har anmeldt fejlen'}))
     user_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til brugeren'}))
@@ -68,8 +76,7 @@ class AssetCaseForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink til zendesk sag'}))
     external_service = forms.ModelChoiceField(queryset=ExternalService.objects.all(), required=False,
                                             widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     solved = forms.BooleanField(label="Er sagen løst", initial=False, required=False)
 
 
@@ -92,8 +99,7 @@ class AssetLogForm(forms.ModelForm):
     asset_case = forms.ModelChoiceField(queryset=AssetCase.objects.all(), label="Sagen den omhandler",
                                             widget=forms.Select(attrs={'class': 'form-control'}))
     log_written_by = forms.CharField(widget=forms.HiddenInput())
-    notes = forms.CharField(required=False, label="Noter", max_length=1024, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=1024, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
 
     class Meta:
@@ -107,8 +113,7 @@ class AssetLogForm(forms.ModelForm):
 class BrandForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast mærke navn'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Brand
@@ -141,8 +146,7 @@ class Bundle_reservationForm(forms.ModelForm):
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret afleveret tilbage", initial=False, required=False)
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Bundle_reservation
@@ -181,8 +185,7 @@ class ExternalServiceForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma support email'}))
     company_website = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast firma webside'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.ExternalService
@@ -210,8 +213,7 @@ class ExternalServiceContactForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast kontakt nummer'}))
     email = forms.CharField(label="", required=False, max_length=30, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast email'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.ExternalServiceContact
@@ -227,8 +229,7 @@ class ExternalServiceContactForm(forms.ModelForm):
 class ExternalServicePositionForm(forms.ModelForm):
     description = forms.CharField(label="", max_length=60, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast stillings betegnelse'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     class Meta:
         model = models.ExternalServicePosition
         fields = [
@@ -259,8 +260,7 @@ class Loan_assetForm(forms.ModelForm):
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Loan_asset
@@ -283,8 +283,7 @@ class Loan_assetForm(forms.ModelForm):
 class Loaner_typeForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast bruger type'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Loaner_type
@@ -299,8 +298,7 @@ class LocationsForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings navn, f.eks.:(POA,MIL,CBV...)'}))
     address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast afdelings adresse'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Locations
@@ -318,8 +316,7 @@ class ModelForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset_type = forms.ModelChoiceField(queryset=Asset_type.objects.all(),
                                         widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Model_hardware
@@ -336,8 +333,7 @@ class One2OneInfoForm(forms.ModelForm):
     job_owner = forms.ModelChoiceField(queryset=User.objects.all(),
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     completed = forms.BooleanField(label="Er opgaven udført", initial=False, required=False)
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.One2OneInfo
@@ -357,8 +353,7 @@ class One2OneInfoLogForm(forms.ModelForm):
                                       widget=forms.Select(attrs={'class': 'form-control'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(),
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.One2OneInfoLog
@@ -382,8 +377,7 @@ class RoomForm(forms.ModelForm):
     image_date = forms.DateField(required=False, widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     image = forms.ImageField(required=False, widget=forms.widgets.FileInput(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Room
@@ -402,8 +396,7 @@ class RoomForm(forms.ModelForm):
 class Room_typeForm(forms.ModelForm):
     name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast rum type'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Room_type
@@ -420,8 +413,7 @@ class RoutinesForm(forms.ModelForm):
                                        widget=forms.Select(attrs={'class': 'form-control'}))
     routine_owner = forms.ModelChoiceField(queryset=User.objects.all(),
                                        widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Routines
@@ -439,8 +431,7 @@ class RoutineLogForm(forms.ModelForm):
                                                                                                "type": "date"}))
     routine = forms.ModelChoiceField(queryset=Routines.objects.all(),
                                   widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=2096, widget=forms.Textarea(
-        attrs={'class': 'form-control', }))
+    notes = forms.CharField(required=False, label="Noter", max_length=2096, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     class Meta:
         model = models.RoutineLog
         fields = [
