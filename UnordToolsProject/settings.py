@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 LOGIN_URL = "login"
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 USE_TZ = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -72,7 +72,7 @@ MIDDLEWARE = [
 
 TINYMCE_DEFAULT_CONFIG = {
     "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",# plugins,
-    "toolbar": "undo redo | formatselect | image |",  # toolbar
+    "toolbar": "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code", # toolbar
     "height": 500,  # texteditor height
 
 }

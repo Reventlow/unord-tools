@@ -25,17 +25,7 @@ class AssetAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "serial",
-        "model_hardware",
-        "room",
-        "purchased_date",
-        "mac_address",
-        "ip",
-        "notes",
-        "may_be_loaned",
-        "created",
-        "last_updated",
+
     ]
 
 
