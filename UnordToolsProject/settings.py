@@ -70,12 +70,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-TINYMCE_DEFAULT_CONFIG = {
-    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",# plugins,
-    "toolbar": "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code", # toolbar
-    "height": 500,  # texteditor height
-
-}
 
 ROOT_URLCONF = 'UnordToolsProject.urls'
 
@@ -191,6 +185,16 @@ MEDIA_ROOT = (os.path.join(BASE_DIR, 'media'),)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "js/tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "js/tinymce")
+TINYMCE_DEFAULT_CONFIG = {
+    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",# plugins,
+    "toolbar": "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code", # toolbar
+    "height": 500,  # texteditor height
+
+}
 
 django_heroku.settings(locals())
 
