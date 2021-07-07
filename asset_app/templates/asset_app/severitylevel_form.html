@@ -8,12 +8,12 @@
     Påvirkningsgrad liste
     </a>
 </p>
-    
+ <div class="col-6 col-md-4 offset-md-3">
 <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
   {{form.errors}}
     {{form.as_p}}
   <input type="submit" value="Gem" class="btn btn-primary">
-</form>
+</form></div>
 
 {% endblock %}
