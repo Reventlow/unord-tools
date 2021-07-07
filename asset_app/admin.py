@@ -44,10 +44,7 @@ class Asset_typeAdmin(admin.ModelAdmin):
         "notes",
     ]
     readonly_fields = [
-        "name",
-        "last_updated",
-        "created",
-        "notes",
+
     ]
 
 class AssetCaseAdminForm(forms.ModelForm):
@@ -70,14 +67,7 @@ class AssetCaseAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "description",
-        "user_report_it",
-        "user_quicklink",
-        "zendesk_link",
-        "notes",
-        "solved",
-        "created",
-        "last_updated",
+
     ]
 
 class AssetLogAdminForm(forms.ModelForm):
@@ -94,9 +84,7 @@ class AssetLogAdmin(admin.ModelAdmin):
         "created",
     ]
     readonly_fields = [
-        "notes",
-        "last_updated",
-        "created",
+
     ]
 
 
@@ -115,10 +103,7 @@ class BrandAdmin(admin.ModelAdmin):
         "notes",
     ]
     readonly_fields = [
-        "name",
-        "last_updated",
-        "created",
-        "notes",
+
     ]
 
 
@@ -148,21 +133,7 @@ class Bundle_reservationAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "loaner_name",
-        "location",
-        "loaner_quicklink",
-        "loaner_telephone_number",
-        "loaner_email",
-        "asset_type",
-        "amount",
-        "series",
-        "course_name",
-        "loan_date",
-        "return_date",
-        "returned",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -190,18 +161,7 @@ class ExternalServiceAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "company_name",
-        "address_street",
-        "address_postcode",
-        "address_city",
-        "company_telephone",
-        "company_email",
-        "company_website",
-        "company_support_telephone",
-        "company_support_email",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 class ExternalServiceContactAdminForm(forms.ModelForm):
@@ -221,11 +181,7 @@ class ExternalServiceContactAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "cellphone",
-        "email",
-        "created",
-        "last_updated",
+
     ]
 
 class ExternalServicePositionAdminForm(forms.ModelForm):
@@ -244,10 +200,7 @@ class ExternalServicePositionAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "description",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -276,20 +229,7 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "loaner_name",
-        "location",
-        "loaner_address",
-        "loaner_quicklink",
-        "loaner_telephone_number",
-        "loaner_email",
-        "loaner_type",
-        "asset",
-        "loan_date",
-        "return_date",
-        "returned",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -308,10 +248,7 @@ class Loaner_typeAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -332,11 +269,7 @@ class LocationsAdmin(admin.ModelAdmin):
 
     ]
     readonly_fields = [
-        "name",
-        "address",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -355,10 +288,7 @@ class Model_hadwareAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 class One2OneInfoAdminForm(forms.ModelForm):
@@ -378,12 +308,7 @@ class One2OneInfoAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "job_owner",
-        "completed",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -404,12 +329,7 @@ class One2OneInfoLogAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "one_2_one_info",
-        "location",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 class RoomAdminForm(forms.ModelForm):
@@ -432,15 +352,7 @@ class RoomAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "location",
-        "room_type",
-        "last_inspected",
-        "image_date",
-        "image",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -459,10 +371,7 @@ class Room_typeAdmin(admin.ModelAdmin):
         "last_updated"
     ]
     readonly_fields = [
-        "name",
-        "notes",
-        "created",
-        "last_updated",
+
 
     ]
 
@@ -483,11 +392,7 @@ class RoutinesAdmin(admin.ModelAdmin):
         "last_updated",
     ]
     readonly_fields = [
-        "name",
-        "reoccurrence",
-        "notes",
-        "created",
-        "last_updated",
+
     ]
 
 
@@ -507,10 +412,7 @@ class RoutineLogAdmin(admin.ModelAdmin):
         "created",
     ]
     readonly_fields = [
-        "date",
-        "notes",
-        "last_updated",
-        "created",
+
     ]
 
 
@@ -531,11 +433,7 @@ class SeverityLevelAdmin(admin.ModelAdmin):
         "created",
     ]
     readonly_fields = [
-        "description",
-        "bootstrap_color",
-        "sl_level",
-        "last_updated",
-        "created",
+
     ]
 
 
