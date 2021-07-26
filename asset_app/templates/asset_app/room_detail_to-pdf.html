@@ -1,7 +1,6 @@
 {% extends "pdf.html" %}
 {% load static %}
 {% block content %}
-
 <table class="table">
     <tr><td><h1>Rum Navn</h1></td><td><h1>{{ object.name }} - {{ object.location }} </h1> </td></tr>
     {% if object.image %}
@@ -13,15 +12,11 @@
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
-
-
-    <br/><br/><br/>
-<h1>{{ object.name }}</h1>
                 <table class="table">
             <tr class="table-dark">
 
                   <td>
-                    {{ object.name }}
+                      <Strong>Udstyr</Strong>
                 </td>
                 <td>Serie nummer</td>
                          <td>
@@ -58,4 +53,6 @@
          {% endfor %}
 
                </table>
+
+
 {% endblock %}
