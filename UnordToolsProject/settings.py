@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'storages',
     'tinymce',
+    'easy_pdf',
     #my-apps
     'pages_app.apps.PagesConfig',
     'to_do_list_app',

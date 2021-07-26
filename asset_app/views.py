@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.db.models.functions import Lower
 import csv
 from django.http import HttpResponse
+from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
 import urllib.request as Request
 from urllib.request import urlopen
 import datetime
@@ -692,20 +693,13 @@ class RoomDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-
-class RoomPDFDetailView(generic.DetailView):
+@method_decorator(login_required, name='dispatch')
+class RoomPDFDetailView(PDFTemplateResponseMixin, generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
+    template_name = 'asset_app/room_detail_to-pdf.html'
 
-    def export_pdf_save(request):
-        request = Request('https://webtopdf.expeditedaddons.com/?api_key=' + os.environ[
-            'WEBTOPDF_API_KEY'] + '&content=/asset/asset_app/room/detail_pdf/1/&html_width=1024&margin=10&title=My+PDF+Title')
 
-        response_body = urlopen(request).read()
-        print(response_body)
-
-    def export_pdf_view(request):
-        pass
 
 
 @method_decorator(login_required, name='dispatch')
