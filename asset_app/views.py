@@ -591,7 +591,7 @@ class LocationLaptopListView(generic.ListView):
         response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
         xlsx_data = writeToExcel(location)
         response.write(xlsx_data)
-        return response
+
 
 
 
