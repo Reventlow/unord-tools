@@ -590,7 +590,7 @@ class LocationLaptopListView(generic.ListView):
         if 'excel' in request:
             response = HttpResponse(content_type='application/vnd.ms-excel')
             response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
-            x   lsx_data = writeToExcel(location)
+            xlsx_data = writeToExcel(location)
             response.write(xlsx_data)
             return response
 
