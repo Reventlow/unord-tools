@@ -15,7 +15,7 @@ import os
 import to_do_list_app.models
 from . import models
 from . import forms
-import StringIO
+from io import StringIO
 import xlsxwriter
 
 
