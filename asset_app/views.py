@@ -448,6 +448,37 @@ class Loan_assetUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
+
+@method_decorator(login_required, name='dispatch')
+class Loaner_typeListView(generic.ListView):
+    model = models.Loaner_type
+    form_class = forms.Loaner_typeForm
+
+    def delete(request, del_id):
+        item = models.Loaner_type.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Låner type er nu blevet slettet')
+        return redirect('asset_app_loaner_type_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class Loaner_typeCreateView(generic.CreateView):
+    model = models.Loaner_type
+    form_class = forms.Loaner_typeForm
+
+
+@method_decorator(login_required, name='dispatch')
+class Loaner_typeDetailView(generic.DetailView):
+    model = models.Loaner_type
+    form_class = forms.Loaner_typeForm
+
+
+@method_decorator(login_required, name='dispatch')
+class Loaner_typeUpdateView(generic.UpdateView):
+    model = models.Loaner_type
+    form_class = forms.Loaner_typeForm
+    pk_url_kwarg = "pk"
+
 @method_decorator(login_required, name='dispatch')
 class LocationsListView(generic.ListView):
     model = models.Locations
@@ -488,36 +519,14 @@ class LocationsUpdateView(generic.UpdateView):
     form_class = forms.LocationsForm
     pk_url_kwarg = "pk"
 
-
 @method_decorator(login_required, name='dispatch')
-class Loaner_typeListView(generic.ListView):
-    model = models.Loaner_type
-    form_class = forms.Loaner_typeForm
+class LocationLaptopListView(generic.ListView):
+    model = models.Asset
+    form_class = forms.AssetForm
 
-    def delete(request, del_id):
-        item = models.Loaner_type.objects.get(pk=del_id)
-        item.delete()
-        messages.success(request, 'Låner type er nu blevet slettet')
-        return redirect('asset_app_loaner_type_list')
-
-
-@method_decorator(login_required, name='dispatch')
-class Loaner_typeCreateView(generic.CreateView):
-    model = models.Loaner_type
-    form_class = forms.Loaner_typeForm
-
-
-@method_decorator(login_required, name='dispatch')
-class Loaner_typeDetailView(generic.DetailView):
-    model = models.Loaner_type
-    form_class = forms.Loaner_typeForm
-
-
-@method_decorator(login_required, name='dispatch')
-class Loaner_typeUpdateView(generic.UpdateView):
-    model = models.Loaner_type
-    form_class = forms.Loaner_typeForm
-    pk_url_kwarg = "pk"
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(location=location).order_by('name')
+        return queryset
 
 
 @method_decorator(login_required, name='dispatch')
