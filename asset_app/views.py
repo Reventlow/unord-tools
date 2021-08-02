@@ -586,12 +586,13 @@ class LocationLaptopListView(generic.ListView):
         # xlsx_data contains the Excel file
         return xlsx_data
 
-    if 'excel' in request.POST:
-        response = HttpResponse(content_type='application/vnd.ms-excel')
-        response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
-        xlsx_data = writeToExcel(location)
-        response.write(xlsx_data)
-
+    def post(self, request):
+        if 'excel' in request:
+            response = HttpResponse(content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
+            x   lsx_data = writeToExcel(location)
+            response.write(xlsx_data)
+            return response
 
 
 
