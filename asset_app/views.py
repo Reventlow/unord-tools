@@ -524,7 +524,8 @@ class LocationLaptopListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
-    def get_queryset(self, request, location):
+    def get_queryset(self):
+        location = self.kwargs['location']
         queryset = super().get_queryset().filter(location=location).order_by('name')
         return queryset
 
