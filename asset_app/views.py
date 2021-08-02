@@ -526,18 +526,13 @@ class LocationLaptopListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
+
     def get_queryset(self):
         location = self.kwargs['location']
         queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
         return queryset
 
 
-    if 'excel' in request.POST:
-        response = HttpResponse(content_type='application/vnd.ms-excel')
-        response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
-        xlsx_data = writeToExcel(location)
-        response.write(xlsx_data)
-        return response
 
     def writeToExcel(self):
         location = self.kwargs['location']
@@ -590,6 +585,14 @@ class LocationLaptopListView(generic.ListView):
         xlsx_data = output.getvalue()
         # xlsx_data contains the Excel file
         return xlsx_data
+
+    if 'excel' in request.POST:
+        response = HttpResponse(content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
+        xlsx_data = writeToExcel(location)
+        response.write(xlsx_data)
+        return response
+
 
 
 @method_decorator(login_required, name='dispatch')
