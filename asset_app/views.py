@@ -536,7 +536,7 @@ class LocationLaptopListView(generic.ListView):
 
     def writeToExcel(self):
         location = self.kwargs['location']
-        output = StringIO.StringIO()
+        output = StringIO()
         workbook = xlsxwriter.Workbook(output)
 
         # Here we will adding the code to add data
