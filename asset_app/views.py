@@ -526,7 +526,7 @@ class LocationLaptopListView(generic.ListView):
 
     def get_queryset(self):
         location = self.kwargs['location']
-        queryset = super().get_queryset().filter(room__location__name=location).order_by('name')
+        queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
         return queryset
 
 
