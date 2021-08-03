@@ -534,66 +534,69 @@ class LocationLaptopListView(generic.ListView):
 
 
 
-    def writeToExcel(self):
-        location = self.kwargs['location']
-        output = StringIO()
-        workbook = xlsxwriter.Workbook(output)
-
-        # Here we will adding the code to add data
-
-        worksheet_s = workbook.add_worksheet("Bærebar på :"+location)
-
-        title = workbook.add_format({
-            'bold': True,
-            'font_size': 14,
-            'align': 'center',
-            'valign': 'vcenter'
-        })
-        header = workbook.add_format({
-            'bg_color': '#F7F7F7',
-            'color': 'black',
-            'align': 'center',
-            'valign': 'top',
-            'border': 1
-        })
-
-        worksheet_s.write(2, 0, ugettext("Bærebar"), header)
-        worksheet_s.write(2, 1, ugettext("Placering"), header)
-        worksheet_s.write(2, 3, ugettext("Mærke og model"), header)
-        worksheet_s.write(2, 4, ugettext("Serienummer"), header)
-        worksheet_s.write(2, 5, ugettext("Må udlånes"), header)
-
-        queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
-
-        for idx, data in enumerate(queryset):
-            row = 3 + idx
-            worksheet_s.write_number(row, 0, idx + 1, cell_center)
-            worksheet_s.write_string(row, 1, idx.name, cell)
-            worksheet_s.write_string(row, 2, idx.room, cell)
-            worksheet_s.write_string(row, 3, idx.model_hardware.asset_type, cell)
-            worksheet_s.write_string(row, 4, idx.serial, cell)
-            worksheet_s.write_string(row, 4, idx.may_be_loaned, cell_center)
-            # the rest of the data
-
-        worksheet_s.set_column('B:B', 20)
-        worksheet_s.set_column('C:C', 25)
-        worksheet_s.set_column('D:D', 30)
-        worksheet_s.set_column('D:D', 20)
-
-
-        workbook.close()
-        xlsx_data = output.getvalue()
-        # xlsx_data contains the Excel file
-        return xlsx_data
-
-    def post(request):
+    def get(self, request):
         location = self.kwargs['location']
         if 'excel' in request:
-            response = HttpResponse(content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'attachment; filename=Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
-            xlsx_data = writeToExcel(location)
-            response.write(xlsx_data)
+            output = io.BytesIO()
+            workbook = xlsxwriter.Workbook(output)
+
+            # Here we will adding the code to add data
+            worksheet_s = workbook.add_worksheet("Bærebar på :"+location)
+
+            title = workbook.add_format({
+                'bold': True,
+                'font_size': 14,
+                'align': 'center',
+                'valign': 'vcenter'
+            })
+            header = workbook.add_format({
+                'bg_color': '#F7F7F7',
+                'color': 'black',
+                'align': 'center',
+                'valign': 'top',
+                'border': 1
+            })
+
+            worksheet_s.write(2, 0, ugettext("Bærebar"), header)
+            worksheet_s.write(2, 1, ugettext("Placering"), header)
+            worksheet_s.write(2, 3, ugettext("Mærke og model"), header)
+            worksheet_s.write(2, 4, ugettext("Serienummer"), header)
+            worksheet_s.write(2, 5, ugettext("Må udlånes"), header)
+
+            queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
+
+            for idx, data in enumerate(queryset):
+                row = 3 + idx
+                worksheet_s.write_number(row, 0, idx + 1, cell_center)
+                worksheet_s.write_string(row, 1, idx.name, cell)
+                worksheet_s.write_string(row, 2, idx.room, cell)
+                worksheet_s.write_string(row, 3, idx.model_hardware.asset_type, cell)
+                worksheet_s.write_string(row, 4, idx.serial, cell)
+                worksheet_s.write_string(row, 4, idx.may_be_loaned, cell_center)
+                # the rest of the data
+
+            worksheet_s.set_column('B:B', 20)
+            worksheet_s.set_column('C:C', 25)
+            worksheet_s.set_column('D:D', 30)
+            worksheet_s.set_column('D:D', 20)
+
+
+            workbook.close()
+            xlsx_data = output.getvalue()
+
+            # Rewind the buffer.
+            output.seek(0)
+
+            # Set up the Http response.
+            filename = 'Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
+            response = HttpResponse(
+                output,
+                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
+            response['Content-Disposition'] = 'attachment; filename=%s' % filename
+
             return response
+
 
 
 
