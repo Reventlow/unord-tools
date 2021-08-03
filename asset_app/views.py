@@ -561,12 +561,12 @@ class LocationLaptopListExcelView(generic.ListView):
 
         worksheet_s.write(2, 1, ugettext("Navn"), header)
         worksheet_s.write(2, 2, ugettext("Afdeling"), header)
-        worksheet_s.write(2, 2, ugettext("Placering"), header)
-        worksheet_s.write(2, 3, ugettext("Lokale type"), header)
-        worksheet_s.write(2, 4, ugettext("Mærke og model"), header)
-        worksheet_s.write(2, 5, ugettext("Udstyr type"), header)
-        worksheet_s.write(2, 6, ugettext("Serienummer"), header)
-        worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
+        worksheet_s.write(2, 3, ugettext("Placering"), header)
+        worksheet_s.write(2, 4, ugettext("Lokale type"), header)
+        worksheet_s.write(2, 5, ugettext("Mærke og model"), header)
+        worksheet_s.write(2, 6, ugettext("Udstyr type"), header)
+        worksheet_s.write(2, 7, ugettext("Serienummer"), header)
+        worksheet_s.write(2, 8, ugettext("Må udlånes"), header)
 
         if location=="all":
             queryset = super().get_queryset().order_by('name')
@@ -603,7 +603,10 @@ class LocationLaptopListExcelView(generic.ListView):
         output.seek(0)
 
         # Set up the Http response.
-        filename = 'Bærebar-´'+location+'-'+str(datetime.date.today())+'.xlsx'
+        if location == "all":
+            filename = 'Udstyr-´'+str(datetime.date.today())+'.xlsx'
+        else:
+            filename = 'Bærebar-´'+location+'-'+str(datetime.date.today())+'.xlsx'
         response = HttpResponse(
             output,
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
