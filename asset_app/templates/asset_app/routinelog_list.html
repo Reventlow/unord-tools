@@ -21,16 +21,16 @@
             <tr class="table-dark">
                 <td>Beskrivelse</td>
                 <td>
-                    <center>Dato</center>
+                    <div style="text-align: center;">Dato</div>
                 </td>
                    <td>
-                    <center>Udføres efter antale dage</center>
+                    <div style="text-align: center;">Udføres efter antale dage</div>
                 </td>
                 <td>
-                    <center>Lokation</center>
+                    <div style="text-align: center;">Lokation</div>
                 </td>
                 <td>
-                    <center>Slet</center>
+                    <div style="text-align: center;">Slet</div>
                 </td>
             </tr>
             {% for object in object_list %}
@@ -73,19 +73,19 @@
 
                     </td>
                     <td>
-                        <center>{{ object.date }}</center>
+                        <div style="text-align: center;">{{ object.date }}</div>
                     </td>
                     <td>
-                        <center>{{ object.routine.reoccurrence }}</center>
+                        <div style="text-align: center;">{{ object.routine.reoccurrence }}</div>
                     </td>
                 <td>
-                        <center>{{ object.routine.room }} - {{ object.routine.room.location }}</center>
+                        <div style="text-align: center;">{{ object.routine.room }} - {{ object.routine.room.location }}</div>
                     </td>
 
                     <td>
-                        <center>
+                        <div style="text-align: center;">
                             <a href="#{% url 'asset_app_room_type_delete' object.id %}" class="btn btn-danger btn-sm "
-                               tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                               tabindex="-1" role="button" aria-disabled="true">Slet</a></div>
                     </td>
                 </tr>
 
