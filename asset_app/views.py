@@ -569,10 +569,11 @@ class LocationLaptopListView(generic.ListView):
             worksheet_s.write_boolean(row, 5, data.may_be_loaned)
             # the rest of the data
 
-        worksheet_s.set_column('B:B', 20)
-        worksheet_s.set_column('C:C', 25)
-        worksheet_s.set_column('D:D', 30)
-        worksheet_s.set_column('D:D', 20)
+        worksheet_s.set_column('B:B', 30)
+        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('D:D', 15)
+        worksheet_s.set_column('E:E', 30)
+        worksheet_s.set_column('F:F', 10)
 
 
         workbook.close()
