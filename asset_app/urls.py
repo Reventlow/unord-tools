@@ -109,7 +109,7 @@ urlpatterns = [
     path("asset_app/locations/delete/<int:pk>/", views.LocationsListView.delete, name="asset_app_locations_delete"),
 #LocationLaptopListView
     path("asset_app/location_laptop/<str:location>/", views.LocationLaptopListView.as_view(), name="asset_app_location_laptop_list"),
-    path("asset_app/location_laptop/export-excel/<str:location>/", views.LocationLaptopListView, name="asset_app_location_laptop_list-excel"),
+    path("asset_app/location_laptop/export-excel/", views.LocationLaptopListView, name="asset_app_location_laptop_list-excel"),
 #Model_Hardware
     path("asset_app/model_hardware/", views.Model_hardwareListView.as_view(), name="asset_app_model_hardware_list"),
     path("asset_app/model_hardware/create/", views.Model_hardwareCreateView.as_view(), name="asset_app_model_hardware_create"),

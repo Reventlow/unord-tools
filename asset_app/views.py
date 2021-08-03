@@ -534,7 +534,7 @@ class LocationLaptopListView(generic.ListView):
         return queryset
 
 
-    def get(self, request, location):
+    def get(self, request):
         if 'excel' in request:
             output = io.BytesIO()
             workbook = xlsxwriter.Workbook(output)
