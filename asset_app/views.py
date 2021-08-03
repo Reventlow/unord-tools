@@ -586,7 +586,7 @@ class LocationLaptopListView(generic.ListView):
         # xlsx_data contains the Excel file
         return xlsx_data
 
-    def post(self, request):
+    def post(request):
         location = self.kwargs['location']
         if 'excel' in request:
             response = HttpResponse(content_type='application/vnd.ms-excel')
