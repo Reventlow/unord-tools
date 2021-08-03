@@ -567,7 +567,7 @@ class LocationLaptopListExcelView(generic.ListView):
         worksheet_s.write(2, 6, ugettext("Må udlånes"), header)
 
         if location=="all":
-            queryset = super().get_queryset().filter(model_hardware__asset_type__name="Bærebar").order_by('name')
+            queryset = super().get_queryset().order_by('name')
         else:
             queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
 
@@ -575,7 +575,7 @@ class LocationLaptopListExcelView(generic.ListView):
             row = 3 + idx
             worksheet_s.write_number(row, 0, idx + 1)
             worksheet_s.write_string(row, 1, data.name)
-            worksheet_s.write_string(row, 2, data.room.name+'-POA')
+            worksheet_s.write_string(row, 2, data.room.name+' '+ data.room.location.name)
             worksheet_s.write_string(row, 3, data.model_hardware.name)
             worksheet_s.write_string(row, 4, data.model_hardware.asset_type.name)
             worksheet_s.write_string(row, 5, data.serial)
