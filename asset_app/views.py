@@ -596,6 +596,8 @@ class LocationLaptopListView(generic.ListView):
             response['Content-Disposition'] = 'attachment; filename=%s' % filename
 
             return response
+        else:
+            return HttpResponse
 
 
 
