@@ -564,7 +564,7 @@ class LocationLaptopListView(generic.ListView):
             worksheet_s.write_number(row, 0, idx + 1)
             worksheet_s.write_string(row, 1, data.name)
             worksheet_s.write_string(row, 2, data.room.name)
-            worksheet_s.write_string(row, 3, data.model_hardware.asset_type)
+            worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
             worksheet_s.write_string(row, 4, data.serial)
             worksheet_s.write_string(row, 4, data.may_be_loaned)
             # the rest of the data
