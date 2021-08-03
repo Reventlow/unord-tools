@@ -597,7 +597,7 @@ class LocationLaptopListView(generic.ListView):
 
             return response
         else:
-            pass
+            return HttpResponseRedirect(self.get_success_url())
 
 
 
