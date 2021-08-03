@@ -534,7 +534,7 @@ class LocationLaptopListView(generic.ListView):
         return queryset
 
 
-    def get(self, request):
+    def get(self, request, location):
         location = 'POA'
         if 'excel' in request:
             output = io.BytesIO()
