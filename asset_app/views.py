@@ -535,6 +535,14 @@ class LocationLaptopListView(generic.ListView):
         return queryset
 
 
+
+
+
+@method_decorator(login_required, name='dispatch')
+class LocationLaptopListExcelView(generic.ListView):
+    model = models.Asset
+    form_class = forms.AssetForm
+
     def get(self, request, location):
 
         output = BytesIO()
@@ -566,9 +574,9 @@ class LocationLaptopListView(generic.ListView):
             worksheet_s.write_string(row, 1, data.name)
             worksheet_s.write_string(row, 2, data.room.name+'-POA')
             worksheet_s.write_string(row, 3, data.model_hardware.name)
-            worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
-            worksheet_s.write_string(row, 4, data.serial)
-            worksheet_s.write_boolean(row, 5, data.may_be_loaned)
+            worksheet_s.write_string(row, 4, data.model_hardware.asset_type.name)
+            worksheet_s.write_string(row, 5, data.serial)
+            worksheet_s.write_boolean(row, 6, data.may_be_loaned)
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
@@ -594,10 +602,6 @@ class LocationLaptopListView(generic.ListView):
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
 
         return response
-
-
-
-
 
 @method_decorator(login_required, name='dispatch')
 class Model_hardwareListView(generic.ListView):
@@ -625,6 +629,7 @@ class Model_hardwareListView(generic.ListView):
 class Model_hardwareCreateView(generic.CreateView):
     model = models.Model_hardware
     form_class = forms.ModelForm
+
 
 
 @method_decorator(login_required, name='dispatch')
