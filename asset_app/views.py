@@ -554,8 +554,9 @@ class LocationLaptopListView(generic.ListView):
         worksheet_s.write(2, 1, ugettext("Bærebar"), header)
         worksheet_s.write(2, 2, ugettext("Placering"), header)
         worksheet_s.write(2, 3, ugettext("Mærke og model"), header)
-        worksheet_s.write(2, 4, ugettext("Serienummer"), header)
-        worksheet_s.write(2, 5, ugettext("Må udlånes"), header)
+        worksheet_s.write(2, 4, ugettext("Udstyr type"), header)
+        worksheet_s.write(2, 5, ugettext("Serienummer"), header)
+        worksheet_s.write(2, 6, ugettext("Må udlånes"), header)
 
         queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
 
@@ -565,15 +566,17 @@ class LocationLaptopListView(generic.ListView):
             worksheet_s.write_string(row, 1, data.name)
             worksheet_s.write_string(row, 2, data.room.name+'-POA')
             worksheet_s.write_string(row, 3, data.model_hardware.name)
+            worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
             worksheet_s.write_string(row, 4, data.serial)
             worksheet_s.write_boolean(row, 5, data.may_be_loaned)
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
         worksheet_s.set_column('C:C', 15)
-        worksheet_s.set_column('D:D', 15)
-        worksheet_s.set_column('E:E', 30)
-        worksheet_s.set_column('F:F', 10)
+        worksheet_s.set_column('D:D', 35)
+        worksheet_s.set_column('E:E', 15)
+        worksheet_s.set_column('F:F', 30)
+        worksheet_s.set_column('G:G', 10)
 
 
         workbook.close()
