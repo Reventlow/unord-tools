@@ -15,7 +15,7 @@
     <tr><td>Gentages efter antal dage</td><td>{{ object.routine.reoccurrence }}</td></tr>
     <tr><td>Sidst opdateret i databasem</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>Oprettede i databasen</td><td>{{ object.created }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|linebreaks|safe }}</td></tr>
 
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
