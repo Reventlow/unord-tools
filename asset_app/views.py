@@ -543,7 +543,7 @@ class LocationLaptopListExcelView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
-    def get(self, request, location=""):
+    def get(self, request, location):
 
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
@@ -566,7 +566,7 @@ class LocationLaptopListExcelView(generic.ListView):
         worksheet_s.write(2, 5, ugettext("Serienummer"), header)
         worksheet_s.write(2, 6, ugettext("Må udlånes"), header)
 
-        if location=="":
+        if location=="all":
             queryset = super().get_queryset().filter(model_hardware__asset_type__name="Bærebar").order_by('name')
         else:
             queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
