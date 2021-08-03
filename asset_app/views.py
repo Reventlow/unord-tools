@@ -15,7 +15,7 @@ import os
 import to_do_list_app.models
 from . import models
 from . import forms
-from io import StringIO
+from io import StringIO, BytesIO
 import xlsxwriter
 
 
@@ -536,7 +536,7 @@ class LocationLaptopListView(generic.ListView):
 
     def get(self, request, location):
 
-        output = io.BytesIO()
+        output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
 
         # Here we will adding the code to add data
