@@ -561,10 +561,11 @@ class LocationLaptopListExcelView(generic.ListView):
 
         worksheet_s.write(2, 1, ugettext("Bærebar"), header)
         worksheet_s.write(2, 2, ugettext("Placering"), header)
-        worksheet_s.write(2, 3, ugettext("Mærke og model"), header)
-        worksheet_s.write(2, 4, ugettext("Udstyr type"), header)
-        worksheet_s.write(2, 5, ugettext("Serienummer"), header)
-        worksheet_s.write(2, 6, ugettext("Må udlånes"), header)
+        worksheet_s.write(2, 3, ugettext("Lokale type"), header)
+        worksheet_s.write(2, 4, ugettext("Mærke og model"), header)
+        worksheet_s.write(2, 5, ugettext("Udstyr type"), header)
+        worksheet_s.write(2, 6, ugettext("Serienummer"), header)
+        worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
 
         if location=="all":
             queryset = super().get_queryset().order_by('name')
@@ -575,19 +576,21 @@ class LocationLaptopListExcelView(generic.ListView):
             row = 3 + idx
             worksheet_s.write_number(row, 0, idx + 1)
             worksheet_s.write_string(row, 1, data.name)
-            worksheet_s.write_string(row, 2, data.room.name+' '+ data.room.location.name)
-            worksheet_s.write_string(row, 3, data.model_hardware.name)
-            worksheet_s.write_string(row, 4, data.model_hardware.asset_type.name)
-            worksheet_s.write_string(row, 5, data.serial)
-            worksheet_s.write_boolean(row, 6, data.may_be_loaned)
+            worksheet_s.write_string(row, 2, data.room.name+'-'+ data.room.location.name)
+            worksheet_s.write_string(row, 3, data.room.room_type.name)
+            worksheet_s.write_string(row, 4, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
+            worksheet_s.write_string(row, 5, data.model_hardware.asset_type.name)
+            worksheet_s.write_string(row, 6, data.serial)
+            worksheet_s.write_boolean(row, 7, data.may_be_loaned)
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
-        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('C:C', 30)
         worksheet_s.set_column('D:D', 35)
-        worksheet_s.set_column('E:E', 15)
-        worksheet_s.set_column('F:F', 30)
-        worksheet_s.set_column('G:G', 10)
+        worksheet_s.set_column('E:E', 45)
+        worksheet_s.set_column('F:F', 15)
+        worksheet_s.set_column('G:G', 30)
+        worksheet_s.set_column('H:H', 10)
 
 
         workbook.close()
