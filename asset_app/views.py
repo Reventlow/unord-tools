@@ -562,11 +562,11 @@ class LocationLaptopListView(generic.ListView):
         for idx, data in enumerate(queryset):
             row = 3 + idx
             worksheet_s.write_number(row, 0, idx + 1)
-            worksheet_s.write_string(row, 1, idx.name)
-            worksheet_s.write_string(row, 2, idx.room)
-            worksheet_s.write_string(row, 3, idx.model_hardware.asset_type)
-            worksheet_s.write_string(row, 4, idx.serial)
-            worksheet_s.write_string(row, 4, idx.may_be_loaned)
+            worksheet_s.write_string(row, 1, data.name)
+            worksheet_s.write_string(row, 2, data.room)
+            worksheet_s.write_string(row, 3, data.model_hardware.asset_type)
+            worksheet_s.write_string(row, 4, data.serial)
+            worksheet_s.write_string(row, 4, data.may_be_loaned)
             # the rest of the data
 
         worksheet_s.set_column('B:B', 20)
