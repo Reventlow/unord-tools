@@ -597,7 +597,7 @@ class LocationLaptopListView(generic.ListView):
 
             return response
         else:
-            return HttpResponse
+            pass
 
 
 
