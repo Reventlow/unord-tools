@@ -551,8 +551,8 @@ class LocationLaptopListView(generic.ListView):
             'border': 1
         })
 
-        worksheet_s.write(2, 0, ugettext("Bærebar"), header)
-        worksheet_s.write(2, 1, ugettext("Placering"), header)
+        worksheet_s.write(2, 1, ugettext("Bærebar"), header)
+        worksheet_s.write(2, 2, ugettext("Placering"), header)
         worksheet_s.write(2, 3, ugettext("Mærke og model"), header)
         worksheet_s.write(2, 4, ugettext("Serienummer"), header)
         worksheet_s.write(2, 5, ugettext("Må udlånes"), header)
@@ -566,7 +566,7 @@ class LocationLaptopListView(generic.ListView):
             worksheet_s.write_string(row, 2, data.room.name)
             worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
             worksheet_s.write_string(row, 4, data.serial)
-            #worksheet_s.write_string(row, 4, data.may_be_loaned)
+            worksheet_s.write_boolean(row, 5, data.may_be_loaned)
             # the rest of the data
 
         worksheet_s.set_column('B:B', 20)
