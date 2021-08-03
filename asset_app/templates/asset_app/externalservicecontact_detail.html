@@ -16,7 +16,7 @@
     <tr><td>Stilling</td><td>{{ object.position }}</td></tr>
     <tr><td>Kontakt nummer</td><td>{{ object.cellphone }}</td></tr>
     <tr><td>Email</td><td>{{ object.email }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks  }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 </table>

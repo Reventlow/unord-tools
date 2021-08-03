@@ -37,7 +37,7 @@
     {% elif object.returned == True %}
     <tr  class="table-info"><td>Retuneret</td><td>Retuneret</td></tr>
     {% endif %}
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks  }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe }}</td></tr>
     <tr><td>Reservation først tilføjet</td><td>{{ object.created }}</td></tr>
     <tr><td>Reservation sidst opdateret</td><td>{{ object.last_updated }}</td></tr>
 

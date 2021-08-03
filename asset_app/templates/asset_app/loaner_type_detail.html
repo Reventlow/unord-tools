@@ -14,7 +14,7 @@
     
 <table class="table">
     <tr><td>Låner type</td><td>{{ object.name }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Skabt på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>

@@ -19,7 +19,7 @@
     <tr><td>Support nummer</td><td>{{ object.company_support_telephone }}</td></tr>
     <tr><td>Support email</td><td>{{ object.company_support_email }}</td></tr>
     <tr><td>Webside</td><td><a href="{{ object.company_website }}" class="btn btn-success btn-sm" target="_blank">Link til {{ object.company_website }}</a></td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
 
@@ -62,7 +62,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       {{ object.notes|linebreaks  }}
+       {{ object.notes|safe }}
       </div>
 
   </div>

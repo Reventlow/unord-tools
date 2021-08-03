@@ -13,7 +13,7 @@
     <tr><td>Beskrivelse</td><td>{{ object.name }}</td></tr>
     <tr><td>Lokation</td><td>{{ object.room }} - {{ object.room.location }}</td></tr>
     <tr><td>Gentages efter antale dage</td><td>{{ object.reoccurrence }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Sidst opdateret i databasen</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>Oprettede i databasen</td><td>{{ object.created }}</td></tr>
 </table>

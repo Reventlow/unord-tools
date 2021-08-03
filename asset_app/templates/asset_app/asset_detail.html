@@ -22,7 +22,7 @@
     <tr><td>Indkøbs dato</td><td>{{ object.purchased_date }}</td></tr>
     <tr><td>Først registret på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdatteret på denne side</td><td>{{ object.last_updated }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Må udlånes</td><td>{{ object.may_be_loaned }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>

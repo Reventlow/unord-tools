@@ -20,7 +20,7 @@
     <tr><td>Bruger_quicklink</td><td>{{ object.user_quicklink }}</td></tr>
     <tr><td>Zendesk quicklinl</td><td>{{ object.zendesk_link }}</td></tr>
     <tr><td>Ekstern service på</td><td>{{ object.external_service }}</td></tr>
-    <tr><td>Notes</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Notes</td><td>{{ object.notes|safe}}</td></tr>
 
 
 

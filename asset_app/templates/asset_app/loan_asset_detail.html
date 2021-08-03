@@ -23,7 +23,7 @@
     <tr><td>Udstyr type</td><td>{{ object.asset.model_hardware.asset_type }}</td></tr>
     <tr><td>Udlåns dato</td><td>{{ object.loan_date }}</td></tr>
     <tr><td>Afleverings dato</td><td>{{ object.return_date }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 

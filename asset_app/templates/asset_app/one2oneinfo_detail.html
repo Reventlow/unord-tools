@@ -19,7 +19,7 @@
 <table class="table">
     <tr><td>1-til-1 opgave</td><td>{{ object.name }}</td></tr>
     <tr><td>Opgave gennemført</td><td>{{ object.completed }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret</td><td>{{ object.last_updated }}</td></tr>
 </table>
@@ -68,7 +68,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {{ object.notes|linebreaks }}
+                                        {{ object.notes|safe}}
                                     </div>
 
                                 </div>

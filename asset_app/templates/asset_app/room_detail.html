@@ -27,7 +27,7 @@
     <tr><td>Billede</td><td><img src="{{ object.image.url }} " width="400"></td></tr>
     {% endif %}
     <tr><td>Sidst gennemgået</td><td>{{ object.last_inspected }}</td></tr>
-    <tr><td>Noter</td><td>{{ object.notes|linebreaks }}</td></tr>
+    <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Oprettede på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
@@ -81,7 +81,7 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {{ object.notes|linebreaks }}
+                                        {{ object.notes|safe}}
                                     </div>
 
                                 </div>
