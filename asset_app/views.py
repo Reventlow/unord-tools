@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Lower
+from django.utils.translation import ugettext
 import csv
 from django.http import HttpResponse
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
