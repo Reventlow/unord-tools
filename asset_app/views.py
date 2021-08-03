@@ -582,7 +582,7 @@ class LocationLaptopListView(generic.ListView):
         output.seek(0)
 
         # Set up the Http response.
-        filename = 'Bærebar-´'+location+'-'+datetime.date.today()+'.xlsx'
+        filename = 'Bærebar-´'+location+'-'+str(datetime.date.today())+'.xlsx'
         response = HttpResponse(
             output,
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
