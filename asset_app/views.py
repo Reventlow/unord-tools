@@ -525,17 +525,15 @@ class LocationsUpdateView(generic.UpdateView):
 class LocationLaptopListView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
+    location = self.kwargs['location']
 
 
     def get_queryset(self):
-        location = self.kwargs['location']
         queryset = super().get_queryset().filter(room__location__name=location).filter(model_hardware__asset_type__name="Bærebar").order_by('name')
         return queryset
 
 
-
     def get(self, request):
-        location = self.kwargs['location']
         if 'excel' in request:
             output = io.BytesIO()
             workbook = xlsxwriter.Workbook(output)
