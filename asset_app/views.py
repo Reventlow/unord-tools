@@ -43,11 +43,8 @@ class AssetListView(generic.ListView):
 class AssetCreateView(generic.CreateView):
     model = models.Asset
     form_class = forms.AssetForm
+    location_url_kwarg = "all"
 
-    def form_invalid(self, form):
-        'form is invalid'
-        messages.add_message(self.request, messages.WARNING, "Form is invalid")
-        return redirect('asset_app_asset_list')
 
 
 @method_decorator(login_required, name='dispatch')

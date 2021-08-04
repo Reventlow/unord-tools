@@ -31,8 +31,8 @@ router.register("SeverityLevel", api.SeverityLevelViewSet)
 urlpatterns = [
     path("api/v1/", include(router.urls)),
 #Asset
-    path("asset_app/asset/<str:location>/", views.AssetListView.as_view(), name="asset_app_asset_list"),
     path("asset_app/asset/create/", views.AssetCreateView.as_view(), name="asset_app_asset_create"),
+    path("asset_app/asset/<str:location>/", views.AssetListView.as_view(), name="asset_app_asset_list"),
     path("asset_app/asset/detail/<int:pk>/", views.AssetDetailView.as_view(), name="asset_app_asset_detail"),
     path("asset_app/asset/update/<int:pk>/", views.AssetUpdateView.as_view(), name="asset_app_asset_update"),
     path("asset_app/asset/delete/<int:pk>/", views.AssetListView.delete, name="asset_app_asset_delete"),
