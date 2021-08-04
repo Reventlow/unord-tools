@@ -564,6 +564,9 @@ class LocationLaptopListExcelView(generic.ListView):
             'border': 1
         })
 
+        formatRed = workbook.add_format({'bg_color': '#FFC7CE',
+                                       'font_color': '#9C0006'})
+
         worksheet_s.write(2, 1, ugettext("Navn"), header)
         worksheet_s.write(2, 2, ugettext("Afdeling"), header)
         worksheet_s.write(2, 3, ugettext("Placering"), header)
@@ -572,6 +575,7 @@ class LocationLaptopListExcelView(generic.ListView):
         worksheet_s.write(2, 6, ugettext("Udstyr type"), header)
         worksheet_s.write(2, 7, ugettext("Serienummer"), header)
         worksheet_s.write(2, 8, ugettext("Må udlånes"), header)
+        worksheet_s.write(2, 9, ugettext("Meldt savnede"), header)
 
         if location=="all":
             queryset = super().get_queryset().order_by('name')
@@ -580,15 +584,31 @@ class LocationLaptopListExcelView(generic.ListView):
 
         for idx, data in enumerate(queryset):
             row = 3 + idx
-            worksheet_s.write_number(row, 0, idx + 1)
-            worksheet_s.write_string(row, 1, data.name)
-            worksheet_s.write_string(row, 2, data.room.location.name)
-            worksheet_s.write_string(row, 3, data.room.name)
-            worksheet_s.write_string(row, 4, data.room.room_type.name)
-            worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
-            worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
-            worksheet_s.write_string(row, 7, data.serial)
-            worksheet_s.write_boolean(row, 8, data.may_be_loaned)
+
+            if data.missing:
+                worksheet_s.write_number(row, 0, idx + 1, formatRed)
+                worksheet_s.write_string(row, 1, data.name, formatRed)
+                worksheet_s.write_string(row, 2, data.room.location.name, formatRed)
+                worksheet_s.write_string(row, 3, data.room.name, formatRed)
+                worksheet_s.write_string(row, 4, data.room.room_type.name, formatRed)
+                worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name, formatRed)
+                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name, formatRed)
+                worksheet_s.write_string(row, 7, data.serial, formatRed)
+                worksheet_s.write_boolean(row, 8, data.may_be_loaned, formatRed)
+                worksheet_s.write_boolean(row, 9, data.missing, formatRed)
+            else:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.name)
+                worksheet_s.write_string(row, 2, data.room.location.name)
+                worksheet_s.write_string(row, 3, data.room.name)
+                worksheet_s.write_string(row, 4, data.room.room_type.name)
+                worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
+                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 7, data.serial)
+                worksheet_s.write_boolean(row, 8, data.may_be_loaned)
+                worksheet_s.write_boolean(row, 9, data.missing)
+
+
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
@@ -599,6 +619,7 @@ class LocationLaptopListExcelView(generic.ListView):
         worksheet_s.set_column('G:G', 15)
         worksheet_s.set_column('H:H', 30)
         worksheet_s.set_column('I:I', 15)
+        worksheet_s.set_column('J:J', 20)
 
 
         workbook.close()
