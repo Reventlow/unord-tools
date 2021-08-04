@@ -25,6 +25,7 @@
     <tr><td>Sidst opdatteret på denne side</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
     <tr><td>Må udlånes</td><td>{{ object.may_be_loaned }}</td></tr>
+    <tr><td>Må udlånes</td><td>{{ object.missing }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 

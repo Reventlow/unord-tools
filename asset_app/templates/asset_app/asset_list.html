@@ -32,6 +32,9 @@
                     <td>
                     <center>Må udlånes</center>
                 </td>
+                <td>
+                    <center>Meldt savnede</center>
+                </td>
 
                 <td>
                     <center>Slet</center>
@@ -39,7 +42,14 @@
             </tr>
              {% for object in object_list %}
 
-                <tr>
+                        {% if object.missed %}
+                            <tr class="table-danger">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+
+
+
                     <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                              class="badge rounded-pill bg-dark">Rediger</a>
@@ -90,6 +100,15 @@
        <td>
                     <center>
                         {% if object.may_be_loaned %}
+                            ja
+                        {% else %}
+                            nej
+                        {% endif %}
+                    </center>
+                </td>
+                  <td>
+                    <center>
+                        {% if object.missing %}
                             ja
                         {% else %}
                             nej
