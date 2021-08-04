@@ -58,6 +58,7 @@ class AssetUpdateView(generic.UpdateView):
     model = models.Asset
     form_class = forms.AssetForm
     pk_url_kwarg = "pk"
+    location_url_kwarg = "all"
 
 
 @method_decorator(login_required, name='dispatch')
