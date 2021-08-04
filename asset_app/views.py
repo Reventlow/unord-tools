@@ -36,13 +36,18 @@ class AssetListView(generic.ListView):
         item = models.Asset.objects.get(pk=del_id)
         item.delete()
         messages.success(request, 'Udstyr er nu blevet slettet')
-        return redirect('asset_app_asset_list')
+        return redirect('asset_app_asset_list' 'all')
 
 
 @method_decorator(login_required, name='dispatch')
 class AssetCreateView(generic.CreateView):
     model = models.Asset
     form_class = forms.AssetForm
+
+    def form_invalid(self, form):
+        'form is invalid'
+        messages.add_message(self.request, messages.WARNING, "Form is invalid")
+        return redirect('asset_app_asset_list')
 
 
 @method_decorator(login_required, name='dispatch')
