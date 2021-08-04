@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Lower
 from django.utils.translation import ugettext
+from django.urls import reverse_lazy
 import csv
 from django.http import HttpResponse
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
@@ -66,6 +67,8 @@ class Asset_typeListView(generic.ListView):
     model = models.Asset_type
     form_class = forms.Asset_typeForm
 
+
+
     def get_queryset(self):
         queryset = super().get_queryset().order_by('name')
         qs = queryset.annotate(object_count=Count('model_hardware__asset'))
@@ -101,6 +104,9 @@ class Asset_typeUpdateView(generic.UpdateView):
     form_class = forms.Asset_typeForm
     pk_url_kwarg = "pk"
 
+
+    def get_success_url(self):
+        return reverse_lazy('asset_app_asset_list', kwargs={'location': 'all'})
 
 @method_decorator(login_required, name='dispatch')
 class AssetCaseListView(generic.ListView):
