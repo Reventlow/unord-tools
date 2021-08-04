@@ -105,8 +105,7 @@ class Asset_typeUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
-    def get_success_url(self):
-        return reverse_lazy('asset_app_asset_list', kwargs={'location': 'all'})
+
 
 @method_decorator(login_required, name='dispatch')
 class AssetCaseListView(generic.ListView):
