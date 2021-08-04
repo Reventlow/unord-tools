@@ -28,7 +28,7 @@ class AssetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens mac adresse'}))
     ip = forms.CharField(label="", max_length=100, required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens ip adresse'}))
-    notes = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
+    notes = forms.CharField(required=False, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     may_be_loaned = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
 
     class Meta:
