@@ -863,9 +863,10 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write(2, thisColumn, ugettext("Rum:"), header)
         worksheet_s.write(3, thisColumn, ugettext("Afdeling:"), header)
         worksheet_s.write(4, thisColumn, ugettext("Rum type:"), header)
-        worksheet_s.write(5, thisColumn, ugettext("Billede:"), header)
-        worksheet_s.write(6, thisColumn, ugettext("Billede dato:"), header)
-        worksheet_s.write(7, thisColumn, ugettext("Lokale sidst gennemgået:"), header)
+        worksheet_s.write(5, thisColumn, ugettext("Lokale sidst gennemgået:"), header)
+        if image:
+            worksheet_s.write(6, thisColumn, ugettext("Billede dato:"), header)
+
 
         thisColumn = 2
 
@@ -907,14 +908,11 @@ class RoomDetailExcelView(generic.DetailView):
             else:
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.name)
-                worksheet_s.write_string(row, 2, data.room.location.name)
-                worksheet_s.write_string(row, 3, data.room.name)
-                worksheet_s.write_string(row, 4, data.room.room_type.name)
-                worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
-                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
-                worksheet_s.write_string(row, 7, data.serial)
-                worksheet_s.write_boolean(row, 8, data.may_be_loaned)
-                worksheet_s.write_boolean(row, 9, data.missing)
+                worksheet_s.write_string(row, 2, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
+                worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 4, data.serial)
+                worksheet_s.write_boolean(row, 5, data.may_be_loaned)
+                worksheet_s.write_boolean(row, 6, data.missing)
 
 
             # the rest of the data
@@ -923,11 +921,8 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.set_column('C:C', 15)
         worksheet_s.set_column('D:D', 30)
         worksheet_s.set_column('E:E', 35)
-        worksheet_s.set_column('F:F', 45)
+        worksheet_s.set_column('F:F', 15)
         worksheet_s.set_column('G:G', 15)
-        worksheet_s.set_column('H:H', 30)
-        worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 20)
 
 
         workbook.close()
