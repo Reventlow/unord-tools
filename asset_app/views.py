@@ -923,9 +923,9 @@ class RoomDetailExcelView(generic.DetailView):
 
             # the rest of the data
 
-        worksheet_s.set_column('B:B', 30)
-        worksheet_s.set_column('C:C', 30)
-        worksheet_s.set_column('D:D', 30)
+        worksheet_s.set_column('B:B', 40)
+        worksheet_s.set_column('C:C', 40)
+        worksheet_s.set_column('D:D', 40)
         worksheet_s.set_column('E:E', 35)
         worksheet_s.set_column('F:F', 15)
         worksheet_s.set_column('G:G', 15)
