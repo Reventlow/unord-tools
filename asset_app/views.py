@@ -15,6 +15,7 @@ import to_do_list_app.models
 from . import models
 from . import forms
 from io import StringIO, BytesIO
+from urllib.request import urlopen
 import xlsxwriter
 
 
@@ -872,12 +873,14 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write_string(3, thisColumn, location)
         worksheet_s.write_string(4, thisColumn, room_type)
         if image:
-            worksheet_s.insert_image(5, thisColumn, image)
-            worksheet_s.write_string(5, thisColumn, str('https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image))
+            #worksheet_s.insert_image(5, thisColumn, image)
+            url = 'https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+str(image)
+            image_data = BytesIO(urlopen(url).read())
+            worksheet_s.insert_image('D2', name, {'image_data': image_data})
             #worksheet_s.write_datetime(6, thisColumn, image_date, {'url': r'external:https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image})
         #worksheet_s.write_string(7, thisColumn, last_inspected)
 
-        thisRow = 9
+        thisRow = 11
 
         worksheet_s.write(thisRow, 1, ugettext("Navn"), header)
         worksheet_s.write(thisRow, 2, ugettext("Mærke og model"), header)
@@ -887,7 +890,7 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 6, ugettext("Meldt savnede"), header)
 
 
-        thisRow = 10
+        thisRow = thisRow +1
         queryset = models.Asset.objects.filter(room = pk).order_by('name')
 
         for idx, data in enumerate(queryset):
