@@ -855,6 +855,8 @@ class RoomDetailExcelView(generic.DetailView):
             'border': 1
         })
 
+        formatDate = workbook.add_format({'num_format': 'dd/mm/yy'})
+
         formatRed = workbook.add_format({'bg_color': '#FFC7CE',
                                        'font_color': '#9C0006'})
         thisColumn = 1
@@ -877,9 +879,9 @@ class RoomDetailExcelView(generic.DetailView):
             #worksheet_s.insert_image(5, thisColumn, image)
             url = 'https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+str(image)
             image_data = BytesIO(urlopen(url).read())
-            worksheet_s.insert_image('D2', name, {'image_data': image_data},  {'x_scale': 0.1, 'y_scale': 0.1})
+            worksheet_s.insert_image('D2', name, {'image_data': image_data, 'x_scale': 0.1, 'y_scale': 0.1})
 
-            #worksheet_s.write_datetime(6, thisColumn, image_date, {'url': r'external:https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image})
+            #worksheet_s.write_datetime(6, image_date, formatDate)
         #worksheet_s.write_string(7, thisColumn, last_inspected)
 
         thisRow = 11
