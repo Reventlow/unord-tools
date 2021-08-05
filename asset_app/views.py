@@ -877,7 +877,8 @@ class RoomDetailExcelView(generic.DetailView):
             #worksheet_s.insert_image(5, thisColumn, image)
             url = 'https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+str(image)
             image_data = BytesIO(urlopen(url).read())
-            worksheet_s.insert_image('D2', name, {'image_data': image_data})
+            worksheet_s.insert_image('D2', name, {'image_data': image_data},  {'x_scale': 0.1, 'y_scale': 0.1})
+
             #worksheet_s.write_datetime(6, thisColumn, image_date, {'url': r'external:https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image})
         #worksheet_s.write_string(7, thisColumn, last_inspected)
 
@@ -918,7 +919,7 @@ class RoomDetailExcelView(generic.DetailView):
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
-        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('C:C', 30)
         worksheet_s.set_column('D:D', 30)
         worksheet_s.set_column('E:E', 35)
         worksheet_s.set_column('F:F', 15)
