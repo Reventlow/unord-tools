@@ -884,7 +884,7 @@ class RoomDetailExcelView(generic.DetailView):
 
         worksheet_s.write_string(5, thisColumn, datetime.datetime.strptime(str(last_inspected), '%Y-%m-%d').strftime('%m/%d/%Y'))
 
-        thisRow = 11
+        thisRow = 18
 
         worksheet_s.write(thisRow, 1, ugettext("Navn"), header)
         worksheet_s.write(thisRow, 2, ugettext("Mærke og model"), header)
