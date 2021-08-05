@@ -821,6 +821,127 @@ class RoomPDFDetailView(PDFTemplateResponseMixin, generic.DetailView):
     form_class = forms.RoomForm
     template_name = 'asset_app/room_detail_to-pdf.html'
 
+@method_decorator(login_required, name='dispatch')
+class RoomDetailExcelView(generic.DetailView):
+    model = models.Room
+    form_class = forms.RoomForm
+
+
+    def get(self, request, pk):
+
+        queryset = super().get_queryset().filter(id=pk).order_by('name')
+        for object in queryset:
+            name = object.name
+            location = object.location.name
+            room_type = object.room_type.name
+            image_date = object.image_date
+            image = object.image
+            last_inspected = object.last_inspected
+
+
+
+        output = BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+
+        # Here we will adding the code to add data
+        worksheet_s = workbook.add_worksheet(name+"-"+location)
+
+        header = workbook.add_format({
+            'bg_color': '#F7F7F7',
+            'color': 'black',
+            'align': 'center',
+            'valign': 'top',
+            'border': 1
+        })
+
+        formatRed = workbook.add_format({'bg_color': '#FFC7CE',
+                                       'font_color': '#9C0006'})
+        thisColumn = 1
+        thisRow = 1
+
+        worksheet_s.write(2, thisColumn, ugettext("Rum:"), header)
+        worksheet_s.write(3, thisColumn, ugettext("Afdeling:"), header)
+        worksheet_s.write(4, thisColumn, ugettext("Rum type:"), header)
+        worksheet_s.write(5, thisColumn, ugettext("Billede:"), header)
+        worksheet_s.write(6, thisColumn, ugettext("Billede dato:"), header)
+        worksheet_s.write(7, thisColumn, ugettext("Lokale sidst gennemgået:"), header)
+
+        thisColumn = 2
+
+        worksheet_s.write_string(2, thisColumn, name)
+        worksheet_s.write_string(3, thisColumn, location)
+        worksheet_s.write_string(4, thisColumn, room_type)
+        if image:
+            worksheet_s.insert_image(5, thisColumn, image)
+            worksheet_s.write_string(5, thisColumn, str('https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image))
+            #worksheet_s.write_datetime(6, thisColumn, image_date, {'url': r'external:https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image})
+        #worksheet_s.write_string(7, thisColumn, last_inspected)
+
+        thisRow = 9
+
+        worksheet_s.write(thisRow, 1, ugettext("Navn"), header)
+        worksheet_s.write(thisRow, 2, ugettext("Mærke og model"), header)
+        worksheet_s.write(thisRow, 3, ugettext("Udstyr type"), header)
+        worksheet_s.write(thisRow, 4, ugettext("Serienummer"), header)
+        worksheet_s.write(thisRow, 5, ugettext("Må udlånes"), header)
+        worksheet_s.write(thisRow, 6, ugettext("Meldt savnede"), header)
+
+
+        thisRow = 10
+        queryset = models.Asset.objects.filter(room = pk).order_by('name')
+
+        for idx, data in enumerate(queryset):
+            row = thisRow + idx
+
+            if data.missing:
+                worksheet_s.write_number(row, 0, idx + 1, formatRed)
+                worksheet_s.write_string(row, 1, data.name, formatRed)
+                worksheet_s.write_string(row, 2, data.model_hardware.brand.name + ' ' + data.model_hardware.name, formatRed)
+                worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name, formatRed)
+                worksheet_s.write_string(row, 4, data.serial, formatRed)
+                worksheet_s.write_boolean(row, 5, data.may_be_loaned, formatRed)
+                worksheet_s.write_boolean(row, 6, data.missing, formatRed)
+            else:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.name)
+                worksheet_s.write_string(row, 2, data.room.location.name)
+                worksheet_s.write_string(row, 3, data.room.name)
+                worksheet_s.write_string(row, 4, data.room.room_type.name)
+                worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
+                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 7, data.serial)
+                worksheet_s.write_boolean(row, 8, data.may_be_loaned)
+                worksheet_s.write_boolean(row, 9, data.missing)
+
+
+            # the rest of the data
+
+        worksheet_s.set_column('B:B', 30)
+        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('D:D', 30)
+        worksheet_s.set_column('E:E', 35)
+        worksheet_s.set_column('F:F', 45)
+        worksheet_s.set_column('G:G', 15)
+        worksheet_s.set_column('H:H', 30)
+        worksheet_s.set_column('I:I', 15)
+        worksheet_s.set_column('J:J', 20)
+
+
+        workbook.close()
+        xlsx_data = output.getvalue()
+
+        # Rewind the buffer.
+        output.seek(0)
+
+        # Set up the Http response.
+        filename = name + '-´' + location + '-' + str(datetime.date.today()) + '.xlsx'
+        response = HttpResponse(
+            output,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+
+        return response
 
 
 
@@ -867,7 +988,6 @@ class Room_typeDetailView(generic.DetailView):
     def get_queryset(self):
         queryset = super().get_queryset().order_by('asset_type.name', 'name')
         return queryset
-
 
 @method_decorator(login_required, name='dispatch')
 class Room_typeUpdateView(generic.UpdateView):
