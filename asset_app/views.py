@@ -15,6 +15,7 @@ import to_do_list_app.models
 from . import models
 from . import forms
 from io import StringIO, BytesIO
+from urllib.request import urlopen
 import xlsxwriter
 
 
@@ -854,6 +855,8 @@ class RoomDetailExcelView(generic.DetailView):
             'border': 1
         })
 
+        formatDate = workbook.add_format({'num_format': 'dd/mm/yy'})
+
         formatRed = workbook.add_format({'bg_color': '#FFC7CE',
                                        'font_color': '#9C0006'})
         thisColumn = 1
@@ -862,9 +865,10 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write(2, thisColumn, ugettext("Rum:"), header)
         worksheet_s.write(3, thisColumn, ugettext("Afdeling:"), header)
         worksheet_s.write(4, thisColumn, ugettext("Rum type:"), header)
-        worksheet_s.write(5, thisColumn, ugettext("Billede:"), header)
-        worksheet_s.write(6, thisColumn, ugettext("Billede dato:"), header)
-        worksheet_s.write(7, thisColumn, ugettext("Lokale sidst gennemgået:"), header)
+        worksheet_s.write(5, thisColumn, ugettext("Lokale sidst gennemgået:"), header)
+        if image:
+            worksheet_s.write(6, thisColumn, ugettext("Billede dato:"), header)
+
 
         thisColumn = 2
 
@@ -872,12 +876,18 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write_string(3, thisColumn, location)
         worksheet_s.write_string(4, thisColumn, room_type)
         if image:
-            worksheet_s.insert_image(5, thisColumn, image)
-            worksheet_s.write_string(5, thisColumn, str('https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image))
-            #worksheet_s.write_datetime(6, thisColumn, image_date, {'url': r'external:https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+image})
-        #worksheet_s.write_string(7, thisColumn, last_inspected)
+            #worksheet_s.insert_image(5, thisColumn, image)
+            url = 'https://unord-tools-django-project-static.s3.eu-central-1.amazonaws.com/media/public/'+str(image)
+            image_data = BytesIO(urlopen(url).read())
+            worksheet_s.insert_image('D2', name, {'image_data': image_data, 'x_scale': 0.1, 'y_scale': 0.1})
+            worksheet_s.write_string(6, thisColumn, datetime.datetime.strptime(str(image_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
 
-        thisRow = 9
+        worksheet_s.write_string(5, thisColumn, datetime.datetime.strptime(str(last_inspected), '%Y-%m-%d').strftime('%m/%d/%Y'))
+
+        if image:
+            thisRow = 23
+        else:
+            thisRow = 13
 
         worksheet_s.write(thisRow, 1, ugettext("Navn"), header)
         worksheet_s.write(thisRow, 2, ugettext("Mærke og model"), header)
@@ -887,7 +897,7 @@ class RoomDetailExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 6, ugettext("Meldt savnede"), header)
 
 
-        thisRow = 10
+        thisRow = thisRow +1
         queryset = models.Asset.objects.filter(room = pk).order_by('name')
 
         for idx, data in enumerate(queryset):
@@ -904,27 +914,21 @@ class RoomDetailExcelView(generic.DetailView):
             else:
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.name)
-                worksheet_s.write_string(row, 2, data.room.location.name)
-                worksheet_s.write_string(row, 3, data.room.name)
-                worksheet_s.write_string(row, 4, data.room.room_type.name)
-                worksheet_s.write_string(row, 5, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
-                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
-                worksheet_s.write_string(row, 7, data.serial)
-                worksheet_s.write_boolean(row, 8, data.may_be_loaned)
-                worksheet_s.write_boolean(row, 9, data.missing)
+                worksheet_s.write_string(row, 2, data.model_hardware.brand.name + ' ' + data.model_hardware.name)
+                worksheet_s.write_string(row, 3, data.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 4, data.serial)
+                worksheet_s.write_boolean(row, 5, data.may_be_loaned)
+                worksheet_s.write_boolean(row, 6, data.missing)
 
 
             # the rest of the data
 
-        worksheet_s.set_column('B:B', 30)
-        worksheet_s.set_column('C:C', 15)
-        worksheet_s.set_column('D:D', 30)
+        worksheet_s.set_column('B:B', 40)
+        worksheet_s.set_column('C:C', 40)
+        worksheet_s.set_column('D:D', 40)
         worksheet_s.set_column('E:E', 35)
-        worksheet_s.set_column('F:F', 45)
+        worksheet_s.set_column('F:F', 15)
         worksheet_s.set_column('G:G', 15)
-        worksheet_s.set_column('H:H', 30)
-        worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 20)
 
 
         workbook.close()
