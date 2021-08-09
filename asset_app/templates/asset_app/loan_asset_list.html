@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <div><a class="btn btn-primary" href="{% url 'asset_app_loan_asset_create' %}">Reg nyt udlån</a> <a class="btn btn-success" href="{% url 'asset_app_loan_excel_list'  %}">Exporter til excel</a></div>
 
      <h1>Reservations oversigt </h1>
 
@@ -98,7 +99,7 @@
                     <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.asset }}<br/>{{ object.asset.model_hardware.asset_type }}</div>
+                    <div style="text-align: center;">{{ object.asset }}</div>
                 </td>
 
                 <td>
