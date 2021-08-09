@@ -304,7 +304,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 5, data.series)
                 worksheet_s.write_string(row, 5, data.asset_type.name)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
