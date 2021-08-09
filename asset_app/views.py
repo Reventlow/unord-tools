@@ -471,11 +471,12 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 4, ugettext("Telefon nummer"), header)
         worksheet_s.write(thisRow, 5, ugettext("Email"), header)
         worksheet_s.write(thisRow, 6, ugettext("Adresse"), header)
-        worksheet_s.write(thisRow, 7, ugettext("Udstyrs type"), header)
-        worksheet_s.write(thisRow, 0, ugettext("Udstyr"), header)
-        worksheet_s.write(thisRow, 9, ugettext("Udlånt fra"), header)
-        worksheet_s.write(thisRow, 10, ugettext("Udlånt til"), header)
-        worksheet_s.write(thisRow, 11, ugettext("Retuneret"), header)
+        worksheet_s.write(thisRow, 7, ugettext("Udstyrs navn"), header)
+        worksheet_s.write(thisRow, 8, ugettext("Udstyrs type"), header)
+        worksheet_s.write(thisRow, 9, ugettext("Udstyr"), header)
+        worksheet_s.write(thisRow, 10, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 11, ugettext("Udlånt til"), header)
+        worksheet_s.write(thisRow, 12, ugettext("Retuneret"), header)
 
 
 
@@ -493,11 +494,12 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number)
                 worksheet_s.write_boolean(row, 5, data.loaner_email)
                 worksheet_s.write_boolean(row, 6, data.loaner_address)
-                worksheet_s.write_boolean(row, 7, data.asset.model_hardware.asset_type.name)
-                worksheet_s.write_string(row, 8, data.asset)
-                worksheet_s.write_string(row, 9, data.loan_date)
-                worksheet_s.write_string(row, 10, data.return_date)
-                worksheet_s.write_string(row, 11, data.returned)
+                worksheet_s.write_boolean(row, 7, data.asset.name)
+                worksheet_s.write_boolean(row, 8, data.asset.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
+                worksheet_s.write_string(row, 10, data.loan_date)
+                worksheet_s.write_string(row, 11, data.return_date)
+                worksheet_s.write_string(row, 12, data.returned)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
                 worksheet_s.write_number(row, 0, idx + 1, formatRed)
@@ -507,11 +509,12 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number, formatRed)
                 worksheet_s.write_boolean(row, 5, data.loaner_email, formatRed)
                 worksheet_s.write_boolean(row, 6, data.loaner_address, formatRed)
-                worksheet_s.write_boolean(row, 7, data.asset.model_hardware.asset_type.name, formatRed)
-                worksheet_s.write_string(row, 8, data.asset, formatRed)
-                worksheet_s.write_string(row, 9, data.loan_date, formatRed)
-                worksheet_s.write_string(row, 10, data.return_date, formatRed)
-                worksheet_s.write_string(row, 11, data.returned, formatRed)
+                worksheet_s.write_boolean(row, 7, data.asset.name, formatRed)
+                worksheet_s.write_boolean(row, 8, data.asset.model_hardware.asset_type.name, formatRed)
+                worksheet_s.write_string(row, 9, data.asset, formatRed)
+                worksheet_s.write_string(row, 10, data.loan_date, formatRed)
+                worksheet_s.write_string(row, 11, data.return_date, formatRed)
+                worksheet_s.write_string(row, 12, data.returned, formatRed)
 
             else:
                 worksheet_s.write_number(row, 0, idx + 1)
@@ -521,11 +524,12 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number, formatGreen)
                 worksheet_s.write_boolean(row, 5, data.loaner_email, formatGreen)
                 worksheet_s.write_boolean(row, 6, data.loaner_address, formatGreen)
-                worksheet_s.write_boolean(row, 7, data.asset.model_hardware.asset_type.name, formatGreen)
-                worksheet_s.write_string(row, 8, data.asset, formatGreen)
-                worksheet_s.write_string(row, 9, data.loan_date, formatGreen)
-                worksheet_s.write_string(row, 10, data.return_date, formatGreen)
-                worksheet_s.write_string(row, 11, data.returned, formatGreen)
+                worksheet_s.write_boolean(row, 7, data.asset.name, formatGreen)
+                worksheet_s.write_boolean(row, 8, data.asset.model_hardware.asset_type.name, formatGreen)
+                worksheet_s.write_string(row, 9, data.asset, formatGreen)
+                worksheet_s.write_string(row, 10, data.loan_date, formatGreen)
+                worksheet_s.write_string(row, 11, data.return_date, formatGreen)
+                worksheet_s.write_string(row, 12, data.returned, formatGreen)
 
 
             # the rest of the data
