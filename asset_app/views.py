@@ -291,7 +291,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
 
 
         thisRow = thisRow +1
-        queryset = models.Bundle_reservation.objects.all().order_by('returned', 'loaner_name', 'asset')
+        queryset = models.Bundle_reservation.objects.all().order_by('returned', 'loaner_name')
 
         for idx, data in enumerate(queryset):
             row = thisRow + idx
