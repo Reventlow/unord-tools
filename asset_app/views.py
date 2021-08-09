@@ -302,8 +302,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 2, data.location.name)
                 worksheet_s.write_string(row, 4, data.amount)
                 worksheet_s.write_string(row, 5, data.series)
-                worksheet_s.write_string(row, 6, data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
-                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
+                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -317,8 +317,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 2, data.location.name, formatRed)
                 worksheet_s.write_string(row, 4, data.amount, formatRed)
                 worksheet_s.write_string(row, 5, data.series, formatRed)
-                worksheet_s.write_string(row, 6,data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
-                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatRed)
+                worksheet_s.write_string(row, 6,datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatRed)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -331,8 +331,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 2, data.location.name, formatGreen)
                 worksheet_s.write_number(row, 4, data.amount, formatGreen)
                 worksheet_s.write_string(row, 5, data.series, formatGreen)
-                worksheet_s.write_string(row, 6, data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
-                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatGreen)
+                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatGreen)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
