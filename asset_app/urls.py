@@ -63,6 +63,7 @@ urlpatterns = [
     path("asset_app/brand/delete/<int:pk>/", views.BrandListView.delete, name="asset_app_brand_delete"),
 #BundleReservation
     path("asset_app/bundle_reservation/", views.Bundle_reservationListView.as_view(), name="asset_app_bundle_reservation_list"),
+    path("asset_app/bundle_reservation/excel/", views.Bundle_reservationListExcelView.as_view(), name="asset_app_bundel_reservation_excel_list"),
     path("asset_app/bundle_reservation/create/", views.Bundle_reservationCreateView.as_view(), name="asset_app_bundle_reservation_create"),
     path("asset_app/bundle_reservation/detail/<int:pk>/", views.Bundle_reservationDetailView.as_view(), name="asset_app_bundle_reservation_detail"),
     path("asset_app/bundle_reservation/update/<int:pk>/", views.Bundle_reservationUpdateView.as_view(), name="asset_app_bundle_reservation_update"),

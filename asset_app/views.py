@@ -246,6 +246,132 @@ class Bundle_reservationListView(generic.ListView):
         item.save()
         return redirect('asset_app_bundle_reservation_list')
 
+@method_decorator(login_required, name='dispatch')
+class Bundle_reservationListExcelView(generic.DetailView):
+    model = models.Bundle_reservation
+    form_class = forms.Bundle_reservationForm
+
+
+    def get(self, request):
+        output = BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+
+        # Here we will adding the code to add data
+        worksheet_s = workbook.add_worksheet("Sæt udlån")
+
+        header = workbook.add_format({
+            'bg_color': '#F7F7F7',
+            'color': 'black',
+            'align': 'center',
+            'valign': 'top',
+            'border': 1
+        })
+
+        formatDate = workbook.add_format({'num_format': 'dd/mm/yy'})
+
+        formatRed = workbook.add_format({'bg_color': '#FFC7CE',
+                                       'font_color': '#9C0006'})
+
+        formatGreen = workbook.add_format({'bg_color': '#5A916E',
+                                         'font_color': '#FFFFFF'})
+
+        thisColumn = 1
+        thisRow = 2
+
+        worksheet_s.write(thisRow, 1, ugettext("Udlåner"), header)
+        worksheet_s.write(thisRow, 2, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 3, ugettext("Antal"), header)
+        worksheet_s.write(thisRow, 4, ugettext("Udstyrs type"), header)
+        worksheet_s.write(thisRow, 5, ugettext("Serie"), header)
+        worksheet_s.write(thisRow, 6, ugettext("Reseveret fra"), header)
+        worksheet_s.write(thisRow, 7, ugettext("Retuners"), header)
+        worksheet_s.write(thisRow, 8, ugettext("Retuneret"), header)
+
+
+
+
+        thisRow = thisRow +1
+        queryset = models.Bundle_reservation.objects.all().order_by('returned', 'loaner_name', 'asset')
+
+        for idx, data in enumerate(queryset):
+            row = thisRow + idx
+
+            if data.return_date > datetime.date.today() and data.returned == False:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.loaner_name)
+                worksheet_s.write_string(row, 2, data.location.name)
+                worksheet_s.write_string(row, 4, data.amount)
+                worksheet_s.write_string(row, 5, data.series)
+                worksheet_s.write_string(row, 6, data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
+                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
+                if data.returned == True:
+                    returnedValue = "Ja"
+                else:
+                    returnedValue = "Nej"
+                worksheet_s.write_string(row, 8, returnedValue)
+
+
+            elif data.return_date < datetime.date.today() and data.returned == False:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
+                worksheet_s.write_string(row, 2, data.location.name, formatRed)
+                worksheet_s.write_string(row, 4, data.amount, formatRed)
+                worksheet_s.write_string(row, 5, data.series, formatRed)
+                worksheet_s.write_string(row, 6,data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
+                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatRed)
+                if data.returned == True:
+                    returnedValue = "Ja"
+                else:
+                    returnedValue = "Nej"
+                worksheet_s.write_string(row, 8, returnedValue, formatRed)
+
+            else:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
+                worksheet_s.write_string(row, 2, data.location.name, formatGreen)
+                worksheet_s.write_string(row, 4, data.amount, formatGreen)
+                worksheet_s.write_string(row, 5, data.series, formatGreen)
+                worksheet_s.write_string(row, 6, data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
+                worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatGreen)
+                if data.returned == True:
+                    returnedValue = "Ja"
+                else:
+                    returnedValue = "Nej"
+                worksheet_s.write_string(row, 8, returnedValue, formatGreen)
+
+
+            # the rest of the data
+
+        worksheet_s.set_column('B:B', 30)
+        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('D:D', 15)
+        worksheet_s.set_column('E:E', 15)
+        worksheet_s.set_column('F:F', 30)
+        worksheet_s.set_column('G:G', 30)
+        worksheet_s.set_column('H:H', 20)
+        worksheet_s.set_column('H:H', 30)
+        worksheet_s.set_column('I:I', 15)
+        worksheet_s.set_column('J:J', 35)
+        worksheet_s.set_column('K:K', 15)
+        worksheet_s.set_column('L:L', 15)
+        worksheet_s.set_column('M:M', 15)
+
+
+        workbook.close()
+        xlsx_data = output.getvalue()
+
+        # Rewind the buffer.
+        output.seek(0)
+
+        # Set up the Http response.
+        filename = 'Sæt_udlån_' + str(datetime.date.today()) + '.xlsx'
+        response = HttpResponse(
+            output,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+
+        return response
 
 @method_decorator(login_required, name='dispatch')
 class Bundle_reservationCreateView(generic.CreateView):
