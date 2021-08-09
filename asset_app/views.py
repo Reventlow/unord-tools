@@ -797,8 +797,8 @@ class RoomListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    def delete(request, del_id):
-        item = models.Room.objects.get(pk=del_id)
+    def delete(request, pk):
+        item = models.Room.objects.get(pk=pk)
         item.delete()
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
