@@ -329,7 +329,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                 worksheet_s.write_string(row, 2, data.location.name, formatGreen)
-                worksheet_s.write_string(row, 4, data.amount, formatGreen)
+                worksheet_s.write_number(row, 4, data.amount, formatGreen)
                 worksheet_s.write_string(row, 5, data.series, formatGreen)
                 worksheet_s.write_string(row, 6, data.datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
                 worksheet_s.write_string(row, 7, data.datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatGreen)
