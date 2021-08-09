@@ -318,7 +318,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 4, data.amount, formatRed)
                 worksheet_s.write_string(row, 5, data.series, formatRed)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatRed)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -332,7 +332,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 4, data.amount, formatGreen)
                 worksheet_s.write_string(row, 5, data.series, formatGreen)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'), formatGreen)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -624,7 +624,7 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name)
                 worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
                 worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
+                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
