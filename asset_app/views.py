@@ -300,8 +300,9 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.loaner_name)
                 worksheet_s.write_string(row, 2, data.location.name)
-                worksheet_s.write_string(row, 4, data.amount)
+                worksheet_s.write_number(row, 3, data.amount)
                 worksheet_s.write_string(row, 5, data.series)
+                worksheet_s.write_string(row, 5, data.asset_type.name)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
                 worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d'))
                 if data.returned == True:
@@ -315,7 +316,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
                 worksheet_s.write_string(row, 2, data.location.name, formatRed)
-                worksheet_s.write_string(row, 4, data.amount, formatRed)
+                worksheet_s.write_number(row, 3, data.amount, formatRed)
+                worksheet_s.write_string(row, 4, data.asset_type.name, formatRed)
                 worksheet_s.write_string(row, 5, data.series, formatRed)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
                 worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
@@ -329,7 +331,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 0, idx + 1)
                 worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                 worksheet_s.write_string(row, 2, data.location.name, formatGreen)
-                worksheet_s.write_number(row, 4, data.amount, formatGreen)
+                worksheet_s.write_number(row, 3, data.amount, formatGreen)
+                worksheet_s.write_string(row, 4, data.asset_type.name, formatGreen)
                 worksheet_s.write_string(row, 5, data.series, formatGreen)
                 worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
                 worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
@@ -351,10 +354,7 @@ class Bundle_reservationListExcelView(generic.DetailView):
         worksheet_s.set_column('H:H', 20)
         worksheet_s.set_column('H:H', 30)
         worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 35)
-        worksheet_s.set_column('K:K', 15)
-        worksheet_s.set_column('L:L', 15)
-        worksheet_s.set_column('M:M', 15)
+
 
 
         workbook.close()
