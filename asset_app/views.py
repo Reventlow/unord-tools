@@ -303,8 +303,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 3, data.amount)
                 worksheet_s.write_string(row, 5, data.series)
                 worksheet_s.write_string(row, 5, data.asset_type.name)
-                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
+                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -319,8 +319,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 3, data.amount, formatRed)
                 worksheet_s.write_string(row, 4, data.asset_type.name, formatRed)
                 worksheet_s.write_string(row, 5, data.series, formatRed)
-                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
+                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -334,8 +334,8 @@ class Bundle_reservationListExcelView(generic.DetailView):
                 worksheet_s.write_number(row, 3, data.amount, formatGreen)
                 worksheet_s.write_string(row, 4, data.asset_type.name, formatGreen)
                 worksheet_s.write_string(row, 5, data.series, formatGreen)
-                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
-                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
+                worksheet_s.write_string(row, 6, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                worksheet_s.write_string(row, 7, datetime.datetime.strptime(str(data.return_date),  '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -623,8 +623,8 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 7, data.asset.name)
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name)
                 worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
-                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'))
+                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -642,8 +642,8 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 7, data.asset.name, formatRed)
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name, formatRed)
                 worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
-                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatRed)
+                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -661,8 +661,8 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 7, data.asset.name, formatGreen)
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name, formatGreen)
                 worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatGreen)
-                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%m/%d/%Y'), formatGreen)
+                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
