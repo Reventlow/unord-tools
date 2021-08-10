@@ -1208,7 +1208,7 @@ class RoomDetailExcelView(generic.DetailView):
         output.seek(0)
 
         # Set up the Http response.
-        filename = name + '-´' + location + '-' + str(datetime.date.today()) + '.xlsx'
+        filename = name + '-' + location + '-' + str(datetime.date.today()) + '.xlsx'
         response = HttpResponse(
             output,
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
