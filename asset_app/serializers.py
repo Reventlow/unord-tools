@@ -15,6 +15,7 @@ class AssetSerializer(serializers.ModelSerializer):
             "ip",
             "notes",
             "may_be_loaned",
+            "is_loaned",
             "missing",
             "created",
             "last_updated",

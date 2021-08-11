@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Lower
 from django.utils.translation import ugettext
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import csv
 from django.http import HttpResponse
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
@@ -17,6 +19,8 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
+
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -712,6 +716,11 @@ class Loan_assetCreateView(generic.CreateView):
     def get_queryset(self):
         queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
         return queryset
+
+    @receiver(post_save, sender=models.Loan_asset)
+    def create_transaction(sender, instance, created, **kwargs):
+        if created:
+            models.Asset.objects.create(is_loaned=True)
 
 
 @method_decorator(login_required, name='dispatch')

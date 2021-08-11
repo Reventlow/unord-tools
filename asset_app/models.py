@@ -17,6 +17,7 @@ class Asset(models.Model):
     mac_address = models.CharField(max_length=30, null=True, blank=True)
     purchased_date = models.DateField(null=True, blank=True)
     may_be_loaned = models.BooleanField(default=False, blank=True, null=True)
+    is_loaned = models.BooleanField(default=False, blank=True, null=True)
     missing = models.BooleanField(default=False, blank=True, null=True)
     notes = HTMLField(default="")
     ip = models.CharField(max_length=90, null=True, blank=True)

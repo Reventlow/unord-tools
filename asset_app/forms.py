@@ -30,6 +30,7 @@ class AssetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast enhedens ip adresse'}))
     notes = forms.CharField(required=False, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
     may_be_loaned = forms.BooleanField(label="Må udstyret udlånes", initial=False, required=False)
+    is_loaned = forms.BooleanField(label="Er udstyret udlånt nu", initial=False, required=False)
     missing = forms.BooleanField(label="Udstyret meldt savnede", initial=False, required=False)
 
     class Meta:
