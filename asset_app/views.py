@@ -548,14 +548,22 @@ class Loan_assetListView(generic.ListView):
     def returned_true(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
         item.returned = False
+        asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = True
         item.save()
         return redirect('asset_app_loan_asset_list')
 
     def returned_false(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
         item.returned = True
+        asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som ikke afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = True
         item.save()
         return redirect('asset_app_loan_asset_list')
 
