@@ -552,7 +552,7 @@ class Loan_assetListView(generic.ListView):
         messages.success(request, 'Noteret udstyret som afleveret')
         item.save()
         item = models.Asset.objects.get(pk=asset_id)
-        item.is_loaned = True
+        item.is_loaned = False
         item.save()
         return redirect('asset_app_loan_asset_list')
 
