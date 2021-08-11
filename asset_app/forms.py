@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from . import models
 from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition
 from tinymce.widgets import TinyMCE
-
+from django.db.models import Q
 
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
@@ -45,6 +45,7 @@ class AssetForm(forms.ModelForm):
             "ip",
             "notes",
             "may_be_loaned",
+            "is_loaned",
             "missing",
 
         ]
@@ -256,7 +257,7 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(queryset=Asset.objects.filter(may_be_loaned=True), label="Udstyr",
+    asset = forms.ModelChoiceField(queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)), label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
