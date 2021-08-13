@@ -41,7 +41,7 @@ class AssetListView(generic.ListView):
         item = models.Asset.objects.get(pk=pk)
         item.delete()
         messages.success(request, 'Udstyr er nu blevet slettet')
-        return redirect('asset_app_asset_list' 'all')
+        return redirect('asset_app_asset_list', location='all')
 
 
 @method_decorator(login_required, name='dispatch')
