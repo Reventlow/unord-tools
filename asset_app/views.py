@@ -1108,14 +1108,14 @@ class RoomDetailView(generic.DetailView):
         item.may_be_loaned = True
         messages.success(request, 'Udstyret må nu udlånes')
         item.save()
-        return redirect('asset_app_room_detail' pk)
+        return redirect('asset_app_room_detail', pk=pk)
 
     def may_be_loaned_false(request, asset, pk):
         item = models.Asset.objects.get(pk=asset)
         item.may_be_loaned = False
         messages.success(request, 'Udstyret må ikke udlånes')
         item.save()
-        return redirect('asset_app_room_detail' pk)
+        return redirect('asset_app_room_detail', pk=pk)
 
 @method_decorator(login_required, name='dispatch')
 class RoomPDFDetailView(PDFTemplateResponseMixin, generic.DetailView):
