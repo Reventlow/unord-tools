@@ -117,7 +117,7 @@
                     <td>
                         <center>
                             {% if object.may_be_loaned == true %}
-                            <a href="{% url 'asset_app_room_may_be_loaned_false' object.id pk %}" class="btn btn-secondary btn-sm "
+                            <a href="{% url 'asset_app_room_may_be_loaned_false' object.id pk %}" class="btn btn-info btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Ja</a>
                             {% else %}
                             <a href="{% url 'asset_app_room_may_be_loaned_true' object.id pk %}" class="btn btn-secondary btn-sm "
