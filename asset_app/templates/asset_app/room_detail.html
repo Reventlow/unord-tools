@@ -69,6 +69,9 @@
                 <td>
                     <center>Må udlånes</center>
                 </td>
+                                <td>
+                    <center>Er udlåndt</center>
+                </td>
                 <td>
                     <center>Slet</center>
                 </td>
@@ -138,6 +141,16 @@
                             {% else %}
                             <a href="{% url 'asset_app_room_may_be_loaned_true' item.id view.kwargs.pk %}" class="btn btn-secondary btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Nej</a>
+                            {% endif %}
+
+                        </center>
+                    </td>
+              <td>
+                        <center>
+                            {% if item.is_loaned %}
+                            Ja
+                            {% else %}
+                            Nej
                             {% endif %}
 
                         </center>
