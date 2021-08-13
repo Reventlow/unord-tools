@@ -73,38 +73,38 @@
                     <center>Slet</center>
                 </td>
             </tr>
-{% for object in room.asset_set.all %}
+{% for item in room.asset_set.all %}
 
 
-                     {% if object.missing %}
+                     {% if item.missing %}
                             <tr class="table-danger">
                         {% else %}
                             <tr>
                         {% endif %}
-                    <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
+                    <td>{{ item.name }} <a href="{{ item.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                              class="badge rounded-pill bg-dark">Rediger</a>
 
 
-                        {% if  object.notes %}
+                        {% if  item.notes %}
                             <!-- Button trigger modal -->
                             <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal{{ object.id }}">
+                                  data-bs-target="#exampleModal{{ item.id }}">
   Note
 </span>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                            <div class="modal fade" id="exampleModal{{ item.id }}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ object.name }}</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Noter på {{ item.name }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {{ object.notes|safe}}
+                                        {{ item.notes|safe}}
                                     </div>
 
                                 </div>
@@ -119,20 +119,20 @@
 
                     </td>
                 <td>
-                        {{ object.serial }}
+                        {{ item.serial }}
                     </td>
                                <td>
-                        <center>{{ object.model_hardware.asset_type }}</center>
+                        <center>{{ item.model_hardware.asset_type }}</center>
                     </td>
 
                      <td>
-                    <center>{{ object.model_hardware.brand }} - {{ object.model_hardware}}</center>
+                    <center>{{ item.model_hardware.brand }} - {{ object.model_hardware}}</center>
                 </td>
 
 
                     <td>
                         <center>
-                            {% if object.may_be_loaned == true %}
+                            {% if item.may_be_loaned == true %}
                             <a href="{% url 'asset_app_room_may_be_loaned_false' object.id view.kwargs.pk %}" class="btn btn-info btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Ja</a>
                             {% else %}
