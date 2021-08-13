@@ -725,10 +725,10 @@ class Loan_assetCreateView(generic.CreateView):
         queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
         return queryset
 
-@receiver(post_save, sender=models.Loan_asset)
-def create_transaction(sender, instance, created, **kwargs):
-    if created:
-        models.Asset.objects.create(is_loaned=True)
+    @receiver(post_save, sender=models.Loan_asset)
+    def create_transaction(sender, instance, created, **kwargs):
+        if created:
+            models.Asset.objects.create(is_loaned=True)
 
 
 @method_decorator(login_required, name='dispatch')
