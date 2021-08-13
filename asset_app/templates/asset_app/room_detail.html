@@ -60,20 +60,20 @@
                 </td>
                 <td>Serie nummer</td>
                          <td>
-                    <center>Udstyrs type</center>
+                    <div style="text-align: center;">Udstyrs type</div>
                 </td>
 <td>
-                    <center>Model</center>
+                    <div style="text-align: center;">Model</div>
                 </td>
 
                 <td>
-                    <center>Må udlånes</center>
+                    <div style="text-align: center;">Må udlånes</div>
                 </td>
                                 <td>
-                    <center>Er udlåndt</center>
+                    <div style="text-align: center;">Er udlånt</div>
                 </td>
                 <td>
-                    <center>Slet</center>
+                    <div style="text-align: center;">Slet</div>
                 </td>
             </tr>
 {% for item in room.asset_set.all %}
@@ -125,16 +125,16 @@
                         {{ item.serial }}
                     </td>
                                <td>
-                        <center>{{ item.model_hardware.asset_type }}</center>
+                        <div style="text-align: center;">{{ item.model_hardware.asset_type }}</div>
                     </td>
 
                      <td>
-                    <center>{{ item.model_hardware.brand }} - {{ item.model_hardware}}</center>
+                    <div style="text-align: center;">{{ item.model_hardware.brand }} - {{ item.model_hardware}}</div>
                 </td>
 
 
                     <td>
-                        <center>
+                        <div style="text-align: center;">
                             {% if item.may_be_loaned %}
                             <a href="{% url 'asset_app_room_may_be_loaned_false' item.id view.kwargs.pk %}" class="btn btn-info btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Ja</a>
@@ -143,21 +143,21 @@
                                    tabindex="-1" role="button" aria-disabled="true">Nej</a>
                             {% endif %}
 
-                        </center>
+                        </div>
                     </td>
               <td>
-                        <center>
+                        <div style="text-align: center;">
                             {% if item.is_loaned %}
                             Ja
                             {% else %}
                             Nej
                             {% endif %}
 
-                        </center>
+                        </div>
                     </td>
                     <td>
-                        <center><a href="#" class="btn btn-danger btn-sm "
-                                   tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                        <div style="text-align: center;"><a href="#" class="btn btn-danger btn-sm "
+                                                            tabindex="-1" role="button" aria-disabled="true">Slet</a></div>
                     </td>
                 </tr>
 
