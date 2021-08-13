@@ -32,7 +32,7 @@
     <tr><td>Sidst opdateret på denne side</td><td>{{ object.last_updated }}</td></tr>
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
-    {% link_id = object.id %}
+    
 
     <br/><br/><br/>
 <h1>{{ object.name }}</h1>
@@ -117,10 +117,10 @@
                     <td>
                         <center>
                             {% if object.may_be_loaned == true %}
-                            <a href="{% url 'asset_app_room_may_be_loaned_false' object.id link_id %}" class="btn btn-secondary btn-sm "
+                            <a href="{% url 'asset_app_room_may_be_loaned_false' object.id pk %}" class="btn btn-secondary btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Ja</a>
                             {% else %}
-                            <a href="{% url 'asset_app_room_may_be_loaned_true' object.id link_id %}" class="btn btn-secondary btn-sm "
+                            <a href="{% url 'asset_app_room_may_be_loaned_true' object.id pk %}" class="btn btn-secondary btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Nej</a>
                             {% endif %}
 
