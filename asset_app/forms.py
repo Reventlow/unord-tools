@@ -257,7 +257,7 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)), label="Udstyr",
+    asset = forms.ModelChoiceField(required=False, queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)), label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
