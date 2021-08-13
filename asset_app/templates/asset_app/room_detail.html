@@ -49,7 +49,9 @@
                     <center>Model</center>
                 </td>
 
-
+                <td>
+                    <center>Må udlånes</center>
+                </td>
                 <td>
                     <center>Slet</center>
                 </td>
@@ -111,7 +113,18 @@
                 </td>
 
 
+                    <td>
+                        <center>
+                            {% if object.may_be_loaned == true %}
+                            <a href="{{ url 'asset_app_room_may_be_loaned_false' object.pk }}" class="btn btn-secondary btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Ja</a>
+                            {% else %}
+                            <a href="{{ url 'asset_app_room_may_be_loaned_true' object.pk }}" class="btn btn-secondary btn-sm "
+                                   tabindex="-1" role="button" aria-disabled="true">Nej</a>
+                            {% endif %}
 
+                        </center>
+                    </td>
                     <td>
                         <center><a href="#" class="btn btn-danger btn-sm "
                                    tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
