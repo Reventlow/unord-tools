@@ -1103,14 +1103,14 @@ class RoomDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-    def may_be_loaned_true(request, pk):
+    def may_be_loaned_true(request, pk, link_id):
         item = models.Asset.objects.get(pk=pk)
         item.may_be_loaned = True
         messages.success(request, 'Udstyret må nu udlånes')
         item.save()
         return HttpResponseRedirect(request.path_info)
 
-    def may_be_loaned_false(request, pk):
+    def may_be_loaned_false(request, pk, link_id):
         item = models.Asset.objects.get(pk=pk)
         item.may_be_loaned = False
         messages.success(request, 'Udstyret må ikke udlånes')
