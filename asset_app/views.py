@@ -728,7 +728,10 @@ class Loan_assetCreateView(generic.CreateView):
     @receiver(post_save, sender=models.Loan_asset)
     def create_transaction(sender, instance, created, **kwargs):
         if created:
-            models.Asset.objects.create(is_loaned=True)
+            asset = instance.asset
+            asset.is_loaned = True
+            # asset.save()  # save entire instance, overwriting `last_updated` OR
+            asset.save(update_fields=["is_loaned"])  # updates only `is_loaned
 
 
 @method_decorator(login_required, name='dispatch')
