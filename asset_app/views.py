@@ -1103,19 +1103,19 @@ class RoomDetailView(generic.DetailView):
     model = models.Room
     form_class = forms.RoomForm
 
-    def may_be_loaned_true(self, request, pk):
+    def may_be_loaned_true(request, pk):
         item = models.Asset.objects.get(pk=pk)
         item.may_be_loaned = True
         messages.success(request, 'Udstyret må nu udlånes')
         item.save()
-        return HttpResponseRedirect(self.request.path_info)
+        return HttpResponseRedirect(request.path_info)
 
-    def may_be_loaned_false(self, request, pk):
+    def may_be_loaned_false(request, pk):
         item = models.Asset.objects.get(pk=pk)
         item.may_be_loaned = False
         messages.success(request, 'Udstyret må ikke udlånes')
         item.save()
-        return HttpResponseRedirect(self.request.path_info)
+        return HttpResponseRedirect(request.path_info)
 
 @method_decorator(login_required, name='dispatch')
 class RoomPDFDetailView(PDFTemplateResponseMixin, generic.DetailView):
