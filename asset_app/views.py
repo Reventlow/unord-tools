@@ -37,8 +37,8 @@ class AssetListView(generic.ListView):
         prefetch_related_objects([obj], 'model_hardware__asset')
         return obj
 
-    def delete(request, del_id):
-        item = models.Asset.objects.get(pk=del_id)
+    def delete(request, pk):
+        item = models.Asset.objects.get(pk=pk)
         item.delete()
         messages.success(request, 'Udstyr er nu blevet slettet')
         return redirect('asset_app_asset_list' 'all')
