@@ -257,14 +257,24 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(required=False, queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)), label="Udstyr",
-                                   widget=forms.Select(attrs={'class': 'form-control'}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
+
+    #define common fields here
+    class CreationForm():
+        asset = forms.ModelChoiceField(required=False,
+                                       queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)),
+                                       label="Udstyr",
+                                       widget=forms.Select(attrs={'class': 'form-control'}))
+
+
+    class UpdateForm():
+        asset = forms.CharField(widget=forms.HiddenInput(), required=False)
+
 
     class Meta:
         model = models.Loan_asset
