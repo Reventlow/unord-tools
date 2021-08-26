@@ -92,7 +92,7 @@
                         <td class="table-warning" style="text-align: center;">{{ object.last_inspected }}</td>
     {% else %}
             <td style="text-align: center;">
-                                             {% if  object.room_type == 'Skole' or object.room_type == 'Afdeling' %}
+                                             {% if object.room_type.name == 'Skole' or object.room_type.name == 'Afdeling' %}
                                                  -
                                                  {% else %}
                 {{ object.last_inspected }}
