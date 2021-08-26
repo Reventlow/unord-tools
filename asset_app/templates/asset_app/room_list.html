@@ -32,6 +32,9 @@
                     <div style="text-align: center;">Sidst gennemgået</div>
                 </td>
                 <td>
+                    <div style="text-align: center;">Marker gennemgået idag</div>
+                </td>
+                <td>
                     <div style="text-align: center;">Slet</div>
                 </td>
             </tr>
@@ -120,6 +123,16 @@
             </td>
 
     {% endif %}
+       <td>
+                        <div style="text-align: center;">
+                            <a href="{% url 'asset_app_room_delete' object.id %}" class="btn btn-secondary btn-sm "
+                               tabindex="-1" role="button" aria-disabled="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+ Gennemgået idag
+                            </svg>
+
+                                </a></div>
+                    </td>
 
 
                     <td>
