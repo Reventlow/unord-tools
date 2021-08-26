@@ -86,7 +86,7 @@
                     <td>
                         <div style="text-align: center;">{{ object.object_count }}</div>
                     </td>
-                                 {% if object.last_inspected == None or object.last_inspected < overdue or object.room_type.name == 'Skole' %}
+                                 {% if object.room_type.name == 'Skole' or object.room_type.name == 'Afdeling' or object.last_inspected == None or object.last_inspected < overdue %}
             <td class="table-danger" style="text-align: center;">
                                              {% if object.room_type.name == 'Skole' or object.room_type.name == 'Afdeling' %}
                                                     -
