@@ -20,19 +20,19 @@
             <tr class="table-dark">
                 <td>Rum</td>
                 <td>
-                    <center>Location</center>
+                    <div style="text-align: center;">Location</div>
                 </td>
                 <td>
-                    <center>Rum type</center>
+                    <div style="text-align: center;">Rum type</div>
                 </td>
                 <td>
-                    <center>Antal enheder</center>
+                    <div style="text-align: center;">Antal enheder</div>
                 </td>
                 <td>
-                    <center>Sidst gennemgået</center>
+                    <div style="text-align: center;">Sidst gennemgået</div>
                 </td>
                 <td>
-                    <center>Slet</center>
+                    <div style="text-align: center;">Slet</div>
                 </td>
             </tr>
             {% for object in object_list %}
@@ -77,29 +77,35 @@
 
                     </td>
                     <td>
-                        <center>{{ object.location }}</center>
+                        <div style="text-align: center;">{{ object.location }}</div>
                     </td>
                     <td>
-                        <center>{{ object.room_type }}</center>
+                        <div style="text-align: center;">{{ object.room_type }}</div>
                     </td>
 
                     <td>
-                        <center>{{ object.object_count }}</center>
+                        <div style="text-align: center;">{{ object.object_count }}</div>
                     </td>
-                                 {% if object.last_inspected == None or object.last_inspected < overdue %}
-            <td class="table-danger"><center>{{ object.last_inspected }}</center></td>
+                                 {% if object.last_inspected == None or object.last_inspected < overdue or object.room_type == 'Skole' %}
+            <td class="table-danger" style="text-align: center;">{{ object.last_inspected }}</td>
                         {% elif object.last_inspected == None or object.last_inspected < inspection_time %}
-                        <td class="table-warning"><center>{{ object.last_inspected }}</center></td>
+                        <td class="table-warning" style="text-align: center;">{{ object.last_inspected }}</td>
     {% else %}
-            <td><center>{{ object.last_inspected }}</center></td>
+            <td style="text-align: center;">
+                                             {% if  object.room_type == 'Skole' %}
+                                                 -
+                                                 {% else %}
+                {{ object.last_inspected }}
+                                                 {% endif %}
+            </td>
 
     {% endif %}
 
 
                     <td>
-                        <center>{% if  object.object_count  < 1 %}
+                        <div style="text-align: center;">{% if  object.object_count  < 1 %}
                             <a href="{% url 'asset_app_room_delete' object.id %}" class="btn btn-danger btn-sm "
-                               tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</center>
+                               tabindex="-1" role="button" aria-disabled="true">Slet</a>{% endif %}</div>
                     </td>
                 </tr>
 
