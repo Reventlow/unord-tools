@@ -143,6 +143,7 @@ urlpatterns = [
     path("asset_app/room/detail_pdf/<int:pk>/", views.RoomPDFDetailView, name="asset_app_room_detail_to_pdf_view"),
     path("asset_app/room/detail/excel/<int:pk>/", views.RoomDetailExcelView.as_view(), name="asset_app_room_excel_detail"),
     path("asset_app/room/update/<int:pk>/", views.RoomUpdateView.as_view(), name="asset_app_room_update"),
+    path("asset_app/room/inspect_today/<int:pk>/", views.RoomListView.inspectToday, name="asset_app_room_inspect_today"),
     path("asset_app/room/delete/<int:pk>/", views.RoomListView.delete, name="asset_app_room_delete"),
 #Room_Type
     path("asset_app/room_type/", views.Room_typeListView.as_view(), name="asset_app_room_type_list"),

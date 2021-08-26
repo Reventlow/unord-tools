@@ -1094,6 +1094,14 @@ class RoomListView(generic.ListView):
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
 
+    def inspectToday(request, pk):
+        item = models.Room.objects.get(pk=pk)
+        item.last_inspected = datetime.date.today()
+        item.save()
+        messages.success(request, 'Rum "'+item.name+'" er nu blevet slettet')
+        return redirect('asset_app_room_list')
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context_entry_today = datetime.date.today()
