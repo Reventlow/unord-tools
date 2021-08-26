@@ -1094,6 +1094,18 @@ class RoomListView(generic.ListView):
         messages.success(request, 'Rum er nu blevet slettet')
         return redirect('asset_app_room_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context_entry_today = datetime.date.today()
+        context_entry_overdue = datetime.date.today() - datetime.timedelta(days=90)
+        context_entry_inspection_time = datetime.date.today() - datetime.timedelta(days=76)
+        context['rooms'] = models.Room.objects.exclude(room_type__name='Skole').exclude(
+            room_type__name='Afdeling').exclude(last_inspected=None).exclude(last_inspected__gt=context_entry_inspection_time).order_by('last_inspected', 'location', 'name')
+        context["today"] = context_entry_today
+        context["overdue"] = context_entry_overdue
+        context["inspection_time"] = context_entry_inspection_time
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class RoomCreateView(generic.CreateView):

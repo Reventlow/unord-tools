@@ -36,7 +36,7 @@
                 </td>
             </tr>
             {% for object in object_list %}
-                <tr>
+       <tr>
                     <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
                                              class="badge rounded-pill bg-dark">Detaljer</a> <a
                             href="{{ object.get_update_url }}"
@@ -86,9 +86,14 @@
                     <td>
                         <center>{{ object.object_count }}</center>
                     </td>
-                    <td>
-                        <center>{{ object.last_inspected }}</center>
-                    </td>
+                                 {% if object.last_inspected == None or object.last_inspected < overdue %}
+            <td class="table-danger"><center>{{ object.last_inspected }}</center></td>
+                        {% elif object.last_inspected == None or object.last_inspected < inspection_time %}
+                        <td class="table-warning"><center>{{ object.last_inspected }}</center></td>
+    {% else %}
+            <td><center>{{ object.last_inspected }}</center></td>
+
+    {% endif %}
 
 
                     <td>
