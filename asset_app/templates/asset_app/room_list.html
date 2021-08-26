@@ -86,13 +86,13 @@
                     <td>
                         <div style="text-align: center;">{{ object.object_count }}</div>
                     </td>
-                                 {% if object.last_inspected == None or object.last_inspected < overdue or object.room_type == 'Skole' %}
+                                 {% if object.last_inspected == None or object.last_inspected < overdue or object.room_type.name == 'Skole' %}
             <td class="table-danger" style="text-align: center;">{{ object.last_inspected }}</td>
                         {% elif object.last_inspected == None or object.last_inspected < inspection_time %}
                         <td class="table-warning" style="text-align: center;">{{ object.last_inspected }}</td>
     {% else %}
             <td style="text-align: center;">
-                                             {% if  object.room_type == 'Skole' %}
+                                             {% if  object.room_type.name == 'Skole' %}
                                                  -
                                                  {% else %}
                 {{ object.last_inspected }}
