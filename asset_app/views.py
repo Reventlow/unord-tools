@@ -1098,7 +1098,7 @@ class RoomListView(generic.ListView):
         item = models.Room.objects.get(pk=pk)
         item.last_inspected = datetime.date.today()
         item.save()
-        messages.success(request, 'Rum "'+item.name+'" er nu blevet slettet')
+        messages.success(request, 'Rum "'+item.name+'" er nu blevet registret som gennemgået idag')
         return redirect('asset_app_room_list')
 
 
