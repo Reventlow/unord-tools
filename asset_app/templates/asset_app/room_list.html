@@ -93,10 +93,12 @@
     {% else %}
             <td style="text-align: center;">
                                              {% if object.room_type.name == 'Skole' or object.room_type.name == 'Afdeling' %}
-                                                 -
-                                                 {% else %}
-                {{ object.last_inspected }}
-                                                 {% endif %}
+                                                    -
+                                             {% elif object.last_inspected == None %}
+                                                    Aldrig gennemgået
+                                             {% else %}
+                                                    {{ object.last_inspected }}
+                                             {% endif %}
             </td>
 
     {% endif %}
