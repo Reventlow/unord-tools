@@ -15,12 +15,12 @@
     
 <table class="table">
     <tr><td>Udstyr</td><td>{{ object.name }}</td></tr>
-    <tr><td>Model</td><td>{{ object.model_hardware }}</td></tr>
+    <tr><td>Model</td><td><a class="btn btn-secondary" href="{% url 'asset_app_model_hardware_detail' object.model_hardware.pk %}">{{ object.model_hardware }}</a></td></tr>
     <tr><td>Serie nummer</td><td>{{ object.serial }}</td></tr>
     <tr><td>Mac adresse</td><td>{{ object.mac_address }}</td></tr>
     <tr><td>Sidst registreret ip</td><td>{{ object.ip }}</td></tr>
     <tr><td>Indkøbs dato</td><td>{{ object.purchased_date }}</td></tr>
-    <tr><td>Udstyrs lokation</td><td>{{ object.room }}</td></tr>
+    <tr><td>Udstyrs lokation</td><td><a class="btn btn-secondary" href="{% url 'asset_app_room_detail' object.room.pk %}">{{ object.room }}</a></td></tr>
     <tr><td>Først registret på denne side</td><td>{{ object.created }}</td></tr>
     <tr><td>Sidst opdatteret på denne side</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
