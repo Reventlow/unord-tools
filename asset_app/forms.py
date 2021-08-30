@@ -334,7 +334,7 @@ class ModelForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset_type = forms.ModelChoiceField(queryset=Asset_type.objects.all(),
                                         widget=forms.Select(attrs={'class': 'form-control'}))
-    notes = forms.CharField(required=False, label="Noter", max_length=2448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
+    notes = forms.CharField(required=False, label="Noter", max_length=10000, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Model_hardware
