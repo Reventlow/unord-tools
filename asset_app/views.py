@@ -743,7 +743,7 @@ class Loan_assetDetailView(generic.DetailView):
 @method_decorator(login_required, name='dispatch')
 class Loan_assetUpdateView(generic.UpdateView):
     model = models.Loan_asset
-    form_class = forms.Loan_assetForm
+    form_class = forms.Loan_assetUpdateForm
     pk_url_kwarg = "pk"
 
 

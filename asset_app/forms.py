@@ -258,7 +258,7 @@ class Loan_assetForm(forms.ModelForm):
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset = forms.ModelChoiceField(required=False,
-                                   queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)),
+                                   queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)) | ,
                                    label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
@@ -268,17 +268,46 @@ class Loan_assetForm(forms.ModelForm):
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
-    #define common fields here
-    class CreationForm():
-        asset = forms.ModelChoiceField(required=False,
-                                       queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)),
-                                       label="Udstyr",
-                                       widget=forms.Select(attrs={'class': 'form-control'}))
+    class Meta:
+        model = models.Loan_asset
+        fields = [
+            "loaner_name",
+            "location",
+            "loaner_address",
+            "loaner_quicklink",
+            "loaner_telephone_number",
+            "loaner_email",
+            "loaner_type",
+            "asset",
+            "loan_date",
+            "return_date",
+            "returned",
+            "notes",
+        ]
 
-
-    class UpdateForm():
-        asset = forms.CharField(widget=forms.HiddenInput(), required=False)
-
+class Loan_assetUpdateForm(forms.ModelForm):
+    loaner_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
+    location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
+                                      widget=forms.Select(attrs={'class': 'form-control'}))
+    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
+    loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
+    loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners email'}))
+    loaner_quicklink = forms.URLField(label="", max_length=100, required=False, widget=forms.URLInput(
+        attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
+    loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
+                                   widget=forms.Select(attrs={'class': 'form-control'}))
+    asset = forms.CharField(label="", max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': '','readonly':'readonly'}))
+    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+        attrs={'class': 'form-control', "type": "date"}))
+    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+        attrs={'class': 'form-control', "type": "date"}))
+    returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
+    notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
         model = models.Loan_asset
