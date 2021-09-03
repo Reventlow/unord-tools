@@ -301,7 +301,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
     asset = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': '','readonly':'readonly'}))
+        attrs={'class': 'form-control', 'placeholder': '','readonly':'readonly', 'asset':asset}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
