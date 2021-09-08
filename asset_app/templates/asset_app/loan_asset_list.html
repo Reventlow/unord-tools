@@ -93,7 +93,7 @@
                     <div style="text-align: center;">{{ object.location }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.loaner_type }}</div>
+                    <div style="text-align: center;">{{ object.loaner_type }}><br/>{‰ if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
                 </td>
                 <td>
                     <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
