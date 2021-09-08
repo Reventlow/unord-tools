@@ -20,12 +20,12 @@ def todo(request):
         form = JobsForm(request.POST or None)
         if form.is_valid() and request.POST['item'] != '':
             form.save()
-            all_items = Jobs.objects.order_by('completed', 'created')
+            all_items = Jobs.objects.filter(to_do_owner=request.user).order_by('completed', 'created')
             messages.success(request, '"' + request.POST['item']+ '" er blevet tilføjet til din opgave list')
             context = {'all_items': all_items}
             return render(request, 'todo.html', context)
     else:
-        all_items =Jobs.objects.order_by('completed', 'last_updated')
+        all_items =Jobs.objects.filter(to_do_owner=request.user).order_by('completed', 'last_updated')
         context = {'all_items': all_items}
         return render(request, 'todo.html', context)
 
