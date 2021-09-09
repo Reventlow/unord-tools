@@ -28,8 +28,17 @@ class Asset(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return str(self.name) + ' | ' + str(self.model_hardware.asset_type) + ' | ' + str(self.model_hardware.brand) + ' ' + str(self.model_hardware.name)
+        return str(self.name) + ' | ' + str(self.model_hardware.asset_type) + ' | ' + str(
+            self.model_hardware.brand) + ' ' + str(self.model_hardware.name)
 
+    def fourDigitCheck(self):
+        thisAsset = str(self.name)
+        thisAsset = thisAsset[-4:]
+        if thisAsset.isdecimal():
+            return thisAsset
+        else:
+            return str(self.name) + ' | ' + str(self.model_hardware.asset_type) + ' | ' + str(
+                self.model_hardware.brand) + ' ' + str(self.model_hardware.name)
 
     def get_absolute_url(self):
         return reverse("asset_app_asset_detail", args=(self.pk,))
