@@ -9,4 +9,24 @@
     {% else %}
 
     {% endif %}
+ <br/> <br/>
+    {% if to_dos %}
+
+    <br/>
+        <center><h2>Ting der skal implmenters</h2></center>
+
+<table class="table">
+    <tr class="table-dark">
+        <td>Opgave<br/></td>
+    </tr>
+
+{% for object in to_dos %}
+{% if object.completed == False AND object.item.contains("U/Nord tools:") %}
+<tr>
+    <td>{{ object.item}}<br/><small class="text-muted"><em>Opgave ansvarlig: {{ object.to_do_owner}}</em></small></td>
+</tr>
+        {% endif %}
+{% endfor %}
+</table>
+        {% endif %}
 {% endblock %}

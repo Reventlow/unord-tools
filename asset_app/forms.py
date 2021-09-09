@@ -285,6 +285,43 @@ class Loan_assetForm(forms.ModelForm):
             "notes",
         ]
 
+    def clean_loaner_name(self):
+        return self.cleaned_data['loaner_name']
+
+    def clean_asset(self):
+        return self.cleaned_data['asset']
+
+    def clean_loaner_type(self):
+        return self.cleaned_data['loaner_type']
+
+    def clean_loaner_telephone_number(self):
+        if str.isdecimal(self.cleaned_data['loaner_telephone_number']):
+            return self.cleaned_data['loaner_telephone_number']
+        else:
+            return 0
+
+    def clean_loaner_email(self):
+        return self.cleaned_data['loaner_email']
+
+    def clean_loan_date(self):
+        return self.cleaned_data['loan_date']
+
+    def clean_return_date(self):
+        return self.cleaned_data['return_date']
+
+    def clean_location(self):
+        if self.cleaned_data['location'] == '1':
+            return "Carlsbergvej 34, 3400 Hillerød"
+        elif self.cleaned_data['location'] == '2':
+            return "Peder Oxes Allé 4, 3400 Hillerød"
+        elif self.cleaned_data['location'] == '3':
+            return "Milnersvej 48, 3400 Hillerød"
+        else:
+            return "på den U/Nord afdeling du går på"
+
+
+
+
 class Loan_assetUpdateForm(forms.ModelForm):
     loaner_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))

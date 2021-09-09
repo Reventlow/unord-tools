@@ -19,6 +19,8 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
+import requests
+import json
 
 
 
@@ -732,6 +734,28 @@ class Loan_assetCreateView(generic.CreateView):
             asset.is_loaned = True
             # asset.save()  # save entire instance, overwriting `last_updated` OR
             asset.save(update_fields=["is_loaned"])  # updates only `is_loaned
+
+            if str.isdecimal(form.cleaned_data['loaner_telephone_number']) and form.cleaned_data['loaner_type'] == 1:
+
+            url = "https://api.sms.dk/v1/sms/send"
+
+            payload = json.dumps({
+                "receiver": forms.Loan_assetForm.clean_loaner_telephone_number(),
+                "senderName": "U/Nord IT",
+                "message": ", vi har registreret at du har lånt følgende PC: "+ form.cleaned_data + ", fra ",
+                "format": "gsm",
+                "encoding": "utf8",
+            })
+            headers = {
+                'Authorization': 'Bearer Your-API-key',
+                'Content-Type': 'application/json'
+            }
+
+            response = requests.request("POST", url, headers=headers, data=payload)
+
+
+
+
 
 
 @method_decorator(login_required, name='dispatch')
