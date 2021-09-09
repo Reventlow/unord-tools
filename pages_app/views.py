@@ -5,7 +5,7 @@ from to_do_list_app import models
 
 @login_required(login_url='login')
 def home(request):
-    to_dos = to_do_list_app.models.Jobs.objects.filter(completed=False).order_by('item')
+    to_dos = to_do_list_app.models.Jobs.objects.all().order_by('completed', 'item')
     context = {'to_dos' : to_dos}
     return render(request, 'home.html', context)
 

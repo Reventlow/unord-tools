@@ -22,8 +22,14 @@
 
 {% for object in to_dos %}
 {% if "U/Nord tools:" in object.item %}
-<tr>
-    <td>{{ object.item}} </td>
+    {% if object.completed %}
+                <tr class="table-secondary ">
+
+    <td class="striker">{{ object.item}} </td>
+                            {% else %}
+                <tr>
+                    <td>{{ object.item}} </td>
+
 </tr>
  {% endif %}
 {% endfor %}
