@@ -21,7 +21,7 @@
     </tr>
 
 {% for object in to_dos %}
-{% if object.completed == False AND object.item.contains("U/Nord tools:") %}
+{% if object.completed == False and object.item.contains("U/Nord tools:") %}
 <tr>
     <td>{{ object.item}}<br/><small class="text-muted"><em>Opgave ansvarlig: {{ object.to_do_owner}}</em></small></td>
 </tr>
