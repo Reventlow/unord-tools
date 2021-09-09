@@ -13,7 +13,7 @@
     {% if to_dos %}
 
     <br/>
-        <center><h2>Ting der skal implmenters</h2></center>
+        <center><h2>Ting der skal implementers</h2></center>
 
 <table class="table">
     <tr class="table-dark">
@@ -21,11 +21,11 @@
     </tr>
 
 {% for object in to_dos %}
-{% if object.completed == False and object.item.contains("U/Nord tools:") %}
+{% if "U/Nord tools:" in object.item %}
 <tr>
-    <td>{{ object.item}}<br/><small class="text-muted"><em>Opgave ansvarlig: {{ object.to_do_owner}}</em></small></td>
+    <td>{{ object.item}}</td>
 </tr>
-        {% endif %}
+ {% endif %}
 {% endfor %}
 </table>
         {% endif %}
