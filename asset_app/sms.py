@@ -13,7 +13,7 @@ def sms(thisCellphone, thisMsg):
       })
 
     headers = {
-     'Authorization': config('SMS_API_KEY'),
+     'Authorization': 'Bearer '+ config('SMS_API_KEY'),
      'Content-Type': 'application/json'
      }
     response = requests.request("POST", url, headers=headers, data=payload)

@@ -737,8 +737,8 @@ class Loan_assetCreateView(generic.CreateView):
 
             #if str.isdecimal(form.cleaned_data['loaner_telephone_number']) and form.cleaned_data['loaner_type'] == 1:
             thisMsg = "Det er en test æøå"
-            thisCellphone = 91330148
-            sms(thisCellphone, thisMsg)
+            thisCellphone = 4591330148
+            #sms(thisCellphone, thisMsg)
 
 
 
