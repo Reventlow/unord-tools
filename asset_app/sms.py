@@ -1,5 +1,6 @@
 import requests
 import json
+from decouple import config
 
 def sms(thisCellphone, thisMsg):
     url = "https://api.sms.dk/v1/sms/send"
