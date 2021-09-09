@@ -92,10 +92,10 @@
     <td>{{ object.course_name }}</td>
     <td><center>{{ object.asset_type }}</center></td>
     <td><center>{{ object.amount }}</center></td>
-    {% if object.return_date > today %}
+    {% if object.return_date == today %}
             <td class="table-warning">{{ object.return_date }}</td>
     {% elif object.return_date == None or object.return_date < today %}
-            <td class="table-danger">{{ object.return_date }}</td>
+            <td class="table-danger">{{ object.return_date }} - {{ today }}</td>
     {% endif %}
 </tr>
         {% endif %}
