@@ -60,7 +60,11 @@
     <td>{{ object.location }}</td>
     <td>{{ object.asset }}</td>
 
+            {% if object.return_date == today %}
+            <td class="table-warning">{{ object.return_date }}</td>
+    {% elif object.return_date == None or object.return_date < today %}
             <td class="table-danger">{{ object.return_date }}</td>
+    {% endif %}
 
 </tr>
         {% endif %}
@@ -93,9 +97,9 @@
     <td><center>{{ object.asset_type }}</center></td>
     <td><center>{{ object.amount }}</center></td>
     {% if object.return_date == today %}
-            <td class="table-warning">{{ object.return_date }} - {{ today }} warning</td>
+            <td class="table-warning">{{ object.return_date }}</td>
     {% elif object.return_date == None or object.return_date < today %}
-            <td class="table-danger">{{ object.return_date }} - {{ today }} danger</td>
+            <td class="table-danger">{{ object.return_date }}</td>
     {% endif %}
 </tr>
         {% endif %}
