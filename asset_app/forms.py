@@ -309,15 +309,15 @@ class Loan_assetForm(forms.ModelForm):
     def clean_return_date(self):
         return self.cleaned_data['return_date']
 
-    def clean_location(self):
-        if self.cleaned_data['location'] == '1':
-            return "Carlsbergvej 34, 3400 Hillerød"
-        elif self.cleaned_data['location'] == '2':
-            return "Peder Oxes Allé 4, 3400 Hillerød"
-        elif self.cleaned_data['location'] == '3':
-            return "Milnersvej 48, 3400 Hillerød"
-        else:
-            return "på den U/Nord afdeling du går på"
+    #def clean_location(self):
+    #    if self.cleaned_data['location'] == '1':
+    #        return "Carlsbergvej 34, 3400 Hillerød"
+    #    elif self.cleaned_data['location'] == '2':
+    #        return "Peder Oxes Allé 4, 3400 Hillerød"
+    #    elif self.cleaned_data['location'] == '3':
+    #        return "Milnersvej 48, 3400 Hillerød"
+    #    else:
+    #        return "på den U/Nord afdeling du går på"
 
 
 
