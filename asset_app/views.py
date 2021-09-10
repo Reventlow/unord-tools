@@ -19,7 +19,7 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
-from .tools import sms
+from .tools import smsSend
 
 
 
