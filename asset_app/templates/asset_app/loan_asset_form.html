@@ -9,7 +9,7 @@
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <table class="table">
+            <table class="table table-borderless">
                <tr>
   <td>  {{form.as_p}}</td>
     <td><input type="submit" value="Gem udlån" class="btn btn-primary"></td>
