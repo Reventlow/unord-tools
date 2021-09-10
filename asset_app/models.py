@@ -266,7 +266,6 @@ class Loan_asset(models.Model):
 
     # Fields
     loaner_name = models.CharField(max_length=60)
-    loaner_address = models.TextField(max_length=100, null=True, blank=True)
     loaner_telephone_number = models.CharField(max_length=30)
     loaner_email = models.EmailField()
     loaner_quicklink = models.URLField(null=True, blank=True)

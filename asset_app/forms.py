@@ -247,8 +247,6 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
     loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
     loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
@@ -273,7 +271,6 @@ class Loan_assetForm(forms.ModelForm):
         fields = [
             "loaner_name",
             "location",
-            "loaner_address",
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
@@ -327,8 +324,6 @@ class Loan_assetUpdateForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
     loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
     loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
@@ -350,7 +345,6 @@ class Loan_assetUpdateForm(forms.ModelForm):
         fields = [
             "loaner_name",
             "location",
-            "loaner_address",
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
