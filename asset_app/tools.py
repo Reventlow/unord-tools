@@ -2,7 +2,7 @@ import requests
 import json
 from decouple import config
 
-def sms(thisCellphone, thisMsg):
+def smsSend(thisCellphone, thisMsg):
     url = "https://api.sms.dk/v1/sms/send"
     payload = json.dumps({
         "receiver": thisCellphone,
