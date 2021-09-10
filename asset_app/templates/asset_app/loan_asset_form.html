@@ -4,13 +4,19 @@
 {% block content %}
     
     <h1>Opret udlåns aftale</h1>
-    <input type="submit" value="Gem udlån" class="btn btn-primary">
+
+
+
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Gem udlån" class="btn btn-primary">
-            </form>
+            <table class="table">
+               <tr>
+  <td>  {{form.as_p}}</td>
+    <td><input type="submit" value="Gem udlån" class="btn btn-primary"></td>
 
+    </tr>
+    </table>
 
+           </form>
 
 {% endblock %}
