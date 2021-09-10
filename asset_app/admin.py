@@ -217,7 +217,6 @@ class Loan_assetAdmin(admin.ModelAdmin):
     list_display = [
         "loaner_name",
         "location",
-        "loaner_address",
         "loaner_quicklink",
         "loaner_telephone_number",
         "loaner_email",

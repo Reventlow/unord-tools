@@ -247,8 +247,6 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
     loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
     loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
@@ -273,7 +271,6 @@ class Loan_assetForm(forms.ModelForm):
         fields = [
             "loaner_name",
             "location",
-            "loaner_address",
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
@@ -327,8 +324,6 @@ class Loan_assetUpdateForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners navn'}))
     location = forms.ModelChoiceField(queryset=Locations.objects.all(), label="Udstyr lånt fra afdeling",
                                       widget=forms.Select(attrs={'class': 'form-control'}))
-    loaner_address = forms.CharField(label="", max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners adresse'}))
     loaner_telephone_number = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast udlåners telefon nummer'}))
     loaner_email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(
@@ -337,8 +332,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr",
-                                   widget=forms.Select(attrs={'class': 'form-control','disabled': 'disabled'}))
+    asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr", widget=forms.HiddenInput())
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
@@ -351,7 +345,6 @@ class Loan_assetUpdateForm(forms.ModelForm):
         fields = [
             "loaner_name",
             "location",
-            "loaner_address",
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
