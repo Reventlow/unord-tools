@@ -463,9 +463,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
                 criterionReturnDate & criterionLocation & criterionReturn).count()
 
-
-
-        htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
+            htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
 
         iDate = 1
 
