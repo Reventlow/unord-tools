@@ -470,8 +470,9 @@ class DashboardMonthLoanOverview(generic.TemplateView):
                 #thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
                 thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
 
-
-
+                thisQuerysetLocationTotal = str(thisQuerysetLocationTotal)
+                if thisQuerysetLocationTotal == "0":
+                    thisQuerysetLocationTotal = ""
                 htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationTotal) + '</div></td>'
 
             htmlTable = htmlTable + "</tr>"
