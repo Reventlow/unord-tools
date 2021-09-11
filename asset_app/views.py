@@ -450,7 +450,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
         thisQueryDate = datetime.date.today()
 
-        htmlTable = htmlTable + "<td>" + str(dateWeekday(thisQueryDate)) + " (dags udlån / periode udlån / total)</td>"
+        htmlTable = htmlTable + "<td> Udlån der ikke er blevet afleveret til tiden (dags udlån / periode udlån / total)</td>"
 
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
             criterionLaonDate = Q(loan_date=thisQueryDate)
