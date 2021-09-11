@@ -92,6 +92,7 @@ urlpatterns = [
     path("asset_app/external_service_position/delete/<int:pk>/", views.ExternalServicePositionListView.delete, name="asset_app_ExternalServicePosition_delete"),
 #LoanAsset
     path("asset_app/loan_asset/", views.Loan_assetListView.as_view(), name="asset_app_loan_asset_list"),
+    path("asset_app/dashboard/return/filter/<loc_name>/<return_date>/<returned>/<task>/", views.Loan_assetListFilterView.as_view(), name="asset_app_loan_asset_list_filter"),
     path("asset_app/loan_asset/excel/", views.Loan_assetListExcelView.as_view(), name="asset_app_loan_excel_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),

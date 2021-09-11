@@ -439,7 +439,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-
+########Table head
         htmlTable = '<table class="table"><tr class="table-dark"><td></td>'
 
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
@@ -466,9 +466,11 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
                 criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
-            htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
+            thisLink = '<a href="filter/'+location.name+'/'+str(thisQueryDate)+'/'+str(False)+'/late/">'
+
+            htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
                 thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
-                thisQuerysetLocationTotal) + '</div></td>'
+                thisQuerysetLocationTotal) + '</a></div></td>'
 
 ########Loan that are to be retured today
         htmlTable = htmlTable + '</tr><tr class="table-warning">'
@@ -495,6 +497,9 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
 
         htmlTable = htmlTable + "</tr>"
+
+
+########Loan 30 days from now
         while iDate != 31:
             thisQueryDate = datetime.date.today() + datetime.timedelta(days=iDate)
 
@@ -665,6 +670,56 @@ class Loan_assetListView(generic.ListView):
         return queryset
 
 @method_decorator(login_required, name='dispatch')
+class Loan_assetListFilterView(generic.ListView):
+    model = models.Loan_asset
+    form_class = forms.Loan_assetForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
+
+    def returned_true(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = False
+        asset_id = item.asset.id
+        messages.success(request, 'Noteret udstyret som ikke afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = True
+        item.save()
+        return redirect('asset_app_loan_asset_list')
+
+    def returned_false(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = True
+        asset_id = item.asset.id
+        messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = False
+        item.save()
+        return redirect('asset_app_loan_asset_list')
+
+    def get_queryset(self):
+
+        task = self.kwargs.get("task")
+        return_date = self.kwargs.get("return_date")
+        loc_name = self.kwargs.get("loc_name")
+        returned = self.kwargs.get("returned")
+
+        if task == "late":
+            criterionReturnDate = Q(return_date__lt=return_date)
+        elif task == "currentDate":
+            criterionReturnDate = Q(return_date=return_date)
+        criterionLocation = Q(location__name=loc_name)
+        criterionReturnState = Q(returned=returned)
+        queryset = super().get_queryset().filter(criterionLocation & criterionReturnState  & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+
+        return queryset
+
+@method_decorator(login_required, name='dispatch')
 class Loan_assetListExcelView(generic.DetailView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
@@ -831,13 +886,6 @@ class Loan_assetCreateView(generic.CreateView):
             thisCellphone = 4591330148
             #sms(thisCellphone, thisMsg)
 
-
-
-
-
-
-
-
 @method_decorator(login_required, name='dispatch')
 class Loan_assetDetailView(generic.DetailView):
     model = models.Loan_asset
@@ -849,7 +897,6 @@ class Loan_assetUpdateView(generic.UpdateView):
     model = models.Loan_asset
     form_class = forms.Loan_assetUpdateForm
     pk_url_kwarg = "pk"
-
 
 
 @method_decorator(login_required, name='dispatch')

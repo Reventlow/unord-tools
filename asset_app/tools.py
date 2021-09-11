@@ -2,6 +2,10 @@ import requests
 import json
 from decouple import config
 from datetime import date, datetime
+from .models import Loan_asset
+
+def createLoanReportPeriode(thisLocation, thisReturnDate, thisTask):
+    pass
 
 
 def dateWeekday(thisDate):
