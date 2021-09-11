@@ -459,18 +459,20 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             criterionLocation = Q(location__name=location.name)
             criterionReturnNot = Q(returned=False)
 
-            thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(
-                criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturnNot).count()
-            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(
-                criterionLocation & criterionReturnNot & criterionLoanDateNot & criterionReturnDate).count()
-            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
-                criterionReturnDate & criterionLocation & criterionReturnNot).count()
+            thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturnNot).count()
+            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturnNot & criterionLoanDateNot & criterionReturnDate).count()
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
-            thisLink = '<a href="filter/'+location.name+'/'+str(thisQueryDate)+'/'+str(False)+'/late/">'
+            if thisQuerysetLocationLoanDay > 0 or thisQuerysetLocationLoanPeriod > 0 or thisQuerysetLocationTotal > 0:
+                thisLink = '<a href="filter/'+location.name+'/'+str(thisQueryDate)+'/'+str(False)+'/late/">'
 
-            htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
-                thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
-                thisQuerysetLocationTotal) + '</a></div></td>'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
+                    thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
+                    thisQuerysetLocationTotal) + '</a></div></td>'
+            else:
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
+                    thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
+                    thisQuerysetLocationTotal) + '</div></td>'
 
 ########Loan that are to be retured today
         htmlTable = htmlTable + '</tr><tr class="table-warning">'
@@ -491,7 +493,13 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturnNot & criterionLoanDateNot & criterionReturnDate).count()
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
-            htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
+            if thisQuerysetLocationLoanDay > 0 or thisQuerysetLocationLoanPeriod > 0 or thisQuerysetLocationTotal > 0:
+                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(False) + '/late/">'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</a></div></td>'
+            else:
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
+                    thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
+                    thisQuerysetLocationTotal) + '</div></td>'
 
         iDate = 1
 
@@ -516,10 +524,14 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
                 thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
-                thisQuerysetLocationTotal = str(thisQuerysetLocationTotal)
-                if thisQuerysetLocationTotal == "0":
-                    thisQuerysetLocationTotal = ""
-                htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationTotal) + '</div></td>'
+
+
+                if thisQuerysetLocationTotal > 0:
+                    thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
+                        False) + '/late/">'
+                    htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(thisQuerysetLocationTotal) + '</a></div></td>'
+                else:
+                    htmlTable = htmlTable + '<td></td>'
 
             htmlTable = htmlTable + "</tr>"
             iDate = iDate + 1
