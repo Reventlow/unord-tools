@@ -454,8 +454,11 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         while iDate != 31:
             thisQueryDate = datetime.date.today() + datetime.timedelta(days=iDate)
 
+            if "Lørdag" in str(dateWeekday(thisQueryDate)) or "Søndag" in str(dateWeekday(thisQueryDate)):
+                htmlTable = htmlTable + '<tr class="table-secondary"><td>' + str(dateWeekday(thisQueryDate)) + '</td>'
+            else:
+                htmlTable = htmlTable + "<tr><td>" + str(dateWeekday(thisQueryDate)) + "</td>"
 
-            htmlTable = htmlTable + "<tr><td>" + str(dateWeekday(thisQueryDate)) + "</td>"
             for location in models.Locations.objects.exclude(name = 'U/NORD').order_by('name'):
 
                 criterionLaonDate = Q(loan_date=thisQueryDate)
