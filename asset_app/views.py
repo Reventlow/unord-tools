@@ -494,7 +494,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
             if thisQuerysetLocationLoanDay > 0 or thisQuerysetLocationLoanPeriod > 0 or thisQuerysetLocationTotal > 0:
-                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(False) + '/late/">'
+                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(False) + '/currentDate/">'
                 htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</a></div></td>'
             else:
                 htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
@@ -528,7 +528,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
                 if thisQuerysetLocationTotal > 0:
                     thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
-                        False) + '/late/">'
+                        False) + '/currentDate/">'
                     htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(thisQuerysetLocationTotal) + '</a></div></td>'
                 else:
                     htmlTable = htmlTable + '<td></td>'
