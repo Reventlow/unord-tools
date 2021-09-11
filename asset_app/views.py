@@ -19,7 +19,7 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
-from .tools import smsSend
+from .tools import smsSend, dateWeekday
 
 
 
@@ -431,6 +431,50 @@ class Dashboard(generic.TemplateView):
         context["overdue"] = context_entry_overdue
         context["inspection_time"] = context_entry_inspection_time
         return context
+
+
+class DashboardMonthLoanOverview(generic.TemplateView):
+    template_name = "asset_app/dashboardMonthLoanOverview.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+
+        htmlTable = '<table class="table"><tr class="table-dark"><td></td>'
+
+        for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
+            htmlTable = htmlTable + "<td>" + location.name + "</td>"
+
+        htmlTable = htmlTable + "</tr>"
+
+        thisDate = datetime.date.today()
+        iDate = 0
+        while iDate != 31:
+            thisQueryDate = datetime.date.today() + datetime.timedelta(days=iDate)
+
+
+            htmlTable = htmlTable + "<tr><td>" + str(dateWeekday(thisQueryDate)) + "</td>"
+            for location in models.Locations.objects.exclude(name = 'U/NORD').order_by('name'):
+
+                criterionLaonDate = Q(loan_date=thisQueryDate)
+                criterionReturnDate = Q(return_date  = thisQueryDate)
+                criterionLocation = Q(location__name = location.name)
+                criterionReturn = Q(returned=False)
+
+                thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
+                thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
+                thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
+
+
+
+                htmlTable = htmlTable + '<td><div style="text-align: center;">'+str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
+
+            htmlTable = htmlTable + "</tr>"
+            iDate = iDate + 1
+
+        context['loan_statTable'] = htmlTable + "</table>"
+        return context
+
 
 
 @method_decorator(login_required, name='dispatch')

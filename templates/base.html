@@ -184,8 +184,15 @@
                 </li>
 
                 <!-- Dashboard -->
-                <li class="nav-item"><a class="nav-link" href="{% url 'asset_app_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dashboards</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'asset_app_dashboard' %}">Gorms oversigt</a></li>
+                         <li><a class="dropdown-item" href="{% url 'asset_app_dashboard_return' %}">Retur oversigt</a></li>
 
+
+                        </ul>
                 </li>
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profil

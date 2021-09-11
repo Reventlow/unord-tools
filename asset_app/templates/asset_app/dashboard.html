@@ -9,7 +9,7 @@
     </script>
 
 {% if rooms %}
-<center><h2>Rum der skal gennemgås</h2></center>
+<div style="text-align: center;"><h2>Rum der skal gennemgås</h2></div>
 
 <table class="table">
     <tr class="table-dark">
@@ -41,7 +41,7 @@
 {% if loan_assets %}
     <br/>
 
-    <center><h2>Personlig udlåning der mangler at blive retuneret</h2></center>
+    <div style="text-align: center;"><h2>Personlig udlåning der mangler at blive retuneret</h2></div>
 
 <table class="table">
     <tr class="table-dark">
@@ -76,15 +76,15 @@
     {% if bundelReservations %}
         <br/>
 
-    <center><h2>Sæt udlåning der mangler at blive retuneret</h2></center>
+    <div style="text-align: center;"><h2>Sæt udlåning der mangler at blive retuneret</h2></div>
 
 <table class="table">
     <tr class="table-dark">
         <td>Udlåner</td>
         <td>Fra afdeling</td>
         <td>Formål</td>
-        <td><center>Udstyr type</center></td>
-        <td><center>Antal</center></td>
+        <td style="text-align: center;">Udstyr type</td>
+        <td style="text-align: center;">Antal</td>
         <td>Skulle afleveres</td>
     </tr>
 
@@ -94,8 +94,8 @@
     <td>{{ object.loaner_name }}</td>
     <td>{{ object.location }}</td>
     <td>{{ object.course_name }}</td>
-    <td><center>{{ object.asset_type }}</center></td>
-    <td><center>{{ object.amount }}</center></td>
+    <td style="text-align: center;">{{ object.asset_type }}</td>
+    <td style="text-align: center;">{{ object.amount }}</td>
     {% if object.return_date == today %}
             <td class="table-warning">{{ object.return_date }}</td>
     {% elif object.return_date == None or object.return_date < today %}
@@ -110,7 +110,7 @@
 
      {% if assetCases %}
     <br/>
-<center><h2>Sager der er på udstyr eller systemer</h2></center>
+<div style="text-align: center;"><h2>Sager der er på udstyr eller systemer</h2></div>
         <table class="table">
             <tr class="table-dark">
                 <td>Sag</td>
@@ -155,19 +155,19 @@
 
 
 <br/>
-    <center><h2>Routiner</h2></center>
+    <div style="text-align: center;"><h2>Routiner</h2></div>
      {% if routines %}
         <table class="table">
             <tr class="table-dark">
                 <td>Beskrivelse</td>
                    <td>
-                    <center>Udføres efter antale dage</center>
+                    <div style="text-align: center;">Udføres efter antale dage</div>
                 </td>
                 <td>
-                    <center>Sidst gennemført</center>
+                    <div style="text-align: center;">Sidst gennemført</div>
                 </td>
                 <td>
-                    <center>Lokation</center>
+                    <div style="text-align: center;">Lokation</div>
                 </td>
             </tr>
             {% for object in routines %}
@@ -182,18 +182,18 @@
 
 <td class="table-danger">
 
-                        <center>{{ object.reoccurrence }}</center>
+                        <div style="text-align: center;">{{ object.reoccurrence }}</div>
                     </td>
 
 
-                       <td class="table-danger"> <center>{{ routinelog.date }}</center> </td>
+                       <td class="table-danger"> <div style="text-align: center;">{{ routinelog.date }}</div> </td>
 
 
 
 
 
 <td>
-                        <center>{{ object.room.name }} - {{ object.room.location }}</center>
+                        <div style="text-align: center;">{{ object.room.name }} - {{ object.room.location }}</div>
                     </td>
 
                 </tr>
@@ -208,12 +208,12 @@
 
 {% if one2ones %}
     <br>
-    <h2><center>1-til-1 info opgaver</center></h2>
+    <h2><div style="text-align: center;">1-til-1 info opgaver</div></h2>
         <table class="table">
             <tr class="table-dark">
                 <td>1-til-1 info opgave</td>
                 <td>
-                    <center>Antal personer informeret</center>
+                    <div style="text-align: center;">Antal personer informeret</div>
                 </td>
 
             </tr>
@@ -223,7 +223,7 @@
                     <td>{{ object.name }}<br/>
                 <small class="text-muted"><em>Opgave ansvarlig: {{ object.job_owner}}</em></small> </td>
                  <td>
-                    <center>{{ object.object_count }}</center>
+                    <div style="text-align: center;">{{ object.object_count }}</div>
                 </td>
 
 
@@ -238,7 +238,7 @@
 {% if to_dos %}
 
     <br/>
-        <center><h2>To do listen</h2></center>
+        <div style="text-align: center;"><h2>To do listen</h2></div>
 
 <table class="table">
     <tr class="table-dark">

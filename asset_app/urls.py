@@ -71,6 +71,7 @@ urlpatterns = [
     path('asset_app/bundle_reservation/returned_false/<res_id>', views.Bundle_reservationListView.returned_false, name='asset_app_bundle_reservation_returned_false'),
 #Dashboard
     path("asset_app/dashboard/", views.Dashboard.as_view(), name="asset_app_dashboard"),
+    path("asset_app/dashboard/return/", views.DashboardMonthLoanOverview.as_view(), name="asset_app_dashboard_return"),
 #ExternalService
     path("asset_app/external_service/", views.ExternalServiceListView.as_view(), name="asset_app_ExternalService_list"),
     path("asset_app/external_service/create/", views.ExternalServiceCreateView.as_view(), name="asset_app_ExternalService_create"),
