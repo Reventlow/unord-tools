@@ -454,14 +454,14 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
 
             criterionLaonDate = Q(loan_date=thisQueryDate)
+            criterionLoanDateNot = ~Q(loan_date=thisQueryDate)
             criterionReturnDate = Q(return_date=thisQueryDate)
-            criterionReturnDateNot = ~Q(return_date=thisQueryDate)
             criterionLocation = Q(location__name=location.name)
-            criterionReturn = Q(returned=False)
+            criterionReturnNot = Q(returned=False)
 
-            thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
-            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturn & criterionReturnDateNot).count()
-            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
+            thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturnNot).count()
+            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturnNot & criterionLoanDateNot & criterionReturnDate).count()
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
             htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
 
@@ -479,14 +479,11 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
             for location in models.Locations.objects.exclude(name = 'U/NORD').order_by('name'):
 
-                criterionLaonDate = Q(loan_date=thisQueryDate)
                 criterionReturnDate = Q(return_date=thisQueryDate)
                 criterionLocation = Q(location__name=location.name)
-                criterionReturn = Q(returned=False)
+                criterionReturnNot = Q(returned=False)
 
-                #thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
-                #thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
-                thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
+                thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturnNot).count()
 
                 thisQuerysetLocationTotal = str(thisQuerysetLocationTotal)
                 if thisQuerysetLocationTotal == "0":
