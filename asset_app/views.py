@@ -457,8 +457,8 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             for location in models.Locations.objects.exclude(name = 'U/NORD').order_by('name'):
 
                 criterionLaonDate = Q(loan_date=thisQueryDate)
-                criterionReturnDate = Q(return_date  = thisQueryDate)
-                criterionLocation = Q(location__name = location.name)
+                criterionReturnDate = Q(return_date=thisQueryDate)
+                criterionLocation = Q(location__name=location.name)
                 criterionReturn = Q(returned=False)
 
                 thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
