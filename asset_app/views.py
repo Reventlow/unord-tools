@@ -443,7 +443,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         htmlTable = '<table class="table"><tr class="table-dark"><td></td>'
 
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
-            htmlTable = htmlTable + "<td>" + location.name + "</td>"
+            htmlTable = htmlTable + "<td><div style="text-align: center;">" + location.name + "</div></td>"
 
         htmlTable = htmlTable + "</tr>"
 
