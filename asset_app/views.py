@@ -445,6 +445,32 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
             htmlTable = htmlTable + '<td><div style="text-align: center;">' + location.name + '</div></td>'
 
+########Loan that are to be retured before today
+        htmlTable = htmlTable + '</tr><tr class="table-danger">'
+
+        thisQueryDate = datetime.date.today()
+
+        htmlTable = htmlTable + "<td>" + str(dateWeekday(thisQueryDate)) + " (dags udlån / periode udlån / total)</td>"
+
+        for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
+            criterionLaonDate = Q(loan_date=thisQueryDate)
+            criterionLoanDateNot = ~Q(loan_date=thisQueryDate)
+            criterionReturnDate = Q(return_date__lte=thisQueryDate)
+            criterionLocation = Q(location__name=location.name)
+            criterionReturnNot = Q(returned=False)
+
+            thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(
+                criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturnNot).count()
+            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(
+                criterionLocation & criterionReturnNot & criterionLoanDateNot & criterionReturnDate).count()
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
+                criterionReturnDate & criterionLocation & criterionReturnNot).count()
+
+            htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
+                thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(
+                thisQuerysetLocationTotal) + '</div></td>'
+
+########Loan that are to be retured today
         htmlTable = htmlTable + '</tr><tr class="table-warning">'
 
         thisQueryDate = datetime.date.today()
