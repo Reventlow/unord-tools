@@ -449,6 +449,8 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
         thisDate = datetime.date.today()
         iDate = 0
+        #htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
+
         while iDate != 31:
             thisQueryDate = datetime.date.today() + datetime.timedelta(days=iDate)
 
@@ -461,13 +463,13 @@ class DashboardMonthLoanOverview(generic.TemplateView):
                 criterionLocation = Q(location__name=location.name)
                 criterionReturn = Q(returned=False)
 
-                thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
-                thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
+                #thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
+                #thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
                 thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
 
 
 
-                htmlTable = htmlTable + '<td><div style="text-align: center;">'+str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationTotal) + '</div></td>'
 
             htmlTable = htmlTable + "</tr>"
             iDate = iDate + 1
