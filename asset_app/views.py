@@ -455,13 +455,13 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
             criterionLaonDate = Q(loan_date=thisQueryDate)
             criterionReturnDate = Q(return_date=thisQueryDate)
+            criterionReturnDateNot = ~Q(return_date=thisQueryDate)
             criterionLocation = Q(location__name=location.name)
             criterionReturn = Q(returned=False)
 
             thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
-            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturn).exclude(loan_date=thisQueryDate).count()
-            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
-                criterionReturnDate & criterionLocation & criterionReturn).count()
+            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturn & criterionReturnDateNot).count()
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionReturnDate & criterionLocation & criterionReturn).count()
 
             htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(thisQuerysetLocationLoanDay) + '/' + str(thisQuerysetLocationLoanPeriod) + '/' + str(thisQuerysetLocationTotal) + '</div></td>'
 
