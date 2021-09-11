@@ -459,7 +459,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             criterionReturn = Q(returned=False)
 
             thisQuerysetLocationLoanDay = models.Loan_asset.objects.filter(criterionLaonDate & criterionReturnDate & criterionLocation & criterionReturn).count()
-            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.exclude(loan_date=thisQueryDate).filter(criterionLocation & criterionReturn).count()
+            thisQuerysetLocationLoanPeriod = models.Loan_asset.objects.filter(criterionLocation & criterionReturn).exclude(loan_date=thisQueryDate).count()
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
                 criterionReturnDate & criterionLocation & criterionReturn).count()
 
