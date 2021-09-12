@@ -4,7 +4,13 @@
     <h1>Reg udstyr</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Gem" class="btn btn-primary">
+            <table class="table table-borderless">
+               <tr>
+  <td>
+    {{form.as_p}}</td>
+  <td>  <input type="submit" value="Gem" class="btn btn-primary"></td>
+                    </tr>
+    </table>
+
             </form>
 {% endblock %}

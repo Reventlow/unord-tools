@@ -332,6 +332,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
+
     asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr", widget=forms.HiddenInput())
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
