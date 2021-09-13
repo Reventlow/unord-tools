@@ -678,7 +678,7 @@ class Loan_assetListView(generic.ListView):
         return redirect('asset_app_loan_asset_list')
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('returned', 'loaner_name', 'asset')
+        queryset = super().get_queryset().order_by('returned', 'return_date', 'loaner_name', 'asset')
         return queryset
 
 @method_decorator(login_required, name='dispatch')
