@@ -342,8 +342,8 @@ class Loan_assetUpdateForm(forms.ModelForm):
 
     asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr", widget=forms.HiddenInput())
     eduName = forms.CharField(required=False, label="", max_length=60, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'Hvis elev/kursist mulighed for at skrive uddannelse'}))
-    endEduDate = forms.DateField(required=False, label="Hvis elev/kursist mulighed for at skrive slut studie dato",
+        attrs={'class': 'form-control', 'placeholder': 'Hvis elev/kursist, mulighed for at skrive uddannelse'}))
+    endEduDate = forms.DateField(required=False, label="Hvis elev/kursist, mulighed for at skrive slut studie dato",
                                  widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
                                                                     attrs={'class': 'form-control',
                                                                            "type": "date"}))
