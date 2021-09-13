@@ -347,9 +347,9 @@ class Loan_assetUpdateForm(forms.ModelForm):
                                  widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
                                                                     attrs={'class': 'form-control',
                                                                            "type": "date"}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
@@ -366,6 +366,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
             "asset",
             "asset",
             "eduName",
+            "endEduDate",
             "loan_date",
             "return_date",
             "returned",
