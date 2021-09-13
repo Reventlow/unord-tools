@@ -144,12 +144,13 @@ class Loan_assetSerializer(serializers.ModelSerializer):
         fields = [
             "loaner_name",
             "location",
-
             "loaner_quicklink",
             "loaner_telephone_number",
             "loaner_email",
             "loaner_type",
             "asset",
+            "asset",
+            "eduName",
             "loan_date",
             "return_date",
             "returned",

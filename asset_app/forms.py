@@ -255,13 +255,18 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast quicklink'}))
     loaner_type = forms.ModelChoiceField(queryset=Loaner_type.objects.all(), label="Udlåner",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    asset = forms.ModelChoiceField(required=False,
+    asset = forms.ModelChoiceField(
                                    queryset=Asset.objects.filter(Q(is_loaned=False) & Q(may_be_loaned=True)),
                                    label="Udstyr",
                                    widget=forms.Select(attrs={'class': 'form-control'}))
-    loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    eduName = forms.CharField(required=False, label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Hvis elev/kursist mulighed for at skrive uddannelse'}))
+    endEduDate = forms.DateField(required=False, label="Hvis elev/kursist mulighed for at skrive slut studie dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+                                                                                        attrs={'class': 'form-control',
+                                                                                               "type": "date"}))
+    loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
@@ -276,6 +281,8 @@ class Loan_assetForm(forms.ModelForm):
             "loaner_email",
             "loaner_type",
             "asset",
+            "eduName",
+            "endEduDate",
             "loan_date",
             "return_date",
             "returned",
@@ -334,6 +341,12 @@ class Loan_assetUpdateForm(forms.ModelForm):
                                    widget=forms.Select(attrs={'class': 'form-control'}))
 
     asset = forms.ModelChoiceField(queryset=Asset.objects.all(), label="Udstyr", widget=forms.HiddenInput())
+    eduName = forms.CharField(required=False, label="", max_length=60, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Hvis elev/kursist mulighed for at skrive uddannelse'}))
+    endEduDate = forms.DateField(required=False, label="Hvis elev/kursist mulighed for at skrive slut studie dato",
+                                 widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+                                                                    attrs={'class': 'form-control',
+                                                                           "type": "date"}))
     loan_date = forms.DateField(required=False, label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(required=False, label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
@@ -351,6 +364,8 @@ class Loan_assetUpdateForm(forms.ModelForm):
             "loaner_email",
             "loaner_type",
             "asset",
+            "asset",
+            "eduName",
             "loan_date",
             "return_date",
             "returned",

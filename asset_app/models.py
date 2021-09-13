@@ -271,6 +271,8 @@ class Loan_asset(models.Model):
     loaner_quicklink = models.URLField(null=True, blank=True)
     loan_date = models.DateField()
     return_date = models.DateField()
+    eduName = models.CharField(max_length=60, blank=True, null=True)
+    endEduDate = models.DateField(blank=True, null=True)
     notes = HTMLField(default="")
     returned = models.BooleanField(default=False, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)

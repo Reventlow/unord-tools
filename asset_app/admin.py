@@ -222,6 +222,8 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "loaner_email",
         "loaner_type",
         "asset",
+        "asset",
+        "eduName",
         "loan_date",
         "return_date",
         "returned",
