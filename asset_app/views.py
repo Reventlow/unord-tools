@@ -536,6 +536,27 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             htmlTable = htmlTable + "</tr>"
             iDate = iDate + 1
 
+########Loan 30 days from now
+        thisQueryDate = iDate
+        htmlTable = htmlTable + "<tr class='table-succes'><td>Udstyr der skal afleveres efter den " + str(thisQueryDate.strftime('%d/%m/%Y')) + "</td>"
+        for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
+
+            criterionReturnDate = Q(return_date__gte=thisQueryDate)
+            criterionLocation = Q(location__name=location.name)
+            criterionReturnNot = Q(returned=False)
+
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(
+                criterionReturnDate & criterionLocation & criterionReturnNot).count()
+
+            if thisQuerysetLocationTotal > 0:
+                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
+                    False) + '/currentDate/">'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
+                    thisQuerysetLocationTotal) + '</a></div></td>'
+            else:
+                htmlTable = htmlTable + '<td></td>'
+
+
         context['loan_statTable'] = htmlTable + "</table>"
         return context
 
