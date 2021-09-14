@@ -541,7 +541,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         htmlTable = htmlTable + "<tr class='table-success'><td>Udstyr der skal afleveres efter den " + thisQueryDate.strftime('%d/%m/%Y') + "</td>"
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
 
-            criterionReturnDate = Q(return_date__gte=thisQueryDate)
+            criterionReturnDate = Q(return_date__gt=thisQueryDate)
             criterionLocation = Q(location__name=location.name)
             criterionReturnNot = Q(returned=False)
 
