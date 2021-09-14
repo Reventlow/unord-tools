@@ -538,7 +538,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
 ########Loan 30 days from now
         thisQueryDate = iDate
-        htmlTable = htmlTable + "<tr class='table-succes'><td>Udstyr der skal afleveres efter den " + str(thisQueryDate.strftime('%d/%m/%Y')) + "</td>"
+        htmlTable = htmlTable + "<tr class='table-succes'><td>Udstyr der skal afleveres efter den " + thisQueryDate.strftime('%d/%m/%Y') + "</td>"
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
 
             criterionReturnDate = Q(return_date__gte=thisQueryDate)
