@@ -537,7 +537,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             iDate = iDate + 1
 
 ########Loan 30 days from now
-        thisQueryDate = iDate
+        thisQueryDate
         htmlTable = htmlTable + "<tr class='table-succes'><td>Udstyr der skal afleveres efter den " + thisQueryDate.strftime('%d/%m/%Y') + "</td>"
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
 
