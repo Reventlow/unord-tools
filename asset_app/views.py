@@ -1232,7 +1232,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
 
         # Set up the Http response.
 
-       filename = 'Udstyr-´'+str(datetime.date.today())+'.xlsx'
+        filename = 'Udstyr-´'+str(datetime.date.today())+'.xlsx'
 
         response = HttpResponse(
             output,
