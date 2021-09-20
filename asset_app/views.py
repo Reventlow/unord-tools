@@ -1215,8 +1215,8 @@ class Model_hardwareDetailExcelView(generic.ListView):
 
         worksheet_s.set_column('B:B', 30)
         worksheet_s.set_column('C:C', 15)
-        worksheet_s.set_column('D:D', 30)
-        worksheet_s.set_column('E:E', 35)
+        worksheet_s.set_column('D:D', 40)
+        worksheet_s.set_column('E:E', 25)
         worksheet_s.set_column('F:F', 30)
         worksheet_s.set_column('G:G', 35)
         worksheet_s.set_column('H:H', 15)
