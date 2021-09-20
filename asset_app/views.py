@@ -1161,7 +1161,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
         workbook = xlsxwriter.Workbook(output)
 
         # Here we will adding the code to add data
-        worksheet_s = workbook.add_worksheet(model_hardware)
+        worksheet_s = workbook.add_worksheet("Udstyr")
 
         header = workbook.add_format({
             'bg_color': '#F7F7F7',
