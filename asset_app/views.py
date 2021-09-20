@@ -1155,7 +1155,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
-    def get(self, request):
+    def get(self, request, pk):
 
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
@@ -1183,7 +1183,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
         worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
         worksheet_s.write(2, 8, ugettext("Meldt savnede"), header)
 
-        queryset = super().get_queryset().order_by('name')
+        queryset = super().get_queryset().filter(pk=pk).order_by('name')
 
         for idx, data in enumerate(queryset):
             row = 3 + idx
