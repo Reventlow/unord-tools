@@ -1183,7 +1183,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
         worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
         worksheet_s.write(2, 8, ugettext("Meldt savnede"), header)
 
-        queryset = super().get_queryset().filter(id=pk).order_by('name')
+        queryset = models.Model_hardware.objects.filter(pk=pk).order_by('name')
 
         for idx, data in enumerate(queryset):
             row = 3 + idx
@@ -1217,11 +1217,11 @@ class Model_hardwareDetailExcelView(generic.ListView):
         worksheet_s.set_column('C:C', 15)
         worksheet_s.set_column('D:D', 30)
         worksheet_s.set_column('E:E', 35)
-        worksheet_s.set_column('F:F', 45)
-        worksheet_s.set_column('G:G', 15)
-        worksheet_s.set_column('H:H', 30)
+        worksheet_s.set_column('F:F', 30)
+        worksheet_s.set_column('G:G', 35)
+        worksheet_s.set_column('H:H', 15)
         worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 20)
+        worksheet_s.set_column('J:J', 15)
 
 
         workbook.close()
@@ -1232,7 +1232,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
 
         # Set up the Http response.
 
-        filename = 'Udstyr-´'+str(datetime.date.today())+'.xlsx'
+        filename = 'Udstyr-'+str(datetime.date.today())+'.xlsx'
 
         response = HttpResponse(
             output,
