@@ -1155,7 +1155,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
-    def get(self, request, model_hardware):
+    def get(self, request):
 
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
