@@ -1183,7 +1183,7 @@ class Model_hardwareDetailExcelView(generic.ListView):
         worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
         worksheet_s.write(2, 8, ugettext("Meldt savnede"), header)
 
-        queryset = models.Model_hardware.objects.filter(pk=pk).order_by('name')
+        queryset = models.Asset.objects.filter(model_hardware_id=pk).order_by('name')
 
         for idx, data in enumerate(queryset):
             row = 3 + idx
