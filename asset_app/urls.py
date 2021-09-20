@@ -118,6 +118,7 @@ urlpatterns = [
     path("asset_app/model_hardware/", views.Model_hardwareListView.as_view(), name="asset_app_model_hardware_list"),
     path("asset_app/model_hardware/create/", views.Model_hardwareCreateView.as_view(), name="asset_app_model_hardware_create"),
     path("asset_app/model_hardware/detail/<int:pk>/", views.Model_hardwareDetailView.as_view(), name="asset_app_model_hardware_detail"),
+    path("asset_app/model_hardware/detail/excel/<int:pk>/", views.Model_hardwareDetailExcelView.as_view(), name="asset_app_model_hardware_detail_excel"),
     path("asset_app/model_hardware/update/<int:pk>/", views.Model_hardwareUpdateView.as_view(), name="asset_app_model_hardware_update"),
     path("asset_app/model_hardware/delete/<int:pk>/", views.Model_hardwareListView.delete, name="asset_app_model_hardware_delete"),
 #One2One
