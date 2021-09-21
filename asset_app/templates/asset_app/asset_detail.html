@@ -30,8 +30,11 @@
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Edit</a>
 
-<br/><br/>
+
+
 {% if object_list %}
+    <br/><br/>
+    <h2>Udlåns oversigt</h2>
         <table class="table">
             <tr class="table-dark">
                 <td>Udlåner</td>
@@ -125,9 +128,9 @@
 
                 <td style="text-align: center;">
                     {% if thisObject.returned %}
-                        <a href="{% url 'asset_asset_detail_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
+                        <a href="{% url 'asset_asset_detail_returned_true' object.pk %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
                     {% else %}
-                        <a href="{% url 'asset_asset_detail_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                        <a href="{% url 'asset_asset_detail_returned_false' object.pk %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
                     {% endif %}
                 </td>
                 </tr>
