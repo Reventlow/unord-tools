@@ -63,6 +63,11 @@ class AssetDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
         context["today"] = new_context_entry
+
+        pk = self.kwargs['pk']
+        context["queryset"] = models.Loan_asset.objects.filter(id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
+
+
         return context
 
     def returned_true(request, res_id):
@@ -88,9 +93,7 @@ class AssetDetailView(generic.DetailView):
         return redirect('asset_app_loan_asset_list')
 
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        queryset = models.Loan_asset.objects.filter(id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
-        return queryset
+
 
 @method_decorator(login_required, name='dispatch')
 class AssetUpdateView(generic.UpdateView):
