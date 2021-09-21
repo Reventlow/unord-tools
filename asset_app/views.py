@@ -65,7 +65,7 @@ class AssetDetailView(generic.DetailView):
         context["today"] = new_context_entry
 
         pk = self.kwargs['pk']
-        context["object_list"] = models.Loan_asset.objects.filter(id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
+        context["object_list"] = models.Loan_asset.objects.filter(asset_id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
 
 
         return context
