@@ -308,6 +308,99 @@ class BrandDetailView(generic.DetailView):
     model = models.Brand
     form_class = forms.BrandForm
 
+@method_decorator(login_required, name='dispatch')
+class BrandDetailExcelView(generic.ListView):
+    model = models.Asset
+    form_class = forms.AssetForm
+
+    def get(self, request, pk):
+
+        output = BytesIO()
+        workbook = xlsxwriter.Workbook(output)
+
+        # Here we will adding the code to add data
+        worksheet_s = workbook.add_worksheet("Udstyr")
+
+        header = workbook.add_format({
+            'bg_color': '#F7F7F7',
+            'color': 'black',
+            'align': 'center',
+            'valign': 'top',
+            'border': 1
+        })
+
+        formatRed = workbook.add_format({'bg_color': '#FFC7CE',
+                                         'font_color': '#9C0006'})
+
+        worksheet_s.write(2, 1, ugettext("Udstyrs navn"), header)
+        worksheet_s.write(2, 2, ugettext("Serienummer"), header)
+        worksheet_s.write(2, 3, ugettext("Placering"), header)
+        worksheet_s.write(2, 4, ugettext("Model"), header)
+        worksheet_s.write(2, 5, ugettext("Mærke"), header)
+        worksheet_s.write(2, 6, ugettext("Udstyr type"), header)
+        worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
+        worksheet_s.write(2, 8, ugettext("Meldt savnede"), header)
+
+        queryset = models.Asset.objects.filter(model_hardware__brand_id=pk).order_by('name')
+
+        for idx, data in enumerate(queryset):
+            row = 3 + idx
+
+            if data.missing:
+
+                worksheet_s.write_number(row, 0, idx + 1, formatRed)
+                worksheet_s.write_string(row, 1, data.name, formatRed)
+                worksheet_s.write_string(row, 2, data.serial, formatRed)
+                worksheet_s.write_string(row, 3,
+                                         data.room.name + " :: " + data.room.location.name + " :: " + data.room.room_type.name,
+                                         formatRed)
+                worksheet_s.write_string(row, 4, data.model_hardware.name, formatRed)
+                worksheet_s.write_string(row, 5, data.model_hardware.brand.name, formatRed)
+                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name, formatRed)
+                worksheet_s.write_boolean(row, 7, data.may_be_loaned, formatRed)
+                worksheet_s.write_boolean(row, 8, data.missing, formatRed)
+            else:
+                worksheet_s.write_number(row, 0, idx + 1)
+                worksheet_s.write_string(row, 1, data.name)
+                worksheet_s.write_string(row, 2, data.serial)
+                worksheet_s.write_string(row, 3,
+                                         data.room.name + " :: " + data.room.location.name + " :: " + data.room.room_type.name)
+                worksheet_s.write_string(row, 4, data.model_hardware.name)
+                worksheet_s.write_string(row, 5, data.model_hardware.brand.name)
+                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
+                worksheet_s.write_boolean(row, 7, data.may_be_loaned)
+                worksheet_s.write_boolean(row, 8, data.missing)
+
+            # the rest of the data
+
+        worksheet_s.set_column('B:B', 30)
+        worksheet_s.set_column('C:C', 15)
+        worksheet_s.set_column('D:D', 40)
+        worksheet_s.set_column('E:E', 25)
+        worksheet_s.set_column('F:F', 30)
+        worksheet_s.set_column('G:G', 35)
+        worksheet_s.set_column('H:H', 15)
+        worksheet_s.set_column('I:I', 15)
+        worksheet_s.set_column('J:J', 15)
+
+        workbook.close()
+        xlsx_data = output.getvalue()
+
+        # Rewind the buffer.
+        output.seek(0)
+
+        # Set up the Http response.
+
+        filename = 'Udstyr-' + str(datetime.date.today()) + '.xlsx'
+
+        response = HttpResponse(
+            output,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+
+        return response
+
 
 @method_decorator(login_required, name='dispatch')
 class BrandUpdateView(generic.UpdateView):

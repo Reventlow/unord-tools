@@ -61,6 +61,7 @@ urlpatterns = [
     path("asset_app/brand/create/", views.BrandCreateView.as_view(), name="asset_app_brand_create"),
     path("asset_app/brand/detail/<int:pk>/", views.BrandDetailView.as_view(), name="asset_app_brand_detail"),
     path("asset_app/brand/update/<int:pk>/", views.BrandUpdateView.as_view(), name="asset_app_brand_update"),
+    path("asset_app/brand/detail/excel/<int:pk>/", views.BrandDetailExcelView.as_view(), name="asset_brand_type_detail_excel"),
     path("asset_app/brand/delete/<int:pk>/", views.BrandListView.delete, name="asset_app_brand_delete"),
 #BundleReservation
     path("asset_app/bundle_reservation/", views.Bundle_reservationListView.as_view(), name="asset_app_bundle_reservation_list"),
