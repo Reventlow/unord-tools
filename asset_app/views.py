@@ -92,7 +92,7 @@ class AssetDetailView(generic.DetailView):
         item.save()
         return redirect('asset_app_loan_asset_list')
 
-    def get_queryset(self):
+
 
 
 @method_decorator(login_required, name='dispatch')
