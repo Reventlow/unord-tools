@@ -70,8 +70,8 @@ class AssetDetailView(generic.DetailView):
 
         return context
 
-    def returned_true(request, res_id):
-        item = models.Loan_asset.objects.get(pk=res_id)
+    def returned_true(request, pk):
+        item = models.Loan_asset.objects.get(pk=pk)
         item.returned = False
         asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som ikke afleveret')
@@ -81,8 +81,8 @@ class AssetDetailView(generic.DetailView):
         item.save()
         return redirect('asset_app_asset_detail')
 
-    def returned_false(request, res_id):
-        item = models.Loan_asset.objects.get(pk=res_id)
+    def returned_false(request, pk):
+        item = models.Loan_asset.objects.get(pk=pk)
         item.returned = True
         asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som afleveret')
