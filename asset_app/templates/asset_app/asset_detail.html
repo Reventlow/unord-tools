@@ -58,32 +58,32 @@
                 </td>
 
             </tr>
-            {% for object in object_list %}
+            {% for thisObject in object_list %}
 
 
-                {% if object.return_date > today and  object.returned == False %}
+                {% if thisObject.return_date > today and  thisObject.returned == False %}
                 <tr>
-                {% elif object.return_date < today and object.returned == False %}
+                {% elif thisObject.return_date < today and thisObject.returned == False %}
                 <tr class="table-danger">
-                {% elif object.returned == True %}
+                {% elif thisObject.returned == True %}
                 <tr class="table-success">
                 {% else %}
                 <tr class="table-warning">
                 {% endif %}
 
-                    <td>{{ object.loaner_name }} <a href="{{ object.get_absolute_url }}"
-                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                    <td>{{ thisObject.loaner_name }} <a href="{{ thisObject.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ thisObject.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
 
 
-{% if  object.notes  %}
+{% if  thisObject.notes  %}
 <!-- Button trigger modal -->
-<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ thisObject.id }}">
   Note
 </span>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal{{ thisObject.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -91,7 +91,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       {{ object.notes|safe}}
+       {{ thisObject.notes|safe}}
       </div>
 
   </div>
@@ -104,27 +104,27 @@
 {% endif %}
                     </td>
                     <td>
-                    <div style="text-align: center;">{{ object.location }}</div>
+                    <div style="text-align: center;">{{ thisObject.location }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
+                    <div style="text-align: center;">{{ thisObject.loaner_type }}<br/>{% if thisObject.loaner_quicklink %}<a href="{{ thisObject.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
+                    <div style="text-align: center;">{{ thisObject.loaner_telephone_number }}<br/>{{ thisObject.loaner_email }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.asset }}</div>
+                    <div style="text-align: center;">{{ thisObject.asset }}</div>
                 </td>
 
                 <td>
-                    <div style="text-align: center;">{{ object.loan_date }}</div>
+                    <div style="text-align: center;">{{ thisObject.loan_date }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ object.return_date }}</div>
+                    <div style="text-align: center;">{{ thisObject.return_date }}</div>
                 </td>
 
                 <td style="text-align: center;">
-                    {% if object.returned %}
+                    {% if thisObject.returned %}
                         <a href="{% url 'asset_asset_detail_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
                     {% else %}
                         <a href="{% url 'asset_asset_detail_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
