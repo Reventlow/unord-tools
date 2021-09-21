@@ -59,6 +59,37 @@ class AssetDetailView(generic.DetailView):
     model = models.Asset
     form_class = forms.AssetForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_context_entry = datetime.date.today()
+        context["today"] = new_context_entry
+        return context
+
+    def returned_true(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = False
+        asset_id = item.asset.id
+        messages.success(request, 'Noteret udstyret som ikke afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = True
+        item.save()
+        return redirect('asset_app_loan_asset_list')
+
+    def returned_false(request, res_id):
+        item = models.Loan_asset.objects.get(pk=res_id)
+        item.returned = True
+        asset_id = item.asset.id
+        messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+        item = models.Asset.objects.get(pk=asset_id)
+        item.is_loaned = False
+        item.save()
+        return redirect('asset_app_loan_asset_list')
+
+    def get_queryset(self, request, pk):
+        queryset = models.Loan_asset.objects.filter(id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class AssetUpdateView(generic.UpdateView):
