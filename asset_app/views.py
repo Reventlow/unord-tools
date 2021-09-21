@@ -87,7 +87,7 @@ class AssetDetailView(generic.DetailView):
         item.save()
         return redirect('asset_app_loan_asset_list')
 
-    def get_queryset(self, request, pk):
+    def get_queryset(self, pk):
         queryset = models.Loan_asset.objects.filter(id=pk).order_by('returned', 'return_date', 'loaner_name', 'asset')
         return queryset
 
