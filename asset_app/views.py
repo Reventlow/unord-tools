@@ -79,7 +79,7 @@ class AssetDetailView(generic.DetailView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect('asset_app_asset_detail')
+        return redirect('asset_app_asset_detail', pk=pk)
 
     def returned_false(request, pk):
         item = models.Loan_asset.objects.get(pk=pk)
@@ -90,7 +90,7 @@ class AssetDetailView(generic.DetailView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect('asset_app_asset_detail')
+        return redirect('asset_app_asset_detail', pk=pk)
 
 
 
