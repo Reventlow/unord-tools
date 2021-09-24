@@ -1086,7 +1086,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
             else:
                 if data.asset:
-                    worksheet_s.write_number(row, 0, idx + 1)
+                    worksheet_s.write_number(row, 0, idx + 1, formatGreen)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                     worksheet_s.write_string(row, 2, data.location.name, formatGreen)
                     worksheet_s.write_string(row, 3, data.loaner_type.name, formatGreen)
