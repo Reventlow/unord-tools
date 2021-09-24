@@ -94,10 +94,16 @@ class AssetDetailView(generic.DetailView):
 
     def addMonthToReturnDate(request, pk):
         item = models.Loan_asset.objects.get(pk=pk)
-        item.return_date = item.return_date + datetime.d.date(days=30)
+        item.return_date = item.return_date + datetime.timedelta(days=30)
+        weekno = item.return_date.weekday()
+        if weekno == 5:
+            item.return_date = item.return_date + datetime.timedelta(days=2)
+        elif weekno == 6:  # 5 Sat, 6 Sun
+            item.return_date = item.return_date + datetime.timedelta(days=1)
         asset_id = item.asset.id
-        messages.success(request, 'Noteret udstyret som afleveret')
         item.save()
+        messages.success(request, 'Udvidet låne aftalen med en månede.')
+        return redirect('asset_app_asset_detail', pk=asset_id)
 
 
 

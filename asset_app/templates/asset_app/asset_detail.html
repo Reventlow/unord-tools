@@ -123,7 +123,13 @@
                     <div style="text-align: center;">{{ thisObject.loan_date }}</div>
                 </td>
                 <td>
-                    <div style="text-align: center;">{{ thisObject.return_date }}</div>
+                    <div style="text-align: center;">
+                        {{ thisObject.return_date }}
+                        {% if not thisObject.returned %}
+                            <br/>
+                            <a href="{% url 'asset_app_asset_add_month_to_loan' thisObject.pk %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Udvide lån med et månede</a>
+                        {% endif %}
+                    </div>
                 </td>
 
                 <td style="text-align: center;">
