@@ -934,8 +934,13 @@ class Loan_assetListFilterView(generic.ListView):
         context["today"] = new_context_entry
         return context
 
-    def returned_true(request, res_id):
-        item = models.Loan_asset.objects.get(pk=res_id)
+    def returned_true(self, request, pk):
+        task = self.kwargs.get("task")
+        return_date = self.kwargs.get("return_date")
+        loc_name = self.kwargs.get("loc_name")
+        returned = self.kwargs.get("returned")
+
+        item = models.Loan_asset.objects.get(pk=pk)
         item.returned = False
         asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som ikke afleveret')
@@ -943,10 +948,15 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect('asset_app_loan_asset_list')
+        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
-    def returned_false(request, res_id):
-        item = models.Loan_asset.objects.get(pk=res_id)
+    def returned_false(self, request, pk):
+        task = self.kwargs.get("task")
+        return_date = self.kwargs.get("return_date")
+        loc_name = self.kwargs.get("loc_name")
+        returned = self.kwargs.get("returned")
+
+        item = models.Loan_asset.objects.get(pk=pk)
         item.returned = True
         asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som afleveret')
@@ -954,7 +964,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect('asset_app_loan_asset_list')
+        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
     def get_queryset(self):
 
@@ -969,7 +979,7 @@ class Loan_assetListFilterView(generic.ListView):
             criterionReturnDate = Q(return_date=return_date)
         criterionLocation = Q(location__name=loc_name)
         criterionReturnState = Q(returned=returned)
-        queryset = super().get_queryset().filter(criterionLocation & criterionReturnState  & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+        queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
 
         return queryset
 
