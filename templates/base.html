@@ -162,6 +162,7 @@
                 </li>
 
                 <!-- Fejlmelde System -->
+                {% if 1 == 0 %}
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Fejlmelde system</a>
@@ -179,7 +180,7 @@
                         <li><a class="dropdown-item" href="{% url 'asset_app_ExternalService_create' %}">Registrer service firma</a></li>
                     </ul>
                 </li>
-
+                {% endif %}
                 <!-- Dashboard -->
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
