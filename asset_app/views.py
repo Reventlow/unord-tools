@@ -935,11 +935,11 @@ class Loan_assetListFilterView(generic.ListView):
         context["today"] = new_context_entry
         return context
 
-    def returned_true(self, pk):
-        task = self.kwargs.get("task")
-        return_date = self.kwargs.get("return_date")
-        loc_name = self.kwargs.get("loc_name")
-        returned = self.kwargs.get("returned")
+    def returned_true(self, loc_name, return_date, returned, task, pk):
+        #task = self.kwargs.get("task")
+        #return_date = self.kwargs.get("return_date")
+        #loc_name = self.kwargs.get("loc_name")
+        #returned = self.kwargs.get("returned")
 
         item = models.Loan_asset.objects.get(pk=pk)
         item.returned = False
@@ -950,11 +950,7 @@ class Loan_assetListFilterView(generic.ListView):
         item.save()
         return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
-    def returned_false(self, pk):
-        task = self.kwargs.get("task")
-        return_date = self.kwargs.get("return_date")
-        loc_name = self.kwargs.get("loc_name")
-        returned = self.kwargs.get("returned")
+    def returned_false(self, loc_name, return_date, returned, task, pk):
 
         item = models.Loan_asset.objects.get(pk=pk)
         item.returned = True
