@@ -771,7 +771,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 
             if thisQuerysetLocationTotal > 0:
                 thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
-                    False) + '/currentDate/">'
+                    False) + '/monthPlus/">'
                 htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
                     thisQuerysetLocationTotal) + '</a></div></td>'
             else:
@@ -972,6 +972,8 @@ class Loan_assetListFilterView(generic.ListView):
             criterionReturnDate = Q(return_date__lt=return_date)
         elif task == "currentDate":
             criterionReturnDate = Q(return_date=return_date)
+        elif task == "monthPlus":
+            criterionReturnDate = Q(return_date__gte=return_date)
         criterionLocation = Q(location__name=loc_name)
         criterionReturnState = Q(returned=returned)
         queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
