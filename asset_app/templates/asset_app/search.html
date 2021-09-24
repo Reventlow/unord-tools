@@ -27,7 +27,7 @@
                     <center>Serie nummer</center>
                 </td>
                     <td>
-                    <center>Må udlånes</center>
+                    <center>Udlån status</center>
                 </td>
 
                 <td>
@@ -87,7 +87,13 @@
        <td>
                     <center>
                         {% if object.may_be_loaned %}
-                            ja
+                            Må udlånes <br/>
+                            {% if object.is_loaned %}
+                                <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Udstyrer er udlånt</a>
+                                {% else %}
+                                Udstyr er på lager
+                                {% endif %}
                         {% else %}
                             nej
                         {% endif %}
