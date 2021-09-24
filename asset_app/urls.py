@@ -103,8 +103,8 @@ urlpatterns = [
     path("asset_app/loan_asset/update/<int:pk>/", views.Loan_assetUpdateView.as_view(), name="asset_app_loan_asset_update"),
     path('asset_app/loan_asset/returned_true/<res_id>', views.Loan_assetListView.returned_true, name='asset_app_loan_asset_returned_true'),
     path('asset_app/loan_asset/returned_false/<res_id>', views.Loan_assetListView.returned_false, name='asset_app_loan_asset_returned_false'),
-    path('asset_app/asset/detail/returned_true/<int:pk>', views.Loan_assetListFilterView.returned_true, name='asset_asset_detail_filter_returned_true'),
-    path('asset_app/asset/detail/returned_false/<int:pk>', views.Loan_assetListFilterView.returned_false, name='asset_asset_detail_filter_returned_false'),
+    path('asset_app/loan_asset/detail/filter/returned_true/<int:pk>', views.Loan_assetListFilterView.returned_true, name='asset_asset_detail_filter_returned_true'),
+    path('asset_app/loan_asset/detail/returned_false/filter/<int:pk>', views.Loan_assetListFilterView.returned_false, name='asset_asset_detail_filter_returned_false'),
 
     #LoanerType
     path("asset_app/loaner_type/", views.Loaner_typeListView.as_view(), name="asset_app_loaner_type_list"),
