@@ -1104,6 +1104,8 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Nej"
                     worksheet_s.write_string(row, 11, returnedValue, formatGreen)
 
+            if not data.asset:
+                thisRow = thisRow - 1
 
             # the rest of the data
 
