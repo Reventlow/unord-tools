@@ -1045,7 +1045,7 @@ class Loan_assetListExcelView(generic.DetailView):
             row = thisRow + idx
 
             if data.return_date > datetime.date.today() and data.returned == False:
-                if data.asset.name.Value is not None:
+                if not data.asset.name:
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name)
                     worksheet_s.write_string(row, 2, data.location.name)
