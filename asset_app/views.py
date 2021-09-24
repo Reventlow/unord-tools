@@ -1051,7 +1051,7 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 3, data.loaner_type.name)
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number)
                 worksheet_s.write_string(row, 5, data.loaner_email)
-                if data.asset.name is not None:
+                if str(data.asset.name) is not "":
                     worksheet_s.write_string(row, 6, data.asset.name)
                 worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name)
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
