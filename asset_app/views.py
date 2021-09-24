@@ -92,6 +92,13 @@ class AssetDetailView(generic.DetailView):
         item.save()
         return redirect('asset_app_asset_detail', pk=asset_id)
 
+    def addMonthToReturnDate(request, pk):
+        item = models.Loan_asset.objects.get(pk=pk)
+        item.returned = True
+        asset_id = item.asset.id
+        messages.success(request, 'Noteret udstyret som afleveret')
+        item.save()
+
 
 
 
@@ -1017,13 +1024,12 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 3, ugettext("Ansat/Elev"), header)
         worksheet_s.write(thisRow, 4, ugettext("Telefon nummer"), header)
         worksheet_s.write(thisRow, 5, ugettext("Email"), header)
-        worksheet_s.write(thisRow, 6, ugettext("Adresse"), header)
-        worksheet_s.write(thisRow, 7, ugettext("Udstyrs navn"), header)
-        worksheet_s.write(thisRow, 8, ugettext("Udstyrs type"), header)
-        worksheet_s.write(thisRow, 9, ugettext("Udstyr"), header)
-        worksheet_s.write(thisRow, 10, ugettext("Udlånt fra"), header)
-        worksheet_s.write(thisRow, 11, ugettext("Udlånt til"), header)
-        worksheet_s.write(thisRow, 12, ugettext("Retuneret"), header)
+        worksheet_s.write(thisRow, 6, ugettext("Udstyrs navn"), header)
+        worksheet_s.write(thisRow, 7, ugettext("Udstyrs type"), header)
+        worksheet_s.write(thisRow, 8, ugettext("Udstyr"), header)
+        worksheet_s.write(thisRow, 9, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 10, ugettext("Udlånt til"), header)
+        worksheet_s.write(thisRow, 11, ugettext("Retuneret"), header)
 
 
 
@@ -1040,12 +1046,12 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 3, data.loaner_type.name)
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number)
                 worksheet_s.write_string(row, 5, data.loaner_email)
-                worksheet_s.write_string(row, 6, data.loaner_address)
-                worksheet_s.write_string(row, 7, data.asset.name)
-                worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name)
-                worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
-                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                worksheet_s.write_string(row, 6, data.asset.name)
+                worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name)
+                worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
+                worksheet_s.write_string(row, 6, data.asset.location)
+                worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
@@ -1059,12 +1065,12 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 3, data.loaner_type.name, formatRed)
                 worksheet_s.write_string(row, 4, data.loaner_telephone_number, formatRed)
                 worksheet_s.write_boolean(row, 5, data.loaner_email, formatRed)
-                worksheet_s.write_string(row, 6, data.loaner_address, formatRed)
-                worksheet_s.write_string(row, 7, data.asset.name, formatRed)
-                worksheet_s.write_string(row, 8, data.asset.model_hardware.asset_type.name, formatRed)
-                worksheet_s.write_string(row, 9, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
-                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
-                worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                worksheet_s.write_string(row, 6, data.asset.name, formatRed)
+                worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name, formatRed)
+                worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
+                worksheet_s.write_string(row, 6, data.asset.location, formatRed)
+                worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                 if data.returned == True:
                     returnedValue = "Ja"
                 else:
