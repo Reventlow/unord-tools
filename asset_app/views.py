@@ -94,7 +94,7 @@ class AssetDetailView(generic.DetailView):
 
     def addMonthToReturnDate(request, pk):
         item = models.Loan_asset.objects.get(pk=pk)
-        item.returned = True
+        item.return_date = item.return_date + datetime.d.date(days=30)
         asset_id = item.asset.id
         messages.success(request, 'Noteret udstyret som afleveret')
         item.save()
@@ -1049,7 +1049,7 @@ class Loan_assetListExcelView(generic.DetailView):
                 worksheet_s.write_string(row, 6, data.asset.name)
                 worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name)
                 worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
-                worksheet_s.write_string(row, 6, data.asset.location)
+                worksheet_s.write_string(row, 6, data.location)
                 worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                 worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                 if data.returned == True:
