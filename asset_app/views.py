@@ -1056,7 +1056,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name)
                     worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
                     worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
-                    worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
@@ -1081,7 +1081,7 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 12, returnedValue, formatRed)
+                    worksheet_s.write_string(row, 11, returnedValue, formatRed)
 
             else:
                 if data.asset:
@@ -1101,7 +1101,7 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 12, returnedValue, formatGreen)
+                    worksheet_s.write_string(row, 11, returnedValue, formatGreen)
 
 
             # the rest of the data
@@ -1114,8 +1114,8 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.set_column('G:G', 30)
         worksheet_s.set_column('H:H', 20)
         worksheet_s.set_column('H:H', 30)
-        worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 35)
+        worksheet_s.set_column('I:I', 35)
+        worksheet_s.set_column('J:J', 15)
         worksheet_s.set_column('K:K', 15)
         worksheet_s.set_column('L:L', 15)
         worksheet_s.set_column('M:M', 15)
