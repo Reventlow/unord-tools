@@ -1,0 +1,125 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+    <div><a class="btn btn-primary" href="{% url 'asset_app_loan_asset_create' %}">Reg nyt udlån</a> <a class="btn btn-info" href="{% url 'asset_app_dashboard_return' %}">Retur oversigt</a> <a class="btn btn-success" href="{% url 'asset_app_loan_excel_list'  %}">Exporter til excel</a></div>
+<br/>
+     <h1>Udlaan oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Udlåner</td>
+                <td>
+                    <div style="text-align: center;">Udlånt fra</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Udlåner</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Kontakt</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Udstyr</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Udlånt fra</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Retuneres</div>
+                </td>
+                  <td>
+                    <div style="text-align: center;">Skift retunerins status</div>
+                </td>
+
+            </tr>
+            {% for object in object_list %}
+
+
+                {% if object.return_date > today and  object.returned == False %}
+                <tr>
+                {% elif object.return_date < today and object.returned == False %}
+                <tr class="table-danger">
+                {% elif object.returned == True %}
+                <tr class="table-success">
+                {% else %}
+                <tr class="table-warning">
+                {% endif %}
+
+                    <td>{{ object.loaner_name }} <a href="{{ object.get_absolute_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Rediger</a>
+
+
+{% if  object.notes  %}
+<!-- Button trigger modal -->
+<span  class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Noter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       {{ object.notes|safe}}
+      </div>
+
+  </div>
+</div>
+    </div>
+
+
+
+
+{% endif %}
+                    </td>
+                    <td>
+                    <div style="text-align: center;">{{ object.location }}</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">{{ object.asset }}</div>
+                </td>
+
+                <td>
+                    <div style="text-align: center;">{{ object.loan_date }}</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">{{ object.return_date }}</div>
+                </td>
+
+                <td style="text-align: center;">
+                    {% if object.returned %}
+                        <a href="{% url 'asset_asset_detail_filter_returned_true' object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
+                    {% else %}
+                        <a href="{% url 'asset_asset_detail_filter_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                    {% endif %}
+                </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

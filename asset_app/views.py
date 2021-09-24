@@ -927,6 +927,7 @@ class Loan_assetListView(generic.ListView):
 class Loan_assetListFilterView(generic.ListView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
+    template_name = "loan_asset_filter_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
