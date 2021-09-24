@@ -935,7 +935,7 @@ class Loan_assetListFilterView(generic.ListView):
         context["today"] = new_context_entry
         return context
 
-    def returned_true(self, request, pk):
+    def returned_true(self, pk):
         task = self.kwargs.get("task")
         return_date = self.kwargs.get("return_date")
         loc_name = self.kwargs.get("loc_name")
@@ -944,14 +944,13 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Loan_asset.objects.get(pk=pk)
         item.returned = False
         asset_id = item.asset.id
-        messages.success(request, 'Noteret udstyret som ikke afleveret')
         item.save()
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
         return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
-    def returned_false(self, request, pk):
+    def returned_false(self, pk):
         task = self.kwargs.get("task")
         return_date = self.kwargs.get("return_date")
         loc_name = self.kwargs.get("loc_name")
@@ -960,7 +959,6 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Loan_asset.objects.get(pk=pk)
         item.returned = True
         asset_id = item.asset.id
-        messages.success(request, 'Noteret udstyret som afleveret')
         item.save()
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
