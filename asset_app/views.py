@@ -1045,7 +1045,7 @@ class Loan_assetListExcelView(generic.DetailView):
             row = thisRow + idx
 
             if data.return_date > datetime.date.today() and data.returned == False:
-                if not data.asset.name:
+                if data.asset.name:
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name)
                     worksheet_s.write_string(row, 2, data.location.name)
@@ -1064,7 +1064,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 12, returnedValue)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
-                if not data.asset.name:
+                if data.asset.name:
                     worksheet_s.write_number(row, 0, idx + 1, formatRed)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
                     worksheet_s.write_string(row, 2, data.location.name, formatRed)
@@ -1084,7 +1084,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 12, returnedValue, formatRed)
 
             else:
-                if not data.asset.name:
+                if data.asset.name:
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                     worksheet_s.write_string(row, 2, data.location.name, formatGreen)
