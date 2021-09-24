@@ -90,7 +90,7 @@
                             Må udlånes <br/>
                             {% if object.is_loaned %}
                                 <a href="{{ object.get_absolute_url }}"
-                                               class="badge rounded-pill bg-dark">Udstyrer er udlånt</a>
+                                               class="badge rounded-pill bg-warning">Udstyrer er udlånt</a>
                                 {% else %}
                                 Udstyr er på lager
                                 {% endif %}
