@@ -1,5 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
+from django.conf import settings
+import UnordToolsProject
+from UnordToolsProject import settings
+from asset_app.tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
 from django.core.exceptions import ImproperlyConfigured
 import os
 
@@ -20,16 +23,10 @@ def scheduled_job_everyday_seven_am():
 def scheduled_job_weekdays_four_pm():
     smsAutoLoanAsset()
 
+def configure():
+    TINYMCE_DEFAULT_CONFIG = os.environ[UnordToolsProject.settings.TINYMCE_DEFAULT_CONFIG]
 
 
 
-os.environ["TINYMCE_DEFAULT_CONFIG"] = {
-    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",
-    # plugins,
-    "toolbar": "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
-    # toolbar
-    "height": 500,  # texteditor height
-
-}
 
 sched.start()
