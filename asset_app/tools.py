@@ -179,7 +179,7 @@ def smsButtonLateReturn(thisId):
     thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
     thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
     thisMobile = int(obj.loaner_telephone_number)
-    thisLocation = obj.location
+
 
     thisMsg = thisMsg.replace("#Personens navn#", thisName)
     thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
@@ -189,6 +189,6 @@ def smsButtonLateReturn(thisId):
     if(thisMobile < 100000000 and thisMobile > 9999999):
         smsSend(thisMsg, thisMsg)
 
-        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=obj.asset.id, location=thisLocation)
+        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=obj.asset.id)
         new_SmsLog_entry.save()
 
