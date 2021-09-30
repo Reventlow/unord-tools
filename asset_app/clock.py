@@ -1,6 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
 from django.core.exceptions import ImproperlyConfigured
+import os
+
 
 sched = BlockingScheduler()
 
@@ -21,7 +23,7 @@ def scheduled_job_weekdays_four_pm():
 
 
 
-TINYMCE_DEFAULT_CONFIG = {
+os.environ["TINYMCE_DEFAULT_CONFIG"] = {
     "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,",
     # plugins,
     "toolbar": "styleselect |undo redo | bold italic | alignleft aligncenter alignright | link image media codesample code",
