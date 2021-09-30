@@ -53,8 +53,8 @@ def smsSend(thisCellphone, thisMsg):
 def smsAutoLoanAsset():
 
     message = Sms.objects.filter(description="Udlåns-SMS").last()
-
     queryset = Loan_asset.objects.filter(loan_date=datetime.today()).exclude(sms_automatic=False).exclude(returned=True)
+
 
     sendSmsStatGorm=True
     thisCount = 0
@@ -94,8 +94,10 @@ def smsAutoReturnReminder():
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
     thisReminderDate = thisToday - thisDaysDif
+    #print("thisReminderDate"+str(thisReminderDate))
 
     queryset = Loan_asset.objects.filter(return_date=thisReminderDate).exclude(sms_automatic=False).exclude(returned=True)
+    #print(queryset)
 
     sendSmsStatGorm=True
     thisCount = 0

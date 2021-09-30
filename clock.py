@@ -37,10 +37,5 @@ def scheduled_job_everyday_seven_am():
 def scheduled_job_weekdays_four_pm():
     smsAutoLoanAsset()
 
-def configure():
-    TINYMCE_DEFAULT_CONFIG = os.environ[UnordToolsProject.settings.TINYMCE_DEFAULT_CONFIG]
-
-
-
 
 sched.start()
