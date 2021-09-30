@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load date_tags %}
+{% block content %}
+
+    <div><a class="btn btn-primary" href="{% url 'asset_app_sms_create' %}">Opret ny sms type</a></div>
+    <br/>
+    <h1>Sms type oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Modtagers navn</td>
+                   <td>
+                    <center>Modtager mobil</center>
+                </td>
+                <td>
+                    <center>Besked</center>
+                </td>
+                <td>
+                    <center>Sendt</center>
+                </td>
+                <td>
+                    <center>Besked type</center>
+                </td>
+                <td>
+                    <center>Sms tilknyttet udlån/center>
+                </td>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        {{ object.sms_name }}
+                    </td>
+                    <td>
+                        <center>{{ object.sms_number }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.sms_msg_sent }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.sms_timestamp }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.sms_msg_type }}</center>
+                    </td>
+                    <td>
+                        <center>
+                            <a href="#{% url 'asset_app_loan_asset_detail' object.loan_asset.id %}" class="btn btn-secondary btn-sm "
+                               tabindex="-1" role="button" aria-disabled="true">Se udlån</a></center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

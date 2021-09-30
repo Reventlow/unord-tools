@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<p>
+    <a class="btn btn-primary" href="{% url 'asset_app_sms_list' %}">
+    Sms type liste
+    </a>
+    <a class="btn btn-primary" href="{% url 'asset_app_sms_create' %}">
+    Opret ny Sms type
+    </a>
+</p>
+
+<table class="table">
+    <tr><td>Sms intern navn</td><td>{{ object.description }}</td></tr>
+    <tr><td>Send automatisk</td><td>{{ object.automatic }}</td></tr>
+    <tr><td>Send via sms knap</td><td>{{ object.manual }}</td></tr>
+    <tr><td>Sms knap navn</td><td>{{ object.button_name }}</td></tr>
+    <tr><td>Sms besked</td><td>{{ object.sms_message }}</td></tr>
+
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
+
+{% endblock %}

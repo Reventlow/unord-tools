@@ -19,7 +19,7 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
-from .tools import smsSend, dateWeekday
+from .tools import smsButtonLateReturn, dateWeekday
 
 
 
@@ -931,6 +931,10 @@ class Loan_assetListView(generic.ListView):
         item.is_loaned = False
         item.save()
         return redirect('asset_app_loan_asset_list')
+
+    def buttonSmsReturnLate(self, pk):
+        smsButtonLateReturn(pk)
+        return redirect('asset_app_loan_asset_detail', pk)
 
     def get_queryset(self):
         queryset = super().get_queryset().order_by('returned', 'return_date', 'loaner_name', 'asset')
@@ -1969,5 +1973,41 @@ class SeverityLevelUpdateView(generic.UpdateView):
     model = models.SeverityLevel
     form_class = forms.SeverityLevelForm
     pk_url_kwarg = "pk"
+
+
+@method_decorator(login_required, name='dispatch')
+class SmsListView(generic.ListView):
+    model = models.Sms
+    form_class = forms.SmsForm
+
+    def delete(request, del_id):
+        item = models.Sms.objects.get(pk=del_id)
+        item.delete()
+        messages.success(request, 'Sms type er nu slettet')
+        return redirect('asset_app_sms_list')
+
+
+@method_decorator(login_required, name='dispatch')
+class SmsCreateView(generic.CreateView):
+    model = models.Sms
+    form_class = forms.SmsForm
+
+
+@method_decorator(login_required, name='dispatch')
+class SmsDetailView(generic.DetailView):
+    model = models.Sms
+    form_class = forms.SmsForm
+
+
+@method_decorator(login_required, name='dispatch')
+class SmsUpdateView(generic.UpdateView):
+    model = models.Sms
+    form_class = forms.SmsForm
+    pk_url_kwarg = "pk"
+
+@method_decorator(login_required, name='dispatch')
+class SmsLogListView(generic.ListView):
+    model = models.SmsLog
+    form_class = forms.SmsLogForm
 
 

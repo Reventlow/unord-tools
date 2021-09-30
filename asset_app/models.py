@@ -273,6 +273,7 @@ class Loan_asset(models.Model):
     return_date = models.DateField()
     eduName = models.CharField(max_length=60, blank=True, null=True)
     endEduDate = models.DateField(blank=True, null=True)
+    sms_automatic = models.BooleanField(default=False)
     notes = HTMLField(default="")
     returned = models.BooleanField(default=False, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -527,5 +528,44 @@ class SeverityLevel(models.Model):
         return reverse("asset_app_SeverityLevel_update", args=(self.pk,))
 
 
+class Sms(models.Model):
+
+    # Fields
+    description = models.CharField(max_length=100)
+    automatic = models.BooleanField(default=False)
+    manual = models.BooleanField(default=False)
+    button_name = models.CharField(max_length=30)
+    button_level = models.IntegerField(blank=True, null=True)
+    sms_message = models.CharField(max_length=400)
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.description)
+
+    def get_absolute_url(self):
+        return reverse("asset_app_sms_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("asset_app_sms_update", args=(self.pk,))
 
 
+class SmsLog(models.Model):
+    # Relationships
+    loan_asset = models.ForeignKey("asset_app.Loan_asset", on_delete=models.SET_NULL, blank=True, null=True)
+    sms = models.ForeignKey("asset_app.Sms", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Fields
+    sms_name = models.CharField(max_length=60)
+    sms_number = models.CharField(max_length=8)
+    sms_timestamp = models.DateTimeField()
+    sms_msg_sent = models.CharField(max_length=400)
+    sms_msg_type = models.CharField(max_length=20)
+
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.sms_timestamp)

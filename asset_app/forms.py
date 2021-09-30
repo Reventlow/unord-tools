@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from . import models
-from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition
+from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition, Loan_asset, Sms
 from tinymce.widgets import TinyMCE
 from django.db.models import Q
 
@@ -43,8 +43,8 @@ class AssetForm(forms.ModelForm):
             "purchased_date",
             "mac_address",
             "ip",
-            "notes",
             "may_be_loaned",
+            "notes",
             "is_loaned",
             "missing",
 
@@ -268,6 +268,8 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
+    sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
+
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
@@ -285,6 +287,7 @@ class Loan_assetForm(forms.ModelForm):
             "endEduDate",
             "loan_date",
             "return_date",
+            "sms_automatic",
             "returned",
             "notes",
         ]
@@ -352,6 +355,8 @@ class Loan_assetUpdateForm(forms.ModelForm):
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
+    sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
+
     notes = forms.CharField(required=False, label="Noter", max_length=448, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
 
     class Meta:
@@ -364,11 +369,11 @@ class Loan_assetUpdateForm(forms.ModelForm):
             "loaner_email",
             "loaner_type",
             "asset",
-            "asset",
             "eduName",
             "endEduDate",
             "loan_date",
             "return_date",
+            "sms_automatic",
             "returned",
             "notes",
         ]
@@ -548,3 +553,47 @@ class SeverityLevelForm(forms.ModelForm):
             "bootstrap_color",
             "sl_level",
         ]
+
+class SmsForm(forms.ModelForm):
+    description = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Indtern SMS navn'}))
+    button_name = forms.CharField(label="", max_length=30, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sms knap navn'}))
+    button_level = forms.IntegerField(required=True, label="", min_value=1, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Knap rækkefølge'}))
+    automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
+    manual = forms.BooleanField(label="Sms knap", initial=False, required=False)
+    sms_message = forms.CharField(required=False, label="Sms besked", max_length=400, widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+
+    class Meta:
+        model = models.Sms
+        fields = [
+            "description",
+            "automatic",
+            "manual",
+            "button_name",
+            "button_level",
+            "sms_message",
+        ]
+
+class SmsLogForm(forms.ModelForm):
+    loan_asset = forms.ModelChoiceField(queryset=Loan_asset.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    location = forms.ModelChoiceField(queryset=Sms.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+
+    sms_name = forms.CharField(label="", max_length=60, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Navn på udlåner'}))
+    sms_number = forms.CharField(label="", max_length=8, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Udlåner mobil nummer'}))
+    sms_timestamp = forms.DateField(label="Sms sendt:", required=False, widget=forms.widgets.DateTimeInput(format=('%d/%m/%Y %H:%M:%S'), attrs={'class': 'form-control', "type": "datetime"}))
+    sms_msg_sent = forms.CharField(required=False, label="Sms besked", max_length=400, widget=TinyMCE(attrs={'cols': 80, 'rows':50,'class': 'form-control'}))
+    sms_msg_type = forms.CharField(label="", max_length=8, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sms type'}))
+
+
+    class Meta:
+        model = models.SmsLog
+        fields = [
+            "loan_asset",
+            "sms",
+            "sms_name",
+            "sms_number",
+            "sms_timestamp",
+            "sms_msg_sent",
+            "sms_msg_type"
+        ]
+

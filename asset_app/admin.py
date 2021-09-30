@@ -222,7 +222,7 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "loaner_email",
         "loaner_type",
         "asset",
-        "asset",
+        "sms_automatic",
         "eduName",
         "loan_date",
         "return_date",
@@ -439,6 +439,46 @@ class SeverityLevelAdmin(admin.ModelAdmin):
 
     ]
 
+class SmsAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Sms
+        fields = "__all__"
+
+
+class SmsAdmin(admin.ModelAdmin):
+    form = SmsAdminForm
+    list_display = [
+        "description",
+        "automatic",
+        "manual",
+        "button_name",
+        "button_level",
+        "sms_message",
+    ]
+    readonly_fields = [
+
+    ]
+
+class SmsLogAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.SmsLog
+        fields = "__all__"
+
+class SmsLogAdmin(admin.ModelAdmin):
+    form = SmsLogAdminForm
+    list_display = [
+        "loan_asset",
+        "sms",
+        "sms_name",
+        "sms_number",
+        "sms_timestamp",
+        "sms_msg_sent",
+        "sms_msg_type"
+    ]
+    readonly_fields = [
+
+    ]
 
 
 admin.site.register(models.Asset, AssetAdmin)
@@ -461,3 +501,5 @@ admin.site.register(models.Room_type, Room_typeAdmin)
 admin.site.register(models.Routines, RoutinesAdmin)
 admin.site.register(models.RoutineLog, RoutineLogAdmin)
 admin.site.register(models.SeverityLevel, SeverityLevelAdmin)
+admin.site.register(models.Sms, SmsAdmin)
+admin.site.register(models.SmsLog, SmsLogAdmin)

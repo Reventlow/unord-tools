@@ -155,4 +155,18 @@ class SeverityLevelViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SeverityLevelSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class SmsViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Sms class"""
+
+    queryset = models.Sms.objects.all()
+    serializer_class = serializers.SmsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SmsLogViewSet(viewsets.ModelViewSet):
+    """ViewSet for the SmsLog class"""
+
+    queryset = models.SmsLog.objects.all()
+    serializer_class = serializers.SmsLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 

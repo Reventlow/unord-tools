@@ -1,8 +1,8 @@
 import requests
 import json
 from decouple import config
-from datetime import date, datetime
-from .models import Loan_asset
+from datetime import date, datetime, timedelta
+from .models import Loan_asset, Sms, SmsLog
 
 def createLoanReportPeriode(thisLocation, thisReturnDate, thisTask):
     pass
@@ -47,3 +47,147 @@ def smsSend(thisCellphone, thisMsg):
      }
     response = requests.request("POST", url, headers=headers, data=payload)
     print(response.text)
+
+
+def smsAutoLoanAsset():
+
+    message = Sms.objects.filter(description="Udlåns-SMS", flat=True).last()
+
+    queryset = Loan_asset.objects.filter(loan_date=datetime.today()).exclude(sms_automatic=False).exclude(returned=True)
+
+    sendSmsStatGorm=True
+    thisCount = 0
+    for obj in queryset:
+
+        thisCount = thisCount + 1
+        thisMsg = message.sms_message
+
+        thisName = obj.loaner_name
+        thisAsset = obj.asset
+        thisLoanDate = obj.loan_date
+        thisReturnDate = obj.return_date
+        thisMobile = int(obj.loaner_telephone_number)
+        thisLocation = obj.location
+
+        thisMsg = thisMsg.replace("#Personens navn#", thisName)
+        thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
+        thisMsg = thisMsg.replace("#udlåns dato#", thisLoanDate)
+        thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
+
+        if(thisMobile < 100000000 and thisMobile > 9999999):
+            smsSend(thisMsg, thisMsg)
+
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry.save()
+        else:
+            thisCount = thisCount - 1
+
+    if sendSmsStatGorm == True and thisCount > 0 :
+        smsSend(91330148, "SMS om ny udlån i dag er sendt til, følgende antal bruger: " + str(thisCount))
+
+def smsAutoReturnReminder():
+
+    message = Sms.objects.filter(description="Påmindelses-SMS", flat=True).last()
+
+    thisToday = datetime.today()
+    thisDaysDif = timedelta(days=3)
+    thisReminderDate = thisToday - thisDaysDif
+
+    queryset = Loan_asset.objects.filter(return_date=thisReminderDate).exclude(sms_automatic=False).exclude(returned=True)
+
+    sendSmsStatGorm=True
+    thisCount = 0
+    for obj in queryset:
+
+        thisCount = thisCount + 1
+        thisMsg = message.sms_message
+
+        thisName = obj.loaner_name
+        thisAsset = obj.asset
+        thisLoanDate = obj.loan_date
+        thisReturnDate = obj.return_date
+        thisMobile = int(obj.loaner_telephone_number)
+        thisLocation = obj.location
+
+        thisMsg = thisMsg.replace("#Personens navn#", thisName)
+        thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
+        thisMsg = thisMsg.replace("#udlåns dato#", thisLoanDate)
+        thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
+
+        if(thisMobile < 100000000 and thisMobile > 9999999):
+            smsSend(thisMsg, thisMsg)
+
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry.save()
+        else:
+            thisCount = thisCount - 1
+
+    if sendSmsStatGorm == True and thisCount > 0 :
+        smsSend(91330148, "SMS om husk at aflever om 3 dage, er sendt til følgende antal bruger: " + str(thisCount))
+
+def smsAutoLateReturn():
+
+    message = Sms.objects.filter(description="Påmindelses-SMS", flat=True).last()
+
+    thisToday = datetime.today()
+    thisDaysDif = timedelta(days=3)
+    thisReminderDate = thisToday + thisDaysDif
+
+    queryset = Loan_asset.objects.filter(return_date=thisReminderDate).exclude(sms_automatic=False).exclude(returned=True)
+
+    sendSmsStatGorm=True
+    thisCount = 0
+    for obj in queryset:
+
+        thisCount = thisCount + 1
+        thisMsg = message.sms_message
+
+        thisName = obj.loaner_name
+        thisAsset = obj.asset
+        thisLoanDate = obj.loan_date
+        thisReturnDate = obj.return_date
+        thisMobile = int(obj.loaner_telephone_number)
+        thisLocation = obj.location
+
+        thisMsg = thisMsg.replace("#Personens navn#", thisName)
+        thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
+        thisMsg = thisMsg.replace("#udlåns dato#", thisLoanDate)
+        thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
+
+        if(thisMobile < 100000000 and thisMobile > 9999999):
+            smsSend(thisMsg, thisMsg)
+
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry.save()
+        else:
+            thisCount = thisCount - 1
+
+    if sendSmsStatGorm == True and thisCount > 0 :
+        smsSend(91330148, "SMS om husk at aflever om 3 dage, er sendt til følgende antal bruger: " + str(thisCount))
+
+def smsButtonLateReturn(thisId):
+
+    message = Sms.objects.filter(description="Rykker-SMS", flat=True).last()
+    obj = Loan_asset.objects.filter(id=thisId, flat=True).last()
+    thisMsg = message.sms_message
+
+
+
+    thisName = obj.loaner_name
+    thisAsset = obj.asset
+    thisLoanDate = obj.loan_date
+    thisReturnDate = obj.return_date
+    thisMobile = int(obj.loaner_telephone_number)
+    thisLocation = obj.location
+
+    thisMsg = thisMsg.replace("#Personens navn#", thisName)
+    thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
+    thisMsg = thisMsg.replace("#udlåns dato#", thisLoanDate)
+    thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
+
+    if(thisMobile < 100000000 and thisMobile > 9999999):
+        smsSend(thisMsg, thisMsg)
+
+        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+        new_SmsLog_entry.save()
+

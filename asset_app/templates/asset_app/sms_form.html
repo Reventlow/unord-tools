@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<p>
+    <a class="btn btn-primary" href="{% url 'asset_app_sms_list' %}">
+    Sms type oversigt
+    </a>
+</p>
+ <div class="col-6 col-md-4 offset-md-3">
+ <h1>Opret sms type</h1>
+<form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+  {{form.errors}}
+    {{form.as_p}}
+  <input type="submit" value="Gem" class="btn btn-primary">
+</form></div>
+
+{% endblock %}

@@ -149,7 +149,7 @@ class Loan_assetSerializer(serializers.ModelSerializer):
             "loaner_email",
             "loaner_type",
             "asset",
-            "asset",
+            "sms_automatic",
             "eduName",
             "loan_date",
             "return_date",
@@ -287,5 +287,31 @@ class SeverityLevelSerializer(serializers.ModelSerializer):
 
         ]
 
+class SmsSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = models.SeverityLevel
+        fields = [
+            "description",
+            "automatic",
+            "manual",
+            "button_name",
+            "button_level",
+            "sms_message",
 
+        ]
+
+class SmsLogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SeverityLevel
+        fields = [
+            "loan_asset",
+            "sms",
+            "sms_name",
+            "sms_number",
+            "sms_timestamp",
+            "sms_msg_sent",
+            "sms_msg_type"
+
+        ]

@@ -138,10 +138,10 @@
                     </ul>
                 </li>
 
-                <!-- Udlån system -->
+                <!-- Udlån -->
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Udlån system</a>
+                    Udlån</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_list' %}">Udlåns status</a></li>
                         <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_create' %}">Reg. udlaan</a></li>
@@ -160,7 +160,21 @@
                             type</a></li>
                     </ul>
                 </li>
-
+                <!-- SMS -->
+                {% if 1 == 1 %}
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sms</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'asset_app_sms_list' %}">Sms type liste</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_sms_create' %}">Opret sms type</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_SmsLog_list' %}">Sendt sms log</a></li>
+                    </ul>
+                </li>
+                {% endif %}
                 <!-- Fejlmelde System -->
                 {% if 1 == 0 %}
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

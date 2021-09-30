@@ -27,6 +27,8 @@ router.register("room_type", api.Room_typeViewSet)
 router.register("Routines", api.RoutinesViewSet)
 router.register("RoutineLog", api.RoutineLogViewSet)
 router.register("SeverityLevel", api.SeverityLevelViewSet)
+router.register("Sms", api.SmsViewSet)
+router.register("SmsLog", api.SmsLogViewSet)
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
@@ -100,6 +102,7 @@ urlpatterns = [
     path("asset_app/dashboard/return/filter/<loc_name>/<return_date>/<returned>/<task>/", views.Loan_assetListFilterView.as_view(), name="asset_app_loan_asset_list_filter"),
     path("asset_app/loan_asset/excel/", views.Loan_assetListExcelView.as_view(), name="asset_app_loan_excel_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
+    path("asset_app/loan_asset/sms-button/late_return/<int:pk>", views.Loan_assetListView.buttonSmsReturnLate, name="asset_app_loan_asset_sms_button_late_return"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),
     path("asset_app/loan_asset/update/<int:pk>/", views.Loan_assetUpdateView.as_view(), name="asset_app_loan_asset_update"),
     path('asset_app/loan_asset/returned_true/<res_id>', views.Loan_assetListView.returned_true, name='asset_app_loan_asset_returned_true'),
@@ -107,7 +110,7 @@ urlpatterns = [
     path('asset_app/loan_asset/detail/filter/returned_true/<loc_name>/<return_date>/<returned>/<task>/<int:pk>', views.Loan_assetListFilterView.returned_true, name='asset_asset_detail_filter_returned_true'),
     path('asset_app/loan_asset/detail/filter/returned_false/<loc_name>/<return_date>/<returned>/<task>/<int:pk>', views.Loan_assetListFilterView.returned_false, name='asset_asset_detail_filter_returned_false'),
 
-    #LoanerType
+#LoanerType
     path("asset_app/loaner_type/", views.Loaner_typeListView.as_view(), name="asset_app_loaner_type_list"),
     path("asset_app/loaner_type/create/", views.Loaner_typeCreateView.as_view(), name="asset_app_loaner_type_create"),
     path("asset_app/loaner_type/detail/<int:pk>/", views.Loaner_typeDetailView.as_view(), name="asset_app_loaner_type_detail"),
@@ -180,7 +183,14 @@ urlpatterns = [
     path("asset_app/severity_level/detail/<int:pk>/", views.SeverityLevelDetailView.as_view(),name="asset_app_SeverityLevel_detail"),
     path("asset_app/severity_level/update/<int:pk>/", views.SeverityLevelUpdateView.as_view(),name="asset_app_SeverityLevel_update"),
     path("asset_app/severity_level/delete/<int:pk>/", views.SeverityLevelListView.delete, name="asset_app_SeverityLevel_delete"),
-
+#SMS
+    path("asset_app/Sms/", views.SmsListView.as_view(), name="asset_app_sms_list"),
+    path("asset_app/Sms/create/", views.SmsCreateView.as_view(), name="asset_app_sms_create"),
+    path("asset_app/Sms/detail/<int:pk>/", views.SmsDetailView.as_view(), name="asset_app_sms_detail"),
+    path("asset_app/Sms/update/<int:pk>/", views.SmsUpdateView.as_view(), name="asset_app_sms_update"),
+    path("asset_app/Sms/delete/<int:pk>/", views.SmsListView.delete, name="asset_app_Sms_delete"),
+#SMS log
+    path("asset_app/SmsLog/", views.SmsLogListView.as_view(), name="asset_app_SmsLog_list"),
 
 
 ]

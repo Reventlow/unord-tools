@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load date_tags %}
+{% block content %}
+
+    <div><a class="btn btn-primary" href="{% url 'asset_app_sms_create' %}">Opret ny sms type</a></div>
+    <br/>
+    <h1>Sms type oversigt</h1>
+
+    <br/>
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Sms intern navn</td>
+                   <td>
+                    <center>Sms knap navn</center>
+                </td>
+                <td>
+                    <center>Sms niveau (1 kommer først)</center>
+                </td>
+                <td>
+                    <center>Automatisk</center>
+                </td>
+                <td>
+                    <center>Manuelt</center>
+                </td>
+                <td>
+                    <center>Besked</center>
+                </td>
+                <td>
+                    <center>Slet</center>
+                </td>
+            </tr>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.description }} <a href="{{ object.get_absolute_url }}"
+                                             class="badge rounded-pill bg-dark">Detaljer</a> <a
+                            href="{{ object.get_update_url }}"
+                            class="badge rounded-pill bg-dark">Rediger</a>
+
+
+                        {% if  object.notes %}
+                            <!-- Button trigger modal -->
+                            <span class="badge rounded-pill bg-success" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal{{ object.id }}">
+  Note
+</span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{ object.id }}" tabindex="-1"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Noter
+                                                på {{ object.name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        <div class="modal-body">
+                                            {{ object.notes|safe}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        {% endif %}
+
+</td>
+                    <td>
+                        <center>{{ object.button_name }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.button_level }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.automatic }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.manual }}</center>
+                    </td>
+                    <td>
+                        <center>{{ object.sms_message }}</center>
+                    </td>
+                    <td>
+                        <center>
+                            <a href="#{% url 'asset_app_Sms_delete' object.id %}" class="btn btn-danger btn-sm "
+                               tabindex="-1" role="button" aria-disabled="true">Slet</a></center>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
