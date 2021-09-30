@@ -51,7 +51,7 @@ def smsSend(thisCellphone, thisMsg):
 
 def smsAutoLoanAsset():
 
-    message = Sms.objects.filter(description="Udlåns-SMS", flat=True).last()
+    message = Sms.objects.filter(description="Udlåns-SMS").last()
 
     queryset = Loan_asset.objects.filter(loan_date=datetime.today()).exclude(sms_automatic=False).exclude(returned=True)
 
@@ -87,7 +87,7 @@ def smsAutoLoanAsset():
 
 def smsAutoReturnReminder():
 
-    message = Sms.objects.filter(description="Påmindelses-SMS", flat=True).last()
+    message = Sms.objects.filter(description="Påmindelses-SMS").last()
 
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
@@ -127,7 +127,7 @@ def smsAutoReturnReminder():
 
 def smsAutoLateReturn():
 
-    message = Sms.objects.filter(description="Påmindelses-SMS", flat=True).last()
+    message = Sms.objects.filter(description="Påmindelses-SMS").last()
 
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
@@ -167,8 +167,8 @@ def smsAutoLateReturn():
 
 def smsButtonLateReturn(thisId):
 
-    message = Sms.objects.filter(description="Rykker-SMS", flat=True).last()
-    obj = Loan_asset.objects.filter(id=thisId, flat=True).last()
+    message = Sms.objects.filter(description="Rykker-SMS").last()
+    obj = Loan_asset.objects.filter(id=thisId).last()
     thisMsg = message.sms_message
 
 

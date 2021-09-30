@@ -115,7 +115,7 @@
                     {% else %}
                         <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
                         {% if object.return_date < today %}
-                            <br/> <a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-secondary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
+                            <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-primary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
                         {% endif %}
                     {% endif %}
                 </td>
