@@ -77,7 +77,7 @@ def smsAutoLoanAsset():
         if(thisMobile < 100000000 and thisMobile > 9999999):
             smsSend(thisMobile, thisMsg)
 
-            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset)
             new_SmsLog_entry.save()
         else:
             thisCount = thisCount - 1
@@ -117,7 +117,7 @@ def smsAutoReturnReminder():
         if(thisMobile < 100000000 and thisMobile > 9999999):
             smsSend(thisMobile, thisMsg)
 
-            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset)
             new_SmsLog_entry.save()
         else:
             thisCount = thisCount - 1
@@ -157,7 +157,7 @@ def smsAutoLateReturn():
         if(thisMobile < 100000000 and thisMobile > 9999999):
             smsSend(thisMobile, thisMsg)
 
-            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
+            new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset)
             new_SmsLog_entry.save()
         else:
             thisCount = thisCount - 1
