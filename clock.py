@@ -1,10 +1,20 @@
+import django
 from apscheduler.schedulers.blocking import BlockingScheduler
 from django.conf import settings
 import UnordToolsProject
 from UnordToolsProject import settings
-from asset_app.tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
+
 from django.core.exceptions import ImproperlyConfigured
 import os
+import sys
+sys.path.append(
+    os.path.join(os.path.dirname(__file__), 'UnordToolsProject')
+)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "UnordToolsProject.settings")
+
+from django.conf import settings
+django.setup()
+from asset_app.tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
 
 
 sched = BlockingScheduler()
