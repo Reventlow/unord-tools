@@ -189,6 +189,6 @@ def smsButtonLateReturn(thisId):
     if(thisMobile < 100000000 and thisMobile > 9999999):
         smsSend(thisMobile, thisMsg)
 
-        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=obj.asset.id)
+        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=thisId)
         new_SmsLog_entry.save()
 
