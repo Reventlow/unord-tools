@@ -1,4 +1,5 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
+from tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
 
 sched = BlockingScheduler()
 
@@ -8,11 +9,12 @@ def timed_job():
 
 @sched.scheduled_job('cron', day_of_week='mon-sun', hour=7)
 def scheduled_job_everyday_seven_am():
-    pass
+    smsAutoLateReturn()
+    smsAutoReturnReminder()
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour=16)
 def scheduled_job_weekdays_four_pm():
-    pass
+    smsAutoLoanAsset()
 
 
 
