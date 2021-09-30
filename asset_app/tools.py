@@ -62,6 +62,7 @@ def smsAutoLoanAsset():
         thisCount = thisCount + 1
         thisMsg = message.sms_message
 
+        thisId = obj.id
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
@@ -102,6 +103,7 @@ def smsAutoReturnReminder():
         thisCount = thisCount + 1
         thisMsg = message.sms_message
 
+        thisId = obj.id
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
@@ -142,6 +144,7 @@ def smsAutoLateReturn():
         thisCount = thisCount + 1
         thisMsg = message.sms_message
 
+        thisId = obj.id
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
