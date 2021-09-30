@@ -2,7 +2,7 @@ import requests
 import json
 from decouple import config
 from datetime import date, datetime, timedelta
-from .models import Loan_asset, Sms, SmsLog
+from models import Loan_asset, Sms, SmsLog
 
 def createLoanReportPeriode(thisLocation, thisReturnDate, thisTask):
     pass
