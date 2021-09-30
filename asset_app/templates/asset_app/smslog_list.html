@@ -34,7 +34,7 @@
                     <center>Besked type</center>
                 </td>
                 <td>
-                    <center>Sms tilknyttet udlån/center>
+                    <center>Sms tilknyttet udlån</center>
                 </td>
             </tr>
             {% for object in object_list %}
@@ -46,7 +46,7 @@
                         <center>{{ object.sms_number }}</center>
                     </td>
                     <td>
-                        <center>{{ object.sms_msg_sent }}</center>
+                        {{ object.sms_msg_sent }}
                     </td>
                     <td>
                         <center>{{ object.sms_timestamp }}</center>
