@@ -75,7 +75,7 @@ def smsAutoLoanAsset():
         thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
 
         if(thisMobile < 100000000 and thisMobile > 9999999):
-            smsSend(thisMsg, thisMsg)
+            smsSend(thisMobile, thisMsg)
 
             new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
             new_SmsLog_entry.save()
@@ -115,7 +115,7 @@ def smsAutoReturnReminder():
         thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
 
         if(thisMobile < 100000000 and thisMobile > 9999999):
-            smsSend(thisMsg, thisMsg)
+            smsSend(thisMobile, thisMsg)
 
             new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
             new_SmsLog_entry.save()
@@ -155,7 +155,7 @@ def smsAutoLateReturn():
         thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
 
         if(thisMobile < 100000000 and thisMobile > 9999999):
-            smsSend(thisMsg, thisMsg)
+            smsSend(thisMobile, thisMsg)
 
             new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset=obj.asset, location=thisLocation)
             new_SmsLog_entry.save()
@@ -187,7 +187,7 @@ def smsButtonLateReturn(thisId):
     thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
 
     if(thisMobile < 100000000 and thisMobile > 9999999):
-        smsSend(thisMsg, thisMsg)
+        smsSend(thisMobile, thisMsg)
 
         new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=obj.asset.id)
         new_SmsLog_entry.save()
