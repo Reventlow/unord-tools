@@ -175,7 +175,7 @@ def smsButtonLateReturn(thisId):
 
 
     thisName = obj.loaner_name
-    thisAsset = obj.asset.name
+    thisAsset = obj.asset.model_hardware.asset_type.name + ": " + obj.asset.name
     thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
     thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
     thisMobile = int(obj.loaner_telephone_number)
