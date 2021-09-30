@@ -64,8 +64,8 @@ def smsAutoLoanAsset():
 
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
-        thisLoanDate = obj.loan_date
-        thisReturnDate = obj.return_date
+        thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
+        thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
         thisMobile = int(obj.loaner_telephone_number)
         thisLocation = obj.location
 
@@ -104,8 +104,8 @@ def smsAutoReturnReminder():
 
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
-        thisLoanDate = obj.loan_date
-        thisReturnDate = obj.return_date
+        thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
+        thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
         thisMobile = int(obj.loaner_telephone_number)
         thisLocation = obj.location
 
@@ -144,8 +144,8 @@ def smsAutoLateReturn():
 
         thisName = obj.loaner_name
         thisAsset = obj.asset.name
-        thisLoanDate = obj.loan_date
-        thisReturnDate = obj.return_date
+        thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
+        thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
         thisMobile = int(obj.loaner_telephone_number)
         thisLocation = obj.location
 
@@ -175,8 +175,8 @@ def smsButtonLateReturn(thisId):
 
     thisName = obj.loaner_name
     thisAsset = obj.asset.name
-    thisLoanDate = obj.loan_date
-    thisReturnDate = obj.return_date
+    thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
+    thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
     thisMobile = int(obj.loaner_telephone_number)
     thisLocation = obj.location
 
