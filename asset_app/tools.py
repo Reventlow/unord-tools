@@ -68,7 +68,7 @@ def smsAutoLoanAsset():
         thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
         thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
         thisMobile = int(obj.loaner_telephone_number)
-        thisLocation = obj.location
+
 
         thisMsg = thisMsg.replace("#Personens navn#", thisName)
         thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
