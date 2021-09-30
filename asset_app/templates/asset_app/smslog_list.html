@@ -49,7 +49,7 @@
                         {{ object.sms_msg_sent }}
                     </td>
                     <td>
-                        <center>{{ object.sms_timestamp }}</center>
+                        <center>{{ object.sms_timestamp.strftime("%m/%d/%Y, %H:%M:%S") }}</center>
                     </td>
                     <td>
                         <center>{{ object.sms_msg_type }}</center>
