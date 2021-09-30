@@ -1,7 +1,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
-import UnordToolsProject.settings
+from django.conf import settings
 
+settings.configure()
 
 sched = BlockingScheduler()
 
