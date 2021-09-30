@@ -13,9 +13,9 @@ sys.path.append(
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "UnordToolsProject.settings")
 
 from django.conf import settings
-print("django.setup() start")
+
 django.setup()
-print("django.setup() complete")
+
 from asset_app.tools import smsAutoLateReturn, smsAutoReturnReminder, smsAutoLoanAsset
 
 
