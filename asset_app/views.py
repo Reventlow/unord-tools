@@ -2011,7 +2011,7 @@ class SmsLogListView(generic.ListView):
     form_class = forms.SmsLogForm
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-sms_msg_sent')
+        queryset = super().get_queryset().order_by('-sms_timestamp')
         return queryset
 
 
