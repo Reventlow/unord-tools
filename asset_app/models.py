@@ -1,10 +1,8 @@
 from django.db import models
 from django.urls import reverse
-from UnordToolsProject.storage_backends import PublicMediaStorage
-from django.conf import settings
-
-settings.configure()
 from tinymce.models import HTMLField
+
+from UnordToolsProject.storage_backends import PublicMediaStorage
 
 
 class Asset(models.Model):
