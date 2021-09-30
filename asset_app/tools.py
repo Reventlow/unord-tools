@@ -34,7 +34,7 @@ def dateWeekday(thisDate):
 def smsSend(thisCellphone, thisMsg):
     url = "https://api.sms.dk/v1/sms/send"
     payload = json.dumps({
-        "receiver": int(str(45) + str(thisCellphone)),
+        "receiver": int("45" + str(thisCellphone)),
         "senderName": "U/Nord IT",
         "message": thisMsg,
         "format": "gsm",
