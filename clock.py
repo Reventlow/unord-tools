@@ -24,9 +24,8 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=1)
 def timed_job():
     #test
-    print("sms try")
-    smsAutoLoanAsset()
-    print("sms complete")
+
+
 
 @sched.scheduled_job('cron', day_of_week='mon-sun', hour=7)
 def scheduled_job_everyday_seven_am():
