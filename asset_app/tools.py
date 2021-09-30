@@ -63,7 +63,7 @@ def smsAutoLoanAsset():
         thisMsg = message.sms_message
 
         thisName = obj.loaner_name
-        thisAsset = obj.asset
+        thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date
         thisReturnDate = obj.return_date
         thisMobile = int(obj.loaner_telephone_number)
@@ -103,7 +103,7 @@ def smsAutoReturnReminder():
         thisMsg = message.sms_message
 
         thisName = obj.loaner_name
-        thisAsset = obj.asset
+        thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date
         thisReturnDate = obj.return_date
         thisMobile = int(obj.loaner_telephone_number)
@@ -143,7 +143,7 @@ def smsAutoLateReturn():
         thisMsg = message.sms_message
 
         thisName = obj.loaner_name
-        thisAsset = obj.asset
+        thisAsset = obj.asset.name
         thisLoanDate = obj.loan_date
         thisReturnDate = obj.return_date
         thisMobile = int(obj.loaner_telephone_number)
@@ -174,7 +174,7 @@ def smsButtonLateReturn(thisId):
 
 
     thisName = obj.loaner_name
-    thisAsset = obj.asset
+    thisAsset = obj.asset.name
     thisLoanDate = obj.loan_date
     thisReturnDate = obj.return_date
     thisMobile = int(obj.loaner_telephone_number)
