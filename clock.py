@@ -24,7 +24,7 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=1)
 def timed_job():
     #test
-
+    pass
 
 
 @sched.scheduled_job('cron', day_of_week='mon-sun', hour=7)
