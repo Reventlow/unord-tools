@@ -1174,8 +1174,7 @@ class Loan_assetDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['smsLogs'] = models.SmsLog.objects.filter(loan_asset_id=366).order_by('-sms_timestamp')
-        context["test"] = self.kwargs.get('pk')
+        context['smsLogs'] = models.SmsLog.objects.filter(loan_asset_id=self.kwargs.get('pk')).order_by('-sms_timestamp')
         return context
 
 
