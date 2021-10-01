@@ -11,7 +11,7 @@
     Opret udlån
     </a>
 </p>
-    <h2>{{ object.loaner_name }} lån af<br/>>{{ object.asset.name }} ({{ object.asset.model_hardware.brand.name}} {{ object.asset.model_hardware.name }})</h2>
+    <h2>{{ object.loaner_name }} lån af<br/>{{ object.asset.name }} ({{ object.asset.model_hardware.brand.name}} {{ object.asset.model_hardware.name }})</h2>
 <table class="table">
     <tr><td>Udlåners navn</td><td>{{ object.loaner_name }}</td></tr>
     <tr><td>Udlåners telefon nummer</td><td>{% if object.loaner_telephone_number != "0" %}{{ object.loaner_telephone_number }}{% endif %}</td></tr>
