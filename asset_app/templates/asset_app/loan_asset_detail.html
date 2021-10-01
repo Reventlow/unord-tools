@@ -17,9 +17,9 @@
     <tr><td>Udlåners telefon nummer</td><td>{% if object.loaner_telephone_number != "0" %}{{ object.loaner_telephone_number }}{% endif %}</td></tr>
     <tr><td>Udlåners email</td><td>{{ object.loaner_email }}</td></tr>
     <tr><td>Udlåns quicklink</td><td><a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a></td></tr>
-    <tr><td>Udstyr</td><td><a href="{% url 'asset_app_asset_detail' object.asset.id %}" class="btn btn-info btn-sm" target="_blank">{{ object.asset.name }}</a></td></tr>
-    <tr><td>Udstyr model</td><td><a href="{% url 'asset_app_model_hardware_detail' object.asset.model_hardware.id %}" class="btn btn-secondary btn-sm" target="_blank">{{ object.asset.model_hardware.brand.name}} {{ object.asset.model_hardware.name }}</a></td></tr>
-    <tr><td>Udstyr type</td><td><a href="{% url 'asset_app_asset_type_detail' object.asset.model_hardware.asset_type.id %}" class="btn btn-secondary btn-sm" target="_blank">{{ object.asset.model_hardware.asset_type }}</a></td></tr>
+    <tr><td>Udstyr</td><td><a href="{% url 'asset_app_asset_detail' object.asset.id %}" class="btn btn-info btn-sm" >{{ object.asset.name }}</a></td></tr>
+    <tr><td>Udstyr model</td><td><a href="{% url 'asset_app_model_hardware_detail' object.asset.model_hardware.id %}" class="btn btn-secondary btn-sm" >{{ object.asset.model_hardware.brand.name}} {{ object.asset.model_hardware.name }}</a></td></tr>
+    <tr><td>Udstyr type</td><td><a href="{% url 'asset_app_asset_type_detail' object.asset.model_hardware.asset_type.id %}" class="btn btn-secondary btn-sm" >{{ object.asset.model_hardware.asset_type }}</a></td></tr>
     <tr><td>Elev/kursist udd.</td><td>{{ object.eduName }}</td></tr>
     <tr><td>Elev/kursist udd. slut dato</td><td>{% if object.endEduDate %}{{ object.endEduDate }}{% endif %}</td></tr>
     <tr><td>Udlåns dato</td><td>{{ object.loan_date }}</td></tr>
