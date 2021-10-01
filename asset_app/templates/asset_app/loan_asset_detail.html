@@ -33,4 +33,44 @@
 </table>
 <a class="btn btn-primary" href="{{object.get_update_url}}">Rediger</a>
 
+        {% if object_list %}
+        <table class="table">
+            <tr class="table-dark">
+                <td>Modtagers navn</td>
+                   <td>
+                    <div style="text-align: center;">Modtager mobil</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Besked</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Sendt</div>
+                </td>
+                <td>
+                    <div style="text-align: center;">Besked type</div>
+                </td>
+            </tr>
+            {% for object in smsLogs %}
+                <tr>
+                    <td>
+                        {{ object.sms_name }}
+                    </td>
+                    <td>
+                        <div style="text-align: center;">{{ object.sms_number }}</div>
+                    </td>
+                    <td style="width:55%">
+                        {{ object.sms_msg_sent }}
+                    </td>
+                    <td>
+                        <div style="text-align: center;">{{ object.sms_timestamp|date:'d-m-Y H:i:s' }}</div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">{{ object.sms_msg_type }}</div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% endif %}
+
 {% endblock %}

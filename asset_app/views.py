@@ -1172,6 +1172,11 @@ class Loan_assetDetailView(generic.DetailView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['smsLogs'] = models.SmsLog.objects.filter(loan_asset_id=pk).order_by('-sms_timestamp')
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class Loan_assetUpdateView(generic.UpdateView):
