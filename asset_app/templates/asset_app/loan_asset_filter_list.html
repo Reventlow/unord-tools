@@ -4,7 +4,7 @@
 
     <div><a class="btn btn-primary" href="{% url 'asset_app_loan_asset_create' %}">Reg nyt udlån</a> <a class="btn btn-info" href="{% url 'asset_app_dashboard_return' %}">Retur oversigt</a> <a class="btn btn-success" href="{% url 'asset_app_loan_excel_list'  %}">Exporter til excel</a></div>
 <br/>
-     <h1>Udlaan oversigt</h1>
+     <h1>Udån oversigt</h1>
 
     <br/>
     {% if messages %}
@@ -113,7 +113,10 @@
                     {% if object.returned %}
                         <a href="{% url 'asset_asset_detail_filter_returned_true' object.location object.return_date object.returned "currentDate" object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
                     {% else %}
-                        <a href="{% url 'asset_asset_detail_filter_returned_false' object.location object.return_date object.returned "currentDate" object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+<a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                        {% if object.return_date < today %}
+                            <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-primary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
+                        {% endif %}
                     {% endif %}
                 </td>
                 </tr>
