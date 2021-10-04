@@ -93,7 +93,7 @@ def smsAutoReturnReminder():
 
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
-    thisReminderDate = thisToday - thisDaysDif
+    thisReminderDate = thisToday + thisDaysDif
     #print("thisReminderDate"+str(thisReminderDate))
 
     queryset = Loan_asset.objects.filter(return_date=thisReminderDate).exclude(sms_automatic=False).exclude(returned=True)
@@ -136,7 +136,7 @@ def smsAutoLateReturn():
 
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
-    thisReminderDate = thisToday + thisDaysDif
+    thisReminderDate = thisToday - thisDaysDif
 
     queryset = Loan_asset.objects.filter(return_date=thisReminderDate).exclude(sms_automatic=False).exclude(returned=True)
 
