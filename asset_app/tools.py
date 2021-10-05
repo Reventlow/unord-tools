@@ -132,7 +132,7 @@ def smsAutoReturnReminder():
 
 def smsAutoLateReturn():
 
-    message = Sms.objects.filter(description="Påmindelses-SMS").last()
+    message = Sms.objects.filter(description="Rykker-SMS").last()
 
     thisToday = datetime.today()
     thisDaysDif = timedelta(days=3)
