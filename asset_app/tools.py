@@ -169,7 +169,7 @@ def smsAutoLateReturn():
             thisCount = thisCount - 1
 
     if sendSmsStatGorm == True and thisCount > 0 :
-        smsSend(91330148, "SMS om husk at aflever om 3 dage, er sendt til følgende antal bruger: " + str(thisCount))
+        smsSend(91330148, "SMS om at afleve4r for 3 dage siden, er sendt til følgende antal bruger: " + str(thisCount))
 
 def smsButtonLateReturn(thisId):
 
