@@ -103,6 +103,7 @@ urlpatterns = [
     path("asset_app/loan_asset/excel/", views.Loan_assetListExcelView.as_view(), name="asset_app_loan_excel_list"),
     path("asset_app/loan_asset/create/", views.Loan_assetCreateView.as_view(), name="asset_app_loan_asset_create"),
     path("asset_app/loan_asset/sms-button/late_return/<int:pk>", views.Loan_assetListView.buttonSmsReturnLate, name="asset_app_loan_asset_sms_button_late_return"),
+    path("asset_app/loan_asset/sms-button/return_reminder/<int:pk>", views.Loan_assetListView.buttonSmsReturnReminder, name="asset_app_loan_asset_sms_button_return_reminder"),
     path("asset_app/loan_asset/detail/<int:pk>/", views.Loan_assetDetailView.as_view(), name="asset_app_loan_asset_detail"),
     path("asset_app/loan_asset/update/<int:pk>/", views.Loan_assetUpdateView.as_view(), name="asset_app_loan_asset_update"),
     path('asset_app/loan_asset/returned_true/<res_id>', views.Loan_assetListView.returned_true, name='asset_app_loan_asset_returned_true'),

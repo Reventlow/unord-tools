@@ -19,7 +19,7 @@ from . import forms
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
-from .tools import smsButtonLateReturn, dateWeekday
+from .tools import smsButtonLateReturn, dateWeekday, smsButtonReturnReminder
 
 
 
@@ -934,6 +934,10 @@ class Loan_assetListView(generic.ListView):
 
     def buttonSmsReturnLate(self, pk):
         smsButtonLateReturn(pk)
+        return redirect('asset_app_loan_asset_detail', pk)
+
+    def buttonSmsReturnReminder(self, pk):
+        smsButtonReturnReminder(pk)
         return redirect('asset_app_loan_asset_detail', pk)
 
     def get_queryset(self):

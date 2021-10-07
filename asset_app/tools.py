@@ -198,3 +198,31 @@ def smsButtonLateReturn(thisId):
         new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=thisId)
         new_SmsLog_entry.save()
 
+def smsButtonReturnReminder(thisId):
+
+    message = Sms.objects.filter(description="Påmindelses-SMS").last()
+    obj = Loan_asset.objects.filter(id=thisId).last()
+    thisMsg = message.sms_message
+
+
+
+
+    thisName = obj.loaner_name
+    thisAsset = obj.asset.model_hardware.asset_type.name + ": " + obj.asset.name
+    thisLoanDate = obj.loan_date.strftime('%d-%m-%Y')
+    thisReturnDate = obj.return_date.strftime('%d-%m-%Y')
+    thisMobile = int(obj.loaner_telephone_number)
+
+
+    thisMsg = thisMsg.replace("#Personens navn#", thisName)
+    thisMsg = thisMsg.replace("#Udstyr#", thisAsset)
+    thisMsg = thisMsg.replace("#udlåns dato#", thisLoanDate)
+    thisMsg = thisMsg.replace("#afleverings dato#", thisReturnDate)
+
+    if(thisMobile < 100000000 and thisMobile > 9999999):
+        smsSend(thisMobile, thisMsg)
+
+        new_SmsLog_entry = SmsLog(sms_name=thisName, sms_number=thisMobile, sms_timestamp=datetime.now(), sms_msg_sent=thisMsg, sms_msg_type="Manuelt", loan_asset_id=thisId)
+        new_SmsLog_entry.save()
+
+
