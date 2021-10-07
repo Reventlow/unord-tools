@@ -86,7 +86,11 @@
 
 
 {% endif %}<br>
-                    Tlf: {{ object.loaner_telephone_number }}<br/>
+                    {% if object.loaner_telephone_number != "0" %}
+                        Tlf: {{ object.loaner_telephone_number }}<br/>
+                    {% else %}
+                        Tlf: Ingen nummer registret<br/>
+                    {% endif %}
                     email: {{ object.loaner_email }}
                     </td>
                     <td>
