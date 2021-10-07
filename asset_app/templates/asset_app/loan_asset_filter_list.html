@@ -27,9 +27,7 @@
                 <td>
                     <div style="text-align: center;">Udlåner</div>
                 </td>
-                <td>
-                    <div style="text-align: center;">Kontakt</div>
-                </td>
+
                 <td>
                     <div style="text-align: center;">Udstyr</div>
                 </td>
@@ -87,7 +85,9 @@
 
 
 
-{% endif %}
+{% endif %}<br>
+                    Tlf: {{ object.loaner_telephone_number }}<br/>
+                    email: {{ object.loaner_email }}
                     </td>
                     <td>
                     <div style="text-align: center;">{{ object.location }}</div>
@@ -95,9 +95,7 @@
                 <td>
                     <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
                 </td>
-                <td>
-                    <div style="text-align: center;">{{ object.loaner_telephone_number }}<br/>{{ object.loaner_email }}</div>
-                </td>
+
                 <td>
                     <div style="text-align: center;">{{ object.asset.name }}<br/>{{ object.asset.model_hardware.asset_type.name }}<br/>{{ object.asset.model_hardware.name }}</div>
                 </td>
