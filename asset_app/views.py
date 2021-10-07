@@ -1268,7 +1268,7 @@ class LocationLaptopListView(generic.ListView):
 
     def get_queryset(self):
         location = self.kwargs['location']
-        queryset = super().get_queryset().filter(room__location__name=location).filter(may_be_loaned=True).order_by('name')
+        queryset = super().get_queryset().filter(room__location__name=location).filter(may_be_loaned=True).exclude(returned=True).order_by('name')
         return queryset
 
 
