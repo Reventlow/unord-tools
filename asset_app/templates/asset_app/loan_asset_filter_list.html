@@ -115,9 +115,11 @@
                     {% if object.returned %}
                         <a href="{% url 'asset_asset_detail_filter_returned_true' object.location object.return_date object.returned "currentDate" object.id %}" class="btn btn-warning btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker ikke returneret</a>
                     {% else %}
-<a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
+                        <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
                         {% if object.return_date < today %}
-                            <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-primary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
+                            {% if object.loaner_telephone_number != "0" %}
+                                <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-primary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
+                            {% endif %}
                         {% else %}
                             {% if object.loaner_telephone_number != "0" %}
                                 <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_return_reminder' object.id %}" class="btn btn-primary btn-sm " tabindex="-1" role="button" aria-disabled="true">Send påmindelse Sms</a>
