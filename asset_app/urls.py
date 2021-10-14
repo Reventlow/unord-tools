@@ -39,7 +39,7 @@ urlpatterns = [
     path('asset_app/asset/detail/returned_true/<int:pk>', views.AssetDetailView.returned_true, name='asset_asset_detail_returned_true'),
     path('asset_app/asset/detail/returned_false/<int:pk>', views.AssetDetailView.returned_false, name='asset_asset_detail_returned_false'),
     path("asset_app/asset/update/<int:pk>/", views.AssetUpdateView.as_view(), name="asset_app_asset_update"),
-    path("asset_app/asset/addMonthToLoan/<int:pk>/", views.AssetDetailView.addMonthToReturnDate, name="asset_app_asset_add_month_to_loan"),
+    path("asset_app/asset/addMonthToLoan/<int:pk>/", views.AssetDetailView.addMonthToCurrentDate, name="asset_app_asset_add_month_to_loan"),
     path("asset_app/asset/delete/<int:pk>/", views.AssetListView.delete, name="asset_app_asset_delete"),
 #Asset_Type
     path("asset_app/asset_type/", views.Asset_typeListView.as_view(), name="asset_app_asset_type_list"),

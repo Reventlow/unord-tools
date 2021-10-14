@@ -92,9 +92,9 @@ class AssetDetailView(generic.DetailView):
         item.save()
         return redirect('asset_app_asset_detail', pk=asset_id)
 
-    def addMonthToReturnDate(request, pk):
+    def addMonthToCurrentDate(request, pk):
         item = models.Loan_asset.objects.get(pk=pk)
-        item.return_date = item.return_date + datetime.timedelta(days=30)
+        item.return_date = datetime.date.today() + datetime.timedelta(days=30)
         weekno = item.return_date.weekday()
         if weekno == 5:
             item.return_date = item.return_date + datetime.timedelta(days=2)
@@ -102,7 +102,7 @@ class AssetDetailView(generic.DetailView):
             item.return_date = item.return_date + datetime.timedelta(days=1)
         asset_id = item.asset.id
         item.save()
-        messages.success(request, 'Udvidet låne aftalen med en månede.')
+        messages.success(request, 'Udvidet låne aftalen med en månede fra dags dato.')
         return redirect('asset_app_asset_detail', pk=asset_id)
 
 
