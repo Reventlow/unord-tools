@@ -1034,8 +1034,8 @@ class Loan_assetListExcelView(generic.DetailView):
         thisRow = 2
 
         worksheet_s.write(thisRow, 1, ugettext("Udlåner"), header)
-        worksheet_s.write(thisRow, 2, ugettext("Udd. navn"), header)
-        worksheet_s.write(thisRow, 3, ugettext("Udd. slutdato"), header)
+        worksheet_s.write(thisRow, 2, ugettext("Udd navn"), header)
+        worksheet_s.write(thisRow, 3, ugettext("Udd slutdato"), header)
         worksheet_s.write(thisRow, 4, ugettext("Udlånt fra"), header)
         worksheet_s.write(thisRow, 5, ugettext("Ansat/Elev"), header)
         worksheet_s.write(thisRow, 6, ugettext("Telefon nummer"), header)
