@@ -1033,6 +1033,7 @@ class Loan_assetListExcelView(generic.DetailView):
         thisColumn = 1
         thisRow = 2
 
+"""
         worksheet_s.write(thisRow, 1, ugettext("Udlåner"), header)
         worksheet_s.write(thisRow, 2, ugettext("Udd navn"), header)
         worksheet_s.write(thisRow, 3, ugettext("Udd slutdato"), header)
@@ -1047,7 +1048,7 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 12, ugettext("Udlånt til"), header)
         worksheet_s.write(thisRow, 13, ugettext("Retuneret"), header)
 
-
+"""
 
         thisRow = thisRow +1
         queryset = models.Loan_asset.objects.all().order_by('returned', 'loaner_name', 'asset')
