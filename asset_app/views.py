@@ -957,9 +957,9 @@ class Loan_assetListFilterView(generic.ListView):
         if self.kwargs['task'] == "late":
             context["loab_title"] = "Udlån oversigt over ikke afleveret til tiden på {}".format(self.kwargs['loc_name'])
         elif self.kwargs['task'] == "currentDate":
-            context["loab_title"] = "Udlån oversigt, forvented aflevering for {}, for følgende dato {}".format(self.kwargs['loc_name'], datetime.datetime.strptime(self.kwargs['return_date'], "%Y-%m-%d").strftime("%d/%m/%Y"))
+            context["loab_title"] = "Forvented aflevering for {}, for følgende dato {}".format(self.kwargs['loc_name'], datetime.datetime.strptime(self.kwargs['return_date'], "%Y-%m-%d").strftime("%d/%m/%Y"))
         elif self.kwargs['task'] == "monthPlus":
-            context["loab_title"] = "Udlån oversigt, forvented aflevering for {} der skal afleveres efter den {}".format(self.kwargs['loc_name'], datetime.datetime.strptime(self.kwargs['return_date'], "%Y-%m-%d").strftime("%d/%m/%Y"))
+            context["loab_title"] = "Forvented aflevering for {}, der skal afleveres efter den {}".format(self.kwargs['loc_name'], datetime.datetime.strptime(self.kwargs['return_date'], "%Y-%m-%d").strftime("%d/%m/%Y"))
         context["task"] = self.kwargs['loc_name']
         context["return_date"] = self.kwargs['return_date']
         context["returned"] = self.kwargs['returned']
