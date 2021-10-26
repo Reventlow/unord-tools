@@ -1076,7 +1076,7 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue)
+                    #worksheet_s.write_string(row, 13, returnedValue)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
                 if data.asset:
@@ -1099,7 +1099,7 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue, formatRed)
+                    #worksheet_s.write_string(row, 13, returnedValue, formatRed)
 
             else:
                 if data.asset:
@@ -1122,7 +1122,7 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue, formatGreen)
+                    #worksheet_s.write_string(row, 13, returnedValue, formatGreen)
 
             if not data.asset:
                 thisRow = thisRow - 1
