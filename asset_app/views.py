@@ -1086,8 +1086,12 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
                     if data.eduName is not None:
                         worksheet_s.write_string(row, 2, data.eduName, formatRed)
+                    else:
+                        worksheet_s.write_string(row, 2, " ", formatRed)
                     if data.endEduDate is not None:
                         worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    else:
+                        worksheet_s.write_string(row, 3, " ", formatRed)
                     worksheet_s.write_string(row, 4, data.location.name, formatRed)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatRed)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatRed)
@@ -1096,6 +1100,10 @@ class Loan_assetListExcelView(generic.DetailView):
                         worksheet_s.write_string(row, 8, data.asset.name, formatRed)
                         worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name, formatRed)
                         worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
+                    else:
+                        worksheet_s.write_string(row, 8, " ", formatRed)
+                        worksheet_s.write_string(row, 9, " ", formatRed)
+                        worksheet_s.write_string(row, 10, " ", formatRed)
                     worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     if data.returned == True:
@@ -1110,8 +1118,12 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                     if data.eduName is not None:
                         worksheet_s.write_string(row, 2, data.eduName, formatGreen)
+                    else:
+                        worksheet_s.write_string(row, 2, " ", formatGreen)
                     if data.endEduDate is not None:
                         worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    else:
+                        worksheet_s.write_string(row, 3, " ", formatGreen)
                     worksheet_s.write_string(row, 4, data.location.name, formatGreen)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatGreen)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatGreen)
@@ -1120,6 +1132,10 @@ class Loan_assetListExcelView(generic.DetailView):
                         worksheet_s.write_string(row, 8, data.asset.name, formatGreen)
                         worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name, formatGreen)
                         worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatGreen)
+                    else:
+                        worksheet_s.write_string(row, 8, " ", formatGreen)
+                        worksheet_s.write_string(row, 9, " ", formatGreen)
+                        worksheet_s.write_string(row, 10, " ", formatGreen)
                     worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     if data.returned == True:
