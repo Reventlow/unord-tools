@@ -120,11 +120,11 @@
                         <a href="{% url 'asset_app_loan_asset_returned_false' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Marker returneret</a>
                         {% if object.return_date < today %}
                             {% if object.loaner_telephone_number != "0" %}
-                                <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="badge rounded-pill btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
+                                <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_late_return' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Send rykker Sms</a>
                             {% endif %}
                         {% else %}
                             {% if object.loaner_telephone_number != "0" %}
-                                <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_return_reminder' object.id %}" class="badge rounded-pill btn-sm " tabindex="-1" role="button" aria-disabled="true">Send påmindelse Sms</a>
+                                <br/><br/><a href="{% url 'asset_app_loan_asset_sms_button_return_reminder' object.id %}" class="btn btn-success btn-sm " tabindex="-1" role="button" aria-disabled="true">Send påmindelse Sms</a>
                             {% endif %}
                         {% endif %}
                     {% endif %}
