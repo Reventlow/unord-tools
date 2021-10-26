@@ -1048,7 +1048,7 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 12, ugettext("Udlånt til"), header)
         worksheet_s.write(thisRow, 13, ugettext("Retuneret"), header)
 
-        """
+
 
         thisRow = thisRow +1
         queryset = models.Loan_asset.objects.all().order_by('returned', 'loaner_name', 'asset')
@@ -1060,9 +1060,10 @@ class Loan_assetListExcelView(generic.DetailView):
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name)
-                    worksheet_s.write_string(row, 2, data.eduName)
-                    #if data.endEduDate is not None:
-                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    if data.eduName is not None:
+                        worksheet_s.write_string(row, 2, data.eduName)
+                    if data.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     worksheet_s.write_string(row, 4, data.location.name)
                     worksheet_s.write_string(row, 5, data.loaner_type.name)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number)
@@ -1077,15 +1078,16 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    #worksheet_s.write_string(row, 13, returnedValue)
+                    worksheet_s.write_string(row, 13, returnedValue)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1, formatRed)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
-                    worksheet_s.write_string(row, 2, data.eduName, formatRed)
-                    #if data.endEduDate is not None:
-                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    if data.eduName is not None:
+                        worksheet_s.write_string(row, 2, data.eduName, formatRed)
+                    if data.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     worksheet_s.write_string(row, 4, data.location.name, formatRed)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatRed)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatRed)
@@ -1100,15 +1102,16 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    #worksheet_s.write_string(row, 13, returnedValue, formatRed)
+                    worksheet_s.write_string(row, 13, returnedValue, formatRed)
 
             else:
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1, formatGreen)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
-                    worksheet_s.write_string(row, 2, data.eduName, formatGreen)
-                    #if data.endEduDate is not None:
-                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    if data.eduName is not None:
+                        worksheet_s.write_string(row, 2, data.eduName, formatGreen)
+                    if data.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     worksheet_s.write_string(row, 4, data.location.name, formatGreen)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatGreen)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatGreen)
@@ -1123,11 +1126,11 @@ class Loan_assetListExcelView(generic.DetailView):
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    #worksheet_s.write_string(row, 13, returnedValue, formatGreen)
+                    worksheet_s.write_string(row, 13, returnedValue, formatGreen)
 
             if not data.asset:
                 thisRow = thisRow - 1
-"""
+
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
