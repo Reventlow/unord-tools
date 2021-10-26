@@ -1029,7 +1029,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
         formatGreen = workbook.add_format({'bg_color': '#5A916E',
                                          'font_color': '#FFFFFF'})
-
+        """
         thisColumn = 1
         thisRow = 2
 
@@ -1051,7 +1051,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
         thisRow = thisRow +1
         queryset = models.Loan_asset.objects.all().order_by('returned', 'loaner_name', 'asset')
-"""
+
         for idx, data in enumerate(queryset):
             row = thisRow + idx
 
