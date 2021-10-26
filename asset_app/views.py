@@ -1051,7 +1051,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
         thisRow = thisRow +1
         queryset = models.Loan_asset.objects.all().order_by('returned', 'loaner_name', 'asset')
-
+"""
         for idx, data in enumerate(queryset):
             row = thisRow + idx
 
@@ -1126,7 +1126,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
             if not data.asset:
                 thisRow = thisRow - 1
-
+"""
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
