@@ -1061,7 +1061,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 1, data.loaner_name)
                     worksheet_s.write_string(row, 2, data.eduName)
                     if data.endEduDate is not None:
-                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     worksheet_s.write_string(row, 4, data.location.name)
                     worksheet_s.write_string(row, 5, data.loaner_type.name)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number)
@@ -1084,7 +1084,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
                     worksheet_s.write_string(row, 2, data.eduName, formatRed)
                     if data.endEduDate is not None:
-                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     worksheet_s.write_string(row, 4, data.location.name, formatRed)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatRed)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatRed)
@@ -1107,7 +1107,7 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                     worksheet_s.write_string(row, 2, data.eduName, formatGreen)
                     if data.endEduDate is not None:
-                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    #    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     worksheet_s.write_string(row, 4, data.location.name, formatGreen)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatGreen)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatGreen)
