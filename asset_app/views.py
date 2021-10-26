@@ -1034,16 +1034,18 @@ class Loan_assetListExcelView(generic.DetailView):
         thisRow = 2
 
         worksheet_s.write(thisRow, 1, ugettext("Udlåner"), header)
-        worksheet_s.write(thisRow, 2, ugettext("Udlånt fra"), header)
-        worksheet_s.write(thisRow, 3, ugettext("Ansat/Elev"), header)
-        worksheet_s.write(thisRow, 4, ugettext("Telefon nummer"), header)
-        worksheet_s.write(thisRow, 5, ugettext("Email"), header)
-        worksheet_s.write(thisRow, 6, ugettext("Udstyrs navn"), header)
-        worksheet_s.write(thisRow, 7, ugettext("Udstyrs type"), header)
-        worksheet_s.write(thisRow, 8, ugettext("Udstyr"), header)
-        worksheet_s.write(thisRow, 9, ugettext("Udlånt fra"), header)
-        worksheet_s.write(thisRow, 10, ugettext("Udlånt til"), header)
-        worksheet_s.write(thisRow, 11, ugettext("Retuneret"), header)
+        worksheet_s.write(thisRow, 2, ugettext("Udd. navn"), header)
+        worksheet_s.write(thisRow, 3, ugettext("Udd. slutdato"), header)
+        worksheet_s.write(thisRow, 4, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 5, ugettext("Ansat/Elev"), header)
+        worksheet_s.write(thisRow, 6, ugettext("Telefon nummer"), header)
+        worksheet_s.write(thisRow, 7, ugettext("Email"), header)
+        worksheet_s.write(thisRow, 8, ugettext("Udstyrs navn"), header)
+        worksheet_s.write(thisRow, 9, ugettext("Udstyrs type"), header)
+        worksheet_s.write(thisRow, 10, ugettext("Udstyr mærke"), header)
+        worksheet_s.write(thisRow, 11, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 12, ugettext("Udlånt til"), header)
+        worksheet_s.write(thisRow, 13, ugettext("Retuneret"), header)
 
 
 
@@ -1057,60 +1059,66 @@ class Loan_assetListExcelView(generic.DetailView):
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name)
-                    worksheet_s.write_string(row, 2, data.location.name)
-                    worksheet_s.write_string(row, 3, data.loaner_type.name)
-                    worksheet_s.write_string(row, 4, data.loaner_telephone_number)
-                    worksheet_s.write_string(row, 5, data.loaner_email)
-                    worksheet_s.write_string(row, 6, data.asset.name)
-                    worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name)
-                    worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
-                    worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
-                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    worksheet_s.write_string(row, 2, data.eduName)
+                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    worksheet_s.write_string(row, 4, data.location.name)
+                    worksheet_s.write_string(row, 5, data.loaner_type.name)
+                    worksheet_s.write_string(row, 6, data.loaner_telephone_number)
+                    worksheet_s.write_string(row, 7, data.loaner_email)
+                    worksheet_s.write_string(row, 8, data.asset.name)
+                    worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name)
+                    worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
+                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 12, returnedValue)
+                    worksheet_s.write_string(row, 13, returnedValue)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1, formatRed)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
-                    worksheet_s.write_string(row, 2, data.location.name, formatRed)
-                    worksheet_s.write_string(row, 3, data.loaner_type.name, formatRed)
-                    worksheet_s.write_string(row, 4, data.loaner_telephone_number, formatRed)
-                    worksheet_s.write_string(row, 5, data.loaner_email, formatRed)
+                    worksheet_s.write_string(row, 2, data.eduName, formatRed)
+                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    worksheet_s.write_string(row, 4, data.location.name, formatRed)
+                    worksheet_s.write_string(row, 5, data.loaner_type.name, formatRed)
+                    worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatRed)
+                    worksheet_s.write_string(row, 7, data.loaner_email, formatRed)
                     if data.asset.name is not None:
-                        worksheet_s.write_string(row, 6, data.asset.name, formatRed)
-                    worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name, formatRed)
-                    worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
-                    worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
-                    worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                        worksheet_s.write_string(row, 8, data.asset.name, formatRed)
+                        worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name, formatRed)
+                        worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatRed)
+                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 11, returnedValue, formatRed)
+                    worksheet_s.write_string(row, 13, returnedValue, formatRed)
 
             else:
                 if data.asset:
                     worksheet_s.write_number(row, 0, idx + 1, formatGreen)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
-                    worksheet_s.write_string(row, 2, data.location.name, formatGreen)
-                    worksheet_s.write_string(row, 3, data.loaner_type.name, formatGreen)
-                    worksheet_s.write_string(row, 4, data.loaner_telephone_number, formatGreen)
-                    worksheet_s.write_string(row, 5, data.loaner_email, formatGreen)
+                    worksheet_s.write_string(row, 2, data.eduName, formatGreen)
+                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    worksheet_s.write_string(row, 4, data.location.name, formatGreen)
+                    worksheet_s.write_string(row, 5, data.loaner_type.name, formatGreen)
+                    worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatGreen)
+                    worksheet_s.write_string(row, 7, data.loaner_email, formatGreen)
                     if data.asset.name  is not None:
-                        worksheet_s.write_string(row, 6, data.asset.name, formatGreen)
-                    worksheet_s.write_string(row, 7, data.asset.model_hardware.asset_type.name, formatGreen)
-                    worksheet_s.write_string(row, 8, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatGreen)
-                    worksheet_s.write_string(row, 9, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
-                    worksheet_s.write_string(row, 10, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                        worksheet_s.write_string(row, 8, data.asset.name, formatGreen)
+                        worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name, formatGreen)
+                        worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatGreen)
+                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 11, returnedValue, formatGreen)
+                    worksheet_s.write_string(row, 13, returnedValue, formatGreen)
 
             if not data.asset:
                 thisRow = thisRow - 1
