@@ -1029,7 +1029,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
         formatGreen = workbook.add_format({'bg_color': '#5A916E',
                                          'font_color': '#FFFFFF'})
-        """
+
         thisColumn = 1
         thisRow = 2
 
@@ -1126,7 +1126,7 @@ class Loan_assetListExcelView(generic.DetailView):
 
             if not data.asset:
                 thisRow = thisRow - 1
-"""
+
             # the rest of the data
 
         worksheet_s.set_column('B:B', 30)
