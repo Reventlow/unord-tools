@@ -1060,14 +1060,16 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_number(row, 0, idx + 1)
                     worksheet_s.write_string(row, 1, data.loaner_name)
                     worksheet_s.write_string(row, 2, data.eduName)
-                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    if data.asset.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     worksheet_s.write_string(row, 4, data.location.name)
                     worksheet_s.write_string(row, 5, data.loaner_type.name)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number)
                     worksheet_s.write_string(row, 7, data.loaner_email)
-                    worksheet_s.write_string(row, 8, data.asset.name)
-                    worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name)
-                    worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
+                    if data.asset.name is not None:
+                        worksheet_s.write_string(row, 8, data.asset.name)
+                        worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name)
+                        worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
                     worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     if data.returned == True:
@@ -1081,7 +1083,8 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_number(row, 0, idx + 1, formatRed)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatRed)
                     worksheet_s.write_string(row, 2, data.eduName, formatRed)
-                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    if data.asset.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     worksheet_s.write_string(row, 4, data.location.name, formatRed)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatRed)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatRed)
@@ -1103,12 +1106,13 @@ class Loan_assetListExcelView(generic.DetailView):
                     worksheet_s.write_number(row, 0, idx + 1, formatGreen)
                     worksheet_s.write_string(row, 1, data.loaner_name, formatGreen)
                     worksheet_s.write_string(row, 2, data.eduName, formatGreen)
-                    worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    if data.asset.endEduDate is not None:
+                        worksheet_s.write_string(row, 3, datetime.datetime.strptime(str(data.endEduDate), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     worksheet_s.write_string(row, 4, data.location.name, formatGreen)
                     worksheet_s.write_string(row, 5, data.loaner_type.name, formatGreen)
                     worksheet_s.write_string(row, 6, data.loaner_telephone_number, formatGreen)
                     worksheet_s.write_string(row, 7, data.loaner_email, formatGreen)
-                    if data.asset.name  is not None:
+                    if data.asset.name is not None:
                         worksheet_s.write_string(row, 8, data.asset.name, formatGreen)
                         worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name, formatGreen)
                         worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name, formatGreen)
