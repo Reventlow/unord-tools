@@ -954,10 +954,10 @@ class Loan_assetListFilterView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
-        context["loc_name"] = self.kwargs('loc_name')
-        context["return_date"] = self.kwargs('return_date')
-        context["returned"] = self.kwargs('returned')
-        context["task"] = self.kwargs('task')
+        context["loc_name"] = self.request.GET.get('loc_name')
+        context["return_date"] = self.request.GET.get('return_date')
+        context["returned"] = self.request.GET.get('returned')
+        context["task"] = self.request.GET.get('task')
         context["today"] = new_context_entry
         return context
 
