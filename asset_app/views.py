@@ -908,7 +908,7 @@ class Loan_assetListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         new_context_entry = datetime.date.today()
-        context["loc_name"] = self.request.GET.get('loc_name')
+        context["loc_name"] = self.kwargs('loc_name')
         context["return_date"] = kwargs.get('return_date')
         context["returned"] = kwargs.get('returned')
         context["task"] = kwargs.get('task')
