@@ -56,7 +56,15 @@
                 <tr class="table-warning">
                 {% endif %}
 
-                    <td>{{ object.loaner_name }} <a href="{{ object.get_absolute_url }}"
+                    <td>{{ object.loaner_name }}<br>
+                    {% if object.loaner_telephone_number != "0" %}
+                        Tlf: {{ object.loaner_telephone_number }}<br/>
+                    {% else %}
+                        Tlf: Ingen nummer registret<br/>
+                    {% endif %}
+                    email: {{ object.loaner_email }}<br/>
+                        <strong>Udlånt fra afd: {{ object.location }}</strong>
+                     <a href="{{ object.get_absolute_url }}"
                                                class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
 
@@ -86,14 +94,7 @@
 
 
 
-{% endif %}<br>
-                    {% if object.loaner_telephone_number != "0" %}
-                        Tlf: {{ object.loaner_telephone_number }}<br/>
-                    {% else %}
-                        Tlf: Ingen nummer registret<br/>
-                    {% endif %}
-                    email: {{ object.loaner_email }}<br/>
-                        <strong>Udlånt fra afd: {{ object.location }}</strong>
+{% endif %}
                     </td>
                 <td>
                     <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
