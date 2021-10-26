@@ -956,9 +956,9 @@ class Loan_assetListFilterView(generic.ListView):
         new_context_entry = datetime.date.today()
         if self.kwargs['task'] == "late":
             context["loab_title"] = "Udlån oversigt over ikke afleveret til tiden på {}".format(self.kwargs['loc_name'])
-        elif context["task"] == "currentDate":
+        elif self.kwargs['task'] == "currentDate":
             context["loab_title"] = "Udlån oversigt for {} - {}".format(self.kwargs['loc_name'], self.kwargs['return_date'])
-        elif context["task"] == "monthPlus":
+        elif self.kwargs['task'] == "monthPlus":
             context["loab_title"] = "Udlån oversigt for {} der skal afleveres efter den {}".format(self.kwargs['loc_name'], self.kwargs['return_date'])
         context["task"] = self.kwargs['loc_name']
         context["return_date"] = self.kwargs['return_date']
