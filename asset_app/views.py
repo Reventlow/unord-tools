@@ -10,7 +10,7 @@ from django.utils.translation import ugettext
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import csv
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
 import datetime
 import os
@@ -980,7 +980,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
+        return redirect(request.path, task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
     def returned_false(self, loc_name, return_date, returned, task, pk):
 
@@ -991,7 +991,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
+        return redirect(request.path, task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
     def get_queryset(self):
 
