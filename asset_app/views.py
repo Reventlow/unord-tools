@@ -920,7 +920,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect('asset_app_loan_asset_list')
+        return redirect(request.path)
 
     def returned_false(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
@@ -931,7 +931,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect('asset_app_loan_asset_list')
+        return redirect(request.path)
 
     def buttonSmsReturnLate(self, pk):
         smsButtonLateReturn(pk)
