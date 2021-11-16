@@ -920,7 +920,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect(request.path)
+        return HttpResponseRedirect(request.path_info)
 
     def returned_false(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
@@ -931,7 +931,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect(request.path)
+        return HttpResponseRedirect(request.path_info)
 
     def buttonSmsReturnLate(self, pk):
         smsButtonLateReturn(pk)
@@ -980,7 +980,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return redirect(request.path, task=task, return_date=return_date, loc_name=loc_name, returned=returned)
+        return HttpResponseRedirect(request.path_info)
 
     def returned_false(self, loc_name, return_date, returned, task, pk):
 
@@ -991,7 +991,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return redirect(request.path, task=task, return_date=return_date, loc_name=loc_name, returned=returned)
+        return HttpResponseRedirect(request.path_info)
 
     def get_queryset(self):
 
