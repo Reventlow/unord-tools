@@ -10,7 +10,7 @@ from django.utils.translation import ugettext
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import csv
-from django.http import HttpResponse, HttpResponseRedirect, request
+from django.http import HttpResponse, HttpResponseRedirect
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
 import datetime
 import os
@@ -920,7 +920,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return HttpResponseRedirect(request.path_info)
+        return redirect('asset_app_loan_asset_list')
 
     def returned_false(request, res_id):
         item = models.Loan_asset.objects.get(pk=res_id)
@@ -931,7 +931,7 @@ class Loan_assetListView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return HttpResponseRedirect(request.path_info)
+        return redirect('asset_app_loan_asset_list')
 
     def buttonSmsReturnLate(self, pk):
         smsButtonLateReturn(pk)
@@ -967,7 +967,7 @@ class Loan_assetListFilterView(generic.ListView):
         context["today"] = new_context_entry
         return context
 
-    def returned_true(request, pk):
+    def returned_true(self, loc_name, return_date, returned, task, pk):
         #task = self.kwargs.get("task")
         #return_date = self.kwargs.get("return_date")
         #loc_name = self.kwargs.get("loc_name")
@@ -980,9 +980,9 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = True
         item.save()
-        return HttpResponseRedirect(request.path_info)
+        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
-    def returned_false(request, pk):
+    def returned_false(self, loc_name, return_date, returned, task, pk):
 
         item = models.Loan_asset.objects.get(pk=pk)
         item.returned = True
@@ -991,7 +991,7 @@ class Loan_assetListFilterView(generic.ListView):
         item = models.Asset.objects.get(pk=asset_id)
         item.is_loaned = False
         item.save()
-        return HttpResponseRedirect(request.path_info)
+        return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
     def get_queryset(self):
 
