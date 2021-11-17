@@ -97,7 +97,7 @@
 {% endif %}
                     </td>
                 <td>
-                    <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
+                    <div style="text-align: center;">{{ object.loaner_type }}<br/>{% if object.loaner_quicklink %}<a href="{{ object.loaner_quicklink }}" id="quicklink_{{ object.loaner_type|lower }}" class="btn btn-success btn-sm" target="_blank">Quicklink</a>{% endif %}</div>
                 </td>
 
                 <td>
