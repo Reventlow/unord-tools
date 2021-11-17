@@ -264,6 +264,7 @@ class Loan_assetForm(forms.ModelForm):
     endEduDate = forms.DateField(required=False, label="Hvis elev/kursist mulighed for at skrive slut studie dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
                                                                                         attrs={'class': 'form-control',
                                                                                                "type": "date"}))
+    dropped_out_of_school = forms.BooleanField(label="Er ikke længer tilknyttet skolen", initial=False, required=False)
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
@@ -285,6 +286,7 @@ class Loan_assetForm(forms.ModelForm):
             "asset",
             "eduName",
             "endEduDate",
+            "dropped_out_of_school",
             "loan_date",
             "return_date",
             "sms_automatic",
@@ -350,6 +352,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
                                  widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
                                                                     attrs={'class': 'form-control',
                                                                            "type": "date"}))
+    dropped_out_of_school = forms.BooleanField(label="Er ikke længer tilknyttet skolen", initial=False, required=False)
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
@@ -371,6 +374,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
             "asset",
             "eduName",
             "endEduDate",
+            "dropped_out_of_school",
             "loan_date",
             "return_date",
             "sms_automatic",

@@ -224,6 +224,7 @@ class Loan_assetAdmin(admin.ModelAdmin):
         "asset",
         "sms_automatic",
         "eduName",
+        "dropped_out_of_school",
         "loan_date",
         "return_date",
         "returned",
