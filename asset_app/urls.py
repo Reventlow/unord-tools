@@ -110,6 +110,7 @@ urlpatterns = [
     path('asset_app/loan_asset/returned_false/<res_id>', views.Loan_assetListView.returned_false, name='asset_app_loan_asset_returned_false'),
     path('asset_app/loan_asset/detail/filter/returned_true/<loc_name>/<return_date>/<returned>/<task>/<int:pk>', views.Loan_assetListFilterView.returned_true, name='asset_asset_detail_filter_returned_true'),
     path('asset_app/loan_asset/detail/filter/returned_false/<loc_name>/<return_date>/<returned>/<task>/<int:pk>', views.Loan_assetListFilterView.returned_false, name='asset_asset_detail_filter_returned_false'),
+    path('asset_app/loan_asset/detail/filter/set_dropped_status/<int:pk>/<task>/', views.Loan_assetListFilterView.dropped_out, name='asset_asset_dropped_out_status'),
 
 #LoanerType
     path("asset_app/loaner_type/", views.Loaner_typeListView.as_view(), name="asset_app_loaner_type_list"),

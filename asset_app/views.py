@@ -996,6 +996,12 @@ class Loan_assetListFilterView(generic.ListView):
         item.save()
         return redirect('asset_app_loan_asset_list_filter', task=task, return_date=return_date, loc_name=loc_name, returned=returned)
 
+    def dropped_out(self, pk, dropped_out_status=False):
+        item = models.Loan_asset.objects.get(pk=pk)
+        item.dropped_out_of_school = dropped_out_status
+        item.save()
+        return redirect('asset_app_loan_asset_detail', pk=pk)
+
     def get_queryset(self):
 
         task = self.kwargs.get("task")
@@ -1012,9 +1018,9 @@ class Loan_assetListFilterView(generic.ListView):
         criterionLocation = Q(location__name=loc_name)
         criterionReturnState = Q(returned=returned)
         if loc_name == "any":
-            queryset = super().get_queryset().filter(criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+            queryset = super().get_queryset().filter(criterionReturnState & criterionReturnDate).order_by('dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
         else:
-            queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+            queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
 
         return queryset
 
@@ -1212,13 +1218,10 @@ class Loan_assetCreateView(generic.CreateView):
         if created:
             asset = instance.asset
             asset.is_loaned = True
-            # asset.save()  # save entire instance, overwriting `last_updated` OR
+
             asset.save(update_fields=["is_loaned"])  # updates only `is_loaned
 
-            #if str.isdecimal(form.cleaned_data['loaner_telephone_number']) and form.cleaned_data['loaner_type'] == 1:
-            thisMsg = "Det er en test æøå"
-            thisCellphone = 4591330148
-            #sms(thisCellphone, thisMsg)
+
 
 @method_decorator(login_required, name='dispatch')
 class Loan_assetDetailView(generic.DetailView):
