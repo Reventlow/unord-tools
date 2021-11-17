@@ -1008,7 +1008,10 @@ class Loan_assetListFilterView(generic.ListView):
             criterionReturnDate = Q(return_date__gte=return_date)
         criterionLocation = Q(location__name=loc_name)
         criterionReturnState = Q(returned=returned)
-        queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+        if loc_name == "any":
+            queryset = super().get_queryset().filter(criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
+        else:
+            queryset = super().get_queryset().filter(criterionLocation & criterionReturnState & criterionReturnDate).order_by('return_date', 'loaner_name', 'asset')
 
         return queryset
 
