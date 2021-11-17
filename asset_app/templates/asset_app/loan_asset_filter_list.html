@@ -65,9 +65,16 @@
                     email: {{ object.loaner_email }}<br/>
                         <strong>Udlånt fra afd: {{ object.location }}</strong>
                      <a href="{{ object.get_absolute_url }}"
-                                               class="badge rounded-pill bg-dark">Detaljer</a> <a href="{{ object.get_update_url }}"
+                                               class="badge rounded-pill bg-dark">Detaljer</a>
+                        <a href="{{ object.get_update_url }}"
                                                class="badge rounded-pill bg-dark">Rediger</a>
-
+                    {% if object.dropped_out_of_school %}
+                        <a href="{{ object.get_update_url }}" id="school_status"
+                                               class="badge rounded-pill bg-dark">Meld indaktiv på skolen</a>
+                    {% else %}
+                        <a href="{{ object.get_update_url }}" id="school_status"
+                                               class="badge rounded-pill bg-dark">Meld aktiv på skolen</a>
+                    {% endif %}
 
 {% if  object.notes  %}
 <!-- Button trigger modal -->
