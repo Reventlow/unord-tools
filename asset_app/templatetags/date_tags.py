@@ -11,3 +11,8 @@ def addDays(days):
 def minusDays(days):
    newDate = datetime.date.today() - datetime.timedelta(days=days)
    return newDate
+
+@register.filter()
+def date_today(thisdate=''):
+   newDate = datetime.date.today()
+   return newDate
