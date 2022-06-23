@@ -679,7 +679,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
 ########Total sum of loans
         htmlTable = htmlTable + '</tr><tr class="table-info">'
 
-        htmlTable = htmlTable + "<td>Udlånt nuværende tidspunkt total)</td>"
+        htmlTable = htmlTable + "<td>Udlånt nuværende tidspunkt total</td>"
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
             criterionLocation = Q(location__name=location.name)
             criterionReturnNot = Q(returned=False)
