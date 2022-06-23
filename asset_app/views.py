@@ -685,9 +685,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
             criterionReturnNot = Q(returned=False)
             thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionLocation & criterionReturnNot).count()
             if thisQuerysetLocationTotal > 0:
-                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
-                    False) + '/monthPlus/">'
-                htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
                     thisQuerysetLocationTotal) + '</a></div></td>'
             else:
                 htmlTable = htmlTable + '<td></td>'
