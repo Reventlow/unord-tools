@@ -107,8 +107,6 @@ class AssetDetailView(generic.DetailView):
         return redirect('asset_app_asset_detail', pk=asset_id)
 
 
-
-
 @method_decorator(login_required, name='dispatch')
 class AssetUpdateView(generic.UpdateView):
     model = models.Asset
@@ -251,8 +249,6 @@ class Asset_typeUpdateView(generic.UpdateView):
     model = models.Asset_type
     form_class = forms.Asset_typeForm
     pk_url_kwarg = "pk"
-
-
 
 
 @method_decorator(login_required, name='dispatch')
@@ -680,7 +676,23 @@ class DashboardMonthLoanOverview(generic.TemplateView):
         for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
             htmlTable = htmlTable + '<td><div style="text-align: center;">' + location.name + '</div></td>'
 
-########Loan that are to be retured before today
+########Total sum of loans
+        htmlTable = htmlTable + '</tr><tr class="table-danger">'
+
+        htmlTable = htmlTable + "<td>Udlånt nuværende tidspunkt total)</td>"
+        for location in models.Locations.objects.exclude(name='U/NORD').order_by('name'):
+            criterionLocation = Q(location__name=location.name)
+            criterionReturnNot = Q(returned=False)
+            thisQuerysetLocationTotal = models.Loan_asset.objects.filter(criterionLocation & criterionReturnNot).count()
+            if thisQuerysetLocationTotal > 0:
+                thisLink = '<a href="filter/' + location.name + '/' + str(thisQueryDate) + '/' + str(
+                    False) + '/monthPlus/">'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">' + thisLink + str(
+                    thisQuerysetLocationTotal) + '</a></div></td>'
+            else:
+                htmlTable = htmlTable + '<td></td>'
+
+        ########Loan that are to be retured before today
         htmlTable = htmlTable + '</tr><tr class="table-danger">'
 
         thisQueryDate = datetime.date.today()
