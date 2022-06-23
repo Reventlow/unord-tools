@@ -688,7 +688,7 @@ class DashboardMonthLoanOverview(generic.TemplateView):
                 htmlTable = htmlTable + '<td><div style="text-align: center;">' + str(
                     thisQuerysetLocationTotal) + '</a></div></td>'
             else:
-                htmlTable = htmlTable + '<td></td>'
+                htmlTable = htmlTable + '<td><div style="text-align: center;">0</div></td>'
 
         ########Loan that are to be retured before today
         htmlTable = htmlTable + '</tr><tr class="table-danger">'
