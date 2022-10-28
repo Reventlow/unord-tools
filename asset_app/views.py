@@ -1224,7 +1224,7 @@ class Loan_assetCreateView(generic.CreateView):
     form_class = forms.Loan_assetForm
 
     def get_queryset(self):
-        user_email = self.kwargs.get("user_email")
+        user_email = self.kwargs.get("user_email").replace("%40", "@")
 
         queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
         loan_querysets = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
