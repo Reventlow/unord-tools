@@ -1229,7 +1229,7 @@ class Loan_assetCreateView(generic.CreateView):
 
         queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
         loan_querysets = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
-        return queryset, loan_querysets
+        return queryset, loan_querysets, user_email
 
     @receiver(post_save, sender=models.Loan_asset)
     def create_transaction(sender, instance, created, **kwargs):
