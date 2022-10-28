@@ -8,7 +8,7 @@
     {{ user_email }}
     {% if loans %}
 
-        {% for loan_queryset in loan_querysets %}
+        {% for loan in loans %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ loan }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
