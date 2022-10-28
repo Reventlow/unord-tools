@@ -8,12 +8,14 @@
     {{ user_email }}
     {% if loans %}
 
-        {% for loan in loans %}
+
             <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% for loan in loans %}
                 {{ loan }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {% endfor %}
             </div>
-        {% endfor %}
+
     {% endif %}
 
 
