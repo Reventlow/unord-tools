@@ -5,6 +5,16 @@
     
     <h1>Opret udlåns aftale</h1>
 
+    {% if loan_querysets %}
+
+        {% for loan_queryset in loan_querysets %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ loan_querysets }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
 
 
         <form method="post" enctype="multipart/form-data">
