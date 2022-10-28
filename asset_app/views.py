@@ -1241,7 +1241,7 @@ class Loan_assetCreateView(generic.CreateView):
         context = super().get_context_data(**kwargs)
         user_email = self.kwargs.get("user_email")
 
-        context['loans'] = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
+        context['loans'] = models.Loan_asset.filter(loaner_email=user_email).objects.filter(returned=False)
         context['user_email'] = user_email
         return context
 
