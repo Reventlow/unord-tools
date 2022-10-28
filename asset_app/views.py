@@ -1224,13 +1224,10 @@ class Loan_assetCreateView(generic.CreateView):
     form_class = forms.Loan_assetForm
 
     def get_queryset(self):
-        user_email = self.kwargs.get("user_email").replace("%40", "@")
-        user_email = 'unordosja@unord.dk'
+
 
         queryset = super().get_queryset().order_by('asset__model_hardware__asset_type', 'asset.name')
-        loan_querysets = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
-        return queryset, loan_querysets, user_email
-
+        return queryset
     @receiver(post_save, sender=models.Loan_asset)
     def create_transaction(sender, instance, created, **kwargs):
         if created:
@@ -1238,6 +1235,14 @@ class Loan_assetCreateView(generic.CreateView):
             asset.is_loaned = True
 
             asset.save(update_fields=["is_loaned"])  # updates only `is_loaned
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        user_email = self.kwargs.get("user_email").replace("%40", "@")
+
+        context['loans'] = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
+        return context
 
 
 
