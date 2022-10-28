@@ -1235,7 +1235,7 @@ class Loan_assetCreateView(generic.CreateView):
             asset.is_loaned = True
 
             asset.save(update_fields=["is_loaned"])  # updates only `is_loaned
-
+"""
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
@@ -1243,7 +1243,7 @@ class Loan_assetCreateView(generic.CreateView):
 
         #context['loans'] = models.Loan_asset.objects.filter(loaner_email=user_email).objects.filter(returned=False)
         return context
-
+"""
 
 
 @method_decorator(login_required, name='dispatch')
