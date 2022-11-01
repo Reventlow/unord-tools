@@ -146,7 +146,7 @@
     </div>
 <script>
     console.log("Change!");
-    $('input[name="item[loaner_type]]"]').on('click', function() {
+    $('input[name="loaner_type"]').on('click', function() {
     if ($(this).val() === '1') {
         $('#responsible_teacher_initials').removeProp("disabled").prop('required', true);
         console.log("Enabling");
