@@ -150,15 +150,15 @@
 <script>
     $(document).ready(function () { //function will wait for the page to fully load before executing
 
-        $("input[select][name=loaner_type]").change(function () { //specifying onchange function for input of type radio and name loaner_type
+        $("input[name=loaner_type]").change(function () { //specifying onchange function for input of type radio and name loaner_type
             console.log("Change!")
             if (this.value == "1") { //if the new value is private
-                $("#responsible_teacher_initials").prop('disabled', false).prop('required', true);//would recommend readonly instead of disable for form integrity
+                $('input[name="responsible_teacher_initials"]').addClass('required')
                 console.log("Enabling");
 
 
             }else{ //if the new value is anything else
-                    $("#responsible_teacher_initials").prop('disabled', true).prop('required', false);
+                    $('input[name="responsible_teacher_initials"]').removeClass('required')
                     console.log("Disabling");
                 }
         });
