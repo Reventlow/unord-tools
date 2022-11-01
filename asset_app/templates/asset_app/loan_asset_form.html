@@ -142,28 +142,20 @@
            </form>
 
 
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-</script>
+
+    </div>
 <script>
-    $(document).ready(function () { //function will wait for the page to fully load before executing
+    console.log("Change!");
+    $('input[name="item[loaner_type]]"]').on('click', function() {
+    if ($(this).val() === '1') {
+        $('#responsible_teacher_initials').removeProp("disabled").prop('required', true);
+        console.log("Enabling");
+    }
+    else {
+        $('#responsible_teacher_initials').prop("disabled", true).removeProp("required");
+        console.log("Disabling");
+    }
+});disabled
+    </script>
 
-        $("input[name=loaner_type]").change(function () { //specifying onchange function for input of type radio and name loaner_type
-            console.log("Change!");
-            if (this.value == "1") { //if the new value is private
-                $("#responsible_teacher_initials").prop('disabled', false).prop('required', true);//would recommend readonly instead of disable for form integrity
-                console.log("Enabling");
-
-
-            }else{ //if the new value is anything else
-                    $("#responsible_teacher_initials").prop('disabled', true).prop('required', false);
-                    console.log("Disabling");
-                }
-        });
-    });
-</script>
-
-
-{% endblock %}
+    {% endblock %}
