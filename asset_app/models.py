@@ -272,6 +272,8 @@ class Loan_asset(models.Model):
     loan_date = models.DateField()
     return_date = models.DateField()
     eduName = models.CharField(max_length=60, blank=True, null=True)
+    responsible_teacher_initials = models.CharField(max_length=60, blank=True, null=True)
+    responsible_teacher_received_mail = models.BooleanField(default=False, blank=True, null=True)
     endEduDate = models.DateField(blank=True, null=True)
     dropped_out_of_school = models.BooleanField(default=False)
     sms_automatic = models.BooleanField(default=False)

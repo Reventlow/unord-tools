@@ -141,4 +141,29 @@
 
            </form>
 
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+</script>
+<script>
+    $(document).ready(function () { //function will wait for the page to fully load before executing
+
+        $("input[type=radio][name=loaner_type]").change(function () { //specifying onchange function for input of type radio and name loaner_type
+            console.log("Change!")
+            if (this.value == "1") { //if the new value is private
+                $("#responsible_teacher_received_mail").prop('disabled', false).prop('required', true);//would recommend readonly instead of disable for form integrity
+                console.log("Disabling");
+
+
+            }else{ //if the new value is anything else
+                    $("#responsible_teacher_received_mail").prop('disabled', true).prop('required', false);
+                    console.log("Enabling");
+                }
+        });
+    });
+</script>
+
+
 {% endblock %}

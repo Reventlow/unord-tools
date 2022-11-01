@@ -151,6 +151,8 @@ class Loan_assetSerializer(serializers.ModelSerializer):
             "asset",
             "sms_automatic",
             "eduName",
+            "responsible_teacher_initials",
+            "responsible_teacher_received_mail",
             "dropped_out_of_school",
             "loan_date",
             "return_date",
