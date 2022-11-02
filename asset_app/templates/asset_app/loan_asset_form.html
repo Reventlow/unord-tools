@@ -146,17 +146,17 @@
     </div>
 <script>
     console.log("Change!");
-    $('#loaner_type').on('click', function() {
+    $('input[name="loaner_type"]').on('click', function() {
         console.log("Change2!");
     if ($(this).val() === '1') {
-        $('#responsible_teacher_initials').removeProp("disabled").prop('required', true);
+        $('input[name="responsible_teacher_initials"]').removeProp("disabled").prop('required', true);
         console.log("Enabling");
     }
     else {
-        $('#responsible_teacher_initials').prop("disabled", true).removeProp("required");
+        $('input[name="responsible_teacher_initials"]').prop("disabled", true).removeProp("required");
         console.log("Disabling");
     }
-});disabled
+});
     </script>
 
     {% endblock %}
