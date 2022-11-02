@@ -162,19 +162,6 @@ $(document).ready(function(){
 
 </script>
 
-<script>
-    console.log("Change!");
-    $('#loaner_type').change(function() {
-        console.log("Change2!");
-    if ($(this).val() === '1') {
-        $('#responsible_teacher_initials').prop('required', true);
-        console.log("Enabling");
-    }
-    else {
-        $('#responsible_teacher_initials').removeProp("required");
-        console.log("Disabling");
-    }
-});
-    </script>
+
 
     {% endblock %}
