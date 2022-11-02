@@ -146,14 +146,14 @@
     </div>
 <script>
     console.log("Change!");
-    $('#loaner_type').on('change', function() {
+    $('#loaner_type').change(function() {
         console.log("Change2!");
     if ($(this).val() === '1') {
-        $('#responsible_teacher_initials').removeProp("disabled").prop('required', true);
+        $('#responsible_teacher_initials').prop('required', true);
         console.log("Enabling");
     }
     else {
-        $('#responsible_teacher_initials').prop("disabled", true).removeProp("required");
+        $('#responsible_teacher_initials').removeProp("required");
         console.log("Disabling");
     }
 });
