@@ -10,7 +10,7 @@
 
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <center><strong>Der er lån der ikke er blevet afleveret endnu!!!</strong></center>
+                <div style="text-align: center;"><strong>Der er lån der ikke er blevet afleveret endnu!!!</strong></div>
             </br>
              <table class="table">
             <tr class="table-dark">
@@ -141,9 +141,27 @@
 
            </form>
 
+<script>
+// if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
+console.log("Change!");
+$(document).ready(function(){
+    console.log("Ready!");
+    $("#id_loaner_type").change(function(){
+        if ($(this).val() == "Elev") {
+            $("#id_responsible_teacher_initials").prop('required',true);
+            console.log("Elev!");
+        } else {
+            $("#id_responsible_teacher_initials").prop('required',false);
+            console.log("Lærer!");
+        }
+    });
+});
 
 
-    </div>
+
+
+</script>
+
 <script>
     console.log("Change!");
     $('#loaner_type').change(function() {
