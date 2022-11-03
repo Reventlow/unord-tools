@@ -2,6 +2,6 @@
     text-decoration: line-through;
 }
 input:required {
-  border-color: #800000;
-  border-width: 3px;
+  border-color: #ff0000;
+  border-width: 1px;
 }
