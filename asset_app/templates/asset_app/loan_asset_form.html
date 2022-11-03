@@ -144,21 +144,19 @@
 <script>
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
 console.log("Change!");
-$(document).ready(function(){
+
     console.log("Ready!");
-    $("#id_loaner_type").change(function(){
+    $("select[name=id_loaner_type]").change(function(){
         if ($(this).val() == "Elev") {
             $("#id_responsible_teacher_initials").prop('required',true);
+            $("#id_responsible_teacher_initials").show();
             console.log("Elev!");
         } else {
             $("#id_responsible_teacher_initials").prop('required',false);
-            console.log("Lærer!");
+            $("#id_responsible_teacher_initials").hide();
+            console.log("Ansat!");
         }
     });
-});
-
-
-
 
 </script>
 
