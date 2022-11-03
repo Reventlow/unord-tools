@@ -1,18 +1,19 @@
 <script>
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
-console.log("jscript hide/show assigned teacher!");
+console.log("jscript hide/show assigned teacher!!");
  var selectElement = document.getElementById("id_loaner_type");
  var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
  var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
 
+textBoxElementInitials.required = false;
+textBoxElementInitials.hidden = true;
+textBoxElementInitials.style.border="";
+textBoxElementMail.hidden = true;
 
  selectElement.onchange = function(){
 
     var selectedString = selectElement.options[selectElement.selectedIndex].value;
-    textBoxElementInitials.required = false;
-    textBoxElementInitials.hidden = true;
-    textBoxElementInitials.style.border="";
-    textBoxElementMail.hidden = true;
+
 
     if(selectedString == '1'){
 
