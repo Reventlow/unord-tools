@@ -1,37 +1,25 @@
 <script>
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
 console.log("Change!");
- var select = document.getElementById("SelectBox");
- var textBoxElement = document.getElementById("textbox");
+ var selectElement = document.getElementById("id_loaner_type");
+ var textBoxElement = document.getElementById("id_responsible_teacher_initials");
 
- select.onchange = function(){
+ selectElement.onchange = function(){
 
     var selectedString = select.options[select.selectedIndex].value;
 
-    if(selectedString == 'val4'){
+    if(selectedString == '1'){
 
        textBoxElement.required = true;
+       textBoxElement.hidden = false;
        textBoxElement.style.border="1px solid red";
 
     }else{
 
        textBoxElement.required = false;
+       textBoxElement.hidden = true;
        textBoxElement.style.border="";
     }
 }
-$(document).ready(function(){
-    $("select[name=loaner_type]").change(function(){
-        console.log("Ready!");
-        if ($(this).val() == "Elev") {
-            $("#responsible_teacher_initials").prop('required',true);
-            $("#responsible_teacher_initials").show();
-            console.log("Elev!");
-        } else {
-            $("#responsible_teacher_initials").prop('required',false);
-            $("#responsible_teacher_initials").hide();
-            console.log("Ansat!");
-        }
-    });
-})(jQuery);
 
 </script>
