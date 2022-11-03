@@ -1,7 +1,3 @@
 .striker {
     text-decoration: line-through;
 }
-input:required {
-  border-color: #ff0000;
-  border-width: 1px;
-}
