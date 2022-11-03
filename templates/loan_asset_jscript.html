@@ -1,24 +1,32 @@
 <script>
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
-console.log("Change!");
+console.log("jscript hide/show assigned teacher!");
  var selectElement = document.getElementById("id_loaner_type");
- var textBoxElement = document.getElementById("id_responsible_teacher_initials");
+ var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
+ var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
+
 
  selectElement.onchange = function(){
 
     var selectedString = selectElement.options[selectElement.selectedIndex].value;
+    textBoxElementInitials.required = false;
+    textBoxElementInitials.hidden = true;
+    textBoxElementInitials.style.border="";
+    textBoxElementMail.hidden = true;
 
     if(selectedString == '1'){
 
-       textBoxElement.required = true;
-       textBoxElement.hidden = false;
-       textBoxElement.style.border="1px solid red";
+       textBoxElementInitials.required = true;
+       textBoxElementInitials.hidden = false;
+       textBoxElementInitials.style.border="1px solid red";
+       textBoxElementMail.hidden = false;
 
     }else{
 
-       textBoxElement.required = false;
-       textBoxElement.hidden = true;
-       textBoxElement.style.border="";
+       textBoxElementInitials.required = false;
+       textBoxElementInitials.hidden = true;
+       textBoxElementInitials.style.border="";
+       textBoxElementMail.hidden = true;
     }
 }
 
