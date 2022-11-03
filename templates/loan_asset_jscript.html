@@ -5,10 +5,12 @@ console.log("jscript hide/show assigned teacher!!");
  var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
  var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
 
+
 textBoxElementInitials.required = false;
 textBoxElementInitials.hidden = true;
 textBoxElementInitials.style.border="";
 textBoxElementMail.hidden = true;
+document.getElementById("id_responsible_teacher_received_mail").style.display = 'none';
 
  selectElement.onchange = function(){
 
@@ -21,6 +23,7 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.hidden = false;
        textBoxElementInitials.style.border="1px solid red";
        textBoxElementMail.hidden = false;
+       document.getElementById("id_responsible_teacher_received_mail").style.display = 'block';
 
     }else{
 
@@ -28,6 +31,7 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.hidden = true;
        textBoxElementInitials.style.border="";
        textBoxElementMail.hidden = true;
+       document.getElementById("id_responsible_teacher_received_mail").style.display = 'none';
     }
 }
 
