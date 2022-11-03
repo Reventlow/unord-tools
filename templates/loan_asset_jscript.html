@@ -2,7 +2,7 @@
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
 console.log("Change!");
 
-jQuery(document).ready(function($){
+$(document).ready(function($){
     $("select[name=id_loaner_type]").change(function(){
         console.log("Ready!");
         if ($(this).val() == "Elev") {
