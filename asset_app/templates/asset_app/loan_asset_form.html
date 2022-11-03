@@ -1,8 +1,8 @@
 
 {% extends "base.html" %}
 {% load static %}
-{% include 'loan_asset_jscript.html' %}
 {% block content %}
+    {% include 'loan_asset_jscript.html' %}
     <h1>Opret udlåns aftale</h1>
 
 
@@ -11,7 +11,7 @@
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <div style="text-align: center;"><strong>Der er lån der ikke er blevet afleveret endnu!!!</strong></div>
-            </br>
+            <br/>
              <table class="table">
             <tr class="table-dark">
                 <td>Udlåner</td>
