@@ -6,12 +6,12 @@ $(document).ready(function(){
     $("select[name=loaner_type]").change(function(){
         console.log("Ready!");
         if ($(this).val() == "Elev") {
-            $("#id_responsible_teacher_initials").prop('required',true);
-            $("#id_responsible_teacher_initials").show();
+            $("#responsible_teacher_initials").prop('required',true);
+            $("#responsible_teacher_initials").show();
             console.log("Elev!");
         } else {
-            $("#id_responsible_teacher_initials").prop('required',false);
-            $("#id_responsible_teacher_initials").hide();
+            $("#responsible_teacher_initials").prop('required',false);
+            $("#responsible_teacher_initials").hide();
             console.log("Ansat!");
         }
     });
