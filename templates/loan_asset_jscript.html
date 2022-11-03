@@ -3,7 +3,7 @@
 console.log("Change!");
 
 $(document).ready(function($){
-    $("select[name=id_loaner_type]").change(function(){
+    $("select[name=loaner_type]").change(function(){
         console.log("Ready!");
         if ($(this).val() == "Elev") {
             $("#id_responsible_teacher_initials").prop('required',true);
