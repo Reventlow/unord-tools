@@ -43,24 +43,27 @@
     </script>
     <script>
     // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
-        console.log("Change!");
+        console.log("start script!");
         var select = document.getElementById("id_loaner_type");
         var textBoxElement = document.getElementById("id_responsible_teacher_initials");
+        console.log("variables set!");
 
-
+        console.log("pre function");
         select.onchange = function(){
-
+            console.log("in fuction!");
             var selectedString = select.options[select.selectedIndex].value;
 
             if(selectedString == '1'){
 
                textBoxElement.required = true;
                textBoxElement.style.border="1px solid red";
+               console.log("Elev!");
 
             }else{
 
                textBoxElement.required = false;
                textBoxElement.style.border="";
+                console.log("Ansat!");
         }
 }
 
