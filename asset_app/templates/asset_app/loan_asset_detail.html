@@ -17,6 +17,8 @@
     <tr><td>Udstyr type</td><td><a href="{% url 'asset_app_asset_type_detail' object.asset.model_hardware.asset_type.id %}" class="btn btn-secondary btn-sm" >{{ object.asset.model_hardware.asset_type }}</a></td></tr>
     <tr><td>Elev/kursist udd.</td><td>{{ object.eduName }}</td></tr>
     <tr><td>Elev/kursist udd. slut dato</td><td>{% if object.endEduDate %}{{ object.endEduDate }}{% endif %}</td></tr>
+    <tr><td>Ansvarlig underviser.</td><td>{{ object.responsible_teacher_initials }}</td></tr>
+    <tr><td>Ansvarlig underviser fået mail ang aflevering af udstyr</td><td>{% if object.responsible_teacher_received_mail == True  %} Ja {% else %} Nej {% endif %}</td></tr>
     <tr><td>Udlåns dato</td><td>{{ object.loan_date }}</td></tr>
     <tr><td>Afleverings dato</td><td>{{ object.return_date }}</td></tr>
     <tr><td>Noter</td><td>{{ object.notes|safe}}</td></tr>
