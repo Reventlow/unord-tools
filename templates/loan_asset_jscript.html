@@ -45,7 +45,7 @@ selectReturnDate.onchange = function(){
     var selectedString = selectReturnDate.value;
 
     if(selectedString == today){
-        console.log("today matches return date");
+        console.log("today("+ today +") matches return date("+ selectedString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
