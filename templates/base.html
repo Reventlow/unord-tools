@@ -1,6 +1,4 @@
-{% load static %}
-{% load date_tags %}
-<!doctype html>
+{% load static %} <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -147,7 +145,7 @@
                                                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Udlån</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_list_filter' loc_name = "any" return_date = 1|minusDays returned = False task = 'all'  %}">Udlåns status</a></li>
+                        <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_list' %}">Udlåns status</a></li>
                         <li><a class="dropdown-item" href="{% url 'asset_app_loan_asset_create' user_email="empty" %}">Reg. udlaan</a></li>
                         <li>
                             <hr class="dropdown-divider">
