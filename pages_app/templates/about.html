@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load date_tags %}
 {% block title %}U/Nord tools | Om denne webside!{% endblock %}
 {% block content %}
     <h1>Om denne webside</h1>
@@ -40,5 +41,8 @@
 
     Github kode findes her: <a href="https://github.com/Reventlow/unord-tools" class="btn btn-primary btn-sm" target="_blank" tabindex="-1" role="button"
                aria-disabled="true">https://github.com/Reventlow/unord-tools</a>
+
+    <br/>
+    <a href="{% url 'asset_app_loan_asset_list_filter' "any" 1|minusDays False "all"  %}">Test link</a>
 
 {% endblock %}
