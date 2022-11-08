@@ -41,10 +41,11 @@ textBoxElementMail.hidden = true;
 }
 
 selectReturnDate.onchange = function(){
-    console.log(today);
+
     var selectedString = selectReturnDate.value;
 
     if(selectedString == today){
+        console.log("today matches return date");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
