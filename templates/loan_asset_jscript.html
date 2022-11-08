@@ -1,9 +1,18 @@
 <script>
 // if dropdown loaner_type changed, then change textfield responsible_teacher_initials to required
 console.log("jscript hide/show assigned teacher!!");
- var selectElement = document.getElementById("id_loaner_type");
- var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
- var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
+const date = new Date();
+let year = date.getDate();
+let month = date.getMonth() + 1;
+let day = date.getDate();
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+const today = year + "-" + month + "-" + day;
+var selectElement = document.getElementById("id_loaner_type");
+var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
+var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
+var selectReturnDate = document.getElementById("id_return_date");
+
 
 textBoxElementInitials.required = false;
 textBoxElementInitials.hidden = true;
@@ -26,6 +35,25 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
+
+    }
+}
+
+selectReturnDate.onchange = function(){
+
+    var selectedString = selectReturnDate.options[selectReturnDate.selectedIndex].value;
+
+    if(selectedString == today){
+
+       textBoxElementInitials.required = false;
+       textBoxElementInitials.hidden = true;
+       textBoxElementMail.hidden = true;
+
+    }else{
+
+       textBoxElementInitials.required = true;
+       textBoxElementInitials.hidden = false;
+       textBoxElementMail.hidden = false;
 
     }
 }
