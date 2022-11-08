@@ -52,7 +52,7 @@ selectReturnDate.onchange = function(){
        textBoxElementMail.hidden = true;
 
     }else{
-       console.log("today does not matches return date");
+       console.log("today("+ today +") does not matches return date("+ selectedString +")");
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
