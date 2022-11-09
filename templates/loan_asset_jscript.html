@@ -9,7 +9,7 @@ if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 const today = year + "-" + month + "-" + day;
 console.log("Date today: "+today);
-var selectElement = document.getElementById("id_loaner_type");
+var selectLonerType = document.getElementById("id_loaner_type");
 var textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
 var textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
 var selectReturnDate = document.getElementById("id_return_date");
@@ -19,12 +19,12 @@ textBoxElementInitials.required = false;
 textBoxElementInitials.hidden = true;
 textBoxElementMail.hidden = true;
 
- selectElement.onchange = function(){
+ selectLonerType.onchange = function(){
 
-    var selectedString = selectElement.options[selectElement.selectedIndex].value;
+    var selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
 
-    if(selectedString == '1'){
+    if(selectedLonerTypeString == '1'){
 
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
@@ -42,15 +42,21 @@ textBoxElementMail.hidden = true;
 
 selectReturnDate.onchange = function(){
 
-    var selectedString = selectReturnDate.value;
+    var selectedReturnDateString = selectReturnDate.value;
+    var selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
-    if(selectedString == today){
+    if(selectedReturnDateString == today){
         console.log("today("+ today +") matches return date("+ selectedString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
 
+    }else if(selectedReturnDateString != today && selectedLonerTypeString == '2'){
+
+       textBoxElementInitials.required = false;
+       textBoxElementInitials.hidden = true;
+       textBoxElementMail.hidden = true;
     }else{
        console.log("today("+ today +") does not matches return date("+ selectedString +")");
        textBoxElementInitials.required = true;
