@@ -24,12 +24,11 @@ textBoxElementMail.hidden = true;
     let selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
 
-    if(selectedLonerTypeString == '1'){
+    if(selectedLonerTypeString === '1'){
 
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
-       ;
 
     }else{
 
@@ -45,20 +44,20 @@ selectReturnDate.onchange = function(){
     let selectedReturnDateString = selectReturnDate.value;
     let selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
-    if(selectedReturnDateString == today){
+    if(selectedReturnDateString === today){
         console.log("today("+ today +") matches return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
 
-    }else if( selectedLonerTypeString == '1' && selectedReturnDateString == today){
+    }else if( selectedLonerTypeString === '1' && selectedReturnDateString === today){
         console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-    }else if(selectedReturnDateString != today && selectedLonerTypeString == '2'){
+    }else if(selectedReturnDateString !== today && selectedLonerTypeString === '2'){
         console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
