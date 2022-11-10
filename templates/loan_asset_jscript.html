@@ -21,7 +21,7 @@ textBoxElementMail.hidden = true;
 
  selectLonerType.onchange = function(){
 
-    var selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
+    let selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
 
     if(selectedLonerTypeString == '1'){
@@ -42,30 +42,30 @@ textBoxElementMail.hidden = true;
 
 selectReturnDate.onchange = function(){
 
-    var selectedReturnDateString = selectReturnDate.value;
-    var selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
+    let selectedReturnDateString = selectReturnDate.value;
+    let selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
     if(selectedReturnDateString == today){
-        console.log("today("+ today +") matches return date("+ selectedString +")");
+        console.log("today("+ today +") matches return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
 
     }else if( selectedLonerTypeString == '1' && selectedReturnDateString == today){
-        console.log("today("+ today +") , return date("+ selectedString +")");
+        console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
     }else if(selectedReturnDateString != today && selectedLonerTypeString == '2'){
-        console.log("today("+ today +") , return date("+ selectedString +")");
+        console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
     }else{
-       console.log("today("+ today +") does not matches return date("+ selectedString +")");
+       console.log("today("+ today +") does not matches return date("+ selectedReturnDateString +")");
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
