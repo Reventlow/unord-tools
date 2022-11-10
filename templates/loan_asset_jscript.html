@@ -52,7 +52,14 @@ selectReturnDate.onchange = function(){
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
 
+    }else if( selectedLonerTypeString == '1' && selectedReturnDateString == today){
+        console.log("today("+ today +") , return date("+ selectedString +")");
+
+       textBoxElementInitials.required = false;
+       textBoxElementInitials.hidden = true;
+       textBoxElementMail.hidden = true;
     }else if(selectedReturnDateString != today && selectedLonerTypeString == '2'){
+        console.log("today("+ today +") , return date("+ selectedString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
