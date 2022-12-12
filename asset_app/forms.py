@@ -4,11 +4,16 @@ from . import models
 from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition, Loan_asset, Sms
 from tinymce.widgets import TinyMCE
 from django.db.models import Q
+from datetime import date
+
 
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
+now = date.today()
+# now plus 1 month
+now_plus_1_month = now.replace(month=now.month + 1)
 
 
 
@@ -266,12 +271,11 @@ class Loan_assetForm(forms.ModelForm):
                                                                                                "type": "date"}))
     responsible_teacher_initials = forms.CharField(label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast ansvalig læres initialier'}))
-    responsible_teacher_received_mail = forms.BooleanField(label="Underviser har modtaget mail om at elev skal huske at aflever", initial=False, required=False, disabled=True)
     dropped_out_of_school = forms.BooleanField(label="Er ikke længer tilknyttet skolen", initial=False, required=False)
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
-        attrs={'class': 'form-control', "type": "date"}))
+        attrs={'class': 'form-control', "type": "date", 'data-max': now_plus_1_month}))
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
@@ -361,7 +365,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
-        attrs={'class': 'form-control', "type": "date"}))
+        attrs={'class': 'form-control', "type": "date", 'data-max': now_plus_1_month}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
