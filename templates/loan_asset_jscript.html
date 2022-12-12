@@ -15,7 +15,7 @@ let selectLonerType = document.getElementById("id_loaner_type");
 let textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
 let textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
 let selectReturnDate = document.getElementById("id_return_date");
-let textBoxElementReturnDate = document.getElementById("id_return_date");
+let datePickerElementReturnDate = document.getElementById("id_return_date");
 
 
 
@@ -33,14 +33,14 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
-       textBoxElementReturnDate.maxDate = datePlusOneMonth;
+       datePickerElementReturnDate.datepicker({"option", 'maxDate', datePlusOneMonth});
 
     }else{
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-       textBoxElementReturnDate.maxDate = datePlusOneYear;
+       datePickerElementReturnDate.datepicker{("option", 'maxDate', datePlusOneYear)};
 
     }
 }
