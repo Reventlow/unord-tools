@@ -4,7 +4,7 @@ from . import models
 from .models import Locations, Asset_type, Room, Model_hardware, Asset, Brand, Room_type, Loaner_type, Routines, One2OneInfo, SeverityLevel, ExternalService, AssetCase, ExternalServicePosition, Loan_asset, Sms
 from tinymce.widgets import TinyMCE
 from django.db.models import Q
-from datetime import date
+from datetime import date, timedelta
 
 
 class TinyMCEWidget(TinyMCE):
