@@ -33,14 +33,14 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
-       datePickerElementReturnDate.options.endDate = '+1m';
+       datePickerElementReturnDate.max(datePlusOneMonth)
 
     }else{
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-       datePickerElementReturnDate.options.endDate = '+1y';
+       datePickerElementReturnDate.max(datePlusOneYear);
 
     }
 }
