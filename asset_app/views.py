@@ -1030,7 +1030,7 @@ class Loan_assetListFilterView(generic.ListView):
         if loc_name == "any" and task == "drop_out":
             queryset = super().get_queryset().filter(dropped_out_of_school=True).exclude(returned=True).order_by('-dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
         elif loc_name == "any" and task == "all":
-            queryset = super().get_queryset().exclude(returned=True).order_by('-dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
+            queryset = super().get_queryset().exclude(returned=True).exclude(asset=None).order_by('-dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
         elif loc_name == "any":
             queryset = super().get_queryset().filter(criterionReturnState & criterionReturnDate).order_by('-dropped_out_of_school', 'return_date', 'loaner_name', 'asset')
         else:

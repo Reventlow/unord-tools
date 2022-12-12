@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
+
     <h1>Opret udlåns aftale</h1>
 
 
@@ -10,8 +10,8 @@
 
 
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <center><strong>Der er lån der ikke er blevet afleveret endnu!!!</strong></center>
-            </br>
+                <div style="text-align: center;"><strong>Der er lån der ikke er blevet afleveret endnu!!!</strong></div>
+            <br/>
              <table class="table">
             <tr class="table-dark">
                 <td>Udlåner</td>
@@ -140,30 +140,5 @@
     </table>
 
            </form>
-
-
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-</script>
-<script>
-    $(document).ready(function () { //function will wait for the page to fully load before executing
-
-        $("input[name=loaner_type]").change(function () { //specifying onchange function for input of type radio and name loaner_type
-            console.log("Change!");
-            if (this.value == "1") { //if the new value is private
-                $("#responsible_teacher_initials").prop('disabled', false).prop('required', true);//would recommend readonly instead of disable for form integrity
-                console.log("Enabling");
-
-
-            }else{ //if the new value is anything else
-                    $("#responsible_teacher_initials").prop('disabled', true).prop('required', false);
-                    console.log("Disabling");
-                }
-        });
-    });
-</script>
-
-
-{% endblock %}
+{% include 'loan_asset_jscript.html' %}
+    {% endblock %}
