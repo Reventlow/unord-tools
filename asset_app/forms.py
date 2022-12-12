@@ -11,9 +11,10 @@ class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
-now = date.today()
-# now plus 1 month
-now_plus_1_month = now.replace(month=now.month + 1)
+# function to get date 1 month from today
+def date_1_month_from_now():
+    today = date.today()
+    return today + timedelta(days=30)
 
 
 
@@ -275,7 +276,7 @@ class Loan_assetForm(forms.ModelForm):
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
-        attrs={'class': 'form-control', "type": "date", 'data-max': now_plus_1_month}))
+        attrs={'class': 'form-control', "type": "date", 'data-max': date_1_month_from_now()}))
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
@@ -365,7 +366,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
     loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
     return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
-        attrs={'class': 'form-control', "type": "date", 'data-max': now_plus_1_month}))
+        attrs={'class': 'form-control', "type": "date", 'data-max': date_1_month_from_now()}))
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
