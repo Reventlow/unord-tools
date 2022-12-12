@@ -33,14 +33,14 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
-       datePickerElementReturnDate.hidden = true;
+       datePickerElementReturnDate.prop('maxDate', '+1m');
 
     }else{
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-       datePickerElementReturnDate.datepicker({maxDate: "+1y"});
+       datePickerElementReturnDate.prop('maxDate', '+1m');
 
     }
 }
