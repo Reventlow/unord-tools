@@ -9,10 +9,14 @@ if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 const today = year + "-" + month + "-" + day;
 console.log("Date today: "+today);
+let datePlusOneMonth = new Date(year, month, day + 30);
+let datePlusOneYear = new Date(year, month, day + 365);
 let selectLonerType = document.getElementById("id_loaner_type");
 let textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
 let textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
 let selectReturnDate = document.getElementById("id_return_date");
+let textBoxElementReturnDate = document.getElementById("id_return_date");
+
 
 
 textBoxElementInitials.required = false;
@@ -29,12 +33,14 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
+       textBoxElementReturnDate.maxDate = datePlusOneMonth;
 
     }else{
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
+       textBoxElementReturnDate.maxDate = datePlusOneYear;
 
     }
 }
