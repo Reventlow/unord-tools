@@ -269,14 +269,14 @@ class Loan_assetForm(forms.ModelForm):
     endEduDate = forms.DateField(required=False, label="Hvis elev/kursist mulighed for at skrive slut studie dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
                                                                                         attrs={'class': 'form-control',
                                                                                                "type": "date"}))
-    responsible_teacher_initials = forms.CharField(required=False, label="", max_length=4, widget=forms.TextInput(
+    responsible_teacher_initials = forms.CharField(required=False, label="", max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Indtast ansvalig læres initialier'}))
     responsible_teacher_received_mail = forms.BooleanField(label="Underviser har modtaget mail om at elev skal huske at aflever", initial=False, required=False, disabled=True)
     dropped_out_of_school = forms.BooleanField(label="Er ikke længer tilknyttet skolen", initial=False, required=False)
-    loan_date = forms.DateField(label="Udlåns dato", widget=forms.DateInput(format=('%Y-%m-%d'),
+    loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(label="Afleverings dato", widget=forms.DateInput(format=('%Y-%m-%d'),
-        attrs={'class': 'form-control', "type": "date"}), max_date=max_date)
+    return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+        attrs={'class': 'form-control', "type": "date"}))
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
     returned = forms.BooleanField(label="Er udstyret returneret", initial=False, required=False)
