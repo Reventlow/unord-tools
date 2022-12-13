@@ -7,10 +7,10 @@ let month = date.getMonth() + 1;
 let day = date.getDate();
 if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
-const today = year + "-" + month + "-" + day;
+const today  = new Date();
 console.log("Date today: "+today);
-let datePlusOneMonth = new Date(year, month, day + 30);
-let datePlusOneYear = new Date(year, month, day + 365);
+let datePlusOneMonth = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000));
+let datePlusOneYear = new Date(today.getTime() + (365 * 24 * 60 * 60 * 1000));
 let selectLonerType = document.getElementById("id_loaner_type");
 let textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
 let textBoxElementMail = document.getElementById("id_responsible_teacher_received_mail");
@@ -33,14 +33,14 @@ textBoxElementMail.hidden = true;
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
-       datePickerElementReturnDate.max(datePlusOneMonth)
+       datePickerElementReturnDate.max = datePlusOneMonth.toJSON().slice(0,10);
 
     }else{
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-       datePickerElementReturnDate.max(datePlusOneYear);
+       datePickerElementReturnDate.max =datePlusOneYear.toJSON().slice(0,10);
 
     }
 }
