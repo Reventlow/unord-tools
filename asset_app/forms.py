@@ -273,9 +273,9 @@ class Loan_assetForm(forms.ModelForm):
         attrs={'class': 'form-control', 'placeholder': 'Indtast ansvalig læres initialier'}))
     responsible_teacher_received_mail = forms.BooleanField(label="Underviser har modtaget mail om at elev skal huske at aflever", initial=False, required=False, disabled=True)
     dropped_out_of_school = forms.BooleanField(label="Er ikke længer tilknyttet skolen", initial=False, required=False)
-    loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    loan_date = forms.DateField(label="Udlåns dato", widget=forms.widgets.DateInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}))
-    return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateTimeInput(format=('%Y-%m-%d'),
+    return_date = forms.DateField(label="Afleverings dato", widget=forms.widgets.DateInput(format=('%Y-%m-%d'),
         attrs={'class': 'form-control', "type": "date"}), max_date=max_date)
     sms_automatic = forms.BooleanField(label="Send sms automatisk", initial=False, required=False)
 
