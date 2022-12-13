@@ -7,6 +7,7 @@ let month = date.getMonth() + 1;
 let day = date.getDate();
 if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
+const todayCheck = year + "-" + month + "-" + day;
 const today  = new Date();
 console.log("Date today: "+today);
 let datePlusOneMonth = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000));
@@ -22,6 +23,7 @@ let datePickerElementReturnDate = document.getElementById("id_return_date");
 textBoxElementInitials.required = false;
 textBoxElementInitials.hidden = true;
 textBoxElementMail.hidden = true;
+datePickerElementReturnDate.max = datePlusOneMonth.toJSON().slice(0,10);
 
  selectLonerType.onchange = function(){
 
@@ -51,26 +53,26 @@ selectReturnDate.onchange = function(){
     let selectedLonerTypeString = selectLonerType.options[selectLonerType.selectedIndex].value;
 
     if(selectedReturnDateString === today){
-        console.log("today("+ today +") matches return date("+ selectedReturnDateString +")");
+        console.log("today("+ todayCheck +") matches return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
 
-    }else if( selectedLonerTypeString === '1' && selectedReturnDateString === today){
-        console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
+    }else if( selectedLonerTypeString === '1' && selectedReturnDateString === todayCheck){
+        console.log("today("+ todayCheck +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
-    }else if(selectedReturnDateString !== today && selectedLonerTypeString === '2'){
-        console.log("today("+ today +") , return date("+ selectedReturnDateString +")");
+    }else if(selectedReturnDateString !== todayCheck && selectedLonerTypeString === '2'){
+        console.log("today("+ todayCheck +") , return date("+ selectedReturnDateString +")");
 
        textBoxElementInitials.required = false;
        textBoxElementInitials.hidden = true;
        textBoxElementMail.hidden = true;
     }else{
-       console.log("today("+ today +") does not matches return date("+ selectedReturnDateString +")");
+       console.log("today("+ todayCheck +") does not matches return date("+ selectedReturnDateString +")");
        textBoxElementInitials.required = true;
        textBoxElementInitials.hidden = false;
        textBoxElementMail.hidden = false;
