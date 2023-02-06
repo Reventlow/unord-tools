@@ -29,10 +29,10 @@
             {% for object in object_list %}
                 {% if object.missing %}
                             <tr class="table-danger">
-                        {% elif object.returned %}
-                            <tr>
-                        {% else %}
+                        {% elif object.is_loaned %}
                             <tr class="table-secondary">
+                        {% else %}
+                            <tr>
                         {% endif %}
 
                     <td>{{ object.name }} <a href="{{ object.get_absolute_url }}"
