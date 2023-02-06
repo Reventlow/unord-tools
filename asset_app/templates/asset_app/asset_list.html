@@ -44,8 +44,10 @@
 
                         {% if object.missing %}
                             <tr class="table-danger">
-                        {% else %}
+                        {% elif object.returned %}
                             <tr>
+                        {% else %}
+                            <tr class="table-secondary">
                         {% endif %}
 
 
