@@ -27,7 +27,7 @@
                 </td>
             </tr>
             {% for object in object_list %}
-                {% if object.missing %}
+                        {% if object.missing %}
                             <tr class="table-danger">
                         {% elif object.is_loaned %}
                             <tr class="table-secondary">
