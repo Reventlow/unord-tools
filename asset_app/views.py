@@ -1283,7 +1283,7 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
 
     expired_param = openapi.Parameter(
         'expired', openapi.IN_QUERY,
-        description="Set to 'true' to filter loans where the return_date has passed and returned is False",
+        description="Set to 'true' to filter loans where the return_date has passed and returned is False and only searches for students",
         type=openapi.TYPE_BOOLEAN
     )
 
@@ -1297,7 +1297,7 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
         # Custom filter for expired loans that are not returned
         expired = self.request.query_params.get('expired', None)
         if expired is not None and expired.lower() == 'true':
-            queryset = queryset.filter(return_date__lt=datetime.datetime.now(), returned=False)
+            queryset = queryset.filter(return_date__lt=datetime.datetime.now(), returned=False, loaner_type__name='Elev')
 
         return queryset
 
