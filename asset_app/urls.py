@@ -27,7 +27,6 @@ urlpatterns = [
     path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/', include(router.urls)),
-    path('api/', include(router.urls)),
 #Asset
     path("asset_app/asset/create/", views.AssetCreateView.as_view(), name="asset_app_asset_create"),
     path("asset_app/asset/<str:location>/", views.AssetListView.as_view(), name="asset_app_asset_list"),
