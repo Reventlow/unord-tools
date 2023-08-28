@@ -1,37 +1,34 @@
 from django.urls import path, include
-from rest_framework import routers
+#from rest_framework import routers
 from django.conf.urls.static import settings, static
 from . import api
 from . import views
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.routers import DefaultRouter
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Todo API",
+      default_version='v1',
+      description="API documentation for the Todo app",
+   ),
+   public=True,
+   permission_classes=(IsAuthenticated,),
+)
 
-router = routers.DefaultRouter()
-router.register("asset", api.AssetViewSet)
-router.register("asset_type", api.Asset_typeViewSet)
-router.register("AssetCase", api.AssetCaseViewSet)
-router.register("AssetLog", api.AssetLogViewSet)
-router.register("brand", api.BrandViewSet)
-router.register("bundle_reservation", api.Bundle_reservationViewSet)
-router.register("ExternalService", api.ExternalServiceViewSet)
-router.register("ExternalServiceContact", api.ExternalServiceContactViewSet)
-router.register("ExternalServicePosition", api.ExternalServicePositionViewSet)
-router.register("loan_asset", api.Loan_assetViewSet)
-router.register("loaner_type", api.Loaner_typeViewSet)
-router.register("locations", api.LocationsViewSet)
-router.register("loaner_type", api.Loaner_typeViewSet)
-router.register("model_hardware", api.Model_hardwareViewSet)
-router.register("one_2_one_info", api.One2OneInfoViewSet)
-router.register("one_2_one_info_log", api.One2OneInfoLogViewSet)
-router.register("room", api.RoomViewSet)
-router.register("room_type", api.Room_typeViewSet)
-router.register("Routines", api.RoutinesViewSet)
-router.register("RoutineLog", api.RoutineLogViewSet)
-router.register("SeverityLevel", api.SeverityLevelViewSet)
-router.register("Sms", api.SmsViewSet)
-router.register("SmsLog", api.SmsLogViewSet)
+router = DefaultRouter()
+router.register(r'assets', views.AssetViewAPI, basename='asset')
+router.register(r'loaners', views.Loan_assetViewAPI, basename='asset')
 
 urlpatterns = [
-    path("api/v1/", include(router.urls)),
+#API
+    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/', include(router.urls)),
+    path('', views.AssetViewAPI.as_view(), name='list'),
+    path('', views.Loan_assetViewAPI.as_view(), name='list'),
 #Asset
     path("asset_app/asset/create/", views.AssetCreateView.as_view(), name="asset_app_asset_create"),
     path("asset_app/asset/<str:location>/", views.AssetListView.as_view(), name="asset_app_asset_list"),

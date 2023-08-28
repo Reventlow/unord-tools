@@ -21,6 +21,10 @@ from io import StringIO, BytesIO
 from urllib.request import urlopen
 import xlsxwriter
 from .tools import smsButtonLateReturn, dateWeekday, smsButtonReturnReminder
+from .serializers import AssetSerializer, Loan_assetSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -114,6 +118,12 @@ class AssetUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
     location_url_kwarg = "all"
 
+
+class AssetViewAPI(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = models.Asset.objects.all()
+    serializer_class = AssetSerializer
 
 @method_decorator(login_required, name='dispatch')
 class Asset_typeListView(generic.ListView):
@@ -1263,6 +1273,12 @@ class Loan_assetUpdateView(generic.UpdateView):
     model = models.Loan_asset
     form_class = forms.Loan_assetUpdateForm
     pk_url_kwarg = "pk"
+
+class Loan_assetViewAPI(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = models.Loan_asset.objects.all()
+    serializer_class = Loan_assetSerializer
 
 
 @method_decorator(login_required, name='dispatch')
