@@ -20,7 +20,7 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register(r'assets', views.AssetViewAPI, basename='asset')
-router.register(r'loaners', views.Loan_assetViewAPI, basename='asset')
+router.register(r'loaners', views.Loan_assetViewAPI, basename='loan')
 
 urlpatterns = [
 #API
