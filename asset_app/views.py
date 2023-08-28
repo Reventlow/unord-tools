@@ -1280,6 +1280,16 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
     queryset = models.Loan_asset.objects.all()
     serializer_class = Loan_assetSerializer
 
+    def get_queryset(self):
+        queryset = models.Loan_asset.objects.all()
+
+        # Custom filter for expired loans that are not returned
+        expired = self.request.query_params.get('expired', None)
+        if expired is not None and expired.lower() == 'true':
+            queryset = queryset.filter(return_date__lt=datetime.datetime.now(), returned=False)
+
+        return queryset
+
 
 @method_decorator(login_required, name='dispatch')
 class Loaner_typeListView(generic.ListView):
