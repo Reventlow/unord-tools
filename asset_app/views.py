@@ -25,7 +25,8 @@ from .serializers import AssetSerializer, Loan_assetSerializer
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 
@@ -1280,13 +1281,23 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
     queryset = models.Loan_asset.objects.all()
     serializer_class = Loan_assetSerializer
 
+    expired_param = openapi.Parameter(
+        'expired', openapi.IN_QUERY,
+        description="Set to 'true' to filter loans where the return_date has passed and returned is False",
+        type=openapi.TYPE_BOOLEAN
+    )
+
+    @swagger_auto_schema(manual_parameters=[expired_param])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = models.Loan_asset.objects.all()
 
         # Custom filter for expired loans that are not returned
         expired = self.request.query_params.get('expired', None)
         if expired is not None and expired.lower() == 'true':
-            queryset = queryset.filter(return_date__lt=datetime.datetime.now(), returned=False)
+            queryset = queryset.filter(return_date__lt=datetime.now(), returned=False)
 
         return queryset
 
