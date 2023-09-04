@@ -1314,7 +1314,7 @@ class Loan_assetListViewStudentDeliquent(generic.ListView):
         queryset = super().get_queryset()
         # Filter based on return_date and loaner_type
         queryset = queryset.filter(
-            Q(returned=True) &
+            Q(returned=False) &
             Q(return_date__lt=today) &
             Q(loaner_type__name="Elev")
         ).order_by('dropped_out_of_school', 'responsible_teacher_initials')
