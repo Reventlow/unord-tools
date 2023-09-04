@@ -1303,7 +1303,7 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
         return queryset
 
 
-@method_decorator(login_required, name='dispatch')
+#@method_decorator(login_required, name='dispatch') So that HEFA can view it
 class Loan_assetListViewStudentDeliquent(generic.ListView):
     model = models.Loan_asset
     form_class = forms.Loan_assetForm
