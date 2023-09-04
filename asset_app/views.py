@@ -1316,7 +1316,7 @@ class Loan_assetListViewStudentDeliquent(generic.ListView):
         queryset = queryset.filter(
             Q(returned=False) &
             Q(return_date__lt=today) &
-            Q(loaner_type__name="Elev")
+            Q(loaner_type__name!="Ansat")
         ).order_by('dropped_out_of_school', 'responsible_teacher_initials')
         return queryset
 
