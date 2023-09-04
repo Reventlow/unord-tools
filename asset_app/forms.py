@@ -389,6 +389,7 @@ class Loan_assetUpdateForm(forms.ModelForm):
             "loaner_type",
             "asset",
             "eduName",
+            "responsible_teacher_initials",
             "endEduDate",
             "dropped_out_of_school",
             "loan_date",
