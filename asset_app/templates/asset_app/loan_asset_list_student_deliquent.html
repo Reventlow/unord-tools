@@ -47,7 +47,9 @@
             {% for object in object_list %}
 
 
-                {% if dropped_out_of_school == True %}
+                {% if dropped_out_of_school %}
+                <tr class="table-danger">
+                {% elif responsible_teacher_initials == 'Ukendt' %}
                 <tr class="table-danger">
                 {% else %}
                 <tr>
