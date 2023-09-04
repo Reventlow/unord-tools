@@ -37,7 +37,7 @@
                     <div style="text-align: center;">Retuneres</div>
                 </td>
                                <td>
-                    <div style="text-align: center;">Udd slut</div>
+                    <div style="text-align: center;">Udd info</div>
                 </td>
                   <td>
                     <div style="text-align: center;">Funktioner</div>
@@ -47,7 +47,7 @@
             {% for object in object_list %}
 
 
-                {% if returned > true%}
+                {% if dropped_out_of_school == true%}
                 <tr class="table-warning">
                 {% else %}
                 <tr>
@@ -113,7 +113,7 @@
                     <div style="text-align: center;">{{ object.return_date|date:'d-m-Y' }}</div>
                 </td>
             <td>
-                    <div style="text-align: center;">{{ object.endEduDate|date:'d-m-Y' }}</div>
+                    <div style="text-align: center;">{{ object.responsible_teacher_initials }}<br>{{ object.eduName }}</div>
                 </td>
                 <td style="text-align: center;">
                     {% if object.returned %}
