@@ -1315,9 +1315,8 @@ class Loan_assetListViewStudentDeliquent(generic.ListView):
         # Filter based on return_date and loaner_type
         queryset = queryset.filter(
             Q(returned=False) &
-            Q(return_date__lt=today) &
-            Q(loaner_type__name!="Ansat")
-        ).order_by('dropped_out_of_school', 'responsible_teacher_initials')
+            Q(return_date__lt=today)
+        ).exclude(loaner_type__name="Ansat").order_by('dropped_out_of_school', 'responsible_teacher_initials')
         return queryset
 
 @method_decorator(login_required, name='dispatch')
