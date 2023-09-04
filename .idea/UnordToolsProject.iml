@@ -17,8 +17,9 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/python3.9/site-packages/django/contrib/staticfiles" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/new_venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (unord-tools2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.11 (unord-tools)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">

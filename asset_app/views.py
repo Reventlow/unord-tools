@@ -13,6 +13,7 @@ import csv
 from django.http import HttpResponse, HttpResponseRedirect
 from easy_pdf.views import PDFTemplateView, PDFTemplateResponseMixin
 import datetime
+from datetime import date
 import os
 import to_do_list_app.models
 from . import models
@@ -1301,6 +1302,22 @@ class Loan_assetViewAPI(viewsets.ModelViewSet):
 
         return queryset
 
+
+@method_decorator(login_required, name='dispatch')
+class Loan_assetListViewStudentDeliquent(generic.ListView):
+    model = models.Loan_asset
+    form_class = forms.Loan_assetForm
+    template_name = 'asset_app/loan_asset_list_student_deliquent.html'
+
+    def get_queryset(self):
+        today = date.today()  # Get today's date
+        queryset = super().get_queryset()
+        # Filter based on return_date and loaner_type
+        queryset = queryset.filter(
+            Q(return_date__lt=today) &
+            Q(loaner_type__name="Elev")
+        ).order_by('dropped_out_of_school', 'responsible_teacher_initials')
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class Loaner_typeListView(generic.ListView):
