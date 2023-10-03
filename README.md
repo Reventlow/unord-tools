@@ -1,5 +1,5 @@
-# UnordToolsProject
-Det er et udlaans system og asset management system til U/NORD.
+# U/NORD udlaan
+Det er et udlåns system og asset management system til U/NORD.
 
 ## Introduktion
 Dette er en Django 3.2.3 webapplikation med flere indbyggede og tredjeparts applikationer. Projektet er konfigureret til at køre både lokalt og i produktion.
