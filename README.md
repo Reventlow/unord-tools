@@ -46,3 +46,14 @@ Projektet bliver driftet på Heroku. For at deploye til Heroku.
 - REST Framework
 - TinyMCE
 - Easy PDF
+
+## Notes to a maintainer
+Dear maintainer
+
+When I wrote this code, only I and God knew what it was.
+Now, only God knows!
+
+So if you are done trying to 'optimize' this madness site (and failed),
+please increment the following counter as a warning to the next guy:
+
+total_hours_wasted_here = 7
