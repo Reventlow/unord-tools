@@ -10,7 +10,7 @@ if (day < 10) day = "0" + day;
 const todayCheck = year + "-" + month + "-" + day;
 const today  = new Date();
 console.log("Date today: "+today);
-let datePlusOneMonth = new Date(today.getTime() + (33 * 24 * 60 * 60 * 1000));
+let datePlusOneMonth = new Date(today.getTime() + (150 * 24 * 60 * 60 * 1000)); //changed value from 30 to 150 by request from HEFA
 let datePlusOneYear = new Date(today.getTime() + (365 * 24 * 60 * 60 * 1000));
 let selectLonerType = document.getElementById("id_loaner_type");
 let textBoxElementInitials = document.getElementById("id_responsible_teacher_initials");
