@@ -1093,9 +1093,10 @@ class Loan_assetListExcelView(generic.DetailView):
         worksheet_s.write(thisRow, 8, ugettext("Udstyrs navn"), header)
         worksheet_s.write(thisRow, 9, ugettext("Udstyrs type"), header)
         worksheet_s.write(thisRow, 10, ugettext("Udstyr mærke"), header)
-        worksheet_s.write(thisRow, 11, ugettext("Udlånt fra"), header)
-        worksheet_s.write(thisRow, 12, ugettext("Udlånt til"), header)
-        worksheet_s.write(thisRow, 13, ugettext("Retuneret"), header)
+        worksheet_s.write(thisRow, 11, ugettext("Serienummer"), header)
+        worksheet_s.write(thisRow, 12, ugettext("Udlånt fra"), header)
+        worksheet_s.write(thisRow, 13, ugettext("Udlånt til"), header)
+        worksheet_s.write(thisRow, 14, ugettext("Retuneret"), header)
 
 
 
@@ -1121,13 +1122,14 @@ class Loan_assetListExcelView(generic.DetailView):
                         worksheet_s.write_string(row, 8, data.asset.name)
                         worksheet_s.write_string(row, 9, data.asset.model_hardware.asset_type.name)
                         worksheet_s.write_string(row, 10, data.asset.model_hardware.brand.name+' '+ data.asset.model_hardware.name)
-                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
-                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                        worksheet_s.write_string(row, 11, data.asset.serial)
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
+                    worksheet_s.write_string(row, 13, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'))
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue)
+                    worksheet_s.write_string(row, 14, returnedValue)
 
             elif data.return_date < datetime.date.today() and data.returned == False:
                 if data.asset:
