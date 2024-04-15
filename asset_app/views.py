@@ -1155,13 +1155,14 @@ class Loan_assetListExcelView(generic.DetailView):
                         worksheet_s.write_string(row, 8, " ", formatRed)
                         worksheet_s.write_string(row, 9, " ", formatRed)
                         worksheet_s.write_string(row, 10, " ", formatRed)
-                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
-                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                        worksheet_s.write_string(row, 11, data.asset.serial, formatRed)
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
+                    worksheet_s.write_string(row, 13, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatRed)
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue, formatRed)
+                    worksheet_s.write_string(row, 14, returnedValue, formatRed)
 
             else:
                 if data.asset:
@@ -1187,13 +1188,14 @@ class Loan_assetListExcelView(generic.DetailView):
                         worksheet_s.write_string(row, 8, " ", formatGreen)
                         worksheet_s.write_string(row, 9, " ", formatGreen)
                         worksheet_s.write_string(row, 10, " ", formatGreen)
-                    worksheet_s.write_string(row, 11, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
-                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                        worksheet_s.write_string(row, 11, data.asset.serial, formatGreen)
+                    worksheet_s.write_string(row, 12, datetime.datetime.strptime(str(data.loan_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
+                    worksheet_s.write_string(row, 13, datetime.datetime.strptime(str(data.return_date), '%Y-%m-%d').strftime('%d/%m/%Y'), formatGreen)
                     if data.returned == True:
                         returnedValue = "Ja"
                     else:
                         returnedValue = "Nej"
-                    worksheet_s.write_string(row, 13, returnedValue, formatGreen)
+                    worksheet_s.write_string(row, 14, returnedValue, formatGreen)
 
             if not data.asset:
                 thisRow = thisRow - 1
