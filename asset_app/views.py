@@ -1,7 +1,11 @@
 import requests
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.db.models import Count, prefetch_related_objects, Q
+from django.db.models import Count, prefetch_related_objects, Q, uterRef, Subquery, DateField, CharField, BooleanField
+from django.db.models.functions import Cast
+from django.http import HttpResponse
+from django.utils.translation import ugettext as _
+from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -168,13 +172,13 @@ class Asset_typeDetailExcelView(generic.ListView):
     form_class = forms.AssetForm
 
     def get(self, request, pk):
-
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
 
-        # Here we will adding the code to add data
+        # Worksheet
         worksheet_s = workbook.add_worksheet("Udstyr")
 
+        # Formats
         header = workbook.add_format({
             'bg_color': '#F7F7F7',
             'color': 'black',
@@ -182,51 +186,94 @@ class Asset_typeDetailExcelView(generic.ListView):
             'valign': 'top',
             'border': 1
         })
+        formatRed = workbook.add_format({'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
+        formatActiveLoan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})  # emphasize unreturned last loan
 
-        formatRed = workbook.add_format({'bg_color': '#FFC7CE',
-                                         'font_color': '#9C0006'})
+        # Headers (row 2, zero-indexed)
+        worksheet_s.write(2, 1, _("Udstyrs navn"), header)
+        worksheet_s.write(2, 2, _("Serienummer"), header)
+        worksheet_s.write(2, 3, _("Placering"), header)
+        worksheet_s.write(2, 4, _("Model"), header)
+        worksheet_s.write(2, 5, _("Mærke"), header)
+        worksheet_s.write(2, 6, _("Udstyr type"), header)
+        worksheet_s.write(2, 7, _("Må udlånes"), header)
+        worksheet_s.write(2, 8, _("Meldt savnede"), header)
+        worksheet_s.write(2, 9, _("Sidst Udlånt"), header)  # last loaned (date + loaner)
 
-        worksheet_s.write(2, 1, ugettext("Udstyrs navn"), header)
-        worksheet_s.write(2, 2, ugettext("Serienummer"), header)
-        worksheet_s.write(2, 3, ugettext("Placering"), header)
-        worksheet_s.write(2, 4, ugettext("Model"), header)
-        worksheet_s.write(2, 5, ugettext("Mærke"), header)
-        worksheet_s.write(2, 6, ugettext("Udstyr type"), header)
-        worksheet_s.write(2, 7, ugettext("Må udlånes"), header)
-        worksheet_s.write(2, 8, ugettext("Meldt savnede"), header)
+        # Subquery to fetch the latest loan per asset.
+        # "Latest" here = most recent by loan_date, falling back to created if same day.
+        latest_loan_qs = models.Loan_asset.objects.filter(
+            asset=OuterRef('pk')
+        ).order_by('-loan_date', '-created')
 
-        queryset = models.Asset.objects.filter(model_hardware__asset_type_id=pk).order_by('name')
+        queryset = (
+            models.Asset.objects
+            .filter(model_hardware__asset_type_id=pk)
+            .select_related(
+                'room', 'room__location', 'room__room_type',
+                'model_hardware', 'model_hardware__brand', 'model_hardware__asset_type'
+            )
+            .annotate(
+                last_loan_date=Subquery(latest_loan_qs.values('loan_date')[:1]),
+                last_loaner_name=Subquery(latest_loan_qs.values('loaner_name')[:1]),
+                last_loan_returned=Subquery(latest_loan_qs.values('returned')[:1]),
+            )
+            .order_by('name')
+        )
 
-        for idx, data in enumerate(queryset):
+        # Write rows
+        for idx, asset in enumerate(queryset):
             row = 3 + idx
 
-            if data.missing:
+            # Build safe strings
+            serial = asset.serial or ""
+            room_str = ""
+            if asset.room and asset.room.location and asset.room.room_type:
+                room_str = f"{asset.room.name} :: {asset.room.location.name} :: {asset.room.room_type.name}"
+            model_name = asset.model_hardware.name if asset.model_hardware else ""
+            brand_name = asset.model_hardware.brand.name if asset.model_hardware and asset.model_hardware.brand else ""
+            atype_name = asset.model_hardware.asset_type.name if asset.model_hardware and asset.model_hardware.asset_type else ""
 
-                worksheet_s.write_number(row, 0, idx + 1, formatRed)
-                worksheet_s.write_string(row, 1, data.name, formatRed)
-                worksheet_s.write_string(row, 2, data.serial, formatRed)
-                worksheet_s.write_string(row, 3,
-                                         data.room.name + " :: " + data.room.location.name + " :: " + data.room.room_type.name,
-                                         formatRed)
-                worksheet_s.write_string(row, 4, data.model_hardware.name, formatRed)
-                worksheet_s.write_string(row, 5, data.model_hardware.brand.name, formatRed)
-                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name, formatRed)
-                worksheet_s.write_boolean(row, 7, data.may_be_loaned, formatRed)
-                worksheet_s.write_boolean(row, 8, data.missing, formatRed)
+            # Last loan nicely formatted
+            if asset.last_loan_date:
+                date_str = asset.last_loan_date.strftime("%Y-%m-%d")
+                loaner = asset.last_loaner_name or ""
+                last_loan_cell = f"{date_str} ({loaner})" if loaner else date_str
+            else:
+                last_loan_cell = "-"
+
+            # Choose format: missing overrides, otherwise emphasize if last loan not returned
+            row_fmt = None
+            if asset.missing:
+                row_fmt = formatRed
+            elif asset.last_loan_date and (asset.last_loan_returned is False):
+                row_fmt = formatActiveLoan
+
+            # Write row (with optional format)
+            if row_fmt:
+                worksheet_s.write_number(row, 0, idx + 1, row_fmt)
+                worksheet_s.write_string(row, 1, asset.name, row_fmt)
+                worksheet_s.write_string(row, 2, serial, row_fmt)
+                worksheet_s.write_string(row, 3, room_str, row_fmt)
+                worksheet_s.write_string(row, 4, model_name, row_fmt)
+                worksheet_s.write_string(row, 5, brand_name, row_fmt)
+                worksheet_s.write_string(row, 6, atype_name, row_fmt)
+                worksheet_s.write_boolean(row, 7, bool(asset.may_be_loaned), row_fmt)
+                worksheet_s.write_boolean(row, 8, bool(asset.missing), row_fmt)
+                worksheet_s.write_string(row, 9, last_loan_cell, row_fmt)
             else:
                 worksheet_s.write_number(row, 0, idx + 1)
-                worksheet_s.write_string(row, 1, data.name)
-                worksheet_s.write_string(row, 2, data.serial)
-                worksheet_s.write_string(row, 3,
-                                         data.room.name + " :: " + data.room.location.name + " :: " + data.room.room_type.name)
-                worksheet_s.write_string(row, 4, data.model_hardware.name)
-                worksheet_s.write_string(row, 5, data.model_hardware.brand.name)
-                worksheet_s.write_string(row, 6, data.model_hardware.asset_type.name)
-                worksheet_s.write_boolean(row, 7, data.may_be_loaned)
-                worksheet_s.write_boolean(row, 8, data.missing)
+                worksheet_s.write_string(row, 1, asset.name)
+                worksheet_s.write_string(row, 2, serial)
+                worksheet_s.write_string(row, 3, room_str)
+                worksheet_s.write_string(row, 4, model_name)
+                worksheet_s.write_string(row, 5, brand_name)
+                worksheet_s.write_string(row, 6, atype_name)
+                worksheet_s.write_boolean(row, 7, bool(asset.may_be_loaned))
+                worksheet_s.write_boolean(row, 8, bool(asset.missing))
+                worksheet_s.write_string(row, 9, last_loan_cell)
 
-            # the rest of the data
-
+        # Column widths
         worksheet_s.set_column('B:B', 30)
         worksheet_s.set_column('C:C', 15)
         worksheet_s.set_column('D:D', 40)
@@ -235,24 +282,17 @@ class Asset_typeDetailExcelView(generic.ListView):
         worksheet_s.set_column('G:G', 35)
         worksheet_s.set_column('H:H', 15)
         worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 15)
+        worksheet_s.set_column('J:J', 25)
 
         workbook.close()
-        xlsx_data = output.getvalue()
-
-        # Rewind the buffer.
         output.seek(0)
 
-        # Set up the Http response.
-
         filename = 'Udstyr-' + str(datetime.date.today()) + '.xlsx'
-
         response = HttpResponse(
-            output,
+            output.getvalue(),
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-        response['Content-Disposition'] = 'attachment; filename=%s' % filename
-
+        response['Content-Disposition'] = f'attachment; filename={filename}'
         return response
 
 
