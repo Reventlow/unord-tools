@@ -210,8 +210,8 @@ class AssetListExcelView(generic.ListView):
         ws.write(2, 7, _("Må udlånes"), header)
         ws.write(2, 8, _("Meldt savnede"), header)
         ws.write(2, 9,  _("Sidst Udlånt (dato)"), header)     # filterable date
-        ws.write(2, 10, _("Sidst Udlånt (låner)"), header)    # name (or sanitized if email was typed here)
-        ws.write(2, 11, _("Sidst Udlånt (brugernavn)"), header)  # NEW: username from email local-part
+        ws.write(2, 10, _("Sidst Udlånt (låner)"), header)    # sanitized if email was typed here
+        ws.write(2, 11, _("Sidst Udlånt (brugernavn)"), header)  # username from email local-part
         ws.write(2, 12, _("Udlånt nu?"), header)
 
         # Latest loan per asset
@@ -240,7 +240,7 @@ class AssetListExcelView(generic.ListView):
             .annotate(
                 last_loan_date=Subquery(latest_loan.values('loan_date')[:1]),
                 last_loaner_name=Subquery(latest_loan.values('loaner_name')[:1]),
-                last_loaner_email=Subquery(latest_loan.values('loaner_email')[:1]),  # NEW
+                last_loaner_email=Subquery(latest_loan.values('loaner_email')[:1]),
                 last_loan_returned=Subquery(latest_loan.values('returned')[:1]),
                 active_now=Exists(active_loan_subq),
             )
@@ -308,25 +308,23 @@ class AssetListExcelView(generic.ListView):
             else:
                 ws.write_blank(row, 9, None, row_fmt if row_fmt else None)
 
-            # Last loaner name (sanitize if someone typed email here and it's @unord.dk)
+            # Last loaner name (sanitize if email typed here and it's @unord.dk)
             display_name = (asset.last_loaner_name or "").strip()
             if '@' in display_name:
-                # If name field accidentally contains an email, trim domain for unord.dk
-                local_part, _, domain = display_name.partition('@')
+                local_part, at_sign, domain = display_name.partition('@')  # <-- renamed to avoid shadowing gettext _
                 if domain.lower() == 'unord.dk':
                     display_name = local_part
             ws.write_string(row, 10, display_name, row_fmt if row_fmt else None)
 
-            # Username from last_loaner_email (always local-part before '@')
+            # Username from last_loaner_email (local-part before '@')
             username = ""
             email = (asset.last_loaner_email or "").strip()
             if email:
-                # Handle potential delimiters like ';' or ',' just in case
                 first = email.split(';')[0].split(',')[0].strip()
                 if '@' in first:
                     username = first.split('@', 1)[0]
                 else:
-                    username = first  # already a local-part
+                    username = first
             ws.write_string(row, 11, username, row_fmt if row_fmt else None)
 
             # Currently loaned?
