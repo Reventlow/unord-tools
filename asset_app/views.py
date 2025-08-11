@@ -177,14 +177,14 @@ class Asset_typeDetailView(generic.DetailView):
 @method_decorator(login_required, name='dispatch')
 class AssetListExcelView(generic.ListView):
     model = models.Asset
-    form_class = forms.AssetForm
 
-    def get(self, request, pk):
+    def get(self, request, pk=None):
+        # Prepare workbook
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
+        ws = workbook.add_worksheet("Udstyr")
 
-        worksheet_s = workbook.add_worksheet("Udstyr")
-
+        # Formats
         header = workbook.add_format({
             'bg_color': '#F7F7F7',
             'color': 'black',
@@ -192,50 +192,63 @@ class AssetListExcelView(generic.ListView):
             'valign': 'top',
             'border': 1
         })
-        formatRed = workbook.add_format({'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
-        formatActiveLoan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})
+        fmt_missing = workbook.add_format({'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
+        fmt_active_loan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})
 
-        # Headers
-        worksheet_s.write(2, 1, _("Udstyrs navn"), header)
-        worksheet_s.write(2, 2, _("Serienummer"), header)
-        worksheet_s.write(2, 3, _("Placering"), header)
-        worksheet_s.write(2, 4, _("Model"), header)
-        worksheet_s.write(2, 5, _("Mærke"), header)
-        worksheet_s.write(2, 6, _("Udstyr type"), header)
-        worksheet_s.write(2, 7, _("Må udlånes"), header)
-        worksheet_s.write(2, 8, _("Meldt savnede"), header)
-        worksheet_s.write(2, 9, _("Sidst Udlånt"), header)
+        # Headers (row index 2)
+        ws.write(2, 1, _("Udstyrs navn"), header)
+        ws.write(2, 2, _("Serienummer"), header)
+        ws.write(2, 3, _("Placering"), header)
+        ws.write(2, 4, _("Model"), header)
+        ws.write(2, 5, _("Mærke"), header)
+        ws.write(2, 6, _("Udstyr type"), header)
+        ws.write(2, 7, _("Må udlånes"), header)
+        ws.write(2, 8, _("Meldt savnede"), header)
+        ws.write(2, 9, _("Sidst Udlånt"), header)
 
-        # Subquery for latest loan
-        latest_loan_qs = models.Loan_asset.objects.filter(
-            asset=OuterRef('pk')
-        ).order_by('-loan_date', '-created')
+        # Latest loan per asset (most recent by loan_date, then created)
+        latest_loan = (
+            models.Loan_asset.objects
+            .filter(asset=OuterRef('pk'))
+            .order_by('-loan_date', '-created')
+        )
 
-        queryset = (
+        # Base queryset (optionally filter by asset_type via pk)
+        qs = (
             models.Asset.objects
-            .filter(model_hardware__asset_type_id=pk)
             .select_related(
                 'room', 'room__location', 'room__room_type',
-                'model_hardware', 'model_hardware__brand', 'model_hardware__asset_type'
+                'model_hardware', 'model_hardware__brand', 'model_hardware__asset_type',
             )
             .annotate(
-                last_loan_date=Subquery(latest_loan_qs.values('loan_date')[:1]),
-                last_loaner_name=Subquery(latest_loan_qs.values('loaner_name')[:1]),
-                last_loan_returned=Subquery(latest_loan_qs.values('returned')[:1]),
+                last_loan_date=Subquery(latest_loan.values('loan_date')[:1]),
+                last_loaner_name=Subquery(latest_loan.values('loaner_name')[:1]),
+                last_loan_returned=Subquery(latest_loan.values('returned')[:1]),
             )
             .order_by('name')
         )
+        if pk is not None:
+            qs = qs.filter(model_hardware__asset_type_id=pk)
 
-        for idx, asset in enumerate(queryset):
+        # Rows
+        for idx, asset in enumerate(qs):
             row = 3 + idx
 
+            # Safe values
             serial = asset.serial or ""
-            room_str = ""
             if asset.room and asset.room.location and asset.room.room_type:
                 room_str = f"{asset.room.name} :: {asset.room.location.name} :: {asset.room.room_type.name}"
+            else:
+                room_str = ""
             model_name = asset.model_hardware.name if asset.model_hardware else ""
-            brand_name = asset.model_hardware.brand.name if asset.model_hardware and asset.model_hardware.brand else ""
-            atype_name = asset.model_hardware.asset_type.name if asset.model_hardware and asset.model_hardware.asset_type else ""
+            brand_name = (
+                asset.model_hardware.brand.name
+                if asset.model_hardware and asset.model_hardware.brand else ""
+            )
+            atype_name = (
+                asset.model_hardware.asset_type.name
+                if asset.model_hardware and asset.model_hardware.asset_type else ""
+            )
 
             if asset.last_loan_date:
                 date_str = asset.last_loan_date.strftime("%Y-%m-%d")
@@ -244,44 +257,47 @@ class AssetListExcelView(generic.ListView):
             else:
                 last_loan_cell = "-"
 
+            # Pick row format
             row_fmt = None
             if asset.missing:
-                row_fmt = formatRed
+                row_fmt = fmt_missing
             elif asset.last_loan_date and (asset.last_loan_returned is False):
-                row_fmt = formatActiveLoan
+                row_fmt = fmt_active_loan
 
+            # Write row
             if row_fmt:
-                worksheet_s.write_number(row, 0, idx + 1, row_fmt)
-                worksheet_s.write_string(row, 1, asset.name, row_fmt)
-                worksheet_s.write_string(row, 2, serial, row_fmt)
-                worksheet_s.write_string(row, 3, room_str, row_fmt)
-                worksheet_s.write_string(row, 4, model_name, row_fmt)
-                worksheet_s.write_string(row, 5, brand_name, row_fmt)
-                worksheet_s.write_string(row, 6, atype_name, row_fmt)
-                worksheet_s.write_boolean(row, 7, bool(asset.may_be_loaned), row_fmt)
-                worksheet_s.write_boolean(row, 8, bool(asset.missing), row_fmt)
-                worksheet_s.write_string(row, 9, last_loan_cell, row_fmt)
+                ws.write_number(row, 0, idx + 1, row_fmt)
+                ws.write_string(row, 1, asset.name, row_fmt)
+                ws.write_string(row, 2, serial, row_fmt)
+                ws.write_string(row, 3, room_str, row_fmt)
+                ws.write_string(row, 4, model_name, row_fmt)
+                ws.write_string(row, 5, brand_name, row_fmt)
+                ws.write_string(row, 6, atype_name, row_fmt)
+                ws.write_boolean(row, 7, bool(asset.may_be_loaned), row_fmt)
+                ws.write_boolean(row, 8, bool(asset.missing), row_fmt)
+                ws.write_string(row, 9, last_loan_cell, row_fmt)
             else:
-                worksheet_s.write_number(row, 0, idx + 1)
-                worksheet_s.write_string(row, 1, asset.name)
-                worksheet_s.write_string(row, 2, serial)
-                worksheet_s.write_string(row, 3, room_str)
-                worksheet_s.write_string(row, 4, model_name)
-                worksheet_s.write_string(row, 5, brand_name)
-                worksheet_s.write_string(row, 6, atype_name)
-                worksheet_s.write_boolean(row, 7, bool(asset.may_be_loaned))
-                worksheet_s.write_boolean(row, 8, bool(asset.missing))
-                worksheet_s.write_string(row, 9, last_loan_cell)
+                ws.write_number(row, 0, idx + 1)
+                ws.write_string(row, 1, asset.name)
+                ws.write_string(row, 2, serial)
+                ws.write_string(row, 3, room_str)
+                ws.write_string(row, 4, model_name)
+                ws.write_string(row, 5, brand_name)
+                ws.write_string(row, 6, atype_name)
+                ws.write_boolean(row, 7, bool(asset.may_be_loaned))
+                ws.write_boolean(row, 8, bool(asset.missing))
+                ws.write_string(row, 9, last_loan_cell)
 
-        worksheet_s.set_column('B:B', 30)
-        worksheet_s.set_column('C:C', 15)
-        worksheet_s.set_column('D:D', 40)
-        worksheet_s.set_column('E:E', 25)
-        worksheet_s.set_column('F:F', 30)
-        worksheet_s.set_column('G:G', 35)
-        worksheet_s.set_column('H:H', 15)
-        worksheet_s.set_column('I:I', 15)
-        worksheet_s.set_column('J:J', 25)
+        # Column widths
+        ws.set_column('B:B', 30)
+        ws.set_column('C:C', 15)
+        ws.set_column('D:D', 40)
+        ws.set_column('E:E', 25)
+        ws.set_column('F:F', 30)
+        ws.set_column('G:G', 35)
+        ws.set_column('H:H', 15)
+        ws.set_column('I:I', 15)
+        ws.set_column('J:J', 25)
 
         workbook.close()
         output.seek(0)
