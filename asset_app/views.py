@@ -194,7 +194,7 @@ class AssetListExcelView(generic.ListView):
         fmt_missing = workbook.add_format({'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
         fmt_active_loan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})
 
-        # Date formats (normal + highlighted variants so date stays a real date)
+        # Date formats
         date_fmt = workbook.add_format({'num_format': 'yyyy-mm-dd'})
         date_fmt_missing = workbook.add_format({'num_format': 'yyyy-mm-dd', 'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
         date_fmt_active = workbook.add_format({'num_format': 'yyyy-mm-dd', 'bg_color': '#FFF2CC', 'bold': True})
@@ -208,14 +208,24 @@ class AssetListExcelView(generic.ListView):
         ws.write(2, 6, _("Udstyr type"), header)
         ws.write(2, 7, _("Må udlånes"), header)
         ws.write(2, 8, _("Meldt savnede"), header)
-        ws.write(2, 9, _("Sidst Udlånt (dato)"), header)   # real date -> filterable by range
-        ws.write(2,10, _("Sidst Udlånt (låner)"), header)  # loaner name (text)
+        ws.write(2, 9,  _("Sidst Udlånt (dato)"), header)
+        ws.write(2, 10, _("Sidst Udlånt (låner)"), header)
+        ws.write(2, 11, _("Udlånt nu?"), header)  # NEW: currently loaned
 
         # Latest loan per asset
         latest_loan = (
             models.Loan_asset.objects
             .filter(asset=OuterRef('pk'))
             .order_by('-loan_date', '-created')
+        )
+
+        # "Currently loaned" subquery: today within [loan_date, return_date], not returned
+        today = datetime.date.today()
+        active_loan_subq = (
+            models.Loan_asset.objects
+            .filter(asset=OuterRef('pk'))
+            .filter(loan_date__lte=today, return_date__gte=today)
+            .filter(Q(returned=False) | Q(returned__isnull=True))
         )
 
         # Queryset (optional filter by asset_type pk)
@@ -229,6 +239,7 @@ class AssetListExcelView(generic.ListView):
                 last_loan_date=Subquery(latest_loan.values('loan_date')[:1]),
                 last_loaner_name=Subquery(latest_loan.values('loaner_name')[:1]),
                 last_loan_returned=Subquery(latest_loan.values('returned')[:1]),
+                active_now=Exists(active_loan_subq),  # NEW
             )
             .order_by('name')
         )
@@ -254,14 +265,14 @@ class AssetListExcelView(generic.ListView):
                 if asset.model_hardware and asset.model_hardware.asset_type else ""
             )
 
-            # Row style
+            # Row style (kept as before: missing → red; last loan not returned → yellow)
             row_fmt = None
             if asset.missing:
                 row_fmt = fmt_missing
             elif asset.last_loan_date and (asset.last_loan_returned is False):
                 row_fmt = fmt_active_loan
 
-            # Write normal columns
+            # Write common fields
             if row_fmt:
                 ws.write_number(row, 0, idx + 1, row_fmt)
                 ws.write_string(row, 1, asset.name, row_fmt)
@@ -283,23 +294,21 @@ class AssetListExcelView(generic.ListView):
                 ws.write_boolean(row, 7, bool(asset.may_be_loaned))
                 ws.write_boolean(row, 8, bool(asset.missing))
 
-            # Last loan date (as real Excel date) + loaner name
+            # Last loan date (real date) + loaner
             if asset.last_loan_date:
-                # choose proper date format to match the row style
                 dfmt = date_fmt
                 if row_fmt is fmt_missing:
                     dfmt = date_fmt_missing
                 elif row_fmt is fmt_active_loan:
                     dfmt = date_fmt_active
-
-                # write real date so Excel can do date filters
                 ws.write_datetime(row, 9, datetime.datetime.combine(asset.last_loan_date, datetime.time()), dfmt)
-                # loaner name (text)
                 ws.write_string(row, 10, asset.last_loaner_name or "", row_fmt if row_fmt else None)
             else:
-                # blank date/loaner if no loan
                 ws.write_blank(row, 9, None, row_fmt if row_fmt else None)
                 ws.write_string(row, 10, "", row_fmt if row_fmt else None)
+
+            # NEW: Currently loaned?
+            ws.write_boolean(row, 11, bool(asset.active_now), row_fmt if row_fmt else None)
 
         # Column widths
         ws.set_column('B:B', 30)
@@ -310,15 +319,14 @@ class AssetListExcelView(generic.ListView):
         ws.set_column('G:G', 35)
         ws.set_column('H:H', 15)
         ws.set_column('I:I', 15)
-        ws.set_column('J:J', 15)  # date
-        ws.set_column('K:K', 25)  # loaner name
+        ws.set_column('J:J', 15)   # date
+        ws.set_column('K:K', 25)   # loaner
+        ws.set_column('L:L', 12)   # currently loaned?
 
-        # Freeze header row (optional, nice UX)
-        ws.freeze_panes(start_row, 1)  # freeze rows above 3 and column A
-
-        # Autofilter across the full data range (header row 2, columns B..K)
+        # Freeze header row and apply autofilter over all columns B..L
+        ws.freeze_panes(start_row, 1)
         end_row = start_row + max(len(qs), 1) - 1
-        ws.autofilter(2, 1, end_row, 10)
+        ws.autofilter(2, 1, end_row, 11)
 
         workbook.close()
         output.seek(0)
