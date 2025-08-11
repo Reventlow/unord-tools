@@ -175,7 +175,7 @@ class Asset_typeDetailView(generic.DetailView):
     form_class = forms.Asset_typeForm
 
 @method_decorator(login_required, name='dispatch')
-class Asset_typeListExcelView(generic.ListView):
+class AssetListExcelView(generic.ListView):
     model = models.Asset
     form_class = forms.AssetForm
 
