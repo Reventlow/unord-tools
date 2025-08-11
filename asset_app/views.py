@@ -1,7 +1,15 @@
 import requests
 from django.shortcuts import redirect, render
 from django.views import generic
-from django.db.models import Count, prefetch_related_objects, Q, uterRef, Subquery, DateField, CharField, BooleanField
+from django.db.models import (
+    Count,
+    Q,
+    OuterRef,
+    Subquery,
+    DateField,
+    CharField,
+    BooleanField,
+)
 from django.db.models.functions import Cast
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
@@ -10,7 +18,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models.functions import Lower
-from django.utils.translation import ugettext
+from django.utils.translation import gettext as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import csv
