@@ -36,7 +36,7 @@ urlpatterns = [
     path("asset_app/asset/update/<int:pk>/", views.AssetUpdateView.as_view(), name="asset_app_asset_update"),
     path("asset_app/asset/addMonthToLoan/<int:pk>/", views.AssetDetailView.addMonthToCurrentDate, name="asset_app_asset_add_month_to_loan"),
     path("asset_app/asset/delete/<int:pk>/", views.AssetListView.delete, name="asset_app_asset_delete"),
-        path("asset_app/asset/list/excel/", views.Asset_typeDetailExcelView.as_view(), name="asset_app_asset_detail_excel"),
+        path("asset_app/asset/list/excel/", views.Asset_typeListExcelView.as_view(), name="asset_app_asset_list_excel"),
 
 #Asset_Type
     path("asset_app/asset_type/", views.Asset_typeListView.as_view(), name="asset_app_asset_type_list"),
