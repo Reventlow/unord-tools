@@ -42,7 +42,7 @@ urlpatterns = [
     path("asset_app/asset_type/", views.Asset_typeListView.as_view(), name="asset_app_asset_type_list"),
     path("asset_app/asset_type/create/", views.Asset_typeCreateView.as_view(), name="asset_app_asset_type_create"),
     path("asset_app/asset_type/detail/<int:pk>/", views.Asset_typeDetailView.as_view(), name="asset_app_asset_type_detail"),
-    path("asset_app/asset_type/detail/excel/<int:pk>/", views.Asset_typeDetailExcelView.as_view(), name="asset_app_asset_type_detail_excel"),
+    #path("asset_app/asset_type/detail/excel/<int:pk>/", views.Asset_typeDetailExcelView.as_view(), name="asset_app_asset_type_detail_excel"),
     path("asset_app/asset_type/update/<int:pk>/", views.Asset_typeUpdateView.as_view(), name="asset_app_asset_type_update"),
     path("asset_app/asset_type/delete/<int:pk>/", views.Asset_typeListView.delete, name="asset_app_asset_type_delete"),
 #AssetCase
