@@ -183,10 +183,8 @@ class Asset_typeDetailExcelView(generic.ListView):
         output = BytesIO()
         workbook = xlsxwriter.Workbook(output)
 
-        # Worksheet
         worksheet_s = workbook.add_worksheet("Udstyr")
 
-        # Formats
         header = workbook.add_format({
             'bg_color': '#F7F7F7',
             'color': 'black',
@@ -195,9 +193,9 @@ class Asset_typeDetailExcelView(generic.ListView):
             'border': 1
         })
         formatRed = workbook.add_format({'bg_color': '#FFC7CE', 'font_color': '#9C0006'})
-        formatActiveLoan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})  # emphasize unreturned last loan
+        formatActiveLoan = workbook.add_format({'bg_color': '#FFF2CC', 'bold': True})
 
-        # Headers (row 2, zero-indexed)
+        # Headers
         worksheet_s.write(2, 1, _("Udstyrs navn"), header)
         worksheet_s.write(2, 2, _("Serienummer"), header)
         worksheet_s.write(2, 3, _("Placering"), header)
@@ -206,10 +204,9 @@ class Asset_typeDetailExcelView(generic.ListView):
         worksheet_s.write(2, 6, _("Udstyr type"), header)
         worksheet_s.write(2, 7, _("Må udlånes"), header)
         worksheet_s.write(2, 8, _("Meldt savnede"), header)
-        worksheet_s.write(2, 9, _("Sidst Udlånt"), header)  # last loaned (date + loaner)
+        worksheet_s.write(2, 9, _("Sidst Udlånt"), header)
 
-        # Subquery to fetch the latest loan per asset.
-        # "Latest" here = most recent by loan_date, falling back to created if same day.
+        # Subquery for latest loan
         latest_loan_qs = models.Loan_asset.objects.filter(
             asset=OuterRef('pk')
         ).order_by('-loan_date', '-created')
@@ -229,11 +226,9 @@ class Asset_typeDetailExcelView(generic.ListView):
             .order_by('name')
         )
 
-        # Write rows
         for idx, asset in enumerate(queryset):
             row = 3 + idx
 
-            # Build safe strings
             serial = asset.serial or ""
             room_str = ""
             if asset.room and asset.room.location and asset.room.room_type:
@@ -242,7 +237,6 @@ class Asset_typeDetailExcelView(generic.ListView):
             brand_name = asset.model_hardware.brand.name if asset.model_hardware and asset.model_hardware.brand else ""
             atype_name = asset.model_hardware.asset_type.name if asset.model_hardware and asset.model_hardware.asset_type else ""
 
-            # Last loan nicely formatted
             if asset.last_loan_date:
                 date_str = asset.last_loan_date.strftime("%Y-%m-%d")
                 loaner = asset.last_loaner_name or ""
@@ -250,14 +244,12 @@ class Asset_typeDetailExcelView(generic.ListView):
             else:
                 last_loan_cell = "-"
 
-            # Choose format: missing overrides, otherwise emphasize if last loan not returned
             row_fmt = None
             if asset.missing:
                 row_fmt = formatRed
             elif asset.last_loan_date and (asset.last_loan_returned is False):
                 row_fmt = formatActiveLoan
 
-            # Write row (with optional format)
             if row_fmt:
                 worksheet_s.write_number(row, 0, idx + 1, row_fmt)
                 worksheet_s.write_string(row, 1, asset.name, row_fmt)
@@ -281,7 +273,6 @@ class Asset_typeDetailExcelView(generic.ListView):
                 worksheet_s.write_boolean(row, 8, bool(asset.missing))
                 worksheet_s.write_string(row, 9, last_loan_cell)
 
-        # Column widths
         worksheet_s.set_column('B:B', 30)
         worksheet_s.set_column('C:C', 15)
         worksheet_s.set_column('D:D', 40)
@@ -302,6 +293,8 @@ class Asset_typeDetailExcelView(generic.ListView):
         )
         response['Content-Disposition'] = f'attachment; filename={filename}'
         return response
+
+
 
 
 @method_decorator(login_required, name='dispatch')
