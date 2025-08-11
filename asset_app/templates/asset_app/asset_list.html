@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div><a class="btn btn-primary" href="{% url 'asset_app_asset_create' %}">Reg ny enhed</a> <a class="btn btn-success" href="{% url 'asset_app_asset_list_excel'  %}">Exporter til excel</a></div>
+    <div><a class="btn btn-primary" href="{% url 'asset_app_asset_create' %}">Reg ny enhed</a> <a class="btn btn-success" href="{% url 'asset_app_asset_list_excel' view.kwargs.location %}">Exporter til excel</a></div>
     <h1>Enheds oversigt</h1>
 
     <br/>
