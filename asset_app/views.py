@@ -9,6 +9,7 @@ from django.db.models import (
     DateField,
     CharField,
     BooleanField,
+    Exists,
 )
 from django.db.models.functions import Cast
 from django.http import HttpResponse
