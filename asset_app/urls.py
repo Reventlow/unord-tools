@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import settings, static
 from . import api
@@ -36,7 +36,9 @@ urlpatterns = [
     path("asset_app/asset/update/<int:pk>/", views.AssetUpdateView.as_view(), name="asset_app_asset_update"),
     path("asset_app/asset/addMonthToLoan/<int:pk>/", views.AssetDetailView.addMonthToCurrentDate, name="asset_app_asset_add_month_to_loan"),
     path("asset_app/asset/delete/<int:pk>/", views.AssetListView.delete, name="asset_app_asset_delete"),
-        path("asset_app/asset/list/excel/<int:pk>/", views.AssetListExcelView.as_view(), name="asset_app_asset_list_excel"),
+    re_path(r"^asset_app/asset/list/excel(?:/(?P<pk>\d+))?/$",
+        views.AssetListExcelView.as_view(),
+        name="asset_app_asset_list_excel"),
 
 #Asset_Type
     path("asset_app/asset_type/", views.Asset_typeListView.as_view(), name="asset_app_asset_type_list"),
