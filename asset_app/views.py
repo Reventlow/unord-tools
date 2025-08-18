@@ -213,22 +213,21 @@ class AssetListExcelView(generic.ListView):
         ws.write(2, 10, _("Sidst Udlånt (låner)"), header)       # sanitized if email was typed here
         ws.write(2, 11, _("Sidst Udlånt (brugernavn)"), header)  # username from email local-part
         ws.write(2, 12, _("Udlånt nu?"), header)
-        ws.write(2, 13, _("Returdato / status"), header)         # NEW: return date or "returned"
+        ws.write(2, 13, _("Returdato / status"), header)         # return date or "returned"
 
-        # Latest loan per asset
+        # Subqueries
         latest_loan = (
             models.Loan_asset.objects
             .filter(asset=OuterRef('pk'))
             .order_by('-loan_date', '-created')
         )
 
-        # Currently loaned? (today within [loan_date, return_date] and not returned)
-        today = datetime.date.today()
-        active_loan_subq = (
+        # "Open" loan = not returned yet (overdue counts as open too)
+        open_loan_subq = (
             models.Loan_asset.objects
             .filter(asset=OuterRef('pk'))
-            .filter(loan_date__lte=today, return_date__gte=today)
             .filter(Q(returned=False) | Q(returned__isnull=True))
+            .order_by('-loan_date', '-created')
         )
 
         # Queryset (+ optional filter by asset_type pk)
@@ -242,9 +241,9 @@ class AssetListExcelView(generic.ListView):
                 last_loan_date=Subquery(latest_loan.values('loan_date')[:1]),
                 last_loaner_name=Subquery(latest_loan.values('loaner_name')[:1]),
                 last_loaner_email=Subquery(latest_loan.values('loaner_email')[:1]),
-                last_loan_returned=Subquery(latest_loan.values('returned')[:1]),
-                last_loan_return_date=Subquery(latest_loan.values('return_date')[:1]),  # NEW
-                active_now=Exists(active_loan_subq),
+                # active state and its planned return date (from the open loan, if any)
+                active_now=Exists(open_loan_subq),
+                open_return_date=Subquery(open_loan_subq.values('return_date')[:1]),
             )
             .order_by('name')
         )
@@ -274,7 +273,7 @@ class AssetListExcelView(generic.ListView):
             row_fmt = None
             if asset.missing:
                 row_fmt = fmt_missing
-            elif asset.last_loan_date and (asset.last_loan_returned is False):
+            elif asset.active_now:
                 row_fmt = fmt_active_loan
 
             # Write common fields
@@ -332,8 +331,8 @@ class AssetListExcelView(generic.ListView):
             # Currently loaned?
             ws.write_boolean(row, 12, bool(asset.active_now), row_fmt if row_fmt else None)
 
-            # NEW: Return date (if still on loan) or "returned"
-            if asset.active_now and asset.last_loan_return_date:
+            # Return date (if still on loan) or "returned"
+            if asset.active_now and asset.open_return_date:
                 if row_fmt is fmt_missing:
                     dfmt = date_fmt_missing
                 elif row_fmt is fmt_active_loan:
@@ -342,7 +341,7 @@ class AssetListExcelView(generic.ListView):
                     dfmt = date_fmt
                 ws.write_datetime(
                     row, 13,
-                    datetime.datetime.combine(asset.last_loan_return_date, datetime.time()),
+                    datetime.datetime.combine(asset.open_return_date, datetime.time()),
                     dfmt
                 )
             else:
@@ -361,12 +360,12 @@ class AssetListExcelView(generic.ListView):
         ws.set_column('K:K', 25)   # loaner (name or sanitized)
         ws.set_column('L:L', 20)   # username
         ws.set_column('M:M', 12)   # currently loaned?
-        ws.set_column('N:N', 18)   # NEW: return date / status
+        ws.set_column('N:N', 18)   # return date / status
 
         # Freeze header row and apply autofilter over all columns B..N
         ws.freeze_panes(start_row, 1)
         end_row = start_row + max(len(qs), 1) - 1
-        ws.autofilter(2, 1, end_row, 13)  # extend to column index 13 (N)
+        ws.autofilter(2, 1, end_row, 13)
 
         workbook.close()
         output.seek(0)
