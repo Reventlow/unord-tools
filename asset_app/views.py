@@ -209,10 +209,11 @@ class AssetListExcelView(generic.ListView):
         ws.write(2, 6, _("Udstyr type"), header)
         ws.write(2, 7, _("Må udlånes"), header)
         ws.write(2, 8, _("Meldt savnede"), header)
-        ws.write(2, 9,  _("Sidst Udlånt (dato)"), header)     # filterable date
-        ws.write(2, 10, _("Sidst Udlånt (låner)"), header)    # sanitized if email was typed here
+        ws.write(2, 9,  _("Sidst Udlånt (dato)"), header)        # filterable date
+        ws.write(2, 10, _("Sidst Udlånt (låner)"), header)       # sanitized if email was typed here
         ws.write(2, 11, _("Sidst Udlånt (brugernavn)"), header)  # username from email local-part
         ws.write(2, 12, _("Udlånt nu?"), header)
+        ws.write(2, 13, _("Returdato / status"), header)         # NEW: return date or "returned"
 
         # Latest loan per asset
         latest_loan = (
@@ -242,6 +243,7 @@ class AssetListExcelView(generic.ListView):
                 last_loaner_name=Subquery(latest_loan.values('loaner_name')[:1]),
                 last_loaner_email=Subquery(latest_loan.values('loaner_email')[:1]),
                 last_loan_returned=Subquery(latest_loan.values('returned')[:1]),
+                last_loan_return_date=Subquery(latest_loan.values('return_date')[:1]),  # NEW
                 active_now=Exists(active_loan_subq),
             )
             .order_by('name')
@@ -311,7 +313,7 @@ class AssetListExcelView(generic.ListView):
             # Last loaner name (sanitize if email typed here and it's @unord.dk)
             display_name = (asset.last_loaner_name or "").strip()
             if '@' in display_name:
-                local_part, at_sign, domain = display_name.partition('@')  # <-- renamed to avoid shadowing gettext _
+                local_part, at_sign, domain = display_name.partition('@')  # avoid shadowing gettext _
                 if domain.lower() == 'unord.dk':
                     display_name = local_part
             ws.write_string(row, 10, display_name, row_fmt if row_fmt else None)
@@ -330,6 +332,22 @@ class AssetListExcelView(generic.ListView):
             # Currently loaned?
             ws.write_boolean(row, 12, bool(asset.active_now), row_fmt if row_fmt else None)
 
+            # NEW: Return date (if still on loan) or "returned"
+            if asset.active_now and asset.last_loan_return_date:
+                if row_fmt is fmt_missing:
+                    dfmt = date_fmt_missing
+                elif row_fmt is fmt_active_loan:
+                    dfmt = date_fmt_active
+                else:
+                    dfmt = date_fmt
+                ws.write_datetime(
+                    row, 13,
+                    datetime.datetime.combine(asset.last_loan_return_date, datetime.time()),
+                    dfmt
+                )
+            else:
+                ws.write_string(row, 13, _("returned"), row_fmt if row_fmt else None)
+
         # Column widths
         ws.set_column('B:B', 30)
         ws.set_column('C:C', 15)
@@ -343,11 +361,12 @@ class AssetListExcelView(generic.ListView):
         ws.set_column('K:K', 25)   # loaner (name or sanitized)
         ws.set_column('L:L', 20)   # username
         ws.set_column('M:M', 12)   # currently loaned?
+        ws.set_column('N:N', 18)   # NEW: return date / status
 
-        # Freeze header row and apply autofilter over all columns B..M
+        # Freeze header row and apply autofilter over all columns B..N
         ws.freeze_panes(start_row, 1)
         end_row = start_row + max(len(qs), 1) - 1
-        ws.autofilter(2, 1, end_row, 12)
+        ws.autofilter(2, 1, end_row, 13)  # extend to column index 13 (N)
 
         workbook.close()
         output.seek(0)
